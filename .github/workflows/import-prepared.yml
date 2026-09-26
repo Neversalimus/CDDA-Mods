@@ -1,0 +1,50 @@
+name: Import prepared source snapshot
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify and unpack the approved snapshot
+        shell: python
+        run: |
+          from pathlib import Path, PurePosixPath
+          import hashlib, json, zipfile
+          assert not Path('tools/modsuite.py').exists(), 'Already imported; no overwrite'
+          expected = {'import-part-01.zip': '5b21dafca5bfa18206129ac01afab4966a771381c5e18146af929a5a14ad4df9', 'import-part-02.zip': '6ad15525420d7a49d857b794e5e7f70855bfee6e2a94626cec37573ee463e8eb', 'import-part-03.zip': 'b0583a947713dc707d83da63a96a9da8aee7778e90a8d1d3e1e365ff20486174', 'import-part-04.zip': 'c6e246a8829a1f77b55ba72310ec0214a8fac60047995b0f6391b922d5d82661'}
+          payload = {}
+          for name, sha in expected.items():
+              assert hashlib.sha256(Path(name).read_bytes()).hexdigest() == sha, name
+              with zipfile.ZipFile(name) as archive:
+                  for item in archive.infolist():
+                      p = PurePosixPath(item.filename)
+                      assert not p.is_absolute() and '..' not in p.parts and '\\' not in item.filename
+                      assert item.filename not in payload, item.filename
+                      payload[item.filename] = archive.read(item)
+          inventory = json.loads(payload['SOURCE_SHA256.json'])
+          assert set(payload) == set(inventory) | {'SOURCE_SHA256.json'}
+          for name, sha in inventory.items():
+              assert hashlib.sha256(payload[name]).hexdigest() == sha, name
+          for name, content in payload.items():
+              if name.startswith('.github/'):
+                  continue
+              p = Path(name)
+              p.parent.mkdir(parents=True, exist_ok=True)
+              p.write_bytes(content)
+          for name in expected:
+              Path(name).unlink()
+      - name: Verify catalog
+        run: python tools/modsuite.py validate
+      - name: Commit imported files
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Import reviewed CDDA mods, installer and maintenance tools'
+          git push origin HEAD:main
