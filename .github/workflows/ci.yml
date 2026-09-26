@@ -1,0 +1,65 @@
+name: Verify and package
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Catalog, game data syntax and payload checks
+        run: python tools/modsuite.py validate
+      - name: Build independent mod packages
+        run: python tools/modsuite.py build
+      - name: Windows PowerShell 5.1 installer tests
+        shell: powershell
+        run: ./tests/installer.tests.ps1
+      - name: PowerShell 7 installer tests
+        shell: pwsh
+        run: ./tests/installer.tests.ps1
+      - name: Python maintenance tests
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CDDA-Mods-candidate
+          path: dist/*
+  native:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        mod: [advanced_world_settings, survivor_progression]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read exact external SDK commit
+        id: sdk
+        shell: pwsh
+        run: |
+          $m=Get-Content 'mods/${{ matrix.mod }}/manifest.json' -Raw | ConvertFrom-Json
+          $c=Get-Content catalog/repository.json -Raw | ConvertFrom-Json
+          $sha=if($m.sdk_commit){$m.sdk_commit}else{$c.ncmm_sdk.commit}
+          "sha=$sha" >> $env:GITHUB_OUTPUT
+      - uses: actions/checkout@v4
+        with:
+          repository: Neversalimus/NCMM
+          ref: ${{ steps.sdk.outputs.sha }}
+          path: external/ncmm
+      - name: Compile only the selected mod (no CDDA host build)
+        shell: pwsh
+        run: |
+          cmake -S 'mods/${{ matrix.mod }}/native' -B 'build/${{ matrix.mod }}' -A x64 "-DNCMM_SDK_DIR=$pwd/external/ncmm/sdk"
+          if($LASTEXITCODE){throw 'Configure failed'}
+          cmake --build 'build/${{ matrix.mod }}' --config Release
+          if($LASTEXITCODE){throw 'Compile failed'}
+          New-Item -ItemType Directory -Force 'native-artifacts/${{ matrix.mod }}' | Out-Null
+          Copy-Item 'build/${{ matrix.mod }}/Release/ncmm_mod.dll' 'native-artifacts/${{ matrix.mod }}/'
+          Copy-Item 'mods/${{ matrix.mod }}/native/mod.json' 'native-artifacts/${{ matrix.mod }}/'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-${{ matrix.mod }}-candidate
+          path: native-artifacts/*

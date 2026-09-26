@@ -1,0 +1,31 @@
+name: Publish prepared release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Match immutable tag to suite version
+        shell: pwsh
+        run: |
+          $c=Get-Content catalog/repository.json -Raw | ConvertFrom-Json
+          if($env:GITHUB_REF_NAME -ne "v$($c.suite_version)"){throw 'Tag/catalog version mismatch'}
+      - run: python tools/modsuite.py build
+      - name: Test actual packaged installer on Windows 5.1
+        shell: powershell
+        run: ./tests/installer.tests.ps1
+      - run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Create release with full bundle and per-mod assets
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$env:GITHUB_REF_NAME" dist/* --verify-tag --title "CDDA Mods $env:GITHUB_REF_NAME" --notes-file docs/RELEASE_NOTES.md
+          if($LASTEXITCODE){throw 'Release creation failed'}
