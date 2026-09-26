@@ -1,0 +1,201 @@
+[
+  {
+    "type": "MONSTER_FACTION",
+    "name": "axiom_security_bot",
+    "base_faction": "mech_bot",
+    "neutral": [
+      "player",
+      "human"
+    ],
+    "friendly": [
+      "mech_bot",
+      "bot",
+      "passive_machine"
+    ],
+    "hate": [
+      "zombie",
+      "zombie_aquatic",
+      "fungus",
+      "nether",
+      "triffid"
+    ]
+  },
+  {
+    "id": "mon_axiom_patrol_sentry",
+    "type": "MONSTER",
+    "looks_like": "mon_secubot",
+    "name": {
+      "str": "AXIOM patrol sentry"
+    },
+    "description": "A compact tracked AXIOM-7 security UGV fitted with a rifle mount, sensor mast and hardened IFF package. It follows a fixed patrol while the site is green; once AXIOM security declares a hostile, its rules of engagement change immediately.",
+    "default_faction": "axiom_security_bot",
+    "species": [
+      "ROBOT"
+    ],
+    "diff": 22,
+    "volume": "150 L",
+    "weight": "40750 g",
+    "hp": 88,
+    "speed": 48,
+    "material": [
+      "steel"
+    ],
+    "symbol": "R",
+    "color": "light_cyan",
+    "aggression": 0,
+    "aggro_character": true,
+    "morale": 100,
+    "vision_day": 52,
+    "broken_itype": "bot_secubot",
+    "starting_ammo": {
+      "556": 30
+    },
+    "special_attacks": [
+      {
+        "type": "gun",
+        "cooldown": 1,
+        "move_cost": 145,
+        "gun_type": "modular_m16a4",
+        "ammo_type": "556",
+        "fake_skills": [
+          [
+            "gun",
+            8
+          ],
+          [
+            "rifle",
+            8
+          ]
+        ],
+        "fake_dex": 12,
+        "ranges": [
+          [
+            0,
+            30,
+            "DEFAULT"
+          ]
+        ],
+        "require_targeting_npc": true,
+        "require_targeting_monster": true,
+        "target_moving_vehicles": true,
+        "laser_lock": false,
+        "targeting_cost": 180,
+        "targeting_timeout_extend": -10,
+        "targeting_sound": "\"AXIOM security lock.\"",
+        "targeting_volume": 45,
+        "no_ammo_sound": "a hard electronic click"
+      }
+    ],
+    "death_drops": {},
+    "death_function": {
+      "corpse_type": "BROKEN"
+    },
+    "flags": [
+      "SEES",
+      "HEARS",
+      "ELECTRONIC",
+      "COLDPROOF",
+      "NO_BREATHE",
+      "PATH_AVOID_DANGER",
+      "LOUDMOVES",
+      "DROPS_AMMO",
+      "STUN_IMMUNE"
+    ],
+    "armor": {
+      "bash": 15,
+      "cut": 15,
+      "bullet": 12
+    }
+  },
+  {
+    "id": "mon_axiom_security_turret",
+    "type": "MONSTER",
+    "name": {
+      "str_sp": "AXIOM autonomous security turret"
+    },
+    "description": "A permanently installed AXIOM-7 remote weapon station with a hardened local controller and sealed maintenance interface. Its chassis uses the same general footprint as a military rifle turret, but it is tied into AXIOM IFF and site security.",
+    "default_faction": "axiom_security_bot",
+    "species": [
+      "ROBOT"
+    ],
+    "diff": 34,
+    "volume": "60000 ml",
+    "weight": "188 kg",
+    "hp": 65,
+    "speed": 100,
+    "material": [
+      "steel"
+    ],
+    "symbol": "2",
+    "color": "light_blue",
+    "aggression": 0,
+    "aggro_character": true,
+    "morale": 100,
+    "vision_day": 55,
+    "vision_night": 8,
+    "weakpoint_sets": [
+      "wps_turret"
+    ],
+    "starting_ammo": {
+      "556": 1800
+    },
+    "special_attacks": [
+      {
+        "type": "gun",
+        "cooldown": 1,
+        "move_cost": 130,
+        "gun_type": "m249",
+        "ammo_type": "556",
+        "fake_skills": [
+          [
+            "gun",
+            9
+          ],
+          [
+            "rifle",
+            9
+          ]
+        ],
+        "fake_dex": 13,
+        "ranges": [
+          [
+            0,
+            38,
+            "DEFAULT"
+          ]
+        ],
+        "require_targeting_npc": true,
+        "require_targeting_monster": true,
+        "target_moving_vehicles": true,
+        "laser_lock": false,
+        "targeting_cost": 150,
+        "targeting_timeout_extend": -15,
+        "targeting_sound": "\"AXIOM security lock.\"",
+        "targeting_volume": 45,
+        "no_ammo_sound": "a hard electronic click"
+      }
+    ],
+    "special_when_hit": [
+      "RETURN_FIRE",
+      100
+    ],
+    "death_drops": {},
+    "flags": [
+      "SEES",
+      "NOHEAD",
+      "ELECTRONIC",
+      "BIOLOGICALPROOF",
+      "COLDPROOF",
+      "IMMOBILE",
+      "NO_BREATHE",
+      "DROPS_AMMO"
+    ],
+    "armor": {
+      "bash": 18,
+      "cut": 20,
+      "bullet": 17,
+      "stab": 20
+    },
+    "looks_like": "mon_turret_rifle"
+  }
+]

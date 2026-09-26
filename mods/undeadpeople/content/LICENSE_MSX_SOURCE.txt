@@ -1,0 +1,4 @@
+MShockXotto+ is distributed by the CDDA-Tilesets project under Creative Commons Attribution-ShareAlike 3.0 Unported License for the relevant Cataclysm tileset assets. See the upstream repository for full attribution and per-asset notes:
+https://github.com/I-am-Erk/CDDA-Tilesets
+
+CC BY-SA 3.0: https://creativecommons.org/licenses/by-sa/3.0/

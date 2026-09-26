@@ -1,0 +1,197 @@
+[
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_BLAZE_GLOOPLE_SPLIT_TICK",
+    "effect": [
+      {
+        "turn_cost": {
+          "math": [
+            "2.5"
+          ]
+        }
+      },
+      {
+        "if": {
+          "math": [
+            "rng(0, floor((u_val('intelligence_base') + u_val('intelligence_bonus')) / 2)) + (u_skill('chemistry') / 2) + (u_skill('cooking') / 2) < rng(0,1)"
+          ]
+        },
+        "then": {
+          "u_spawn_monster": "mon_gloople",
+          "real_count": 1,
+          "min_radius": 1,
+          "max_radius": 1,
+          "spawn_message": "A blob splits and bounces away!"
+        },
+        "else": [
+          {
+            "u_spawn_monster": "mon_gloople",
+            "real_count": 1,
+            "min_radius": 1,
+            "max_radius": 1,
+            "mon_variables": {
+              "blaze_split_friendly": "1"
+            },
+            "spawn_message": "A blob splits and bounces away!"
+          },
+          {
+            "u_run_monster_eocs": [
+              {
+                "id": "EOC_BLAZE_GLOOPLE_FRIENDIFY",
+                "condition": {
+                  "compare_string": [
+                    "1",
+                    {
+                      "u_val": "blaze_split_friendly"
+                    }
+                  ]
+                },
+                "effect": [
+                  {
+                    "math": [
+                      "u_val('friendly') = -1"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "mtype_ids": [
+              "mon_gloople"
+            ],
+            "monster_range": 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_BLAZE_OOZLE_SPLIT_TICK",
+    "effect": [
+      {
+        "turn_cost": {
+          "math": [
+            "2.5"
+          ]
+        }
+      },
+      {
+        "if": {
+          "math": [
+            "rng(0, floor((u_val('intelligence_base') + u_val('intelligence_bonus')) / 2)) + (u_skill('chemistry') / 2) + (u_skill('cooking') / 2) < rng(0,1)"
+          ]
+        },
+        "then": {
+          "u_spawn_monster": "mon_oozle",
+          "real_count": 1,
+          "min_radius": 1,
+          "max_radius": 1,
+          "spawn_message": "A blob splits and bounces away!"
+        },
+        "else": [
+          {
+            "u_spawn_monster": "mon_oozle",
+            "real_count": 1,
+            "min_radius": 1,
+            "max_radius": 1,
+            "mon_variables": {
+              "blaze_split_friendly": "1"
+            },
+            "spawn_message": "A blob splits and bounces away!"
+          },
+          {
+            "u_run_monster_eocs": [
+              {
+                "id": "EOC_BLAZE_OOZLE_FRIENDIFY",
+                "condition": {
+                  "compare_string": [
+                    "1",
+                    {
+                      "u_val": "blaze_split_friendly"
+                    }
+                  ]
+                },
+                "effect": [
+                  {
+                    "math": [
+                      "u_val('friendly') = -1"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "mtype_ids": [
+              "mon_oozle"
+            ],
+            "monster_range": 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_BLAZE_GRAY_SPLIT_TICK",
+    "effect": [
+      {
+        "turn_cost": {
+          "math": [
+            "1"
+          ]
+        }
+      },
+      {
+        "if": {
+          "math": [
+            "rng(0, floor((u_val('intelligence_base') + u_val('intelligence_bonus')) / 2)) + (u_skill('chemistry') / 2) + (u_skill('cooking') / 2) < rng(0,1)"
+          ]
+        },
+        "then": {
+          "u_spawn_monster": "mon_gray",
+          "real_count": 1,
+          "min_radius": 1,
+          "max_radius": 1,
+          "spawn_message": "A blob splits and bounces away!"
+        },
+        "else": [
+          {
+            "u_spawn_monster": "mon_gray",
+            "real_count": 1,
+            "min_radius": 1,
+            "max_radius": 1,
+            "mon_variables": {
+              "blaze_split_friendly": "1"
+            },
+            "spawn_message": "A blob splits and bounces away!"
+          },
+          {
+            "u_run_monster_eocs": [
+              {
+                "id": "EOC_BLAZE_GRAY_FRIENDIFY",
+                "condition": {
+                  "compare_string": [
+                    "1",
+                    {
+                      "u_val": "blaze_split_friendly"
+                    }
+                  ]
+                },
+                "effect": [
+                  {
+                    "math": [
+                      "u_val('friendly') = -1"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "mtype_ids": [
+              "mon_gray"
+            ],
+            "monster_range": 1
+          }
+        ]
+      }
+    ]
+  }
+]

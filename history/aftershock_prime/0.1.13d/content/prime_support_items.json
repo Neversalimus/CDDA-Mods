@@ -1,0 +1,70 @@
+[
+  {
+    "type": "ITEM",
+    "subtypes": [ "TOOL" ],
+    "id": "afsp_gene_editor_kit",
+    "name": { "str": "portable gene resequencer kit" },
+    "description": "A transport-crated gene resequencer assembled from advanced laboratory hardware.  Activate it to deploy a functional gene editor.  This Prime Integration item exists so Aftershock genetech remains usable without importing Salus IV map generation.",
+    "weight": "48 kg",
+    "volume": "55 L",
+    "price": "25 kUSD",
+    "price_postapoc": "250 USD",
+    "material": [ "steel", "plastic" ],
+    "symbol": ";",
+    "color": "light_blue",
+    "use_action": { "type": "deploy_furn", "furn_type": "f_gene_editor" }
+  },
+  {
+    "type": "MIGRATION",
+    "id": "xray_laser_barrel",
+    "replace": "UICA_1d"
+  },
+  {
+    "type": "MIGRATION",
+    "id": "damaged_exo_helmet_steel",
+    "replace": "exo_helmet_steel"
+  },
+  {
+    "type": "MIGRATION",
+    "id": "damaged_exo_torso_steel",
+    "replace": "exo_torso_steel"
+  },
+  {
+    "type": "MIGRATION",
+    "id": "damaged_exo_arm_steel",
+    "replace": "exo_arm_steel"
+  },
+  {
+    "type": "MIGRATION",
+    "id": "damaged_exo_leg_steel",
+    "replace": "exo_leg_steel"
+  },
+  {
+    "type": "recipe_category",
+    "id": "CC_ELECTRONIC",
+    "copy-from": "CC_ELECTRONIC",
+    "extend": { "recipe_subcategories": [ "CSC_ELECTRONIC_CBMS" ] }
+  },
+  {
+    "type": "recipe",
+    "activity_level": "LIGHT_EXERCISE",
+    "result": "afsp_gene_editor_kit",
+    "category": "CC_ELECTRONIC",
+    "subcategory": "CSC_ELECTRONIC_TOOLS",
+    "skill_used": "electronics",
+    "skills_required": [ [ "fabrication", 8 ], [ "computer", 5 ], [ "firstaid", 5 ] ],
+    "difficulty": 8,
+    "time": "12 h",
+    "autolearn": [ [ "electronics", 8 ], [ "fabrication", 8 ] ],
+    "using": [ [ "soldering_standard", 50 ], [ "welding_standard", 20 ] ],
+    "components": [
+      [ [ "afs_circuitry_3", 4 ] ],
+      [ [ "afs_energy_storage_2", 4 ] ],
+      [ [ "afs_material_2", 8 ] ],
+      [ [ "small_lcd_screen", 2 ] ],
+      [ [ "cable", 6 ] ],
+      [ [ "plastic_sheet", 10 ] ],
+      [ [ "lc_steel_chunk", 8 ] ]
+    ]
+  }
+]

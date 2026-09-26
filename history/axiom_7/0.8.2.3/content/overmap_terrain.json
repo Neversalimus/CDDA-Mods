@@ -1,0 +1,191 @@
+[
+  {
+    "type": "overmap_terrain",
+    "id": "axiom_7_nw",
+    "vision_levels": "large_building",
+    "name": "AXIOM-7 west motor pool",
+    "sym": "A",
+    "color": "light_cyan",
+    "see_cost": "full_high"
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "axiom_7_n",
+    "vision_levels": "large_building",
+    "name": "AXIOM-7 access plaza",
+    "sym": "A",
+    "color": "light_cyan",
+    "see_cost": "full_high"
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "axiom_7_ne",
+    "vision_levels": "large_building",
+    "name": "AXIOM-7 east motor pool",
+    "sym": "A",
+    "color": "light_cyan",
+    "see_cost": "full_high"
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "axiom_7_w",
+    "vision_levels": "large_building",
+    "name": "AXIOM-7 trade wing",
+    "sym": "A",
+    "color": "light_cyan",
+    "see_cost": "full_high"
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "axiom_7_c",
+    "vision_levels": "large_building",
+    "name": "AXIOM-7 central atrium",
+    "sym": "A",
+    "color": "light_cyan",
+    "see_cost": "full_high"
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "axiom_7_e",
+    "vision_levels": "large_building",
+    "name": "AXIOM-7 systems wing",
+    "sym": "A",
+    "color": "light_cyan",
+    "see_cost": "full_high"
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "axiom_7_sw",
+    "vision_levels": "large_building",
+    "name": "AXIOM-7 service wing",
+    "sym": "A",
+    "color": "light_cyan",
+    "see_cost": "full_high"
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "axiom_7_s",
+    "vision_levels": "large_building",
+    "name": "AXIOM-7 prototype gallery",
+    "sym": "A",
+    "color": "light_cyan",
+    "see_cost": "full_high"
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "axiom_7_se",
+    "vision_levels": "large_building",
+    "name": "AXIOM-7 fabrication wing",
+    "sym": "A",
+    "color": "light_cyan",
+    "see_cost": "full_high"
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "axiom_7_roof_w",
+    "vision_levels": "large_building",
+    "name": "AXIOM-7 roof: logistics",
+    "sym": "A",
+    "color": "light_cyan",
+    "see_cost": "full_high"
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "axiom_7_roof_c",
+    "vision_levels": "large_building",
+    "name": "AXIOM-7 roof: operations",
+    "sym": "A",
+    "color": "light_cyan",
+    "see_cost": "full_high"
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "axiom_7_roof_e",
+    "vision_levels": "large_building",
+    "name": "AXIOM-7 roof: systems",
+    "sym": "A",
+    "color": "light_cyan",
+    "see_cost": "full_high"
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "axiom_7_roof_sw",
+    "vision_levels": "large_building",
+    "name": "AXIOM-7 roof: service",
+    "sym": "A",
+    "color": "light_cyan",
+    "see_cost": "full_high"
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "axiom_7_roof_s",
+    "vision_levels": "large_building",
+    "name": "AXIOM-7 rooftop flight deck",
+    "sym": "A",
+    "color": "light_cyan",
+    "see_cost": "full_high"
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "axiom_7_roof_se",
+    "vision_levels": "large_building",
+    "name": "AXIOM-7 roof: fabrication",
+    "sym": "A",
+    "color": "light_cyan",
+    "see_cost": "full_high"
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "axiom_7_sub_w",
+    "vision_levels": "large_building",
+    "name": "AXIOM-7 sublevel: power conversion",
+    "sym": "A",
+    "color": "light_cyan",
+    "see_cost": "full_high"
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "axiom_7_sub_c",
+    "vision_levels": "large_building",
+    "name": "AXIOM-7 sublevel: thermal backbone",
+    "sym": "A",
+    "color": "light_cyan",
+    "see_cost": "full_high"
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "axiom_7_sub_e",
+    "vision_levels": "large_building",
+    "name": "AXIOM-7 sublevel: data core",
+    "sym": "A",
+    "color": "light_cyan",
+    "see_cost": "full_high"
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "axiom_7_sub_sw",
+    "vision_levels": "large_building",
+    "name": "AXIOM-7 sublevel: robotics maintenance",
+    "sym": "A",
+    "color": "light_cyan",
+    "see_cost": "full_high"
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "axiom_7_sub_s",
+    "vision_levels": "large_building",
+    "name": "AXIOM-7 sublevel: security operations",
+    "sym": "A",
+    "color": "light_cyan",
+    "see_cost": "full_high"
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "axiom_7_sub_se",
+    "vision_levels": "large_building",
+    "name": "AXIOM-7 sublevel: restricted systems",
+    "sym": "A",
+    "color": "light_cyan",
+    "see_cost": "full_high"
+  }
+]

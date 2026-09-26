@@ -1,0 +1,852 @@
+[
+  {
+    "target": "chicken_fried",
+    "source": "fchicken",
+    "reason": "Reviewed shared inventory icon: chicken_fried / fchicken"
+  },
+  {
+    "target": "frybread",
+    "source": "flatbread",
+    "reason": "Reviewed shared inventory icon: frybread / flatbread"
+  },
+  {
+    "target": "birth_control",
+    "source": "aspirin",
+    "reason": "Reviewed shared inventory icon: birth_control / aspirin"
+  },
+  {
+    "target": "estrogen",
+    "source": "aspirin",
+    "reason": "Reviewed shared inventory icon: estrogen / aspirin"
+  },
+  {
+    "target": "chem_caco3",
+    "source": "chem_washing_soda",
+    "reason": "Reviewed shared inventory icon: chem_caco3 / chem_washing_soda"
+  },
+  {
+    "target": "chem_baking_soda",
+    "source": "chem_washing_soda",
+    "reason": "Reviewed shared inventory icon: chem_baking_soda / chem_washing_soda"
+  },
+  {
+    "target": "gelatin_dessert_powder",
+    "source": "gelatin_powder",
+    "reason": "Reviewed shared inventory icon: gelatin_dessert_powder / gelatin_powder"
+  },
+  {
+    "target": "spool_welding",
+    "source": "spool_small",
+    "reason": "Reviewed shared inventory icon: spool_welding / spool_small"
+  },
+  {
+    "target": "wheel_caster_large",
+    "source": "wheel_caster",
+    "reason": "Reviewed shared inventory icon: wheel_caster_large / wheel_caster"
+  },
+  {
+    "target": "cottage_cheese",
+    "source": "mozzarella_cheese",
+    "reason": "Reviewed shared white soft-cheese icon; no yellow hard-cheese wedge"
+  },
+  {
+    "target": "mascarpone",
+    "source": "mozzarella_cheese",
+    "reason": "Reviewed shared white soft-cheese icon; no yellow hard-cheese wedge"
+  },
+  {
+    "target": "chem_turpentine",
+    "source": "chem_acetone",
+    "reason": "Reviewed shared inventory icon: chem_turpentine / chem_acetone"
+  },
+  {
+    "target": "chem_toluene",
+    "source": "chem_acetone",
+    "reason": "Reviewed shared inventory icon: chem_toluene / chem_acetone"
+  },
+  {
+    "target": "chem_benzene",
+    "source": "chem_acetone",
+    "reason": "Reviewed shared inventory icon: chem_benzene / chem_acetone"
+  },
+  {
+    "target": "ammonia_liquid",
+    "source": "ammonia",
+    "reason": "Reviewed shared inventory icon: ammonia_liquid / ammonia"
+  },
+  {
+    "target": "liquid_soap",
+    "source": "soapy_water",
+    "reason": "Reviewed shared inventory icon: liquid_soap / soapy_water"
+  },
+  {
+    "target": "UPS_OFF",
+    "source": "UPS_off",
+    "reason": "Reviewed shared inventory icon: UPS_OFF / UPS_off"
+  },
+  {
+    "target": "mt_chainmail_hands",
+    "source": "chainmail_hands",
+    "reason": "Reviewed shared inventory icon: mt_chainmail_hands / chainmail_hands"
+  },
+  {
+    "target": "mt_chainmail_feet",
+    "source": "chainmail_feet",
+    "reason": "Reviewed shared inventory icon: mt_chainmail_feet / chainmail_feet"
+  },
+  {
+    "target": "scrap_tin",
+    "source": "scrap",
+    "reason": "Reviewed shared inventory icon: scrap_tin / scrap"
+  },
+  {
+    "target": "scrap_brass",
+    "source": "scrap",
+    "reason": "Reviewed shared inventory icon: scrap_brass / scrap"
+  },
+  {
+    "target": "makeshift_pillow",
+    "source": "pillow",
+    "reason": "Reviewed shared inventory icon: makeshift_pillow / pillow"
+  },
+  {
+    "target": "syrup_simple",
+    "source": "syrup",
+    "reason": "Reviewed shared inventory icon: syrup_simple / syrup"
+  },
+  {
+    "target": "syrup_corn",
+    "source": "syrup",
+    "reason": "Reviewed shared inventory icon: syrup_corn / syrup"
+  },
+  {
+    "target": "candy4",
+    "source": "candy",
+    "reason": "Reviewed shared inventory icon: candy4 / candy"
+  },
+  {
+    "target": "candy5",
+    "source": "candy",
+    "reason": "Reviewed shared inventory icon: candy5 / candy"
+  },
+  {
+    "target": "bio_mp3",
+    "source": "bio_ears",
+    "reason": "Reviewed shared inventory icon: bio_mp3 / bio_ears"
+  },
+  {
+    "target": "bio_voice_b",
+    "source": "bio_voice",
+    "reason": "Reviewed shared inventory icon: bio_voice_b / bio_voice"
+  },
+  {
+    "target": "bio_sleep_shutdown",
+    "source": "bio_sleepy",
+    "reason": "Reviewed shared inventory icon: bio_sleep_shutdown / bio_sleepy"
+  },
+  {
+    "target": "wheel_skateboard",
+    "source": "wheel_caster",
+    "reason": "Reviewed shared inventory icon: wheel_skateboard / wheel_caster"
+  },
+  {
+    "target": "lc_chainmail_hands",
+    "source": "chainmail_hands",
+    "reason": "Reviewed shared inventory icon: lc_chainmail_hands / chainmail_hands"
+  },
+  {
+    "target": "lc_chainmail_feet",
+    "source": "chainmail_feet",
+    "reason": "Reviewed shared inventory icon: lc_chainmail_feet / chainmail_feet"
+  },
+  {
+    "target": "seed_radish",
+    "source": "seed_cabbage",
+    "reason": "Reviewed shared seed-pile icon; not a unique botanical illustration"
+  },
+  {
+    "target": "seed_lotus",
+    "source": "seed_flower",
+    "reason": "Reviewed shared seed-pile icon; not a unique botanical illustration"
+  },
+  {
+    "target": "seed_gherkin",
+    "source": "seed_cucumber",
+    "reason": "Reviewed shared seed-pile icon; not a unique botanical illustration"
+  },
+  {
+    "target": "seed_poppy_bud",
+    "source": "seed_flower",
+    "reason": "Reviewed shared seed-pile icon; not a unique botanical illustration"
+  },
+  {
+    "target": "seed_spinach",
+    "source": "seed_lettuce",
+    "reason": "Reviewed shared seed-pile icon; not a unique botanical illustration"
+  },
+  {
+    "target": "seed_japanese_knotweed",
+    "source": "seed_wild_herbs",
+    "reason": "Reviewed shared seed-pile icon; not a unique botanical illustration"
+  },
+  {
+    "target": "seed_wild_rice",
+    "source": "seed_wheat",
+    "reason": "Reviewed shared seed-pile icon; not a unique botanical illustration"
+  },
+  {
+    "target": "seed_jerusalem_artichoke",
+    "source": "seed_sunflower",
+    "reason": "Reviewed shared seed-pile icon; not a unique botanical illustration"
+  },
+  {
+    "target": "seed_maianthemum_stellatum",
+    "source": "seed_flower",
+    "reason": "Reviewed shared seed-pile icon; not a unique botanical illustration"
+  },
+  {
+    "target": "seed_wild_sarsaparilla",
+    "source": "seed_wild_herbs",
+    "reason": "Reviewed shared seed-pile icon; not a unique botanical illustration"
+  },
+  {
+    "target": "seed_mayapple",
+    "source": "seed_wild_herbs",
+    "reason": "Reviewed shared seed-pile icon; not a unique botanical illustration"
+  },
+  {
+    "target": "seed_wintergreen",
+    "source": "seed_wild_herbs",
+    "reason": "Reviewed shared seed-pile icon; not a unique botanical illustration"
+  },
+  {
+    "target": "seed_groundnut",
+    "source": "seed_beans",
+    "reason": "Reviewed shared seed-pile icon; not a unique botanical illustration"
+  },
+  {
+    "target": "seed_wild_garlic",
+    "source": "seed_garlic",
+    "reason": "Reviewed shared seed-pile icon; not a unique botanical illustration"
+  },
+  {
+    "target": "seed_raw_bamboo",
+    "source": "seed_wheat",
+    "reason": "Reviewed shared seed-pile icon; not a unique botanical illustration"
+  },
+  {
+    "target": "seed_bottle_gourd",
+    "source": "seed_pumpkin",
+    "reason": "Reviewed shared seed-pile icon; not a unique botanical illustration"
+  },
+  {
+    "target": "seed_eggplant",
+    "source": "cdf_seed_eggplant",
+    "reason": "Reviewed shared seed-pile icon; not a unique botanical illustration"
+  },
+  {
+    "target": "seed_cauliflower",
+    "source": "seed_broccoli",
+    "reason": "Reviewed shared seed-pile icon; not a unique botanical illustration"
+  },
+  {
+    "target": "seed_artichoke",
+    "source": "seed_sunflower",
+    "reason": "Reviewed shared seed-pile icon; not a unique botanical illustration"
+  },
+  {
+    "target": "seed_asparagus",
+    "source": "seed_wild_herbs",
+    "reason": "Reviewed shared seed-pile icon; not a unique botanical illustration"
+  },
+  {
+    "target": "seed_brussels_sprout",
+    "source": "seed_cabbage",
+    "reason": "Reviewed shared seed-pile icon; not a unique botanical illustration"
+  },
+  {
+    "target": "seed_kale",
+    "source": "seed_cabbage",
+    "reason": "Reviewed shared seed-pile icon; not a unique botanical illustration"
+  },
+  {
+    "target": "seed_watermelon",
+    "source": "seed_pumpkin",
+    "reason": "Reviewed shared seed-pile icon; not a unique botanical illustration"
+  },
+  {
+    "target": "arduino_experiments",
+    "source": "textbook_electronics",
+    "reason": "Reviewed shared paper-book icon; exact cover art unavailable"
+  },
+  {
+    "target": "ic_reference_electronics",
+    "source": "textbook_electronics",
+    "reason": "Reviewed shared paper-book icon; exact cover art unavailable"
+  },
+  {
+    "target": "robofac_yrax_trifacet_deactivation_manual",
+    "source": "guidebook",
+    "reason": "Reviewed shared paper-book icon; exact cover art unavailable"
+  },
+  {
+    "target": "exodii_wiring_kit_reference",
+    "source": "guidebook",
+    "reason": "Reviewed shared paper-book icon; exact cover art unavailable"
+  },
+  {
+    "target": "metal_casting_book",
+    "source": "recipe_melee",
+    "reason": "Reviewed shared paper-book icon; exact cover art unavailable"
+  },
+  {
+    "target": "alloy_book",
+    "source": "recipe_melee",
+    "reason": "Reviewed shared paper-book icon; exact cover art unavailable"
+  },
+  {
+    "target": "bronze_book",
+    "source": "recipe_melee",
+    "reason": "Reviewed shared paper-book icon; exact cover art unavailable"
+  },
+  {
+    "target": "bronze_mag",
+    "source": "recipe_melee",
+    "reason": "Reviewed shared paper-book icon; exact cover art unavailable"
+  },
+  {
+    "target": "textbook_weparabic",
+    "source": "guidebook",
+    "reason": "Reviewed shared paper-book icon; exact cover art unavailable"
+  },
+  {
+    "target": "textbook_mesoam",
+    "source": "guidebook",
+    "reason": "Reviewed shared paper-book icon; exact cover art unavailable"
+  },
+  {
+    "target": "recipe_migo_plate",
+    "source": "guidebook",
+    "reason": "Reviewed shared paper-book icon; exact cover art unavailable"
+  },
+  {
+    "target": "spellcraft_theory",
+    "source": "generic_spellbook",
+    "reason": "Reviewed shared paper-book icon; exact cover art unavailable"
+  },
+  {
+    "target": "spellcraft_theory_basic",
+    "source": "generic_spellbook",
+    "reason": "Reviewed shared paper-book icon; exact cover art unavailable"
+  },
+  {
+    "target": "caster_boosts_info",
+    "source": "generic_spellbook",
+    "reason": "Reviewed shared paper-book icon; exact cover art unavailable"
+  },
+  {
+    "target": "textbook_mithril",
+    "source": "guidebook",
+    "reason": "Reviewed shared paper-book icon; exact cover art unavailable"
+  },
+  {
+    "target": "alchemy_illegal",
+    "source": "generic_spellbook",
+    "reason": "Reviewed shared paper-book icon; exact cover art unavailable"
+  },
+  {
+    "target": "alchemy_master",
+    "source": "generic_spellbook",
+    "reason": "Reviewed shared paper-book icon; exact cover art unavailable"
+  },
+  {
+    "target": "alchemy_mana_processing",
+    "source": "generic_spellbook",
+    "reason": "Reviewed shared paper-book icon; exact cover art unavailable"
+  },
+  {
+    "target": "weapon_enchanting_guide",
+    "source": "generic_spellbook",
+    "reason": "Reviewed shared paper-book icon; exact cover art unavailable"
+  },
+  {
+    "target": "history_botanical_enchantment",
+    "source": "generic_spellbook",
+    "reason": "Reviewed shared paper-book icon; exact cover art unavailable"
+  },
+  {
+    "target": "mag_druid_items_master",
+    "source": "generic_spellbook",
+    "reason": "Reviewed shared paper-book icon; exact cover art unavailable"
+  },
+  {
+    "target": "sylph_parchment",
+    "source": "paper",
+    "reason": "Reviewed paper letter representation, not a bound book"
+  },
+  {
+    "target": "book_teens_deduction",
+    "source": "generic_spellbook",
+    "reason": "Reviewed shared paper-book icon; exact cover art unavailable"
+  },
+  {
+    "target": "book_deduction_black_iron_prison",
+    "source": "generic_spellbook",
+    "reason": "Reviewed shared paper-book icon; exact cover art unavailable"
+  },
+  {
+    "target": "book_deduction_out_of_place",
+    "source": "generic_spellbook",
+    "reason": "Reviewed shared paper-book icon; exact cover art unavailable"
+  },
+  {
+    "target": "f_bed_down",
+    "source": "f_bed",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_bunkbed_down",
+    "source": "f_bunkbed",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_barber_chair",
+    "source": "f_armchair",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_bed_down_treesung",
+    "source": "f_bed",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_bed_treesung",
+    "source": "f_bed",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_bedframe_treesung",
+    "source": "f_bed_frame",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_chair_treesung",
+    "source": "f_chair",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_table_treesung",
+    "source": "f_table",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_dreamforged_bed_of_restful_repose",
+    "source": "f_bed",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_nl_autodoc_couch",
+    "source": "f_autodoc_couch",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_xedra_mobile_weather_station",
+    "source": "f_xedra_antenna",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_plank_stack_short",
+    "source": "f_stack_plank",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_log_stack_short",
+    "source": "log",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_stick_stack_short",
+    "source": "stick",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_stick_long_stack_short",
+    "source": "stick_long",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_rebar_stack_short",
+    "source": "rebar",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_brick_stack_short",
+    "source": "f_pallet_brick",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_adobe_stack_short",
+    "source": "f_pallet_brick_adobe",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_clay_mound_short",
+    "source": "clay_lump",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_glass_mound_short",
+    "source": "glass_shard",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_pebble_mound_short",
+    "source": "pebble",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_rock_mound_short",
+    "source": "f_rubble_rock",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_rock_large_mound_short",
+    "source": "rock_large",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_plank_stack_mid",
+    "source": "f_stack_plank",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_log_stack_mid",
+    "source": "log",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_stick_stack_mid",
+    "source": "stick",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_stick_long_stack_mid",
+    "source": "stick_long",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_rebar_stack_mid",
+    "source": "rebar",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_brick_stack_mid",
+    "source": "f_pallet_brick",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_adobe_stack_mid",
+    "source": "f_pallet_brick_adobe",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_clay_mound_mid",
+    "source": "clay_lump",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_glass_mound_mid",
+    "source": "glass_shard",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_pebble_mound_mid",
+    "source": "pebble",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_rock_mound_mid",
+    "source": "f_rubble_rock",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_rock_large_mound_mid",
+    "source": "rock_large",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_plank_stack_tall",
+    "source": "f_stack_plank",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_log_stack_tall",
+    "source": "log",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_stick_stack_tall",
+    "source": "stick",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_stick_long_stack_tall",
+    "source": "stick_long",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_rebar_stack_tall",
+    "source": "rebar",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_brick_stack_tall",
+    "source": "f_pallet_brick",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_adobe_stack_tall",
+    "source": "f_pallet_brick_adobe",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_clay_mound_tall",
+    "source": "clay_lump",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_glass_mound_tall",
+    "source": "glass_shard",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_pebble_mound_tall",
+    "source": "pebble",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_rock_mound_tall",
+    "source": "f_rubble_rock",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "f_rock_large_mound_tall",
+    "source": "rock_large",
+    "reason": "Reviewed furnishing/material-pile representation; shared artwork"
+  },
+  {
+    "target": "t_barkfloor_noroof",
+    "source": "t_barkfloor",
+    "reason": "Reviewed same surface appearance"
+  },
+  {
+    "target": "t_nether_glass_floor_clairvoyance",
+    "source": "t_nether_glass_floor",
+    "reason": "Reviewed same surface appearance"
+  },
+  {
+    "target": "t_inner_cabins_nether_glass_floor",
+    "source": "t_nether_glass_floor",
+    "reason": "Reviewed same surface appearance"
+  },
+  {
+    "target": "t_water_cube_hot",
+    "source": "t_water_hot",
+    "reason": "Reviewed same surface appearance"
+  },
+  {
+    "target": "vp_stowed_fridge",
+    "source": "vp_ap_fridge",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_minifridge",
+    "source": "vp_ap_minifridge",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_big_portable_fridge",
+    "source": "vp_big_portable_fridge",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_glass_fridge",
+    "source": "f_glass_fridge",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_freezer",
+    "source": "f_freezer",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_minifreezer",
+    "source": "vp_ap_minifreezer",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_chest_minifreezer",
+    "source": "vp_ap_chest_minifreezer",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_big_portable_freezer",
+    "source": "vp_ap_big_portable_freezer",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_chest_freezer",
+    "source": "vp_ap_chest_freezer",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_heavy_duty_freezer",
+    "source": "vp_ap_heavy_duty_freezer",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_glass_freezer",
+    "source": "vp_ap_glass_freezer",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_display_freezer",
+    "source": "vp_ap_display_freezer",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_oven",
+    "source": "vp_ap_oven",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_arcade_machine",
+    "source": "f_arcade_machine",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_drill_press",
+    "source": "f_drill_press",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_tablesaw",
+    "source": "f_tablesaw",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_mitresaw",
+    "source": "f_mitresaw",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_bandsaw",
+    "source": "f_bandsaw",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_router",
+    "source": "f_router",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_planer",
+    "source": "f_planer",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_jointer",
+    "source": "f_jointer",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_hydraulic_press",
+    "source": "f_hydraulic_press",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_air_compressor",
+    "source": "f_air_compressor",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_oxygen_concentrator",
+    "source": "vp_ap_oxygen_concentrator",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_hd_compressor_unit",
+    "source": "vp_ap_hd_compressor_unit",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_stowed_broken_golden_monolith",
+    "source": "f_broken_golden_monolith",
+    "reason": "Same appliance attached to a vehicle; retain original appliance geometry"
+  },
+  {
+    "target": "vp_diesel_engine_inline1",
+    "source": "vp_engine_1cyl",
+    "reason": "Reviewed same mechanical form; shared vehicle artwork"
+  },
+  {
+    "target": "vp_diesel_engine_inline4",
+    "source": "vp_engine_inline4",
+    "reason": "Reviewed same mechanical form; shared vehicle artwork"
+  },
+  {
+    "target": "vp_engine_1cyl_diesel_large",
+    "source": "vp_engine_1cyl_large",
+    "reason": "Reviewed same mechanical form; shared vehicle artwork"
+  },
+  {
+    "target": "vp_fridgetank_large",
+    "source": "vp_fridgetank",
+    "reason": "Reviewed same mechanical form; shared vehicle artwork"
+  },
+  {
+    "target": "vp_foldxlframe",
+    "source": "vp_folding_frame",
+    "reason": "Reviewed same mechanical form; shared vehicle artwork"
+  },
+  {
+    "target": "vp_wheel_caster_large",
+    "source": "vp_wheel_caster",
+    "reason": "Reviewed same mechanical form; shared vehicle artwork"
+  },
+  {
+    "target": "vp_engine_vtwin_magic",
+    "source": "vp_engine_vtwin",
+    "reason": "Reviewed same mechanical form; shared vehicle artwork"
+  },
+  {
+    "target": "vp_wheel_mount_skateboard",
+    "source": "vp_wheel_caster",
+    "reason": "Reviewed same mechanical form; shared vehicle artwork"
+  },
+  {
+    "target": "vp_bulette_plate",
+    "source": "bulette_plate",
+    "reason": "Reviewed same mechanical form; shared vehicle artwork"
+  },
+  {
+    "target": "gasfilter_sm",
+    "source": "gasfilter_s",
+    "reason": "Reviewed equivalent physical form: gasfilter_sm / gasfilter_s"
+  },
+  {
+    "target": "i4_diesel",
+    "source": "i4_combustion",
+    "reason": "Reviewed equivalent physical form: i4_diesel / i4_combustion"
+  },
+  {
+    "target": "lettuce_head",
+    "source": "lettuce",
+    "reason": "Reviewed equivalent physical form: lettuce_head / lettuce"
+  },
+  {
+    "target": "sunscreen",
+    "source": "facecream_moisturizer",
+    "reason": "Reviewed equivalent physical form: sunscreen / facecream_moisturizer"
+  }
+]

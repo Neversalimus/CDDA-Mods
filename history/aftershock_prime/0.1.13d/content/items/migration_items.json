@@ -1,0 +1,17 @@
+[
+  {
+    "id": "xlballistic_vest_empty",
+    "type": "MIGRATION",
+    "replace": "afs_military_vestxl"
+  },
+  {
+    "id": "xlballistic_vest_esapi",
+    "type": "MIGRATION",
+    "replace": "afs_military_vestxl"
+  },
+  {
+    "id": "bot_laserturret_x-ray",
+    "type": "MIGRATION",
+    "replace": "bot_laserturret_xray"
+  }
+]

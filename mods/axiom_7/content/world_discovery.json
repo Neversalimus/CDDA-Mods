@@ -1,0 +1,68 @@
+[
+  {
+    "id": "axiom_phase_locator",
+    "copy-from": "abstractmap",
+    "type": "ITEM",
+    "category": "maps",
+    "looks_like": "usb_drive",
+    "name": {
+      "str": "AXIOM phase-locked locator wafer"
+    },
+    "description": "A glass-ceramic data wafer carrying a damaged AXIOM-7 navigation handshake.  Its route data is heavily encrypted, but the remaining phase-lock header can still resolve the enclave's globally unique central transponder and add the facility to your overmap.",
+    "weight": "48 g",
+    "volume": "40 ml",
+    "longest_side": "78 mm",
+    "price": "2200 USD",
+    "price_postapoc": "180 USD",
+    "material": [
+      "plastic",
+      "steel"
+    ],
+    "symbol": ";",
+    "color": "cyan",
+    "use_action": {
+      "type": "effect_on_conditions",
+      "description": "Resolve AXIOM-7 coordinates",
+      "effect_on_conditions": [
+        {
+          "id": "EOC_AXIOM_PHASE_LOCATOR_REVEAL",
+          "effect": [
+            {
+              "u_location_variable": {
+                "context_val": "axiom_locator_target"
+              },
+              "target_params": {
+                "om_terrain": "axiom_7_c",
+                "z": 0
+              }
+            },
+            {
+              "reveal_map": {
+                "context_val": "axiom_locator_target"
+              },
+              "radius": 5
+            },
+            {
+              "u_message": "The wafer reconstructs a phase-locked navigation solution.  AXIOM-7 is added to your map.",
+              "type": "good"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "type": "item_group",
+    "id": "map_extra_science_corpse",
+    "copy-from": "map_extra_science_corpse",
+    "subtype": "collection",
+    "extend": {
+      "items": [
+        {
+          "item": "axiom_phase_locator",
+          "prob": 20
+        }
+      ]
+    }
+  }
+]

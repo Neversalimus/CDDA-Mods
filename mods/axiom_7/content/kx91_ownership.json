@@ -1,0 +1,257 @@
+[
+  {
+    "id": "axiom_kx91_custody_recorder",
+    "type": "ITEM",
+    "subtypes": [
+      "TOOL"
+    ],
+    "looks_like": "electrohack",
+    "name": {
+      "str": "KX-91 custody handshake recorder"
+    },
+    "description": "A sealed AXIOM recorder carrying the custody-transfer challenge for KX-91. It can authorize a final ownership handshake but cannot directly control the aircraft.",
+    "symbol": ";",
+    "color": "light_blue",
+    "category": "tools",
+    "price": "0 cent",
+    "price_postapoc": "0 cent",
+    "material": [
+      "plastic",
+      "aluminum"
+    ],
+    "weight": "170 g",
+    "volume": "250 ml",
+    "flags": [
+      "TRADER_AVOID",
+      "NO_SALVAGE"
+    ],
+    "use_action": {
+      "type": "effect_on_conditions",
+      "description": "Run KX-91 custody handshake",
+      "effect_on_conditions": [
+        "EOC_AXIOM_KX91_RUN_CUSTODY_HANDSHAKE"
+      ]
+    }
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_AXIOM_KX91_RUN_CUSTODY_HANDSHAKE",
+    "condition": {
+      "and": [
+        {
+          "u_at_om_location": "axiom_7_roof_s"
+        },
+        {
+          "u_has_mission": "MISSION_AXIOM_KX91_CUSTODY"
+        },
+        {
+          "compare_string": [
+            "yes",
+            {
+              "u_val": "axiom_kx91_restored"
+            }
+          ]
+        }
+      ]
+    },
+    "effect": [
+      {
+        "u_add_var": "axiom_kx91_custody_handshake",
+        "value": "yes"
+      },
+      {
+        "u_message": "The recorder exchanges a signed challenge with KX-91. The flight computer accepts your operator identity and produces a custody-transfer record for Operations.",
+        "type": "good"
+      }
+    ],
+    "false_effect": {
+      "u_message": "The custody recorder cannot complete a valid KX-91 transfer handshake here.",
+      "type": "warning"
+    }
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_AXIOM_KX91_OFFER_CUSTODY",
+    "condition": {
+      "and": [
+        {
+          "compare_string": [
+            "yes",
+            {
+              "u_val": "axiom_kx91_restored"
+            }
+          ]
+        },
+        {
+          "not": {
+            "compare_string": [
+              "yes",
+              {
+                "u_val": "axiom_kx91_owned"
+              }
+            ]
+          }
+        },
+        {
+          "not": {
+            "compare_string": [
+              "yes",
+              {
+                "npc_val": "axiom_kx91_custody_offered"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "effect": [
+      {
+        "offer_mission": "MISSION_AXIOM_KX91_CUSTODY"
+      },
+      {
+        "npc_add_var": "axiom_kx91_custody_offered",
+        "value": "yes"
+      }
+    ]
+  },
+  {
+    "id": "MISSION_AXIOM_KX91_CUSTODY",
+    "type": "mission_definition",
+    "name": {
+      "str": "KX-91: operational custody"
+    },
+    "description": "Perform the signed custody handshake on KX-91 and return the recorder to Lena Orlov so Operations can release the aircraft to you.",
+    "goal": "MGOAL_CONDITION",
+    "goal_condition": {
+      "compare_string": [
+        "yes",
+        {
+          "u_val": "axiom_kx91_custody_handshake"
+        }
+      ]
+    },
+    "difficulty": 5,
+    "value": 0,
+    "has_generic_rewards": false,
+    "start": {
+      "effect": [
+        {
+          "u_spawn_item": "axiom_kx91_custody_recorder",
+          "suppress_message": true
+        },
+        {
+          "u_add_var": "axiom_kx91_service_authorized",
+          "value": "yes"
+        },
+        {
+          "u_add_var": "axiom_kx91_operator_authorized",
+          "value": "no"
+        }
+      ]
+    },
+    "end": {
+      "effect": [
+        {
+          "u_consume_item": "axiom_kx91_custody_recorder",
+          "count": 1,
+          "popup": false
+        },
+        {
+          "u_add_var": "axiom_kx91_owned",
+          "value": "yes"
+        },
+        {
+          "u_add_var": "axiom_kx91_service_authorized",
+          "value": "no"
+        },
+        {
+          "u_add_var": "axiom_kx91_operator_authorized",
+          "value": "yes"
+        },
+        {
+          "u_message": "Operations closes the AXIOM vehicle record and releases KX-91 from faction inventory. The aircraft is now available for your custody; vanilla vehicle ownership will attach it to your faction on first use.",
+          "type": "good",
+          "popup": true
+        },
+        {
+          "u_location_variable": {
+            "context_val": "axiom_kx91_roof_loc"
+          },
+          "target_params": {
+            "om_terrain": "axiom_7_roof_s",
+            "om_special": "axiom_7_facility_v06",
+            "z": 1
+          }
+        },
+        {
+          "mapgen_update": "AXIOM_KX91_SWAP_OPERATIONAL_PLAYER",
+          "om_terrain": "axiom_7_roof_s",
+          "target_var": {
+            "context_val": "axiom_kx91_roof_loc"
+          }
+        }
+      ]
+    },
+    "origins": [
+      "ORIGIN_SECONDARY"
+    ],
+    "dialogue": {
+      "describe": "Formalize custody of the restored KX-91.",
+      "offer": "The aircraft is operational, but it is still on AXIOM's books. Nadia and Security have signed their releases. I can sign the last one if you perform a custody handshake on the flight deck. That proves the aircraft accepts your operator identity before we remove it from faction inventory.",
+      "accepted": "Take the recorder upstairs, run the handshake beside KX-91, and bring it back. Once I close the record, the aircraft is yours to operate and maintain.",
+      "rejected": "Then it remains AXIOM equipment on the roof. No offense taken.",
+      "advice": "Use the custody recorder on the KX-91 flight-deck tile. It will not work anywhere else.",
+      "inquire": "Did KX-91 accept the custody challenge?",
+      "success": "It did. Security release, Engineering release, flight release, and now Operations. I am closing the asset record. Treat it well; we do not have another one.",
+      "success_lie": "The recorder signs the result. If KX-91 did not accept you, I cannot close the record.",
+      "failure": "Then the aircraft remains under AXIOM custody until we can repeat the handshake."
+    },
+    "fail": {
+      "effect": [
+        {
+          "u_add_var": "axiom_kx91_service_authorized",
+          "value": "no"
+        },
+        {
+          "u_add_var": "axiom_kx91_operator_authorized",
+          "value": "no"
+        }
+      ]
+    }
+  },
+  {
+    "type": "mapgen",
+    "update_mapgen_id": "AXIOM_KX91_SWAP_OPERATIONAL_PLAYER",
+    "object": {
+      "remove_vehicles": [
+        {
+          "vehicles": [
+            "axiom_kx91_dormant",
+            "axiom_kx91_powered",
+            "axiom_kx91_avionics",
+            "axiom_kx91_weapons_ready",
+            "axiom_combat_helicopter"
+          ],
+          "x": [
+            0,
+            23
+          ],
+          "y": [
+            0,
+            23
+          ]
+        }
+      ],
+      "place_vehicles": [
+        {
+          "vehicle": "axiom_combat_helicopter",
+          "x": 13,
+          "y": 12,
+          "rotation": 0,
+          "fuel": 50,
+          "status": 2
+        }
+      ]
+    }
+  }
+]

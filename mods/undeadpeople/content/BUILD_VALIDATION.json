@@ -1,0 +1,34 @@
+{
+  "donors": [
+    {
+      "key": "legacy_magiclysm",
+      "ids": 291,
+      "sheets": 2,
+      "native_tile_width": 32,
+      "display_scale": 1.0
+    },
+    {
+      "key": "udp_shadow",
+      "ids": 2,
+      "sheets": 1,
+      "native_tile_width": 32,
+      "display_scale": 1.0
+    },
+    {
+      "key": "larwick",
+      "ids": 1127,
+      "sheets": 1,
+      "native_tile_width": 16,
+      "display_scale": 2.0
+    }
+  ],
+  "imported_top_ids": 1420,
+  "aliases": 170,
+  "runtime_ids": 34126,
+  "base_runtime_ids_preserved": 32454,
+  "new_runtime_ids": 1672,
+  "sprite_capacity_without_ascii": 55612,
+  "duplicate_ids": 0,
+  "invalid_references": 0,
+  "original_atlases_unchanged": true
+}

@@ -1,0 +1,25 @@
+{
+  "id": "survivor_progression",
+  "name": "Survivor Progression",
+  "version": "0.9.0",
+  "loader_api": 1,
+  "api_major": 1,
+  "api_min_minor": 1,
+  "state_schema": 3,
+  "state_min_supported": 0,
+  "requires": [
+    "core.v1",
+    "locale.v1",
+    "module_contract.v1",
+    "events.turn.v1",
+    "character_state.v1",
+    "character.modifiers.v1",
+    "ui.basic.v1",
+    "module_hotkeys.v1",
+    "api.versioning.v1",
+    "state.migration.v1",
+    "module.lifecycle.v1"
+  ],
+  "ui_hotkey": "F1",
+  "failure_policy": "disable"
+}

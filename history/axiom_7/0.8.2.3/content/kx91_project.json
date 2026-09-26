@@ -1,0 +1,923 @@
+[
+  {
+    "id": "axiom_kx91_diag_probe",
+    "copy-from": "processor",
+    "type": "ITEM",
+    "looks_like": "electrohack",
+    "name": {
+      "str": "KX-91 diagnostic service probe"
+    },
+    "description": "A sealed AXIOM service probe keyed to KX-91. Nadia uses it to wake the aircraft diagnostic bus without granting control of the airframe.",
+    "extend": {
+      "flags": [
+        "TRADER_AVOID",
+        "NO_SALVAGE"
+      ]
+    },
+    "use_action": {
+      "type": "effect_on_conditions",
+      "description": "Run KX-91 diagnostic handshake",
+      "effect_on_conditions": [
+        "EOC_AXIOM_KX91_RUN_DIAGNOSTIC"
+      ]
+    },
+    "price": "0 cent",
+    "price_postapoc": "0 cent"
+  },
+  {
+    "id": "axiom_kx91_power_regulator",
+    "copy-from": "power_supply",
+    "type": "ITEM",
+    "looks_like": "power_supply",
+    "name": {
+      "str": "KX-91 high-load bus regulator"
+    },
+    "description": "A hardened high-load regulator sized for the KX-91 power-distribution bus. The original unit in the aircraft failed beyond calibration tolerance.",
+    "extend": {
+      "flags": [
+        "TRADER_AVOID"
+      ]
+    }
+  },
+  {
+    "id": "axiom_kx91_nav_archive",
+    "copy-from": "processor",
+    "type": "ITEM",
+    "looks_like": "processor",
+    "name": {
+      "str": "KX-91 navigation reference archive"
+    },
+    "description": "A ruggedized navigation archive containing reference ephemeris, inertial compensation tables and terrain-correlation data for the KX flight stack.",
+    "extend": {
+      "flags": [
+        "TRADER_AVOID"
+      ]
+    }
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_AXIOM_KX91_RUN_DIAGNOSTIC",
+    "condition": {
+      "and": [
+        {
+          "u_at_om_location": "axiom_7_roof_s"
+        },
+        {
+          "u_has_mission": "MISSION_AXIOM_KX91_DIAGNOSTIC"
+        }
+      ]
+    },
+    "effect": [
+      {
+        "u_add_var": "axiom_kx91_diag_scan",
+        "value": "yes"
+      },
+      {
+        "u_message": "The service probe negotiates a maintenance handshake with KX-91. The aircraft wakes for forty-three seconds, logs seven primary faults, then drops back to the safe bus.",
+        "type": "good"
+      }
+    ],
+    "false_effect": {
+      "u_message": "The KX-91 service probe cannot establish a valid maintenance session here.",
+      "type": "warning"
+    }
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_AXIOM_KX91_AUTH_HYGIENE",
+    "recurrence": 300,
+    "global": true,
+    "effect": {
+      "if": {
+        "compare_string": [
+          "yes",
+          {
+            "u_val": "axiom_kx91_owned"
+          }
+        ]
+      },
+      "then": [
+        {
+          "u_add_var": "axiom_kx91_service_authorized",
+          "value": "no"
+        },
+        {
+          "u_add_var": "axiom_kx91_operator_authorized",
+          "value": "yes"
+        }
+      ],
+      "else": {
+        "if": {
+          "u_has_mission": "MISSION_AXIOM_KX91_CUSTODY"
+        },
+        "then": [
+          {
+            "u_add_var": "axiom_kx91_service_authorized",
+            "value": "yes"
+          },
+          {
+            "u_add_var": "axiom_kx91_operator_authorized",
+            "value": "no"
+          }
+        ],
+        "else": {
+          "if": {
+            "u_has_mission": "MISSION_AXIOM_KX91_DIAGNOSTIC"
+          },
+          "then": [
+            {
+              "u_add_var": "axiom_kx91_service_authorized",
+              "value": "yes"
+            },
+            {
+              "u_add_var": "axiom_kx91_operator_authorized",
+              "value": "no"
+            }
+          ],
+          "else": [
+            {
+              "u_add_var": "axiom_kx91_service_authorized",
+              "value": "no"
+            },
+            {
+              "u_add_var": "axiom_kx91_operator_authorized",
+              "value": "no"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_AXIOM_KX91_OFFER_DIAGNOSTIC",
+    "condition": {
+      "and": [
+        {
+          "compare_string": [
+            "yes",
+            {
+              "u_val": "axiom_clearance_prototype"
+            }
+          ]
+        },
+        {
+          "not": {
+            "compare_string": [
+              "yes",
+              {
+                "u_val": "axiom_kx91_stage_diag"
+              }
+            ]
+          }
+        },
+        {
+          "not": {
+            "compare_string": [
+              "yes",
+              {
+                "npc_val": "axiom_kx91_diag_offered"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "effect": [
+      {
+        "offer_mission": "MISSION_AXIOM_KX91_DIAGNOSTIC"
+      },
+      {
+        "npc_add_var": "axiom_kx91_diag_offered",
+        "value": "yes"
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_AXIOM_KX91_OFFER_POWER",
+    "condition": {
+      "and": [
+        {
+          "compare_string": [
+            "yes",
+            {
+              "u_val": "axiom_kx91_stage_diag"
+            }
+          ]
+        },
+        {
+          "not": {
+            "compare_string": [
+              "yes",
+              {
+                "u_val": "axiom_kx91_stage_power"
+              }
+            ]
+          }
+        },
+        {
+          "not": {
+            "compare_string": [
+              "yes",
+              {
+                "npc_val": "axiom_kx91_power_offered"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "effect": [
+      {
+        "offer_mission": "MISSION_AXIOM_KX91_POWER"
+      },
+      {
+        "npc_add_var": "axiom_kx91_power_offered",
+        "value": "yes"
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_AXIOM_KX91_OFFER_NAV",
+    "condition": {
+      "and": [
+        {
+          "compare_string": [
+            "yes",
+            {
+              "u_val": "axiom_kx91_stage_power"
+            }
+          ]
+        },
+        {
+          "not": {
+            "compare_string": [
+              "yes",
+              {
+                "u_val": "axiom_kx91_stage_nav"
+              }
+            ]
+          }
+        },
+        {
+          "not": {
+            "compare_string": [
+              "yes",
+              {
+                "npc_val": "axiom_kx91_nav_offered"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "effect": [
+      {
+        "offer_mission": "MISSION_AXIOM_KX91_NAVIGATION"
+      },
+      {
+        "npc_add_var": "axiom_kx91_nav_offered",
+        "value": "yes"
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_AXIOM_KX91_OFFER_SECURITY",
+    "condition": {
+      "and": [
+        {
+          "compare_string": [
+            "yes",
+            {
+              "u_val": "axiom_kx91_stage_nav"
+            }
+          ]
+        },
+        {
+          "not": {
+            "compare_string": [
+              "yes",
+              {
+                "u_val": "axiom_kx91_stage_security"
+              }
+            ]
+          }
+        },
+        {
+          "not": {
+            "compare_string": [
+              "yes",
+              {
+                "npc_val": "axiom_kx91_security_offered"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "effect": [
+      {
+        "offer_mission": "MISSION_AXIOM_KX91_SECURITY_VALIDATION"
+      },
+      {
+        "npc_add_var": "axiom_kx91_security_offered",
+        "value": "yes"
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_AXIOM_KX91_OFFER_INTEGRATION",
+    "condition": {
+      "and": [
+        {
+          "compare_string": [
+            "yes",
+            {
+              "u_val": "axiom_kx91_stage_security"
+            }
+          ]
+        },
+        {
+          "not": {
+            "compare_string": [
+              "yes",
+              {
+                "u_val": "axiom_kx91_restored"
+              }
+            ]
+          }
+        },
+        {
+          "not": {
+            "compare_string": [
+              "yes",
+              {
+                "npc_val": "axiom_kx91_integration_offered"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "effect": [
+      {
+        "offer_mission": "MISSION_AXIOM_KX91_FINAL_INTEGRATION"
+      },
+      {
+        "npc_add_var": "axiom_kx91_integration_offered",
+        "value": "yes"
+      }
+    ]
+  },
+  {
+    "id": "MISSION_AXIOM_KX91_DIAGNOSTIC",
+    "type": "mission_definition",
+    "name": {
+      "str": "KX-91: cold diagnostic"
+    },
+    "description": "Use Nadia's service probe on the KX-91 flight deck and return with a clean diagnostic handshake.",
+    "goal": "MGOAL_CONDITION",
+    "goal_condition": {
+      "compare_string": [
+        "yes",
+        {
+          "u_val": "axiom_kx91_diag_scan"
+        }
+      ]
+    },
+    "difficulty": 3,
+    "value": 0,
+    "has_generic_rewards": false,
+    "start": {
+      "effect": [
+        {
+          "u_add_var": "axiom_kx91_service_authorized",
+          "value": "yes"
+        },
+        {
+          "u_add_var": "axiom_kx91_project_started",
+          "value": "yes"
+        },
+        {
+          "u_spawn_item": "axiom_kx91_diag_probe",
+          "suppress_message": true
+        }
+      ],
+      "update_mapgen": {
+        "om_terrain": "axiom_7_roof_s",
+        "om_special": "axiom_7_facility_v06",
+        "remove_vehicles": [
+          {
+            "vehicles": [
+              "axiom_kx91_dormant",
+              "axiom_kx91_powered",
+              "axiom_kx91_avionics",
+              "axiom_kx91_weapons_ready",
+              "axiom_combat_helicopter"
+            ],
+            "x": [
+              0,
+              23
+            ],
+            "y": [
+              0,
+              23
+            ]
+          }
+        ],
+        "place_vehicles": [
+          {
+            "vehicle": "axiom_kx91_dormant",
+            "x": 13,
+            "y": 12,
+            "rotation": 0,
+            "fuel": 0,
+            "status": 2,
+            "faction": "axiom_7"
+          }
+        ]
+      }
+    },
+    "end": {
+      "effect": [
+        {
+          "u_add_var": "axiom_kx91_stage_diag",
+          "value": "yes"
+        },
+        {
+          "u_add_var": "axiom_kx91_service_authorized",
+          "value": "no"
+        },
+        {
+          "u_consume_item": "axiom_kx91_diag_probe",
+          "count": 1,
+          "popup": false
+        }
+      ]
+    },
+    "origins": [
+      "ORIGIN_SECONDARY"
+    ],
+    "dialogue": {
+      "describe": "Wake KX-91 on the maintenance bus and collect a real fault picture.",
+      "offer": "I am done guessing from dead indicators. Take this service probe to the aircraft, stand on the flight deck, and run a maintenance handshake. It cannot grant flight control; it only wakes the diagnostic bus long enough to tell us what is actually broken.",
+      "accepted": "Good. The deck will treat you as service-authorized while the project is active. Do not improvise with the controls.",
+      "rejected": "Then KX-91 can continue being an extremely expensive roof ornament.",
+      "advice": "Use the probe on the KX-91 section of the flight deck. If you are not on the correct overmap tile, it will refuse the handshake.",
+      "inquire": "Did you get a clean maintenance handshake?",
+      "success": "Seven primary faults. Better than I expected, worse than I hoped. Most importantly, the airframe bus is coherent. KX-91 is repairable.",
+      "success_lie": "The probe records its own handshake. If it did not run, I know.",
+      "failure": "Then we go back to treating the aircraft as a sealed unknown."
+    },
+    "fail": {
+      "effect": [
+        {
+          "u_add_var": "axiom_kx91_service_authorized",
+          "value": "no"
+        },
+        {
+          "u_add_var": "axiom_kx91_operator_authorized",
+          "value": "no"
+        }
+      ]
+    }
+  },
+  {
+    "id": "MISSION_AXIOM_KX91_POWER",
+    "type": "mission_definition",
+    "name": {
+      "str": "KX-91: power spine"
+    },
+    "description": "Recover a high-load regulator from a surviving electrical substation and return it to Elias Chen.",
+    "goal": "MGOAL_FIND_ITEM",
+    "difficulty": 4,
+    "value": 0,
+    "has_generic_rewards": false,
+    "item": "axiom_kx91_power_regulator",
+    "start": {
+      "assign_mission_target": {
+        "om_terrain": "pwr_sub_s",
+        "om_terrain_match_type": "TYPE",
+        "reveal_radius": 1,
+        "min_distance": 8,
+        "z": 0
+      },
+      "update_mapgen": {
+        "place_item": [
+          {
+            "item": "axiom_kx91_power_regulator",
+            "x": 12,
+            "y": 14
+          }
+        ]
+      }
+    },
+    "end": {
+      "effect": [
+        {
+          "u_add_var": "axiom_kx91_stage_power",
+          "value": "yes"
+        },
+        {
+          "u_message": "AXIOM maintenance replaces the failed KX-91 regulator. Main storage batteries and the protected service bus are brought online.",
+          "type": "good"
+        },
+        {
+          "update_mapgen": {
+            "om_terrain": "axiom_7_roof_s",
+            "om_special": "axiom_7_facility_v06",
+            "remove_vehicles": [
+              {
+                "vehicles": [
+                  "axiom_kx91_dormant",
+                  "axiom_kx91_powered",
+                  "axiom_kx91_avionics",
+                  "axiom_kx91_weapons_ready",
+                  "axiom_combat_helicopter"
+                ],
+                "x": [
+                  0,
+                  23
+                ],
+                "y": [
+                  0,
+                  23
+                ]
+              }
+            ],
+            "place_vehicles": [
+              {
+                "vehicle": "axiom_kx91_powered",
+                "x": 13,
+                "y": 12,
+                "rotation": 0,
+                "fuel": 0,
+                "status": 2,
+                "faction": "axiom_7"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "origins": [
+      "ORIGIN_SECONDARY"
+    ],
+    "dialogue": {
+      "describe": "KX-91 needs a replacement regulator before we can energize the main distribution spine.",
+      "offer": "The aircraft did not lose its batteries first. It lost the regulator that decides how brutally they are allowed to feed the rest of the machine. A compatible industrial unit should still be sitting in one of the substations we surveyed. Bring me the regulator, not the whole cabinet.",
+      "accepted": "Substation marked. The regulator is a hardened module, roughly the size of a car battery, with ceramic bus lugs on both ends.",
+      "rejected": "Then I keep the aircraft on the safe bus and nothing expensive catches fire.",
+      "advice": "The substation floor is the target. Do not waste time stripping transformers; I need the control-side regulator.",
+      "inquire": "Do you have the high-load regulator?",
+      "success": "Good. Give me the afternoon. The main bus will wake in sections, not all at once. If you hear Nadia swearing, that means the test is proceeding normally.",
+      "success_lie": "That is not the regulator. It is heavy and electrical, which is not the same thing.",
+      "failure": "Then the KX stays on auxiliary power until we find another donor."
+    }
+  },
+  {
+    "id": "MISSION_AXIOM_KX91_NAVIGATION",
+    "type": "mission_definition",
+    "name": {
+      "str": "KX-91: reference solution"
+    },
+    "description": "Recover a hardened navigation reference archive from an abandoned radio site for Viktor Hale.",
+    "goal": "MGOAL_FIND_ITEM",
+    "difficulty": 4,
+    "value": 0,
+    "has_generic_rewards": false,
+    "item": "axiom_kx91_nav_archive",
+    "start": {
+      "assign_mission_target": {
+        "om_terrain": "radio_tower",
+        "om_terrain_match_type": "PREFIX",
+        "reveal_radius": 1,
+        "min_distance": 10,
+        "z": 0
+      },
+      "update_mapgen": {
+        "place_item": [
+          {
+            "item": "axiom_kx91_nav_archive",
+            "x": 12,
+            "y": 13
+          }
+        ]
+      }
+    },
+    "end": {
+      "effect": [
+        {
+          "u_add_var": "axiom_kx91_stage_nav",
+          "value": "yes"
+        },
+        {
+          "u_message": "Viktor rebuilds the KX-91 reference tables and Nadia brings the flight computers through a stable avionics boot.",
+          "type": "good"
+        },
+        {
+          "update_mapgen": {
+            "om_terrain": "axiom_7_roof_s",
+            "om_special": "axiom_7_facility_v06",
+            "remove_vehicles": [
+              {
+                "vehicles": [
+                  "axiom_kx91_dormant",
+                  "axiom_kx91_powered",
+                  "axiom_kx91_avionics",
+                  "axiom_kx91_weapons_ready",
+                  "axiom_combat_helicopter"
+                ],
+                "x": [
+                  0,
+                  23
+                ],
+                "y": [
+                  0,
+                  23
+                ]
+              }
+            ],
+            "place_vehicles": [
+              {
+                "vehicle": "axiom_kx91_avionics",
+                "x": 13,
+                "y": 12,
+                "rotation": 0,
+                "fuel": 0,
+                "status": 2,
+                "faction": "axiom_7"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "origins": [
+      "ORIGIN_SECONDARY"
+    ],
+    "dialogue": {
+      "describe": "Viktor needs a clean reference set before he will trust KX-91 navigation again.",
+      "offer": "The inertial unit can be calibrated now, but calibration without reference data only gives you a very precise way to be wrong. One of our old radio sites kept a hardened navigation archive for field aircraft. Recover it and I can rebuild the correlation tables.",
+      "accepted": "Radio site marked. Look near the control electronics, not the mast itself.",
+      "rejected": "Then Nadia keeps a map on her clipboard and the aircraft keeps pretending that counts as navigation.",
+      "advice": "The archive is a sealed processor module. Water damage outside the casing is acceptable; impact damage is not.",
+      "inquire": "Did the navigation archive survive?",
+      "success": "It did. Good. I can reconcile the inertial drift against known reference sets instead of inventing corrections from scratch.",
+      "success_lie": "No. This is not a navigation reference package.",
+      "failure": "Then the flight computer remains blind in a very sophisticated way."
+    }
+  },
+  {
+    "id": "MISSION_AXIOM_KX91_SECURITY_VALIDATION",
+    "type": "mission_definition",
+    "name": {
+      "str": "KX-91: fire-control validation"
+    },
+    "description": "Destroy Security's remote threat-simulation unit so Rhea can validate the KX-91 IFF and weapons authorization tables.",
+    "goal": "MGOAL_KILL_MONSTER",
+    "difficulty": 6,
+    "value": 0,
+    "has_generic_rewards": false,
+    "start": {
+      "assign_mission_target": {
+        "om_terrain": "field",
+        "om_terrain_match_type": "TYPE",
+        "reveal_radius": 1,
+        "min_distance": 10,
+        "z": 0
+      },
+      "update_mapgen": {
+        "place_monster": [
+          {
+            "monster": "mon_secubot",
+            "name": "AXIOM threat-simulation unit V-31",
+            "x": 12,
+            "y": 12,
+            "target": true,
+            "spawn_data": {
+              "ammo": [
+                {
+                  "ammo_id": "556",
+                  "qty": [
+                    40,
+                    60
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "end": {
+      "effect": [
+        {
+          "u_add_var": "axiom_kx91_stage_security",
+          "value": "yes"
+        },
+        {
+          "u_spawn_item": "grenade_emp",
+          "count": 2,
+          "suppress_message": true
+        },
+        {
+          "u_message": "Rhea signs off the KX-91 IFF and fire-control tables. Nadia reseals the weapon nodes and returns both pulse-laser mounts to the aircraft bus.",
+          "type": "good"
+        },
+        {
+          "update_mapgen": {
+            "om_terrain": "axiom_7_roof_s",
+            "om_special": "axiom_7_facility_v06",
+            "remove_vehicles": [
+              {
+                "vehicles": [
+                  "axiom_kx91_dormant",
+                  "axiom_kx91_powered",
+                  "axiom_kx91_avionics",
+                  "axiom_kx91_weapons_ready",
+                  "axiom_combat_helicopter"
+                ],
+                "x": [
+                  0,
+                  23
+                ],
+                "y": [
+                  0,
+                  23
+                ]
+              }
+            ],
+            "place_vehicles": [
+              {
+                "vehicle": "axiom_kx91_weapons_ready",
+                "x": 13,
+                "y": 12,
+                "rotation": 0,
+                "fuel": 0,
+                "status": 2,
+                "faction": "axiom_7"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "origins": [
+      "ORIGIN_SECONDARY"
+    ],
+    "dialogue": {
+      "describe": "Security wants a real hostile track before the KX-91 weapon bus is certified.",
+      "offer": "I have one remote threat-simulation unit left from the old range inventory. It is running an isolated hostile profile and a known transponder pattern. Destroy it. I will compare the engagement trace against KX-91's reconstructed IFF tables before I authorize the weapon nodes.",
+      "accepted": "Target is in open ground. Treat it as live; because it is.",
+      "rejected": "Then the lasers stay electrically isolated from the aircraft bus.",
+      "advice": "Same rules as any rifle UGV: break line of sight, force reacquisition, do not trade bursts with it.",
+      "inquire": "Is V-31 destroyed?",
+      "success": "Telemetry matches. No false friendlies, no dropped hostile track. I am signing the fire-control release.",
+      "success_lie": "The simulator is still transmitting. Try again.",
+      "failure": "Then I have no clean validation trace and the weapon nodes remain sealed."
+    }
+  },
+  {
+    "id": "MISSION_AXIOM_KX91_FINAL_INTEGRATION",
+    "type": "mission_definition",
+    "name": {
+      "str": "KX-91: final integration"
+    },
+    "description": "Bring Nadia the matched AXIOM components needed to close the restoration and perform the final ground run.",
+    "goal": "MGOAL_CONDITION",
+    "goal_condition": {
+      "and": [
+        {
+          "u_has_items": {
+            "item": "axiom_dense_cell",
+            "count": 2
+          }
+        },
+        {
+          "u_has_items": {
+            "item": "axiom_power_router",
+            "count": 2
+          }
+        },
+        {
+          "u_has_items": {
+            "item": "axiom_sensor_wafer",
+            "count": 2
+          }
+        },
+        {
+          "u_has_items": {
+            "item": "axiom_control_fiber",
+            "count": 2
+          }
+        },
+        {
+          "u_has_items": {
+            "item": "nanomaterial",
+            "count": 2
+          }
+        }
+      ]
+    },
+    "difficulty": 6,
+    "value": 0,
+    "has_generic_rewards": false,
+    "end": {
+      "effect": [
+        {
+          "u_consume_item": "axiom_dense_cell",
+          "count": 2,
+          "popup": false
+        },
+        {
+          "u_consume_item": "axiom_power_router",
+          "count": 2,
+          "popup": false
+        },
+        {
+          "u_consume_item": "axiom_sensor_wafer",
+          "count": 2,
+          "popup": false
+        },
+        {
+          "u_consume_item": "axiom_control_fiber",
+          "count": 2,
+          "popup": false
+        },
+        {
+          "u_consume_item": "nanomaterial",
+          "count": 2,
+          "popup": false
+        },
+        {
+          "u_add_var": "axiom_kx91_restored",
+          "value": "yes"
+        },
+        {
+          "u_add_var": "axiom_kx91_service_authorized",
+          "value": "no"
+        },
+        {
+          "u_message": "KX-91 completes a full-power ground cycle. Both turbines stabilize, the rotor system reports green, navigation locks, and the flight computer accepts the restored fire-control nodes. The aircraft is operational again.",
+          "type": "good",
+          "popup": true
+        },
+        {
+          "update_mapgen": {
+            "om_terrain": "axiom_7_roof_s",
+            "om_special": "axiom_7_facility_v06",
+            "remove_vehicles": [
+              {
+                "vehicles": [
+                  "axiom_kx91_dormant",
+                  "axiom_kx91_powered",
+                  "axiom_kx91_avionics",
+                  "axiom_kx91_weapons_ready",
+                  "axiom_combat_helicopter"
+                ],
+                "x": [
+                  0,
+                  23
+                ],
+                "y": [
+                  0,
+                  23
+                ]
+              }
+            ],
+            "place_vehicles": [
+              {
+                "vehicle": "axiom_combat_helicopter",
+                "x": 13,
+                "y": 12,
+                "rotation": 0,
+                "fuel": 25,
+                "status": 2,
+                "faction": "axiom_7"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "origins": [
+      "ORIGIN_SECONDARY"
+    ],
+    "dialogue": {
+      "describe": "The major systems are ready. Nadia needs matched AXIOM service stock for the final integration run.",
+      "offer": "Power is stable, navigation is coherent, and Rhea signed the weapon tables. What remains is the ugly part: replacing every temporary bridge we used to get here. Bring me two dense cells, two power routers, two sensor wafers, two control-fiber bundles, and two nanomaterial packs. Then we close the panels and find out whether KX-91 is an aircraft again.",
+      "accepted": "Matched parts only. This is not the stage where I reward creativity.",
+      "rejected": "Fine. The aircraft is safer half-finished than finished badly.",
+      "advice": "Mara and Elias can supply most of it if your stores are thin. Viktor can rework donor electronics into some of the AXIOM service parts.",
+      "inquire": "Do you have the matched integration stock?",
+      "success": "That is everything. Panels closed, buses clean, rotor green, both turbines stable. KX-91 is operational. It still belongs to AXIOM, but it is no longer a monument.",
+      "success_lie": "No. I need the entire matched set before I close this aircraft.",
+      "failure": "Then the final integration stays open and the turbines stay cold."
+    }
+  }
+]

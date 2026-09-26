@@ -1,0 +1,13 @@
+{
+  "type": "effect_on_condition",
+  "id": "EOC_START_SHIELD_UI",
+  "eoc_type": "EVENT",
+  "required_event": "game_start",
+  "effect": [
+    {
+      "math": [
+        "u_shield_ratio = -1"
+      ]
+    }
+  ]
+}

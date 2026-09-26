@@ -1,0 +1,1503 @@
+{
+  "project": "Aftershock_Prime",
+  "mod_id": "aftershock_prime",
+  "upstream_commit": "e262adb299a7613b4aedc5f12c08fe0413c56a84",
+  "target_build": "cdda_experimental_2026_09_23_0546",
+  "generated_utc": "2026-09-25T16:53:00.0370624Z",
+  "game_root": "/workspace/scratch/fcf908ca4d14/upstream/cdda/Cataclysm-DDA-e262adb299a7613b4aedc5f12c08fe0413c56a84",
+  "included_upstream_files": 284,
+  "excluded_upstream_files": 269,
+  "external_collision_records": 247,
+  "external_collisions_pruned": 247,
+  "external_collisions_kept_for_audit": 0,
+  "object_ids_present": 1689,
+  "verification_errors": [],
+  "verification_warnings": [],
+  "stack_warnings": [
+    "Installed Xedra Evolved contains a known duplicate EOC 'EOC_CONDITIONS_LILIN_DINOMOD_RUACH_DRAIN' in eoc_mod_overrides.json and mod_interactions/DinoMod/lilin_interactions.json. Prime will NOT modify Xedra; standalone Prime validation remains authoritative."
+  ],
+  "collision_prune_details": [
+    {
+      "file": "effects.json",
+      "type": "field_type",
+      "id": "fd_migo_atmosphere",
+      "action": "pruned"
+    },
+    {
+      "file": "emit.json",
+      "type": "emit",
+      "id": "emit_clairvoyant",
+      "action": "pruned"
+    },
+    {
+      "file": "field.json",
+      "type": "field_type",
+      "id": "fd_clairvoyant",
+      "action": "pruned"
+    },
+    {
+      "file": "flags.json",
+      "type": "monster_flag",
+      "id": "HIVE_MIND",
+      "action": "pruned"
+    },
+    {
+      "file": "martialarts.json",
+      "type": "martial_art",
+      "id": "style_eskrima",
+      "action": "pruned"
+    },
+    {
+      "file": "martialarts.json",
+      "type": "martial_art",
+      "id": "style_fencing",
+      "action": "pruned"
+    },
+    {
+      "file": "martialarts.json",
+      "type": "martial_art",
+      "id": "style_krav_maga",
+      "action": "pruned"
+    },
+    {
+      "file": "martialarts.json",
+      "type": "martial_art",
+      "id": "style_swordsmanship",
+      "action": "pruned"
+    },
+    {
+      "file": "martialarts.json",
+      "type": "martial_art",
+      "id": "style_ninjutsu",
+      "action": "pruned"
+    },
+    {
+      "file": "martialarts.json",
+      "type": "martial_art",
+      "id": "style_niten",
+      "action": "pruned"
+    },
+    {
+      "file": "martialarts.json",
+      "type": "martial_art",
+      "id": "style_silat",
+      "action": "pruned"
+    },
+    {
+      "file": "requirements.json",
+      "type": "requirement",
+      "id": "bone_edible",
+      "action": "pruned"
+    },
+    {
+      "file": "requirements.json",
+      "type": "requirement",
+      "id": "bone_sturdy",
+      "action": "pruned"
+    },
+    {
+      "file": "requirements.json",
+      "type": "requirement",
+      "id": "edible_fat",
+      "action": "pruned"
+    },
+    {
+      "file": "requirements.json",
+      "type": "requirement",
+      "id": "edible_tallow",
+      "action": "pruned"
+    },
+    {
+      "file": "requirements.json",
+      "type": "requirement",
+      "id": "any_butter",
+      "action": "pruned"
+    },
+    {
+      "file": "requirements.json",
+      "type": "requirement",
+      "id": "any_butter_or_oil",
+      "action": "pruned"
+    },
+    {
+      "file": "requirements.json",
+      "type": "requirement",
+      "id": "meat_offal",
+      "action": "pruned"
+    },
+    {
+      "file": "requirements.json",
+      "type": "requirement",
+      "id": "meat_raw_steak",
+      "action": "pruned"
+    },
+    {
+      "file": "requirements.json",
+      "type": "requirement",
+      "id": "meat_red_raw",
+      "action": "pruned"
+    },
+    {
+      "file": "requirements.json",
+      "type": "requirement",
+      "id": "meat_lung",
+      "action": "pruned"
+    },
+    {
+      "file": "requirements.json",
+      "type": "requirement",
+      "id": "meat_stomach_large",
+      "action": "pruned"
+    },
+    {
+      "file": "requirements.json",
+      "type": "requirement",
+      "id": "meat_stomach_small",
+      "action": "pruned"
+    },
+    {
+      "file": "requirements.json",
+      "type": "requirement",
+      "id": "meat_nofish",
+      "action": "pruned"
+    },
+    {
+      "file": "requirements.json",
+      "type": "requirement",
+      "id": "meat_cooked",
+      "action": "pruned"
+    },
+    {
+      "file": "requirements.json",
+      "type": "requirement",
+      "id": "human_meat",
+      "action": "pruned"
+    },
+    {
+      "file": "requirements.json",
+      "type": "requirement",
+      "id": "human_meat_cooked",
+      "action": "pruned"
+    },
+    {
+      "file": "ui.json",
+      "type": "widget",
+      "id": "legacy_classic_sidebar",
+      "action": "pruned"
+    },
+    {
+      "file": "ui.json",
+      "type": "widget",
+      "id": "legacy_compact_sidebar",
+      "action": "pruned"
+    },
+    {
+      "file": "ui.json",
+      "type": "widget",
+      "id": "legacy_labels_narrow_sidebar",
+      "action": "pruned"
+    },
+    {
+      "file": "ui.json",
+      "type": "widget",
+      "id": "legacy_labels_sidebar",
+      "action": "pruned"
+    },
+    {
+      "file": "ui.json",
+      "type": "widget",
+      "id": "structured_sidebar",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "THICKSKIN",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "SHOUT1",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "TOUGH_FEET",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "BADKNEES",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "VEGETARIAN",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "SMELLY",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "CLUMSY",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "SLOWRUNNER",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "HIRSUTE",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "LIGHTFUR",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "FUR",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "RUMINANT",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "GRAZER",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "DENSE_BONES",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "MUT_TOUGH",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "MUT_TOUGH2",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "MUT_TOUGH3",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "VERY_TALL",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "LARGE",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "LARGE_OK",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "HUGE",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "HUGE_OK",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "SMELLY2",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "SNOUT",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "HUNGER",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "MET_RAT",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "SLEEPY",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "THIRST",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "THIRST2",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "HERBIVORE",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "PONDEROUS1",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "PONDEROUS2",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "LEG_TENTACLES",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "CHEMIMBALANCE",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "POISRESIST",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "NIGHTVISION",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "PARAIMMUNE",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "SCHIZOPHRENIC",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "STR_UP",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "STR_UP_2",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "STR_UP_3",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "STR_UP_4",
+      "action": "pruned"
+    },
+    {
+      "file": "mutations/mutations.json",
+      "type": "mutation",
+      "id": "WINGS_STUB",
+      "action": "pruned"
+    },
+    {
+      "file": "faults/fault_group_electronics.json",
+      "type": "fault_group",
+      "id": "electronic_general",
+      "action": "pruned"
+    },
+    {
+      "file": "recipes/recipes_categories.json",
+      "type": "recipe_category",
+      "id": "CC_ELECTRONIC",
+      "action": "pruned"
+    },
+    {
+      "file": "recipes/recipes_categories.json",
+      "type": "recipe_category",
+      "id": "CC_PRACTICE",
+      "action": "pruned"
+    },
+    {
+      "file": "recipes/requirements.json",
+      "type": "requirement",
+      "id": "surface_heat",
+      "action": "pruned"
+    },
+    {
+      "file": "recipes/requirements.json",
+      "type": "requirement",
+      "id": "water_boiling_heat",
+      "action": "pruned"
+    },
+    {
+      "file": "recipes/requirements.json",
+      "type": "requirement",
+      "id": "welding_standard",
+      "action": "pruned"
+    },
+    {
+      "file": "recipes/requirements.json",
+      "type": "requirement",
+      "id": "welding_alloys",
+      "action": "pruned"
+    },
+    {
+      "file": "recipes/requirements.json",
+      "type": "requirement",
+      "id": "repair_welding_standard",
+      "action": "pruned"
+    },
+    {
+      "file": "recipes/requirements.json",
+      "type": "requirement",
+      "id": "repair_welding_lc_steel",
+      "action": "pruned"
+    },
+    {
+      "file": "recipes/requirements.json",
+      "type": "requirement",
+      "id": "repair_welding_alloys",
+      "action": "pruned"
+    },
+    {
+      "file": "recipes/requirements.json",
+      "type": "requirement",
+      "id": "repair_welding_rebar",
+      "action": "pruned"
+    },
+    {
+      "file": "items/afs_harvest.json",
+      "type": "harvest",
+      "id": "human",
+      "action": "pruned"
+    },
+    {
+      "file": "items/books.json",
+      "type": "ITEM",
+      "id": "recipe_augs",
+      "action": "pruned"
+    },
+    {
+      "file": "items/containers.json",
+      "type": "ITEM",
+      "id": "pressure_tank",
+      "action": "pruned"
+    },
+    {
+      "file": "items/currency.json",
+      "type": "ITEM",
+      "id": "money",
+      "action": "pruned"
+    },
+    {
+      "file": "items/currency.json",
+      "type": "ITEM",
+      "id": "cash_card",
+      "action": "pruned"
+    },
+    {
+      "file": "items/currency.json",
+      "type": "ITEM",
+      "id": "gold_small",
+      "action": "pruned"
+    },
+    {
+      "file": "items/esper_summons.json",
+      "type": "ITEM",
+      "id": "electrokinetic_electrohack_1",
+      "action": "pruned"
+    },
+    {
+      "file": "items/esper_summons.json",
+      "type": "ITEM",
+      "id": "electrokinetic_electrohack_2",
+      "action": "pruned"
+    },
+    {
+      "file": "items/esper_summons.json",
+      "type": "ITEM",
+      "id": "electrokinetic_electrohack_3",
+      "action": "pruned"
+    },
+    {
+      "file": "items/esper_summons.json",
+      "type": "ITEM",
+      "id": "electrokinetic_electrohack_4",
+      "action": "pruned"
+    },
+    {
+      "file": "items/esper_summons.json",
+      "type": "ITEM",
+      "id": "electrokinetic_electrohack_5",
+      "action": "pruned"
+    },
+    {
+      "file": "items/items.json",
+      "type": "ITEM",
+      "id": "nanomaterial",
+      "action": "pruned"
+    },
+    {
+      "file": "items/migration_items.json",
+      "type": "MIGRATION",
+      "id": "5x50dart",
+      "action": "pruned"
+    },
+    {
+      "file": "items/migration_items.json",
+      "type": "MIGRATION",
+      "id": "5x50heavy",
+      "action": "pruned"
+    },
+    {
+      "file": "items/migration_items.json",
+      "type": "MIGRATION",
+      "id": "reloaded_5x50dart",
+      "action": "pruned"
+    },
+    {
+      "file": "items/migration_items.json",
+      "type": "MIGRATION",
+      "id": "needlegun",
+      "action": "pruned"
+    },
+    {
+      "file": "items/migration_items.json",
+      "type": "MIGRATION",
+      "id": "needlepistol",
+      "action": "pruned"
+    },
+    {
+      "file": "items/migration_items.json",
+      "type": "MIGRATION",
+      "id": "5x50_hull",
+      "action": "pruned"
+    },
+    {
+      "file": "items/migration_items.json",
+      "type": "MIGRATION",
+      "id": "5x50_50_mag",
+      "action": "pruned"
+    },
+    {
+      "file": "items/migration_items.json",
+      "type": "MIGRATION",
+      "id": "5x50_100_mag",
+      "action": "pruned"
+    },
+    {
+      "file": "items/robotparts.json",
+      "type": "ITEM",
+      "id": "spidery_legs_big",
+      "action": "pruned"
+    },
+    {
+      "file": "items/seed.json",
+      "type": "ITEM",
+      "id": "seed_melon",
+      "action": "pruned"
+    },
+    {
+      "file": "items/tools.json",
+      "type": "ITEM",
+      "id": "g_shovel",
+      "action": "pruned"
+    },
+    {
+      "file": "items/tools.json",
+      "type": "ITEM",
+      "id": "shovel",
+      "action": "pruned"
+    },
+    {
+      "file": "items/tools.json",
+      "type": "ITEM",
+      "id": "shovel_snow",
+      "action": "pruned"
+    },
+    {
+      "file": "items/tools.json",
+      "type": "ITEM",
+      "id": "UPS_OFF",
+      "action": "pruned"
+    },
+    {
+      "file": "items/tools.json",
+      "type": "ITEM",
+      "id": "UPS_ON",
+      "action": "pruned"
+    },
+    {
+      "file": "items/tools.json",
+      "type": "ITEM",
+      "id": "syringe",
+      "action": "pruned"
+    },
+    {
+      "file": "items/weapons.json",
+      "type": "ITEM",
+      "id": "golf_club",
+      "action": "pruned"
+    },
+    {
+      "file": "items/armor/military_armor.json",
+      "type": "ITEM",
+      "id": "iotv_neck_plate",
+      "action": "pruned"
+    },
+    {
+      "file": "items/armor/pals_accesories.json",
+      "type": "ITEM",
+      "id": "belt_loop_large",
+      "action": "pruned"
+    },
+    {
+      "file": "items/ammo/shot.json",
+      "type": "ITEM",
+      "id": "shot_00",
+      "action": "pruned"
+    },
+    {
+      "file": "items/gunmods/laser_gunmods.json",
+      "type": "ITEM",
+      "id": "beam_scatterer",
+      "action": "pruned"
+    },
+    {
+      "file": "items/gunmods/laser_gunmods.json",
+      "type": "ITEM",
+      "id": "focusing_lens",
+      "action": "pruned"
+    },
+    {
+      "file": "items/gunmods/laser_gunmods.json",
+      "type": "ITEM",
+      "id": "electrolaser_conversion",
+      "action": "pruned"
+    },
+    {
+      "file": "items/gunmods/laser_gunmods.json",
+      "type": "ITEM",
+      "id": "effective_emitter",
+      "action": "pruned"
+    },
+    {
+      "file": "items/gunmods/laser_gunmods.json",
+      "type": "ITEM",
+      "id": "high_density_capacitor",
+      "action": "pruned"
+    },
+    {
+      "file": "items/gunmods/sling.json",
+      "type": "ITEM",
+      "id": "shoulder_strap_simple",
+      "action": "pruned"
+    },
+    {
+      "file": "items/gunmods/sling.json",
+      "type": "ITEM",
+      "id": "shoulder_strap",
+      "action": "pruned"
+    },
+    {
+      "file": "items/gunmods/sling.json",
+      "type": "ITEM",
+      "id": "shoulder_strap_front",
+      "action": "pruned"
+    },
+    {
+      "file": "items/comestibles/comestibles.json",
+      "type": "ITEM",
+      "id": "panacea",
+      "action": "pruned"
+    },
+    {
+      "file": "items/comestibles/flesh.json",
+      "type": "ITEM",
+      "id": "meat",
+      "action": "pruned"
+    },
+    {
+      "file": "items/comestibles/flesh.json",
+      "type": "ITEM",
+      "id": "jerky",
+      "action": "pruned"
+    },
+    {
+      "file": "items/comestibles/flesh.json",
+      "type": "ITEM",
+      "id": "fish",
+      "action": "pruned"
+    },
+    {
+      "file": "items/comestibles/flesh.json",
+      "type": "ITEM",
+      "id": "flesh_golem_heart",
+      "action": "pruned"
+    },
+    {
+      "file": "items/comestibles/veggies.json",
+      "type": "ITEM",
+      "id": "kelp_sugar",
+      "action": "pruned"
+    },
+    {
+      "file": "monsters/harvest.json",
+      "type": "item_group",
+      "id": "cyborg_harvest",
+      "action": "pruned"
+    },
+    {
+      "file": "monsters/robots.json",
+      "type": "MONSTER",
+      "id": "mon_hazmatbot",
+      "action": "pruned"
+    },
+    {
+      "file": "monsters/zombies.json",
+      "type": "MONSTER",
+      "id": "mon_zombie_brute_shocker",
+      "action": "pruned"
+    },
+    {
+      "file": "monsters/zombies.json",
+      "type": "MONSTER",
+      "id": "mon_zombie_electric",
+      "action": "pruned"
+    },
+    {
+      "file": "monsters/zombies.json",
+      "type": "MONSTER",
+      "id": "mon_zombie_nullfield",
+      "action": "pruned"
+    },
+    {
+      "file": "monsters/zombies.json",
+      "type": "MONSTER",
+      "id": "mon_skeleton_electric",
+      "action": "pruned"
+    },
+    {
+      "file": "monsters/monster_groups/monster_groups.json",
+      "type": "monstergroup",
+      "id": "GROUP_ZOMBIE",
+      "action": "pruned"
+    },
+    {
+      "file": "monsters/monster_groups/monster_groups.json",
+      "type": "monstergroup",
+      "id": "GROUP_MI-GO_BASE_COMMON",
+      "action": "pruned"
+    },
+    {
+      "file": "monsters/monster_groups/monster_groups.json",
+      "type": "monstergroup",
+      "id": "GROUP_MI-GO_BASE_BOSS",
+      "action": "pruned"
+    },
+    {
+      "file": "monsters/monster_groups/monster_groups.json",
+      "type": "monstergroup",
+      "id": "GROUP_FOREST",
+      "action": "pruned"
+    },
+    {
+      "file": "monsters/monster_groups/monster_groups.json",
+      "type": "monstergroup",
+      "id": "GROUP_CAVE",
+      "action": "pruned"
+    },
+    {
+      "file": "monsters/monster_groups/monster_groups.json",
+      "type": "monstergroup",
+      "id": "GROUP_PARK_SCENIC",
+      "action": "pruned"
+    },
+    {
+      "file": "monsters/monster_groups/monster_groups.json",
+      "type": "monstergroup",
+      "id": "GROUP_ZOMBIE_BRUTE",
+      "action": "pruned"
+    },
+    {
+      "file": "monsters/monster_groups/monster_groups.json",
+      "type": "monstergroup",
+      "id": "GROUP_SWAMP",
+      "action": "pruned"
+    },
+    {
+      "file": "maps/furniture_lab.json",
+      "type": "furniture",
+      "id": "f_autoclave",
+      "action": "pruned"
+    },
+    {
+      "file": "maps/furniture_lab.json",
+      "type": "furniture",
+      "id": "f_autoclave_full",
+      "action": "pruned"
+    },
+    {
+      "file": "maps/furniture_lab.json",
+      "type": "furniture",
+      "id": "f_sample_freezer",
+      "action": "pruned"
+    },
+    {
+      "file": "maps/furniture_lab.json",
+      "type": "furniture",
+      "id": "f_shaker",
+      "action": "pruned"
+    },
+    {
+      "file": "maps/furniture_lab.json",
+      "type": "furniture",
+      "id": "f_HPLC",
+      "action": "pruned"
+    },
+    {
+      "file": "maps/furniture_lab.json",
+      "type": "furniture",
+      "id": "f_GC",
+      "action": "pruned"
+    },
+    {
+      "file": "maps/furniture_lab.json",
+      "type": "furniture",
+      "id": "f_MS",
+      "action": "pruned"
+    },
+    {
+      "file": "maps/furniture_lab.json",
+      "type": "furniture",
+      "id": "f_NMR",
+      "action": "pruned"
+    },
+    {
+      "file": "maps/furniture_lab.json",
+      "type": "furniture",
+      "id": "f_centrifuge",
+      "action": "pruned"
+    },
+    {
+      "file": "maps/furniture.json",
+      "type": "furniture",
+      "id": "f_autodoc",
+      "action": "pruned"
+    },
+    {
+      "file": "maps/furniture_and_terrain/funiture_heavy_industry.json",
+      "type": "furniture",
+      "id": "f_robotic_arm",
+      "action": "pruned"
+    },
+    {
+      "file": "maps/furniture_and_terrain/furniture_habitat.json",
+      "type": "furniture",
+      "id": "f_metal_table",
+      "action": "pruned"
+    },
+    {
+      "file": "maps/furniture_and_terrain/terrain_manufactured.json",
+      "type": "terrain",
+      "id": "t_nanofab",
+      "action": "pruned"
+    },
+    {
+      "file": "maps/furniture_and_terrain/terrain.json",
+      "type": "terrain",
+      "id": "t_nuclear_reactor",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/bionics_groups.json",
+      "type": "item_group",
+      "id": "bionics",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/bionics_groups.json",
+      "type": "item_group",
+      "id": "bionics_common",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/bionics_groups.json",
+      "type": "item_group",
+      "id": "bionics_mil",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/bionics_groups.json",
+      "type": "item_group",
+      "id": "nanofab_recipes",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/clothing_group.json",
+      "type": "item_group",
+      "id": "mil_armor",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "chem_lab",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "camping_lighting_electric",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "drugdealer",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "kitchen",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "SUS_oven",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "newspaper",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "livingroom",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "bedroom",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "consumer_electronics",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "electronics",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "lab_dorm",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "subway",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "hardware",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "mechanics",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "hardware_bulk",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "mischw",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "book_military",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "textbooks",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "schematics",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "science",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "tools_medical",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "surgery",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "swat_gear",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "mil_armor",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "crate_sports",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "nanofab_recipes",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/item_groups.json",
+      "type": "item_group",
+      "id": "SUS_scuba_gear",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/scrap_expansion_groups.json",
+      "type": "item_group",
+      "id": "surgery",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/scrap_expansion_groups.json",
+      "type": "item_group",
+      "id": "supplies_metal",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/scrap_expansion_groups.json",
+      "type": "item_group",
+      "id": "mut_lab",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/scrap_expansion_groups.json",
+      "type": "item_group",
+      "id": "supplies_mechanics",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/scrap_expansion_groups.json",
+      "type": "item_group",
+      "id": "hospital_lab",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/scrap_expansion_groups.json",
+      "type": "item_group",
+      "id": "mischw",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/scrap_expansion_groups.json",
+      "type": "item_group",
+      "id": "science",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/scrap_expansion_groups.json",
+      "type": "item_group",
+      "id": "tools_robotics",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/scrap_expansion_groups.json",
+      "type": "item_group",
+      "id": "supplies_reagents_lab",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/titanium_groups.json",
+      "type": "item_group",
+      "id": "jewelry_accessories",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/titanium_groups.json",
+      "type": "item_group",
+      "id": "rings_and_things",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/titanium_groups.json",
+      "type": "item_group",
+      "id": "jewelry_back",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/titanium_groups.json",
+      "type": "item_group",
+      "id": "jewelry_front",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/titanium_groups.json",
+      "type": "item_group",
+      "id": "weapons",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/titanium_groups.json",
+      "type": "item_group",
+      "id": "allsporting",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/titanium_groups.json",
+      "type": "item_group",
+      "id": "sports",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/titanium_groups.json",
+      "type": "item_group",
+      "id": "college_sports",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/titanium_groups.json",
+      "type": "item_group",
+      "id": "supplies_mechanics",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/titanium_groups.json",
+      "type": "item_group",
+      "id": "bikeshop_tools",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/titanium_groups.json",
+      "type": "item_group",
+      "id": "steel_mill_foundry",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/titanium_groups.json",
+      "type": "item_group",
+      "id": "oa_ig_rd_metal_trash",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/titanium_groups.json",
+      "type": "item_group",
+      "id": "supplies_metal",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/titanium_groups.json",
+      "type": "item_group",
+      "id": "clothing_watch",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/titanium_groups.json",
+      "type": "item_group",
+      "id": "accessory_ring",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/titanium_groups.json",
+      "type": "item_group",
+      "id": "accessory_teeth",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/tool_groups.json",
+      "type": "item_group",
+      "id": "farming_tools",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/weapons/weapon_expansion_groups.json",
+      "type": "item_group",
+      "id": "guns_pistol_common",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/weapons/weapon_expansion_groups.json",
+      "type": "item_group",
+      "id": "guns_pistol_common_display",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/weapons/weapon_expansion_groups.json",
+      "type": "item_group",
+      "id": "guns_rifle_common_display",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/weapons/weapon_expansion_groups.json",
+      "type": "item_group",
+      "id": "guns_rifle_common",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/weapons/weapon_expansion_groups.json",
+      "type": "item_group",
+      "id": "guns_rifle_milspec",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/weapons/weapon_expansion_groups.json",
+      "type": "item_group",
+      "id": "guns_smg_milspec",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/weapons/weapon_expansion_groups.json",
+      "type": "item_group",
+      "id": "guns_pistol_milspec",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/weapons/weapon_expansion_groups.json",
+      "type": "item_group",
+      "id": "guns_shotgun_milspec",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/weapons/weapon_expansion_groups.json",
+      "type": "item_group",
+      "id": "mags_common",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/weapons/weapon_expansion_groups.json",
+      "type": "item_group",
+      "id": "ammo_pistol_milspec",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/weapons/weapon_expansion_groups.json",
+      "type": "item_group",
+      "id": "ammo_rifle_milspec",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/weapons/weapon_expansion_groups.json",
+      "type": "item_group",
+      "id": "ammo_shotgun_milspec",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/weapons/weapon_expansion_groups.json",
+      "type": "item_group",
+      "id": "ammo_casings_milspec",
+      "action": "pruned"
+    },
+    {
+      "file": "itemgroups/weapons/weapon_expansion_groups.json",
+      "type": "item_group",
+      "id": "ammo_casings",
+      "action": "pruned"
+    },
+    {
+      "file": "vehicles/vehicle_groups.json",
+      "type": "vehicle_group",
+      "id": "suburban_home",
+      "action": "pruned"
+    },
+    {
+      "file": "vehicles/vehicle_groups.json",
+      "type": "vehicle_group",
+      "id": "parkinglot",
+      "action": "pruned"
+    },
+    {
+      "file": "vehicles/vehicle_groups.json",
+      "type": "vehicle_group",
+      "id": "parkinglotbasic",
+      "action": "pruned"
+    },
+    {
+      "file": "vehicles/vehicle_groups.json",
+      "type": "vehicle_group",
+      "id": "parking_garage",
+      "action": "pruned"
+    },
+    {
+      "file": "vehicles/vehicle_groups.json",
+      "type": "vehicle_group",
+      "id": "junkyard_vehicles",
+      "action": "pruned"
+    },
+    {
+      "file": "vehicles/vehicle_groups.json",
+      "type": "vehicle_group",
+      "id": "oa_vg_cs_vehicles",
+      "action": "pruned"
+    },
+    {
+      "file": "vehicles/vehicle_groups.json",
+      "type": "vehicle_group",
+      "id": "city_vehicles",
+      "action": "pruned"
+    },
+    {
+      "file": "vehicles/vehicle_groups.json",
+      "type": "vehicle_group",
+      "id": "city_pileup",
+      "action": "pruned"
+    },
+    {
+      "file": "vehicles/vehicle_groups.json",
+      "type": "vehicle_group",
+      "id": "highway",
+      "action": "pruned"
+    },
+    {
+      "file": "vehicles/vehicle_groups.json",
+      "type": "vehicle_group",
+      "id": "city_vehicles",
+      "action": "pruned"
+    },
+    {
+      "file": "vehicles/vehicle_groups.json",
+      "type": "vehicle_group",
+      "id": "city_pileup",
+      "action": "pruned"
+    },
+    {
+      "file": "vehicles/vehicle_groups.json",
+      "type": "vehicle_group",
+      "id": "highway",
+      "action": "pruned"
+    },
+    {
+      "file": "vehicles/vehicle_groups.json",
+      "type": "vehicle_group",
+      "id": "military_vehicles",
+      "action": "pruned"
+    },
+    {
+      "file": "vehicles/vehicle_groups.json",
+      "type": "vehicle_group",
+      "id": "parkinglot",
+      "action": "pruned"
+    },
+    {
+      "file": "vehicles/vehicle_parts.json",
+      "type": "vehicle_part",
+      "id": "veh_tools_kitchen",
+      "action": "pruned"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "type": "furniture",
+    "id": "f_gene_editor",
+    "copy-from": "f_gene_editor",
+    "description": "A large bio-sarcophagus and accompanying control machinery.  Used in gene editing and for general medical purposes, it can impart or remove traits using genetic templates.  With Mind Over Matter loaded, a compatibility routine can clear the legacy Aftershock psionic lock applied by the gene-editing backend.",
+    "examine_action": [
+      "genemill",
+      {
+        "type": "effect_on_condition",
+        "name": "Restore psionic compatibility",
+        "effect_on_conditions": [ "EOC_AFSP_MOM_CLEAR_GENEMILL_HEADBLIND" ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_AFSP_MOM_CLEAR_GENEMILL_HEADBLIND",
+    "condition": { "u_has_trait": "CANNOT_GAIN_PSIONICS" },
+    "effect": [
+      { "u_lose_trait": "CANNOT_GAIN_PSIONICS" },
+      {
+        "u_message": "The resequencer clears the legacy psionic exclusion flag.  Mind Over Matter progression is no longer blocked by the genetic treatment.",
+        "type": "good"
+      }
+    ],
+    "false_effect": {
+      "u_message": "No psionic exclusion flag is currently present.",
+      "type": "info"
+    }
+  }
+]

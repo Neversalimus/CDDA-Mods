@@ -1,0 +1,81 @@
+[
+  {
+    "id": "space_anomaly",
+    "type": "ITEM",
+    "category": "veh_parts",
+    "name": {
+      "str": "stabilized portal"
+    },
+    "description": "As you gaze into the seemingly infinite depths of this portable hole in reality, a phrase from a time forever gone echoes in your mind.  \"There are two things that are infinite: the universe and human kleptomania.\"",
+    "weight": "22813 g",
+    "volume": "50 L",
+    "price": "15 kUSD",
+    "melee_damage": {
+      "bash": 2
+    },
+    "material": [
+      "steel",
+      "plastic"
+    ],
+    "symbol": "]",
+    "color": "cyan"
+  },
+  {
+    "id": "vehicle_shelving",
+    "type": "ITEM",
+    "name": {
+      "str": "vehicle shelving"
+    },
+    "description": "Several heavy frames retrofitted to be installed together which are outfitted with tie-downs and attachment points gallore for carrying an extended amount of cargo.",
+    "weight": "350000 g",
+    "color": "cyan",
+    "symbol": "]",
+    "material": [
+      "steel",
+      "plastic"
+    ],
+    "volume": "200 L",
+    "melee_damage": {
+      "bash": 2
+    },
+    "category": "veh_parts",
+    "price": "800 USD",
+    "price_postapoc": "10 USD"
+  },
+  {
+    "id": "afs_fridge",
+    "category": "veh_parts",
+    "type": "ITEM",
+    "name": {
+      "str": "vehicle refrigerator"
+    },
+    "description": "A household refrigerator with impressive capacity.  Its power connection has been refurbished, and it can be mounted onto a vehicle to draw from its power.",
+    "symbol": "{",
+    "color": "white",
+    "weight": "142882 g",
+    "volume": "300 L",
+    "price": "400 USD",
+    "price_postapoc": "100 USD",
+    "material": [
+      "steel"
+    ],
+    "melee_damage": {
+      "bash": 8
+    },
+    "flags": [
+      "DURABLE_MELEE"
+    ],
+    "looks_like": "minifridge"
+  },
+  {
+    "id": "afs_freezer",
+    "category": "veh_parts",
+    "type": "ITEM",
+    "name": {
+      "str": "vehicle freezer"
+    },
+    "copy-from": "afs_fridge",
+    "description": "This refurbished refrigerator has been stripped of much of its internal components and converted to run at a much lower temperature, causing it to serve as a freezer for more power.  Like its predecessor, it runs on vehicle power.",
+    "color": "light_blue"
+  }
+]

@@ -1,0 +1,85 @@
+[
+  {
+    "type": "item_group",
+    "id": "AXIOM_SERVICE_FULL_DENSE_CELL",
+    "subtype": "collection",
+    "entries": [
+      {
+        "item": "axiom_dense_cell",
+        "charges": 503
+      }
+    ]
+  },
+  {
+    "type": "item_group",
+    "id": "AXIOM_SERVICE_REQUISITION_CONTRACTOR",
+    "subtype": "collection",
+    "entries": [
+      {
+        "item": "axiom_dense_cell",
+        "charges": 503
+      },
+      {
+        "item": "axiom_power_router"
+      },
+      {
+        "item": "axiom_sensor_wafer"
+      },
+      {
+        "item": "axiom_control_fiber"
+      }
+    ]
+  },
+  {
+    "type": "item_group",
+    "id": "AXIOM_SERVICE_REQUISITION_SPECIALIST",
+    "subtype": "collection",
+    "entries": [
+      {
+        "item": "axiom_dense_cell",
+        "count": 2,
+        "charges": 503
+      },
+      {
+        "item": "nanomaterial",
+        "count": 2
+      },
+      {
+        "item": "grenade_emp"
+      }
+    ]
+  },
+  {
+    "type": "item_group",
+    "id": "AXIOM_SERVICE_REQUISITION_PROTOTYPE",
+    "subtype": "collection",
+    "entries": [
+      {
+        "item": "axiom_dense_cell",
+        "count": 2,
+        "charges": 503
+      },
+      {
+        "item": "nanomaterial",
+        "count": 2
+      },
+      {
+        "item": "grenade_emp"
+      },
+      {
+        "item": "bot_grenade_hack"
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_AXIOM_MARK_REQUISITION",
+    "effect": [
+      {
+        "math": [
+          "u_timer_axiom_requisition = time('now')"
+        ]
+      }
+    ]
+  }
+]

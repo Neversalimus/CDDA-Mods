@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "files": [
+    {
+      "file": "AXIOM_7_v0.8.2.3_UNIVERSAL_AUTO_INSTALLER.zip",
+      "sha256": "d9f5a5fd6d873d10486cfb8be8edd2737f7b7f765d44617f5b391cdf44f02750",
+      "selection": "initial"
+    },
+    {
+      "file": "Aftershock_Prime_v0.1_Hotfix13d_Installer_v1.0.zip",
+      "sha256": "55f45d9c76285977df54760ce36a5958fa3be316aee3219b1fce1c0efc682e5d",
+      "selection": "initial"
+    },
+    {
+      "file": "Blazemod_Revival_v0.5.5_UniversalAutoInstaller.zip",
+      "sha256": "21e18d82c8d1e87acf1cf0dc1ea5a5ad1f9be531e3025309fa4bff2e66e77ccc",
+      "selection": "initial"
+    },
+    {
+      "file": "Secronom_Complete_Universal_AutoInstaller_v2.0_Builder.zip",
+      "sha256": "2758f71d3b9a88447fbe754546b7cd187baa4bca6fa8f3092a53c41f2c0782fd",
+      "selection": "initial"
+    },
+    {
+      "file": "Tankmod_Revived_2026_Fix4_CleanArrays.ps1",
+      "sha256": "314330bf698b7c4434bbfb3e37c52be2ae9b64e759d82924c9f22e03f3eb0cc5",
+      "selection": "initial"
+    },
+    {
+      "file": "UndeadPeople_Hybrid_v3_FULL_All_Patches_AutoInstaller.zip",
+      "sha256": "07c4afd38842cd28fb44939e3acc3db7ad3e3e078ef0358cb63bcb0e8c24ae6a",
+      "selection": "initial"
+    },
+    {
+      "file": "AXIOM_7_v0.8.2.7_FULL_RUNTIME_AUDIT.zip",
+      "sha256": "fd3d8b0606e65a9532242e202e99c1f2c371b0075585670bc8b5f457afafd7aa",
+      "selection": "current-2026-09-26"
+    },
+    {
+      "file": "Aftershock_Prime_v0.1_Hotfix14a_Installer_v1.1.1.zip",
+      "sha256": "8e7b5e39b26622effdc7a35438ff71e2910968dcae83ee6ba49f5422eb8e6752",
+      "selection": "current-2026-09-26"
+    },
+    {
+      "file": "NCMM_SURVIVOR_0910_CLEAN_v13.zip",
+      "sha256": "8bf5f849c7f1b8e4a0efdd98797747bcc9872d7538dcf6c506c0b533e901fa56",
+      "selection": "current-2026-09-26"
+    }
+  ]
+}

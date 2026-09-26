@@ -1,0 +1,25 @@
+[
+  {
+    "type": "monstergroup",
+    "id": "GROUP_ROBOT",
+    "monsters": [
+      { "monster": "mon_utilibot_hostile", "weight": 3, "cost_multiplier": 1 },
+      { "monster": "mon_skitterbot_hunter", "weight": 2, "cost_multiplier": 1 },
+      { "monster": "mon_bloodhound_drone", "weight": 1, "cost_multiplier": 1 },
+      { "monster": "mon_medibot", "weight": 1, "cost_multiplier": 1 },
+      { "monster": "mon_afs_copbot", "weight": 1, "cost_multiplier": 1 },
+      { "monster": "mon_afs_riotbot", "weight": 1, "cost_multiplier": 1 },
+      { "monster": "mon_wraitheon_imaginifer", "weight": 1, "cost_multiplier": 1, "starts": "180 days" },
+      { "monster": "mon_tankbot", "weight": 1, "cost_multiplier": 1, "starts": "270 days" }
+    ]
+  },
+  {
+    "type": "monstergroup",
+    "id": "GROUP_LAB",
+    "monsters": [
+      { "monster": "mon_medibot", "weight": 1, "cost_multiplier": 1 },
+      { "monster": "mon_utilibot_hostile", "weight": 1, "cost_multiplier": 1 },
+      { "monster": "mon_skitterbot_rat", "weight": 1, "cost_multiplier": 1 }
+    ]
+  }
+]

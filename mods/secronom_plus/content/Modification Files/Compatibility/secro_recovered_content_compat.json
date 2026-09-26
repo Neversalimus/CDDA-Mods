@@ -1,0 +1,37 @@
+[
+  {
+    "id": "mon_sflesh_hatchery_amalgam",
+    "copy-from": "mon_sflesh_fleshling_ravagy",
+    "type": "MONSTER"
+  },
+  {
+    "id": "secro_power_armor_flesh_created_gun_bonerifle",
+    "copy-from": "gun_base_rifle_semi",
+    "type": "ITEM",
+    "subtypes": [ "GUN" ],
+    "name": { "str": "<color_light_blue>gunner creation</color> - bone rifle" },
+    "description": "A recovered Secronom bio-organic rifle design.  It launches needle-like bone projectiles through a tendon-driven chamber.",
+    "price": "0 cent",
+    "price_postapoc": "0 cent",
+    "symbol": "(",
+    "color": "red",
+    "material": [ "flesh", "bone" ],
+    "weight": "2830 g",
+    "volume": "4325 ml",
+    "melee_damage": { "bash": 10 },
+    "ammo": [ "secro_flesh_boneneedle" ],
+    "range": 15,
+    "ranged_damage": { "damage_type": "stab", "amount": 18 },
+    "dispersion": 150,
+    "durability": 10,
+    "reload": 75,
+    "flags": [ "TRADER_AVOID", "NEVER_JAMS", "NON_FOULING", "NO_UNLOAD" ],
+    "pocket_data": [
+      {
+        "pocket_type": "MAGAZINE",
+        "rigid": true,
+        "ammo_restriction": { "secro_flesh_boneneedle": 8 }
+      }
+    ]
+  }
+]

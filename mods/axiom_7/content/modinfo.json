@@ -1,0 +1,16 @@
+[
+  {
+    "type": "MOD_INFO",
+    "id": "axiom_7",
+    "name": "AXIOM-7",
+    "authors": [
+      "Neversalimus"
+    ],
+    "description": "AXIOM-7 v0.8.2.7: full runtime audit pass for cdda_experimental_2026_09_23_0546. Fixes the final stale KX mission-item tile reference and upgrades the universal installer with the game's native --check-mods C++ loader gate plus safer out-of-mods transactional staging/rollback.",
+    "category": "content",
+    "dependencies": [
+      "dda"
+    ],
+    "version": "0.8.2.7"
+  }
+]

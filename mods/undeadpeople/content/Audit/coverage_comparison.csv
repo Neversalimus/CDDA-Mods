@@ -1,0 +1,9 @@
+﻿category,total,fully_covered_v2,fully_covered_v3,recovered_types,missing_v3,partial_v3
+field,208,108,108,0,100,0
+furniture,787,680,731,51,56,0
+item,12425,10318,10568,250,1853,4
+monster,1595,1288,1295,7,300,0
+overmap,7159,4508,5718,1210,1441,0
+terrain,1327,1264,1270,6,57,0
+trap,158,52,55,3,103,0
+vehicle,498,418,456,38,42,0

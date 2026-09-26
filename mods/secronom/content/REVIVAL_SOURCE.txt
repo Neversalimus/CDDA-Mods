@@ -1,0 +1,23 @@
+Secronom Revival compatibility pass v1.1
+Upstream: https://github.com/Erin105/Secronom-Zombies
+Pinned commit: 150a75d1346fbcbf545cb22a4c9d672c0f483e9b
+Target build hint: 
+Lore Expansion: NOT installed
+Patch 001: Rebuilt obsolete region_overlay from the target build's vanilla map-extra collections (no self-copy circular dependencies).
+Patch 002: Dropped legacy zero-weight map-extra entries (vector/fleshweaver).
+Patch 003: Converted legacy ammo_effect aoe/trail single objects to modern arrays.
+Patch 004: Replaced flesh-wildlife inherited species with SFLESH directly and removed stale flag deletes.
+Patch 005: Replaced removed vanilla mapgen item groups pasta/pet_food/groce_cereal with modern ids.
+Patch 006: Replaced removed firearm bases rifle_base/rifle_auto/rifle_semi with modern gun_base_rifle_* classes.
+Patch 007: Renamed monster melee body_parts targeting to body_part_types.
+Patch 008: Converted legacy map-extra autonote=true to autonote_visibility=same_tile.
+Patch 009: Converted legacy transform active=true behavior to SPAWN_ACTIVE on the target grenade items.
+Patch 010: Removed obsolete undefined SMOKABLE flag (modern CDDA uses smoking_result).
+Patch 011: Moved all Revival backups outside data\mods so CDDA no longer loads duplicate modinfo.json files.
+Patch 012: Cleared generated game-data cache before validation so patched JSON is never reported as stale.
+Patch 013: Modernized translation objects: identical str/str_pl -> str_sp and explicit plurals for names CDDA cannot autogenerate.
+Patch 014: Run an isolated preflight validator, use its exact text-style diagnostics to patch only flagged source lines, then validate again.
+Patch 015: Clear generated game-data cache between preflight and final validation.
+Patch 016: Run final --check-mods with an isolated user directory and capture fresh debug.log/crash.log.
+Patch 017: Use a PowerShell 5.1-safe top-level JSON-array serializer and verify array roots before validation.
+Legacy region overlay preserved as region_overlay.legacy.txt (not loaded by CDDA).

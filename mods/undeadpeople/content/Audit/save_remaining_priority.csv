@@ -1,0 +1,225 @@
+﻿category,id,name,saved_count,near_player_count,origin,status_v1,status_v2,status_v3,priority_note
+item,tube_welding_rod,welding rod tube,250,18,dda,missing,missing,missing,physical/other; inspect in context
+item,seat_bench,bench seat,297,2,dda,missing,missing,missing,physical/other; inspect in context
+item,emery_board,emery board,63,2,dda,missing,missing,missing,physical/other; inspect in context
+item,steroid_eyedrops,steroid eyedrops,22,2,dda,missing,missing,missing,physical/other; inspect in context
+item,ruler,ruler,13,2,dda,missing,missing,missing,physical/other; inspect in context
+item,liq_bandage,liquid bandage,11,2,dda,missing,missing,missing,physical/other; inspect in context
+item,small_squeeze_tube,small glue squeeze tube,122,1,dda,missing,missing,missing,physical/other; inspect in context
+item,hair_dye_black,black hair dye,78,1,dda,missing,missing,missing,physical/other; inspect in context
+item,compressor,compressor,56,1,dda,missing,missing,missing,physical/other; inspect in context
+item,bench_vise,bench vise,43,1,dda,missing,missing,missing,physical/other; inspect in context
+item,retool_ar15_223rem_medium,carbine .223 upper receiver,26,1,dda,missing,missing,missing,physical/other; inspect in context
+item,sharpener,pencil sharpener,12,1,dda,missing,missing,missing,physical/other; inspect in context
+item,silver_anklet,silver anklet,9,1,dda,missing,missing,missing,physical/other; inspect in context
+item,veh_tools_workshop,workshop station,8,1,dda,missing,missing,missing,physical/other; inspect in context
+item,drift,punch & drift set,6,1,dda,missing,missing,missing,physical/other; inspect in context
+item,silicone,silicone caulk,5,1,dda,missing,missing,missing,physical/other; inspect in context
+item,mp1522_mag,.22 10-round modern varmint rifle magazine,2,1,dda,missing,missing,missing,physical/other; inspect in context
+item,410shot_slug,.410 slug,2,1,dda,missing,missing,missing,physical/other; inspect in context
+item,retool_mdrx_223rem,MDRX .223 extended-assembly,1,1,dda,missing,missing,missing,physical/other; inspect in context
+item,offset_grip,offset grip,1,1,dda,missing,missing,missing,physical/other; inspect in context
+item,retool_mdrx_308win_medium,MDRX .308 standard-assembly,1,1,dda,missing,missing,missing,physical/other; inspect in context
+item,retool_ump_9,UMP 9x19mm conversion kit,1,1,dda,missing,missing,missing,physical/other; inspect in context
+vehicle,medium_pressure_tank,,1,1,dda,missing,missing,missing,physical/other; inspect in context
+item,material_styrofoam_chunk,chunk of styrofoam,611,0,dda,missing,missing,missing,physical/other; inspect in context
+terrain,t_canvas_roof,canvas roof,540,0,dda,missing,missing,missing,physical/other; inspect in context
+terrain,t_grass_alien_2,alien grass,539,0,mindovermatter,missing,missing,missing,physical/other; inspect in context
+terrain,t_vines_alien_1,alien vines,333,0,mindovermatter,missing,missing,missing,physical/other; inspect in context
+item,tape_measure,tape measure,274,0,dda,missing,missing,missing,physical/other; inspect in context
+item,white_phosphorous,white phosphorous powder,212,0,dda,missing,missing,missing,physical/other; inspect in context
+terrain,t_grass_alien_3,alien grass,140,0,mindovermatter,missing,missing,missing,physical/other; inspect in context
+terrain,t_moss_alien_2,alien moss,96,0,mindovermatter,missing,missing,missing,physical/other; inspect in context
+item,pea,pea,84,0,dda,missing,missing,missing,physical/other; inspect in context
+item,hair_dye_blond,blond hair dye,76,0,dda,missing,missing,missing,physical/other; inspect in context
+item,nic_pouch,nicotine pouch,62,0,dda,missing,missing,missing,physical/other; inspect in context
+item,hair_dye_white,white hair dye,61,0,dda,missing,missing,missing,physical/other; inspect in context
+terrain,t_moss_alien_1,alien moss,60,0,mindovermatter,missing,missing,missing,physical/other; inspect in context
+item,hair_dye_brown,brown hair dye,58,0,dda,missing,missing,missing,physical/other; inspect in context
+item,gastropod_purged,purged gastropods,53,0,dda,missing,missing,missing,physical/other; inspect in context
+item,robofac_basic_mantle,Hub 01 prototype mantle,53,0,dda,missing,missing,missing,physical/other; inspect in context
+item,robofac_basic_skirt,Hub 01 prototype skirt,53,0,dda,missing,missing,missing,physical/other; inspect in context
+item,tiramisu,tiramisù,48,0,dda,missing,missing,missing,physical/other; inspect in context
+item,door_lock,door lock set,47,0,dda,missing,missing,missing,physical/other; inspect in context
+vehicle,door_lock,,47,0,dda,missing,missing,missing,physical/other; inspect in context
+item,thread_cutting_set,thread cutting set,46,0,dda,missing,missing,missing,physical/other; inspect in context
+item,tuna_noodle_casserole,piece of fish noodle casserole,44,0,dda,missing,missing,missing,physical/other; inspect in context
+trap,tr_dormant_corpse,dormant zombie corpse,43,0,dda,missing,missing,missing,physical/other; inspect in context
+item,snowcone,snow cone,41,0,dda,missing,missing,missing,physical/other; inspect in context
+item,hot_corn_casserole,piece of hot corn casserole,40,0,dda,missing,missing,missing,physical/other; inspect in context
+item,hair_dye_gray,gray hair dye,40,0,dda,missing,missing,missing,physical/other; inspect in context
+item,pin_badge,pin,39,0,dda,partial,partial,partial,physical/other; inspect in context
+item,teargas_spray,tear gas spray,39,0,dda,missing,missing,missing,physical/other; inspect in context
+item,microscope_slide,microscope slide,37,0,dda,missing,missing,missing,physical/other; inspect in context
+item,dog_tag_dog,dog tag,34,0,dda,missing,missing,missing,physical/other; inspect in context
+item,hair_dye_green,green hair dye,32,0,dda,missing,missing,missing,physical/other; inspect in context
+item,hair_dye_blue,blue hair dye,31,0,dda,missing,missing,missing,physical/other; inspect in context
+item,raw_artichoke,raw artichoke,28,0,dda,missing,missing,missing,physical/other; inspect in context
+item,raw_asparagus,raw asparagus,27,0,dda,missing,missing,missing,physical/other; inspect in context
+item,lobster,chunk of lobster meat,26,0,dda,missing,missing,missing,physical/other; inspect in context
+item,hair_dye_red,red hair dye,25,0,dda,missing,missing,missing,physical/other; inspect in context
+item,yogurt_starter_culture,yogurt starter culture,24,0,dda,missing,missing,missing,physical/other; inspect in context
+item,cheesy_spinach_casserole,piece of cheesy spinach casserole,24,0,dda,missing,missing,missing,physical/other; inspect in context
+item,hair_dye_pink,pink hair dye,24,0,dda,missing,missing,missing,physical/other; inspect in context
+item,cauliflower_head,cauliflower head,22,0,dda,missing,missing,missing,physical/other; inspect in context
+item,welding_blanket,welding blanket,21,0,dda,missing,missing,missing,physical/other; inspect in context
+item,kale_head,kale head,21,0,dda,missing,missing,missing,physical/other; inspect in context
+trap,tr_spider,trapdoor spiderden,21,0,dda,missing,missing,missing,physical/other; inspect in context
+item,mollusk,fillet of mollusk,20,0,dda,missing,missing,missing,physical/other; inspect in context
+item,mercury,mercury,15,0,dda,missing,missing,missing,physical/other; inspect in context
+item,marshmallow_fluff,marshmallow fluff,14,0,dda,missing,missing,missing,physical/other; inspect in context
+item,chem_sodium,sodium,14,0,dda,missing,missing,missing,physical/other; inspect in context
+item,tire_repair_kit,tire repair kit,14,0,dda,missing,missing,missing,physical/other; inspect in context
+item,pea_pods,pea pods,13,0,dda,missing,missing,missing,physical/other; inspect in context
+item,silver_toe_ring,silver toe ring,12,0,dda,missing,missing,missing,physical/other; inspect in context
+item,hydrogen,hydrogen,12,0,dda,missing,missing,missing,physical/other; inspect in context
+item,shoulder_strap_simple,two point sling,12,0,dda,missing,missing,missing,physical/other; inspect in context
+item,exodii_ingot_lead,enormous lead ingot,11,0,dda,missing,missing,missing,physical/other; inspect in context
+item,wheel_rim_medium,medium steel rim,11,0,dda,missing,missing,missing,physical/other; inspect in context
+item,five-point_harness,5-point harness,11,0,dda,missing,missing,missing,physical/other; inspect in context
+item,serum_speed,"51x-""Landru""",10,0,dda,missing,missing,missing,physical/other; inspect in context
+item,nose_plate,nose plate,10,0,dda,missing,missing,missing,physical/other; inspect in context
+item,ketene_lamp,ketene lamp,9,0,dda,missing,missing,missing,physical/other; inspect in context
+item,salsa,salsa,9,0,dda,missing,missing,missing,physical/other; inspect in context
+item,gold_toe_ring,gold toe ring,9,0,dda,missing,missing,missing,physical/other; inspect in context
+item,nitrogen,nitrogen,9,0,dda,missing,missing,missing,physical/other; inspect in context
+item,chem_potassium,potassium,9,0,dda,missing,missing,missing,physical/other; inspect in context
+item,exodii_ingot_zinc,enormous zinc ingot,8,0,dda,missing,missing,missing,physical/other; inspect in context
+item,camphine,camphine,8,0,dda,missing,missing,missing,physical/other; inspect in context
+item,retool_ar15_223rem,mid-length .223 upper receiver,7,0,dda,missing,missing,missing,physical/other; inspect in context
+item,belt_grinder,belt grinder,7,0,dda,missing,missing,missing,physical/other; inspect in context
+item,ref_lighter_butane,refillable butane lighter,7,0,dda,missing,missing,missing,physical/other; inspect in context
+item,chem_ferric_chloride,ferric chloride powder,7,0,dda,missing,missing,missing,physical/other; inspect in context
+item,chem_calcium_chloride,calcium chloride,7,0,dda,missing,missing,missing,physical/other; inspect in context
+terrain,t_nether_glass_wall,black glass,7,0,dda,missing,missing,missing,physical/other; inspect in context
+item,engineering_engine_kit,Stirling engine kit,6,0,dda,missing,missing,missing,physical/other; inspect in context
+item,exodii_ingot_tin,enormous tin ingot,6,0,dda,missing,missing,missing,physical/other; inspect in context
+item,wheel_rim_motorbike,steel motorbike rim,6,0,dda,missing,missing,missing,physical/other; inspect in context
+item,throat_guard_cut_resistant,cut-resistant throat guard,6,0,dda,missing,missing,missing,physical/other; inspect in context
+item,gun_lock,gun cable lock,6,0,dda,missing,missing,missing,physical/other; inspect in context
+item,emf_detector,EMF detector (off),5,0,dda,missing,missing,missing,physical/other; inspect in context
+item,woven_anklet,woven anklet,5,0,dda,missing,missing,missing,physical/other; inspect in context
+item,gas_forge,gas forge,5,0,dda,missing,missing,missing,physical/other; inspect in context
+item,bat_anklet,bat charm anklet,5,0,dda,missing,missing,missing,physical/other; inspect in context
+item,robofac40,HWP 40-round 5.56 magazine,5,0,dda,missing,missing,missing,physical/other; inspect in context
+item,robofac60,HWP 60-round 9mm helical magazine,5,0,dda,missing,missing,missing,physical/other; inspect in context
+item,robofacmultimag,HWP 50-round 5.7 magazine,5,0,dda,missing,missing,missing,physical/other; inspect in context
+item,pedal_extenders,pedal extenders,5,0,dda,missing,missing,missing,physical/other; inspect in context
+vehicle,pedal_extenders,,5,0,dda,missing,missing,missing,physical/other; inspect in context
+item,1911_22,.22 1911 pistol,4,0,dda,missing,missing,missing,physical/other; inspect in context
+item,flower_anklet,flower charm anklet,4,0,dda,missing,missing,missing,physical/other; inspect in context
+item,exodii_ingot_copper,enormous copper ingot,4,0,dda,missing,missing,missing,physical/other; inspect in context
+item,scrap_cast_iron,scrap cast iron,4,0,dda,missing,missing,missing,physical/other; inspect in context
+item,rock_wool_bat,fiber insulation batt,4,0,dda,missing,missing,missing,physical/other; inspect in context
+item,eod_plate,EOD fragmentation plate,4,0,dda,missing,missing,missing,physical/other; inspect in context
+item,fried_mozzarella_sticks,fried mozzarella sticks,4,0,dda,missing,missing,missing,physical/other; inspect in context
+item,lazy_lobster_casserole,lazy lobster casserole,4,0,dda,missing,missing,missing,physical/other; inspect in context
+vehicle,metal_tray,metal tray,4,0,dda,missing,missing,missing,physical/other; inspect in context
+item,wood_barnacle,wood barnacle,3,0,magiclysm,missing,missing,missing,physical/other; inspect in context
+item,gold_nose_ring_stud,gold nose ring stud,3,0,dda,missing,missing,missing,physical/other; inspect in context
+item,psionic_charge_power,matrix charge,3,0,mindovermatter,missing,missing,missing,physical/other; inspect in context
+item,mana_leech_shackle_unlocked,inert mana-leech shackle,3,0,magiclysm,missing,missing,missing,physical/other; inspect in context
+item,electric_masonrysaw_off,electric masonry saw (off),3,0,dda,missing,missing,missing,physical/other; inspect in context
+item,sculpture_rock,stone sculpture,3,0,dda,missing,missing,missing,physical/other; inspect in context
+item,triffid_spellbook,chunk of plant matter,3,0,magiclysm,missing,missing,missing,physical/other; inspect in context
+item,military_poncho_liner,military poncho liner,3,0,dda,missing,missing,missing,physical/other; inspect in context
+item,retool_ar15_223rem_short,CQB .223 upper receiver,3,0,dda,missing,missing,missing,physical/other; inspect in context
+item,gold_anklet,gold anklet,3,0,dda,missing,missing,missing,physical/other; inspect in context
+item,crutches,crutches (pair),3,0,dda,missing,missing,missing,physical/other; inspect in context
+item,material_styrofoam_sheet,styrofoam sheet,3,0,dda,missing,missing,missing,physical/other; inspect in context
+furniture,f_exam_chair,exam chair,3,0,dda,missing,missing,missing,physical/other; inspect in context
+item,hijab,hijab,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,hammer_fey_smith,fey smith's hammer,2,0,xedra_evolved,missing,missing,missing,physical/other; inspect in context
+item,exodii_ingot_lc_steel,enormous steel ingot,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,exodii_wire_kit,CBM interface wire kit,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,lc_steel_bar_round,low steel bar stock,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,sandwich_reuben,reuben sandwich,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,outsert_clear,clear outsert lens,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,oven_cabinet,stripped oven cabinet,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,oven_controls,oven control panel,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,oven_door,oven door,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,oven_broiler_pan,broiler pan,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,shed_snakeskin_little,shed snakeskin,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,ludo,Ludo,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,small_chess,compact chess set,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,chem_antimony_trichloride,antimony trichloride powder,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,mipim,army flashlight-laser module,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,seed_pea,pea seeds,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,robofac_gun_40mm_10rd,FSP 10-round 40x46 magazine,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,robofac_gun_40mm_5rd,FSP 5-round 40x46 magazine,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,robofac_gun_40mm_3rd,FSP 3-round 40x46 magazine,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,go,go set,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,truckstop_viagra,horny rhino pill,2,0,xedra_evolved,missing,missing,missing,physical/other; inspect in context
+item,priest_collar,clerical collar,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,50beowulf_ar15mag,.50 Beowulf 10-round conversion magazine,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,engineering_makerspace_kit,makerspace kit for STEM,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,engineering_robotics_kit,robotics kit for young learners,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,counterweight,counterweight,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,mesh_nape_protector,mesh nape protector,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,anvil_crude,small anvil,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,powered_earplugs,shooter's ear plugs,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,aluminum_bar_round,aluminum bar stock,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,jigsaw,Jigsaw puzzle,2,0,dda,missing,missing,missing,physical/other; inspect in context
+trap,tr_dermatik,burrowed dermatik,2,0,dda,missing,missing,missing,physical/other; inspect in context
+item,moly_tuber,moly tuber,1,0,magiclysm,missing,missing,missing,physical/other; inspect in context
+item,xe_art_knot,"twisted, knotted cord",1,0,xedra_evolved,missing,missing,missing,physical/other; inspect in context
+item,robofac_rubber_mantle,Hub 01 kinetic mantle,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,robofac_rubber_skirt,Hub 01 kinetic skirt,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,inert_glowing_string,glowing string,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,retool_ar15_223rem_pistol,pistol .223 upper receiver,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,sculpture_clay,clay sculpture,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,pressure_gauge,pressure gauge,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,ree_33_tripod,heavy-duty tripod,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,exodii_ac_kit,external climate control kit,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,bio_pitch_perfect,Throwing Assist CBM,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,exodii_ingot_plastic,enormous plastic block,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,exodii_ingot_aluminum,enormous aluminum ingot,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,insert_vision_correction,vision correction assembly,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,outsert_breach,breach outsert lens,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,throat_guard_nylon,nylon throat guard,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,silver_nose_ring_stud,silver nose ring stud,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,drum_percussion,"drum, percussion",1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,gold_lip_ring_loop,gold lip ring loop,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,resonance_measurement_device,Otherworldly measuring device,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,xedra_field_notes_used,field notebook (used),1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,robofac_nomex_mantle,Hub 01 turnout mantle,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,hd_compressor,industrial compressor,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,sandwich_pbf,fluffernutter sandwich,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,cuffs,cuffs (pair),1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,niqab,niqab,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,retool_ar15_50beowulf_medium,mid-length 12.7x42mm upper receiver,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,retool_ar15_50beowulf,rifle 12.7x42mm upper receiver,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,sub2000_folding_mechanism,integral folding mechanism,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,retool_ar15_223rem_extended,rifle .223 upper receiver,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,scrabble,Scrabble Letters set,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,retool_ump_40,UMP .40 S&W conversion kit,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,plastic_chin_guard,plastic chin guard,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,iodine_crystal,iodine crystals,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,engine_1cyl_diesel_large,0.2 L large 1-cylinder diesel engine,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,nape_protector,nape protector,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,connect_four,Four in a Row set,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,ranger,Patrol Leader,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,oil_press_manual,manual oil press,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,abaya,abaya,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,rummy,Rummy-o set,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,aluminum_bar_flat,aluminum flat bar stock,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,dental_tools,dental tool set,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,feast_for_odin,For Odin,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,fursuit,fursuit,1,0,dda,missing,partial,partial,physical/other; inspect in context
+item,silver_lip_ring_stud,silver lip ring stud,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,marlin60,tube fed varmint rifle,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,friday,Survival Island,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,toy_figurine,figurine,1,0,dda,partial,partial,partial,physical/other; inspect in context
+item,dog_tag,dog tag,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,gold_nose_ring_loop,gold nose ring loop,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,retool_deagle_44,Desert Eagle .44 conversion kit,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,small_lc_steel_bar_flat,small low steel flat bar stock,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,mc_steel_bar_round,medium steel bar stock,1,0,dda,missing,missing,missing,physical/other; inspect in context
+terrain,t_intercom_balthazar,intercom,1,0,dda,missing,missing,missing,physical/other; inspect in context
+furniture,f_metal_detector,metal detector,1,0,dda,missing,missing,missing,physical/other; inspect in context
+item,efile_junk,junk file,26483,32,dda,missing,missing,missing,electronic file; not a physical floor object
+item,efile_recipes,recipe catalog,2334,6,dda,missing,missing,missing,electronic file; not a physical floor object
+item,efile_lore,questionable media file,1146,3,dda,missing,missing,missing,electronic file; not a physical floor object
+item,efile_map,map cache,647,2,dda,missing,missing,missing,electronic file; not a physical floor object
+item,efile_recipes_science,scientific recipe catalog,6,0,dda,missing,missing,missing,electronic file; not a physical floor object
+item,integrated_holdout_pocket,holdout pocket,1,0,bombastic_perks,missing,missing,missing,integrated object; not ordinary floor loot

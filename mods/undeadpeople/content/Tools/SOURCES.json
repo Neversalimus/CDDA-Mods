@@ -1,0 +1,142 @@
+{
+  "base_v2_zip_sha256": "fe78735fa90bd291b477c3b9a5e4271a972114223c33657fc04ba33ee1e74c20",
+  "game_commit": "e262adb299a7613b4aedc5f12c08fe0413c56a84",
+  "donors": [
+    {
+      "key": "legacy_magiclysm",
+      "root": "v3_work/legacy/TILESETS/data/mods/Magiclysm",
+      "kind": "mod_tileset",
+      "revision": "837566f5459e7a7d64ec1688a3cd429bfbb21dbf",
+      "url_base": "https://raw.githubusercontent.com/Xenikos/UndeadPeopleTileset/837566f5459e7a7d64ec1688a3cd429bfbb21dbf/TILESETS/data/mods/Magiclysm/",
+      "config_file": "mod_tileset.json",
+      "config_sha256": "21ee01645b902e5c463d763d13a85f30789ff745d6d412354bdbda59a1053aa5",
+      "files": [
+        {
+          "name": "Magiclysm_normal.png",
+          "sha256": "a782153d001b34aa0fe9b3795fd52a0522c8b0f2fc0558d7e9670b0f4801bccb"
+        },
+        {
+          "name": "Magiclysm_normal_offset.png",
+          "sha256": "70d2f6a228bca0e4edbfc59d45b913761b367110f22fe11525cadd2ce0e26bf1"
+        },
+        {
+          "name": "Magiclysm_large.png",
+          "sha256": "c6dd6c39c9efa8a18480c6948dc25d8dded38d1e64824d55af31004fc5a9efe2"
+        },
+        {
+          "name": "Magiclysm_huge.png",
+          "sha256": "399739aa30e00d4033600be5a5281071b286c0186eee035c9b4c14820ba52746"
+        }
+      ]
+    },
+    {
+      "key": "udp_shadow",
+      "root": "v3_work/donors/shadow-759",
+      "kind": "tileset",
+      "revision": "c017acf70f43f05a6141c137b602cbbbc33cdb5c",
+      "url_base": "https://raw.githubusercontent.com/shadow-759/UndeadPeopleTileset/c017acf70f43f05a6141c137b602cbbbc33cdb5c/MSX++UnDeadPeopleEdition/",
+      "config_file": "tile_config.json",
+      "config_sha256": "703a9fe88d6432aa1828262a200fe991da1d65aedeb65240d139dba22de04fe3",
+      "files": [
+        {
+          "name": "1_tiles_32x32_0-5199.png",
+          "sha256": "5e2e9658d1e8356de09d29e8de92684cab2d7520aba4c7eeed51824945898fc5"
+        },
+        {
+          "name": "2_expan_32x32_5200-5391.png",
+          "sha256": "549827add731b133f57cb53e9c34f5fc2ba278405c43e88145ad049bf194e37b"
+        },
+        {
+          "name": "3_tree_64x80_5392-5471.png",
+          "sha256": "a305716b9793ca790d10ed732c371fd6fdf15afccca4ce9d936210214d1de86f"
+        },
+        {
+          "name": "4_fallback_5472-9567.png",
+          "sha256": "77d9c25a261027ef8fea7d9b670d20a9f49ecb052d4cc0763959bd79c97977dc"
+        },
+        {
+          "name": "5_tiles_character_customization_32x32_9568-11567.png",
+          "sha256": "9502a00d87e1ff8e34b2013a8613f4b1063b98763ee42a2ab03a88cd48836e57"
+        },
+        {
+          "name": "6_tiles_wide_monsters_160x128_11568-11603.png",
+          "sha256": "13785e4b820750c9d19b5448fd785ee588b0f6e80756eb9df0df468195fcc88f"
+        },
+        {
+          "name": "7_expan2_32x32_11604-11651.png",
+          "sha256": "a5d4dab1030851f81998ab580bc6aa9ac684664710df47bc932e05fb527ed12d"
+        },
+        {
+          "name": "8_tiles-monster-variants_32x32_11652-16851.png",
+          "sha256": "1d09d6508dd712faad89243994cd7ba690dd04de86a792983d3f5d665e49293c"
+        },
+        {
+          "name": "9_tiles-connected_32x32_16852-22051.png",
+          "sha256": "e2be18fc586ddc1b244471ec5bafbcbad6accfe79965c3e4abdc7c2d39b5b453"
+        },
+        {
+          "name": "10_xfiles_32x32_22052-22195.png",
+          "sha256": "ba45a5a8aeaa7917b3b40189a36b93c722fc4e4c418d1481fd7e366b2191e548"
+        },
+        {
+          "name": "11_tiles_kawaiimaidmod_32x32_22196-22291.png",
+          "sha256": "1d88a153b13e6921c0e59a13551e2586f43d2afdfa0ce764db926b5d8ab73f20"
+        },
+        {
+          "name": "12_tiles_kawaiimaidmod_offset_32x32_22292-22339.png",
+          "sha256": "c3aedb34d902a3ad79e2b9c5564ef81bee8d304643c8be2592823097fc136cbc"
+        },
+        {
+          "name": "13_tiles_kawaiimaidmod_64x48-22340-22364.png",
+          "sha256": "4dd8202a8e307015efb29697da1883e2e9ffb01f13a8adb26ac3a446467c53ca"
+        },
+        {
+          "name": "14_tiles2_32x32_22365-27564.png",
+          "sha256": "4a6b82509a5140eec4bec5637d54433f7e1d7538aa88ab392923ffa8eaea8516"
+        },
+        {
+          "name": "15_tiles-connected_variants_32x32_27565-32764.png",
+          "sha256": "944b249c3957a8450ea1c527711e6192efc2c93169ac9b58d3bf7ba9f96793e4"
+        },
+        {
+          "name": "16_tiles_trees_64x80_32765-33164.png",
+          "sha256": "643e3a009582db0be4dcfa4eaaf0f53b9b52ef3a0c18c2db98c0b4dc020e71d4"
+        },
+        {
+          "name": "17_top_hats_32x32-33165-35756.png",
+          "sha256": "1d2135d6cfa4049676c8112b994bbb971280631cedfa65f3c4f77b720bab4240"
+        },
+        {
+          "name": "18_big_things_64x80_35757-36076.png",
+          "sha256": "411a0ced3d51a3591a294d1b74efcccc11d24b563e5f34223de1636ed0f814cc"
+        }
+      ]
+    },
+    {
+      "key": "larwick",
+      "root": "v3_work/donors/Larwick_Overmap",
+      "kind": "release_zip",
+      "revision": "2026-09-20",
+      "url_base": null,
+      "config_file": "tile_config.json",
+      "config_sha256": "e9c4a11e9c5df766055552dd472690c2b05f017621e8c4ee0612504ecffb3954",
+      "files": [
+        {
+          "name": "overmap.png",
+          "sha256": "410285b84c5e0f26373d4820ac420d2e0063dc6018caa2a2294c175255eeb045"
+        },
+        {
+          "name": "overmap_tall.png",
+          "sha256": "c60514ddc383d7a91bd0b8858d12cc65976375cf212c7d034ed2ae3ce7ee3d2a"
+        },
+        {
+          "name": "fallback.png",
+          "sha256": "54262d3217498f97f2809ecaaca3109cc03538bdda23aaf681322dac69ba00eb"
+        }
+      ],
+      "zip_url": "https://github.com/I-am-Erk/CDDA-Tilesets/releases/download/2026-09-20/Larwick_Overmap.zip",
+      "zip_sha256": "6e3bedaccefda46598e96323908fef9dee6d8f2867b7b5d8e986b12cf266eadb",
+      "zip_directory": "Larwick_Overmap"
+    }
+  ]
+}

@@ -1,0 +1,2078 @@
+[
+  {
+    "type": "npc",
+    "id": "axiom_7_security",
+    "name_suffix": "AXIOM Security",
+    "class": "NC_AXIOM_SECURITY",
+    "attitude": 0,
+    "mission": "GUARD_PATROL",
+    "chat": "TALK_AXIOM_SECURITY",
+    "faction": "axiom_7"
+  },
+  {
+    "type": "npc_class",
+    "id": "NC_AXIOM_SECURITY",
+    "name": {
+      "str": "AXIOM Security"
+    },
+    "job_description": "I keep the public route public and the restricted route restricted.",
+    "common": false,
+    "traits": [
+      {
+        "group": "BG_survival_story_POLICE"
+      },
+      {
+        "group": "NPC_starting_traits"
+      },
+      {
+        "group": "Appearance_demographics"
+      },
+      {
+        "trait": "RETURN_TO_START_POS"
+      }
+    ],
+    "bonus_str": {
+      "rng": [
+        2,
+        4
+      ]
+    },
+    "bonus_dex": {
+      "rng": [
+        1,
+        3
+      ]
+    },
+    "bonus_per": {
+      "rng": [
+        2,
+        4
+      ]
+    },
+    "skills": [
+      {
+        "skill": "gun",
+        "bonus": 6
+      },
+      {
+        "skill": "rifle",
+        "bonus": 6
+      },
+      {
+        "skill": "pistol",
+        "bonus": 4
+      },
+      {
+        "skill": "melee",
+        "bonus": 4
+      }
+    ],
+    "worn_override": "NC_AXIOM_SECURITY_worn",
+    "carry_override": "NC_AXIOM_SECURITY_carry",
+    "weapon_override": "NC_AXIOM_SECURITY_weapon"
+  },
+  {
+    "type": "item_group",
+    "id": "NC_AXIOM_SECURITY_worn",
+    "subtype": "collection",
+    "entries": [
+      {
+        "item": "under_armor"
+      },
+      {
+        "item": "socks"
+      },
+      {
+        "item": "axiom_guard_shell"
+      },
+      {
+        "item": "glasses_bal"
+      },
+      {
+        "item": "gloves_tactical"
+      },
+      {
+        "item": "boots_combat"
+      }
+    ]
+  },
+  {
+    "type": "item_group",
+    "id": "NC_AXIOM_SECURITY_carry",
+    "subtype": "collection",
+    "entries": [
+      {
+        "item": "grenade_emp",
+        "prob": 50
+      }
+    ]
+  },
+  {
+    "type": "item_group",
+    "id": "NC_AXIOM_SECURITY_weapon",
+    "subtype": "collection",
+    "entries": [
+      {
+        "group": "h&k416a5_default_or_short",
+        "charges": 30
+      }
+    ]
+  },
+  {
+    "type": "npc",
+    "id": "axiom_7_proto_sentinel",
+    "name_suffix": "AXIOM Prototype Sentinel",
+    "class": "NC_AXIOM_PROTO_SENTINEL",
+    "attitude": 0,
+    "mission": "GUARD",
+    "chat": "TALK_AXIOM_SENTINEL",
+    "faction": "axiom_7"
+  },
+  {
+    "type": "npc_class",
+    "id": "NC_AXIOM_PROTO_SENTINEL",
+    "name": {
+      "str": "AXIOM Prototype Sentinel"
+    },
+    "job_description": "I keep people on the correct side of the prototype glass.",
+    "common": false,
+    "traits": [
+      {
+        "group": "NPC_starting_traits"
+      },
+      {
+        "group": "Appearance_demographics"
+      },
+      {
+        "trait": "RETURN_TO_START_POS"
+      }
+    ],
+    "bonus_str": 4,
+    "bonus_dex": 3,
+    "bonus_per": 4,
+    "skills": [
+      {
+        "skill": "gun",
+        "bonus": 7
+      },
+      {
+        "skill": "rifle",
+        "bonus": 7
+      },
+      {
+        "skill": "melee",
+        "bonus": 5
+      }
+    ],
+    "worn_override": "NC_AXIOM_PROTO_SENTINEL_worn",
+    "weapon_override": "NC_AXIOM_PROTO_SENTINEL_weapon"
+  },
+  {
+    "type": "item_group",
+    "id": "NC_AXIOM_PROTO_SENTINEL_worn",
+    "subtype": "collection",
+    "entries": [
+      {
+        "item": "axiom_exoshell_proto"
+      }
+    ]
+  },
+  {
+    "type": "item_group",
+    "id": "NC_AXIOM_PROTO_SENTINEL_weapon",
+    "subtype": "collection",
+    "entries": [
+      {
+        "item": "axiom_laser_carbine_proto"
+      }
+    ]
+  },
+  {
+    "type": "npc",
+    "id": "axiom_7_quartermaster",
+    "name_unique": "Mara Voss",
+    "name_suffix": "AXIOM Quartermaster",
+    "class": "NC_AXIOM_QUARTERMASTER",
+    "attitude": 0,
+    "mission": "SHOPKEEP",
+    "chat": "TALK_AXIOM_QUARTERMASTER",
+    "faction": "axiom_7"
+  },
+  {
+    "type": "npc_class",
+    "id": "NC_AXIOM_QUARTERMASTER",
+    "name": {
+      "str": "AXIOM Quartermaster"
+    },
+    "job_description": "I decide what AXIOM can afford to sell, issue, or lose.",
+    "common": false,
+    "traits": [
+      {
+        "group": "NPC_starting_traits"
+      },
+      {
+        "group": "Appearance_demographics"
+      },
+      {
+        "trait": "RETURN_TO_START_POS"
+      }
+    ],
+    "sells_belongings": false,
+    "restock_interval": "3 days",
+    "worn_override": "NC_AXIOM_QM_worn",
+    "weapon_override": "NC_AXIOM_QM_weapon",
+    "shopkeeper_item_group": [
+      {
+        "group": "AXIOM_QM_BASE",
+        "rigid": true
+      },
+      {
+        "group": "AXIOM_QM_CONTRACTOR",
+        "rigid": true,
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "u_val": "axiom_clearance_contractor"
+            }
+          ]
+        }
+      },
+      {
+        "group": "AXIOM_QM_SPECIALIST",
+        "rigid": true,
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "u_val": "axiom_clearance_specialist"
+            }
+          ]
+        }
+      },
+      {
+        "group": "AXIOM_QM_PROTOTYPE",
+        "rigid": true,
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "u_val": "axiom_clearance_prototype"
+            }
+          ]
+        }
+      }
+    ],
+    "skills": [
+      {
+        "skill": "speech",
+        "bonus": 7
+      },
+      {
+        "skill": "gun",
+        "bonus": 5
+      },
+      {
+        "skill": "electronics",
+        "bonus": 4
+      }
+    ]
+  },
+  {
+    "type": "item_group",
+    "id": "NC_AXIOM_QM_worn",
+    "subtype": "collection",
+    "entries": [
+      {
+        "item": "under_armor"
+      },
+      {
+        "item": "socks"
+      },
+      {
+        "item": "axiom_guard_shell"
+      },
+      {
+        "item": "glasses_bal"
+      },
+      {
+        "item": "gloves_tactical"
+      },
+      {
+        "item": "boots_combat"
+      }
+    ]
+  },
+  {
+    "type": "item_group",
+    "id": "NC_AXIOM_QM_weapon",
+    "subtype": "collection",
+    "entries": [
+      {
+        "group": "h&k416a5_default_or_short",
+        "charges": 30
+      }
+    ]
+  },
+  {
+    "type": "item_group",
+    "id": "AXIOM_QM_BASE",
+    "subtype": "collection",
+    "entries": [
+      {
+        "item": "UPS_off",
+        "count": 2
+      },
+      {
+        "item": "axiom_dense_cell",
+        "count": [
+          2,
+          4
+        ],
+        "charges": 503
+      },
+      {
+        "item": "glasses_bal",
+        "count": 2
+      },
+      {
+        "item": "tac_helmet",
+        "count": 2
+      },
+      {
+        "item": "axiom_power_router",
+        "count": [
+          2,
+          4
+        ]
+      },
+      {
+        "item": "axiom_sensor_wafer",
+        "count": [
+          3,
+          6
+        ]
+      },
+      {
+        "item": "axiom_control_fiber",
+        "count": [
+          3,
+          6
+        ]
+      }
+    ]
+  },
+  {
+    "type": "item_group",
+    "id": "AXIOM_QM_CONTRACTOR",
+    "subtype": "collection",
+    "entries": [
+      {
+        "item": "grenade_emp",
+        "count": [
+          1,
+          2
+        ]
+      },
+      {
+        "item": "bot_grenade_hack",
+        "count": [
+          1,
+          2
+        ]
+      },
+      {
+        "item": "electrohack",
+        "charges": 100
+      },
+      {
+        "item": "axiom_diagnostic_interface",
+        "charges": 100
+      },
+      {
+        "item": "axiom_service_harness",
+        "prob": 70,
+        "count": 1
+      }
+    ]
+  },
+  {
+    "type": "item_group",
+    "id": "AXIOM_QM_SPECIALIST",
+    "subtype": "collection",
+    "entries": [
+      {
+        "item": "axiom_dense_cell",
+        "count": [
+          3,
+          5
+        ],
+        "charges": 503
+      },
+      {
+        "item": "nanomaterial",
+        "count": [
+          2,
+          5
+        ]
+      },
+      {
+        "item": "axiom_guard_shell",
+        "prob": 65,
+        "count": 1
+      }
+    ]
+  },
+  {
+    "type": "item_group",
+    "id": "AXIOM_QM_PROTOTYPE",
+    "subtype": "collection",
+    "entries": [
+      {
+        "item": "axiom_laser_pistol_proto",
+        "count": 1
+      },
+      {
+        "item": "axiom_emp_projector_proto",
+        "prob": 55,
+        "count": 1
+      },
+      {
+        "item": "axiom_laser_carbine_proto",
+        "prob": 30,
+        "count": 1
+      },
+      {
+        "item": "axiom_exoshell_proto",
+        "prob": 18,
+        "count": 1
+      }
+    ]
+  },
+  {
+    "type": "npc",
+    "id": "axiom_7_systems_engineer",
+    "name_unique": "Elias Chen",
+    "name_suffix": "AXIOM Systems Engineer",
+    "class": "NC_AXIOM_SYSTEMS_ENGINEER",
+    "attitude": 0,
+    "mission": "SHOPKEEP",
+    "chat": "TALK_AXIOM_SYSTEMS_ENGINEER",
+    "faction": "axiom_7"
+  },
+  {
+    "type": "npc_class",
+    "id": "NC_AXIOM_SYSTEMS_ENGINEER",
+    "name": {
+      "str": "AXIOM Systems Engineer"
+    },
+    "job_description": "I keep AXIOM hardware talking to itself instead of catching fire.",
+    "common": false,
+    "traits": [
+      {
+        "group": "NPC_starting_traits"
+      },
+      {
+        "group": "Appearance_demographics"
+      },
+      {
+        "trait": "RETURN_TO_START_POS"
+      }
+    ],
+    "sells_belongings": false,
+    "restock_interval": "3 days",
+    "worn_override": "NC_AXIOM_SYS_worn",
+    "weapon_override": "NC_AXIOM_SYS_weapon",
+    "shopkeeper_item_group": [
+      {
+        "group": "AXIOM_SYS_BASE",
+        "rigid": true
+      },
+      {
+        "group": "AXIOM_SYS_CONTRACTOR",
+        "rigid": true,
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "u_val": "axiom_clearance_contractor"
+            }
+          ]
+        }
+      },
+      {
+        "group": "AXIOM_SYS_SPECIALIST",
+        "rigid": true,
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "u_val": "axiom_clearance_specialist"
+            }
+          ]
+        }
+      },
+      {
+        "group": "AXIOM_SYS_PROTOTYPE",
+        "rigid": true,
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "u_val": "axiom_clearance_prototype"
+            }
+          ]
+        }
+      }
+    ],
+    "skills": [
+      {
+        "skill": "electronics",
+        "bonus": 8
+      },
+      {
+        "skill": "computer",
+        "bonus": 8
+      },
+      {
+        "skill": "mechanics",
+        "bonus": 6
+      },
+      {
+        "skill": "speech",
+        "bonus": 4
+      }
+    ]
+  },
+  {
+    "type": "item_group",
+    "id": "NC_AXIOM_SYS_worn",
+    "subtype": "collection",
+    "entries": [
+      {
+        "item": "under_armor"
+      },
+      {
+        "item": "socks"
+      },
+      {
+        "item": "axiom_service_harness"
+      },
+      {
+        "item": "glasses_bal"
+      },
+      {
+        "item": "gloves_tactical"
+      },
+      {
+        "item": "boots_combat"
+      }
+    ]
+  },
+  {
+    "type": "item_group",
+    "id": "NC_AXIOM_SYS_weapon",
+    "subtype": "collection",
+    "entries": [
+      {
+        "group": "h&k416a5_default_or_short",
+        "charges": 30
+      }
+    ]
+  },
+  {
+    "type": "item_group",
+    "id": "AXIOM_SYS_BASE",
+    "subtype": "collection",
+    "entries": [
+      {
+        "item": "multimeter",
+        "charges": 100
+      },
+      {
+        "item": "voltmeter"
+      },
+      {
+        "item": "soldering_iron"
+      },
+      {
+        "item": "UPS_off",
+        "count": 2
+      },
+      {
+        "item": "axiom_dense_cell",
+        "count": [
+          2,
+          4
+        ],
+        "charges": 503
+      },
+      {
+        "item": "processor",
+        "count": [
+          2,
+          4
+        ]
+      },
+      {
+        "item": "RAM",
+        "count": [
+          2,
+          4
+        ]
+      },
+      {
+        "item": "power_supply",
+        "count": [
+          1,
+          3
+        ]
+      },
+      {
+        "group": "electronics",
+        "count": [
+          4,
+          7
+        ]
+      },
+      {
+        "group": "tools_science",
+        "count": [
+          2,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "type": "item_group",
+    "id": "AXIOM_SYS_CONTRACTOR",
+    "subtype": "collection",
+    "entries": [
+      {
+        "item": "axiom_power_router",
+        "count": [
+          3,
+          6
+        ]
+      },
+      {
+        "item": "axiom_sensor_wafer",
+        "count": [
+          4,
+          8
+        ]
+      },
+      {
+        "item": "axiom_control_fiber",
+        "count": [
+          4,
+          8
+        ]
+      },
+      {
+        "item": "axiom_diagnostic_interface",
+        "charges": 100
+      }
+    ]
+  },
+  {
+    "type": "npc",
+    "id": "axiom_7_liaison",
+    "name_unique": "Dr. Lena Orlov",
+    "name_suffix": "AXIOM Operations Liaison",
+    "class": "NC_AXIOM_LIAISON",
+    "attitude": 0,
+    "mission": "GUARD",
+    "chat": "TALK_AXIOM_LIAISON",
+    "faction": "axiom_7",
+    "mission_offered": "MISSION_AXIOM_SENSOR_RELAY"
+  },
+  {
+    "type": "npc_class",
+    "id": "NC_AXIOM_LIAISON",
+    "name": {
+      "str": "AXIOM Operations Liaison"
+    },
+    "job_description": "I handle outsiders, field work, and the problems that arrive with both.",
+    "common": false,
+    "traits": [
+      {
+        "group": "NPC_starting_traits"
+      },
+      {
+        "group": "Appearance_demographics"
+      },
+      {
+        "trait": "RETURN_TO_START_POS"
+      }
+    ],
+    "worn_override": "NC_AXIOM_LIAISON_worn",
+    "bonus_int": 4,
+    "bonus_per": 2,
+    "skills": [
+      {
+        "skill": "computer",
+        "bonus": 8
+      },
+      {
+        "skill": "electronics",
+        "bonus": 7
+      },
+      {
+        "skill": "speech",
+        "bonus": 8
+      },
+      {
+        "skill": "firstaid",
+        "bonus": 3
+      }
+    ]
+  },
+  {
+    "type": "item_group",
+    "id": "NC_AXIOM_LIAISON_worn",
+    "subtype": "collection",
+    "entries": [
+      {
+        "item": "under_armor"
+      },
+      {
+        "item": "socks"
+      },
+      {
+        "item": "axiom_service_harness"
+      },
+      {
+        "item": "glasses_bal"
+      },
+      {
+        "item": "boots_combat"
+      }
+    ]
+  },
+  {
+    "id": "TALK_AXIOM_SECURITY",
+    "type": "talk_topic",
+    "dynamic_line": [
+      "Keep to the marked public routes. If a door is locked, assume someone had a reason.",
+      "Vehicles, service bays, and anything behind a colored reader belong to AXIOM. Ask before touching.",
+      "The sentries are less patient than I am. Please do not make me find out how much less."
+    ],
+    "responses": [
+      {
+        "text": "No trouble from me.",
+        "topic": "TALK_DONE"
+      }
+    ]
+  },
+  {
+    "id": "TALK_AXIOM_SENTINEL",
+    "type": "talk_topic",
+    "dynamic_line": "The glass lets you look. That is the entire agreement.",
+    "responses": [
+      {
+        "text": "Message received.",
+        "topic": "TALK_DONE"
+      }
+    ]
+  },
+  {
+    "id": "TALK_AXIOM_QUARTERMASTER",
+    "type": "talk_topic",
+    "dynamic_line": {
+      "compare_string": [
+        "yes",
+        {
+          "u_val": "axiom_clearance_prototype"
+        }
+      ],
+      "yes": "Purple card. Fine. Some prototype hardware can leave the cage with you now. \"Can\" is doing a lot of work there; if I only have one, the answer is still no.",
+      "no": {
+        "compare_string": [
+          "yes",
+          {
+            "u_val": "axiom_clearance_specialist"
+          }
+        ],
+        "yes": "Blue card. Now we are talking. I can release hardened gear and dense-power stock, within reason. We still need to keep this place running.",
+        "no": {
+          "compare_string": [
+            "yes",
+            {
+              "u_val": "axiom_clearance_contractor"
+            }
+          ],
+          "yes": "Yellow card? Good. That means I can stop pretending all the useful service kit is \"out of stock.\" Do not make me regret the paperwork.",
+          "no": "You are on the public list. I can spare tools, consumables, and ordinary protection. If you want the interesting shelves, convince Lena you are useful."
+        }
+      }
+    },
+    "responses": [
+      {
+        "text": "Let me see what you are willing to part with.",
+        "effect": "start_trade",
+        "topic": "TALK_AXIOM_QUARTERMASTER"
+      },
+      {
+        "text": "Do you issue prepared field lots, or is everything shelf by shelf?",
+        "topic": "TALK_AXIOM_QUARTERMASTER_SERVICES"
+      },
+      {
+        "text": "Those AXIOM parts — what do people actually do with them?",
+        "topic": "TALK_AXIOM_COMPONENTS"
+      },
+      {
+        "text": "Anything you want recovered while I am outside?",
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "npc_val": "axiom_contract_mara_offered"
+            }
+          ]
+        },
+        "topic": "TALK_MISSION_LIST"
+      },
+      {
+        "text": "Viktor has his telemetry. What do you need to make regular KX flights sustainable?",
+        "topic": "TALK_MISSION_LIST",
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "npc_val": "axiom_kx91_op4_offered"
+            }
+          ]
+        }
+      },
+      {
+        "text": "Sign out the weekly KX-91 flight-support lot.",
+        "topic": "TALK_AXIOM_QUARTERMASTER",
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "u_val": "axiom_kx91_ops_complete"
+            }
+          ]
+        },
+        "effect": {
+          "run_eocs": "EOC_AXIOM_KX91_SUPPORT_LOT"
+        }
+      },
+      {
+        "text": "I will let you get back to counting everything twice.",
+        "topic": "TALK_DONE"
+      }
+    ],
+    "speaker_effect": {
+      "effect": {
+        "run_eocs": [
+          "EOC_AXIOM_CONTRACT_OFFER_MARA",
+          "EOC_AXIOM_KX91_OP_OFFER_RECOVERY"
+        ]
+      }
+    }
+  },
+  {
+    "id": "TALK_AXIOM_COMPONENTS",
+    "type": "talk_topic",
+    "dynamic_line": "Routing cassettes move power where it is needed. Sensor wafers do the measuring. Control fiber carries the nervous-system traffic between them. With decent electronics work you can turn the lot into diagnostic interfaces or rebuild our dense tool cells. None of it looks glamorous until the glamorous thing stops working.",
+    "responses": [
+      {
+        "text": "So the boring parts are the important parts.",
+        "topic": "TALK_AXIOM_QUARTERMASTER"
+      }
+    ]
+  },
+  {
+    "id": "TALK_AXIOM_SYSTEMS_ENGINEER",
+    "type": "talk_topic",
+    "dynamic_line": {
+      "compare_string": [
+        "yes",
+        {
+          "u_val": "axiom_clearance_prototype"
+        }
+      ],
+      "yes": "Purple clearance? All right. That opens the odd shelf: fabrication interfaces, high-density parts, and things with calibration procedures longer than their manuals.",
+      "no": {
+        "compare_string": [
+          "yes",
+          {
+            "u_val": "axiom_clearance_specialist"
+          }
+        ],
+        "yes": "Blue clearance gets you dense cells, processors, and infrastructure spares — the things I normally hide from Mara's inventory sheets.",
+        "no": {
+          "compare_string": [
+            "yes",
+            {
+              "u_val": "axiom_clearance_contractor"
+            }
+          ],
+          "yes": "Lena gave you yellow? Then I can sell you service interfaces and parts that actually talk to our systems. Try not to teach them any new failure modes.",
+          "no": "If it plugs in, blinks, or overheats, someone eventually leaves it on my desk. Visitor clearance keeps us to the harmless pile."
+        }
+      }
+    },
+    "responses": [
+      {
+        "text": "Show me the pile I am allowed to buy.",
+        "effect": "start_trade",
+        "topic": "TALK_AXIOM_SYSTEMS_ENGINEER"
+      },
+      {
+        "text": "Can you do bench work on AXIOM hardware for me?",
+        "topic": "TALK_AXIOM_SYSTEMS_SERVICES"
+      },
+      {
+        "text": "Anything you need picked up beyond the fence?",
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "npc_val": "axiom_contract_elias_offered"
+            }
+          ]
+        },
+        "topic": "TALK_MISSION_LIST"
+      },
+      {
+        "text": "Nadia says KX-91 needs its main power spine rebuilt.",
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "npc_val": "axiom_kx91_power_offered"
+            }
+          ]
+        },
+        "topic": "TALK_MISSION_LIST"
+      },
+      {
+        "text": "I will try not to bring anything back smoking.",
+        "topic": "TALK_DONE"
+      }
+    ],
+    "speaker_effect": {
+      "effect": {
+        "run_eocs": [
+          "EOC_AXIOM_CONTRACT_OFFER_ELIAS",
+          "EOC_AXIOM_KX91_OFFER_POWER"
+        ]
+      }
+    }
+  },
+  {
+    "id": "TALK_AXIOM_LIAISON",
+    "type": "talk_topic",
+    "dynamic_line": {
+      "compare_string": [
+        "yes",
+        {
+          "u_val": "axiom_clearance_prototype"
+        }
+      ],
+      "yes": "At this point I should probably stop calling you a visitor. Three assignments, three clean returns, and no reason for Security to learn your name the unpleasant way. What do you need?",
+      "no": {
+        "compare_string": [
+          "yes",
+          {
+            "u_val": "axiom_clearance_specialist"
+          }
+        ],
+        "yes": "Blue clearance already. You have been useful faster than most of our pre-Cataclysm contractors ever managed. There is still one restricted problem left, if you want it.",
+        "no": {
+          "compare_string": [
+            "yes",
+            {
+              "u_val": "axiom_clearance_contractor"
+            }
+          ],
+          "yes": "Back again. Yellow card suits you. The service routes are open now, and people here will start treating you less like a guest and more like someone who might actually come back.",
+          "no": "You made it through the approach under your own power. These days, that is already a better introduction than most people manage. Welcome to AXIOM-7."
+        }
+      }
+    },
+    "responses": [
+      {
+        "text": "What was this place before everything fell apart?",
+        "topic": "TALK_AXIOM_WHAT_IS"
+      },
+      {
+        "text": "How much of this place are you actually willing to let me see?",
+        "topic": "TALK_AXIOM_ACCESS"
+      },
+      {
+        "text": "You said useful. What needs doing?",
+        "topic": "TALK_MISSION_LIST"
+      },
+      {
+        "text": "About the job you gave me...",
+        "condition": "has_assigned_mission",
+        "topic": "TALK_MISSION_INQUIRE"
+      },
+      {
+        "text": "I need to ask about one of the jobs.",
+        "condition": "has_many_assigned_missions",
+        "topic": "TALK_MISSION_LIST_ASSIGNED"
+      },
+      {
+        "text": "What is up on the roof?",
+        "topic": "TALK_AXIOM_ROOF"
+      },
+      {
+        "text": "And what is under our feet?",
+        "topic": "TALK_AXIOM_SUBLEVEL"
+      },
+      {
+        "text": "Can Operations patch me up before I head back out?",
+        "condition": {
+          "and": [
+            {
+              "compare_string": [
+                "yes",
+                {
+                  "u_val": "axiom_clearance_contractor"
+                }
+              ]
+            },
+            {
+              "or": [
+                {
+                  "not": {
+                    "math": [
+                      "has_var(u_timer_axiom_medbay)"
+                    ]
+                  }
+                },
+                {
+                  "math": [
+                    "time_since(u_timer_axiom_medbay) >= time('1 d')"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "effect": [
+          "lesser_give_aid",
+          {
+            "math": [
+              "u_timer_axiom_medbay = time('now')"
+            ]
+          }
+        ],
+        "topic": "TALK_AXIOM_MEDICAL_DONE"
+      },
+      {
+        "text": "Any smaller jobs Operations is sitting on?",
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "npc_val": "axiom_contract_lena_offered"
+            }
+          ]
+        },
+        "topic": "TALK_MISSION_LIST"
+      },
+      {
+        "text": "KX-91 is operational. What happens to the aircraft now?",
+        "topic": "TALK_MISSION_LIST",
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "npc_val": "axiom_kx91_custody_offered"
+            }
+          ]
+        }
+      },
+      {
+        "text": "I lost the KX-91 custody recorder.",
+        "topic": "TALK_AXIOM_LIAISON",
+        "condition": {
+          "and": [
+            {
+              "u_has_mission": "MISSION_AXIOM_KX91_CUSTODY"
+            },
+            {
+              "not": {
+                "u_has_items": {
+                  "item": "axiom_kx91_custody_recorder",
+                  "count": 1
+                }
+              }
+            }
+          ]
+        },
+        "effect": {
+          "u_spawn_item": "axiom_kx91_custody_recorder"
+        }
+      },
+      {
+        "text": "KX-91 is mine now. Does AXIOM have a real field operation for it?",
+        "topic": "TALK_MISSION_LIST",
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "npc_val": "axiom_kx91_op1_offered"
+            }
+          ]
+        }
+      },
+      {
+        "text": "I will stay out of the locked doors.",
+        "topic": "TALK_DONE"
+      }
+    ],
+    "speaker_effect": {
+      "effect": {
+        "run_eocs": [
+          "EOC_AXIOM_CONTRACT_OFFER_LENA",
+          "EOC_AXIOM_KX91_OFFER_CUSTODY",
+          "EOC_AXIOM_KX91_OP_OFFER_LONG_REACH"
+        ]
+      }
+    }
+  },
+  {
+    "id": "TALK_AXIOM_WHAT_IS",
+    "type": "talk_topic",
+    "dynamic_line": "Before the Cataclysm, AXIOM-7 was where you sent a problem when normal engineering had already failed politely. Photonics, robotics, dense power, medical automation, materials work. We lost people, satellites, suppliers, and most of the world outside the fence. We did not lose the habit of coming to work.",
+    "responses": [
+      {
+        "text": "So this is still an institution, not just a shelter.",
+        "topic": "TALK_AXIOM_LIAISON"
+      }
+    ]
+  },
+  {
+    "id": "TALK_AXIOM_ACCESS",
+    "type": "talk_topic",
+    "dynamic_line": {
+      "compare_string": [
+        "yes",
+        {
+          "u_val": "axiom_clearance_prototype"
+        }
+      ],
+      "yes": "Purple means we trust you near things we cannot easily replace. Near, not with. The flight deck and prototype sections will recognize your card; ownership rules have not changed.",
+      "no": {
+        "compare_string": [
+          "yes",
+          {
+            "u_val": "axiom_clearance_specialist"
+          }
+        ],
+        "yes": "Blue gets you into the infrastructure spaces and the better technical stock. There is one more Operations job between you and the prototype areas. It is the one Security cares about most.",
+        "no": {
+          "compare_string": [
+            "yes",
+            {
+              "u_val": "axiom_clearance_contractor"
+            }
+          ],
+          "yes": "Yellow opens the service routes and tells Mara and Elias they can stop showing you the visitor shelves. Keep doing useful work and I can justify opening more doors.",
+          "no": "Start by doing one useful thing for us. Bring back what I ask for, intact, and I will issue you a yellow contractor card. Around here, trust is mostly a record of problems you did not create."
+        }
+      }
+    },
+    "responses": [
+      {
+        "text": "So I earn access by being useful. Fair enough.",
+        "topic": "TALK_AXIOM_LIAISON"
+      }
+    ]
+  },
+  {
+    "id": "TALK_AXIOM_ROOF",
+    "type": "talk_topic",
+    "dynamic_line": "KX-91 is on the roof. Nadia calls it repairable; Security calls it property; I call it the reason visitors keep asking about the roof. If you eventually get prototype access, you may inspect it. That is not the same as being given an aircraft.",
+    "responses": [
+      {
+        "text": "I had a feeling there was a catch.",
+        "topic": "TALK_AXIOM_LIAISON"
+      }
+    ]
+  },
+  {
+    "type": "npc",
+    "id": "axiom_7_security_director",
+    "name_unique": {
+      "str": "Rhea Mercer"
+    },
+    "name_suffix": "AXIOM Security Director",
+    "class": "NC_AXIOM_SECURITY_DIRECTOR",
+    "attitude": 0,
+    "mission": "GUARD",
+    "chat": "TALK_AXIOM_SECURITY_DIRECTOR",
+    "faction": "axiom_7"
+  },
+  {
+    "type": "npc_class",
+    "id": "NC_AXIOM_SECURITY_DIRECTOR",
+    "name": {
+      "str": "AXIOM Security Director"
+    },
+    "job_description": "I am responsible for security policy, access control, and making sure warnings remain warnings.",
+    "common": false,
+    "traits": [
+      {
+        "group": "NPC_starting_traits"
+      },
+      {
+        "group": "Appearance_demographics"
+      },
+      {
+        "trait": "RETURN_TO_START_POS"
+      }
+    ],
+    "bonus_str": 3,
+    "bonus_dex": 3,
+    "bonus_per": 4,
+    "skills": [
+      {
+        "skill": "gun",
+        "bonus": 7
+      },
+      {
+        "skill": "rifle",
+        "bonus": 7
+      },
+      {
+        "skill": "computer",
+        "bonus": 5
+      },
+      {
+        "skill": "speech",
+        "bonus": 6
+      }
+    ],
+    "worn_override": "NC_AXIOM_SECURITY_worn",
+    "weapon_override": "NC_AXIOM_SECURITY_weapon"
+  },
+  {
+    "type": "npc",
+    "id": "axiom_7_core_engineer",
+    "name_unique": "Dr. Viktor Hale",
+    "name_suffix": "AXIOM Infrastructure Chief",
+    "class": "NC_AXIOM_CORE_ENGINEER",
+    "attitude": 0,
+    "mission": "GUARD",
+    "chat": "TALK_AXIOM_CORE_ENGINEER",
+    "faction": "axiom_7"
+  },
+  {
+    "type": "npc_class",
+    "id": "NC_AXIOM_CORE_ENGINEER",
+    "name": {
+      "str": "AXIOM Infrastructure Chief"
+    },
+    "job_description": "I keep the infrastructure below us alive long enough for everything above us to matter.",
+    "common": false,
+    "traits": [
+      {
+        "group": "NPC_starting_traits"
+      },
+      {
+        "group": "Appearance_demographics"
+      },
+      {
+        "trait": "RETURN_TO_START_POS"
+      }
+    ],
+    "bonus_int": 4,
+    "bonus_per": 2,
+    "skills": [
+      {
+        "skill": "electronics",
+        "bonus": 9
+      },
+      {
+        "skill": "computer",
+        "bonus": 8
+      },
+      {
+        "skill": "mechanics",
+        "bonus": 8
+      }
+    ],
+    "worn_override": "NC_AXIOM_SYS_worn",
+    "weapon_override": "NC_AXIOM_SYS_weapon"
+  },
+  {
+    "type": "npc",
+    "id": "axiom_7_flight_tech",
+    "name_unique": {
+      "str": "Nadia Karpenko"
+    },
+    "name_suffix": "AXIOM Flight Systems Engineer",
+    "class": "NC_AXIOM_FLIGHT_TECH",
+    "attitude": 0,
+    "mission": "GUARD",
+    "chat": "TALK_AXIOM_FLIGHT_TECH",
+    "faction": "axiom_7"
+  },
+  {
+    "type": "npc_class",
+    "id": "NC_AXIOM_FLIGHT_TECH",
+    "name": {
+      "str": "AXIOM Flight Systems Engineer"
+    },
+    "job_description": "I keep the flight deck honest about what can still fly.",
+    "common": false,
+    "traits": [
+      {
+        "group": "NPC_starting_traits"
+      },
+      {
+        "group": "Appearance_demographics"
+      },
+      {
+        "trait": "RETURN_TO_START_POS"
+      }
+    ],
+    "bonus_int": 3,
+    "bonus_dex": 2,
+    "skills": [
+      {
+        "skill": "mechanics",
+        "bonus": 8
+      },
+      {
+        "skill": "electronics",
+        "bonus": 8
+      },
+      {
+        "skill": "computer",
+        "bonus": 6
+      }
+    ],
+    "worn_override": "NC_AXIOM_SYS_worn",
+    "weapon_override": "NC_AXIOM_SYS_weapon"
+  },
+  {
+    "id": "TALK_AXIOM_SECURITY_DIRECTOR",
+    "type": "talk_topic",
+    "dynamic_line": "The lower level is not a vault. It is where a bad decision turns into a dark building, dead cooling, or blind security. Your card opens what Operations has cleared. If a reader says no, take the answer.",
+    "responses": [
+      {
+        "text": "What happens when someone ignores the answer?",
+        "topic": "TALK_AXIOM_SECURITY_THEFT"
+      },
+      {
+        "text": "Can Security teach me anything useful while I am here?",
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "u_val": "axiom_clearance_specialist"
+            }
+          ]
+        },
+        "topic": "TALK_TRAIN"
+      },
+      {
+        "text": "Any security work outside the perimeter?",
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "npc_val": "axiom_contract_rhea_offered"
+            }
+          ]
+        },
+        "topic": "TALK_MISSION_LIST"
+      },
+      {
+        "text": "Nadia says the KX-91 weapon bus is waiting on Security.",
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "npc_val": "axiom_kx91_security_offered"
+            }
+          ]
+        },
+        "topic": "TALK_MISSION_LIST"
+      },
+      {
+        "text": "Lena opened the long-range program. Anything dangerous blocking the routes?",
+        "topic": "TALK_MISSION_LIST",
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "npc_val": "axiom_kx91_op2_offered"
+            }
+          ]
+        }
+      },
+      {
+        "text": "I prefer doors that stay boring.",
+        "topic": "TALK_DONE"
+      }
+    ],
+    "speaker_effect": {
+      "effect": {
+        "run_eocs": [
+          "EOC_AXIOM_CONTRACT_OFFER_RHEA",
+          "EOC_AXIOM_KX91_OFFER_SECURITY",
+          "EOC_AXIOM_KX91_OP_OFFER_CORRIDOR"
+        ]
+      }
+    }
+  },
+  {
+    "id": "TALK_AXIOM_SECURITY_THEFT",
+    "type": "talk_topic",
+    "dynamic_line": "Take a tool by mistake and someone tells you to put it back. Force a lock, strip a vehicle, or keep going after a warning and the conversation changes. The automated systems are faster at changing tone than I am.",
+    "responses": [
+      {
+        "text": "So the warning is the generous part.",
+        "topic": "TALK_AXIOM_SECURITY_DIRECTOR"
+      }
+    ]
+  },
+  {
+    "id": "TALK_AXIOM_CORE_ENGINEER",
+    "type": "talk_topic",
+    "dynamic_line": "People remember the glass gallery because it is bright. I remember what feeds it: conversion stacks, thermal loops, buffers, data trunks, maintenance crawlers. Upstairs is the performance. Down here is the part that cannot miss a cue.",
+    "responses": [
+      {
+        "text": "So this is the real heart of the site.",
+        "topic": "TALK_AXIOM_CORE_ENGINEER_HEART"
+      },
+      {
+        "text": "Do you actually take outside hardware onto your benches?",
+        "topic": "TALK_AXIOM_CORE_SERVICES"
+      },
+      {
+        "text": "Anything outside the Core you need brought back?",
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "npc_val": "axiom_contract_viktor_offered"
+            }
+          ]
+        },
+        "topic": "TALK_MISSION_LIST"
+      },
+      {
+        "text": "KX-91 has power. What is wrong with its navigation?",
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "npc_val": "axiom_kx91_nav_offered"
+            }
+          ]
+        },
+        "topic": "TALK_MISSION_LIST"
+      },
+      {
+        "text": "The corridor is clear. What does KX-91 need before we rely on it farther out?",
+        "topic": "TALK_MISSION_LIST",
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "npc_val": "axiom_kx91_op3_offered"
+            }
+          ]
+        }
+      },
+      {
+        "text": "I will keep my hands out of the arteries.",
+        "topic": "TALK_DONE"
+      }
+    ],
+    "speaker_effect": {
+      "effect": {
+        "run_eocs": [
+          "EOC_AXIOM_CONTRACT_OFFER_VIKTOR",
+          "EOC_AXIOM_KX91_OFFER_NAV",
+          "EOC_AXIOM_KX91_OP_OFFER_TELEMETRY"
+        ]
+      }
+    }
+  },
+  {
+    "id": "TALK_AXIOM_CORE_ENGINEER_HEART",
+    "type": "talk_topic",
+    "dynamic_line": "Heart, lungs, nerves — pick your metaphor. I only care that all three are still working tomorrow morning.",
+    "responses": [
+      {
+        "text": "That sounds like an engineer's answer.",
+        "topic": "TALK_AXIOM_CORE_ENGINEER"
+      }
+    ]
+  },
+  {
+    "id": "TALK_AXIOM_FLIGHT_TECH",
+    "type": "talk_topic",
+    "dynamic_line": {
+      "compare_string": [
+        "yes",
+        {
+          "u_val": "axiom_clearance_prototype"
+        }
+      ],
+      "yes": "Purple card? Then the lock will stop arguing with you. You are welcome on the deck. KX-91 is still AXIOM's aircraft and, for the moment, my headache.",
+      "no": "You can use the stair annex, but not the deck. The magenta lock is there because KX-91 attracts exactly the kind of curiosity that ruins aircraft."
+    },
+    "responses": [
+      {
+        "text": "Be honest. Could KX-91 actually fly again?",
+        "topic": "TALK_AXIOM_KX91_REPAIR"
+      },
+      {
+        "text": "And those lasers — how are they fed and fired?",
+        "topic": "TALK_AXIOM_KX91_WEAPONS"
+      },
+      {
+        "text": "Can you teach me the sort of technical work you do up here?",
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "u_val": "axiom_clearance_prototype"
+            }
+          ]
+        },
+        "topic": "TALK_TRAIN"
+      },
+      {
+        "text": "Anything on your flight list I can fetch?",
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "npc_val": "axiom_contract_nadia_offered"
+            }
+          ]
+        },
+        "topic": "TALK_MISSION_LIST"
+      },
+      {
+        "text": "Start with the truth. What does KX-91 actually need?",
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "npc_val": "axiom_kx91_diag_offered"
+            }
+          ]
+        },
+        "topic": "TALK_MISSION_LIST"
+      },
+      {
+        "text": "The subsystems are ready. What do you need for final integration?",
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "npc_val": "axiom_kx91_integration_offered"
+            }
+          ]
+        },
+        "topic": "TALK_MISSION_LIST"
+      },
+      {
+        "text": "I lost the KX-91 diagnostic probe.",
+        "condition": {
+          "and": [
+            {
+              "u_has_mission": "MISSION_AXIOM_KX91_DIAGNOSTIC"
+            },
+            {
+              "not": {
+                "u_has_items": {
+                  "item": "axiom_kx91_diag_probe",
+                  "count": 1
+                }
+              }
+            }
+          ]
+        },
+        "effect": {
+          "u_spawn_item": "axiom_kx91_diag_probe"
+        },
+        "topic": "TALK_AXIOM_FLIGHT_TECH"
+      },
+      {
+        "text": "I will admire it from the correct side of the lock.",
+        "topic": "TALK_DONE"
+      }
+    ],
+    "speaker_effect": {
+      "effect": {
+        "run_eocs": [
+          "EOC_AXIOM_CONTRACT_OFFER_NADIA",
+          "EOC_AXIOM_KX91_OFFER_DIAGNOSTIC",
+          "EOC_AXIOM_KX91_OFFER_INTEGRATION"
+        ]
+      }
+    }
+  },
+  {
+    "id": "TALK_AXIOM_KX91_REPAIR",
+    "type": "talk_topic",
+    "dynamic_line": {
+      "compare_string": [
+        "yes",
+        {
+          "u_val": "axiom_kx91_restored"
+        }
+      ],
+      "yes": "It flies again. Full-power ground run was clean, both turbines are stable, and the flight stack is coherent. Do not confuse operational with yours; AXIOM still owns the aircraft.",
+      "no": {
+        "compare_string": [
+          "yes",
+          {
+            "u_val": "axiom_kx91_stage_security"
+          }
+        ],
+        "yes": "Fire-control is validated and the weapon nodes are back on the aircraft bus. The last job is final integration: replace the temporary bridges, close the panels, and run the turbines.",
+        "no": {
+          "compare_string": [
+            "yes",
+            {
+              "u_val": "axiom_kx91_stage_nav"
+            }
+          ],
+          "yes": "Power and avionics are stable. Rhea still refuses to connect the weapon nodes until the rebuilt IFF tables survive a live validation trace.",
+          "no": {
+            "compare_string": [
+              "yes",
+              {
+                "u_val": "axiom_kx91_stage_power"
+              }
+            ],
+            "yes": "The main distribution spine is alive. That gives us enough power to rebuild navigation and prove whether the flight computers can agree on where the aircraft is.",
+            "no": {
+              "compare_string": [
+                "yes",
+                {
+                  "u_val": "axiom_kx91_stage_diag"
+                }
+              ],
+              "yes": "The diagnostic bus is coherent. The ugly surprise is the power regulator: it failed hard enough that I will not energize the main spine until Elias has a replacement.",
+              "no": "Fly again? Maybe. Right now KX-91 is an airframe with several expensive arguments happening inside it. We need a cold diagnostic before I call any of them repairable."
+            }
+          }
+        }
+      }
+    },
+    "responses": [
+      {
+        "text": "So: possible, not sensible.",
+        "topic": "TALK_AXIOM_FLIGHT_TECH"
+      }
+    ]
+  },
+  {
+    "id": "TALK_AXIOM_SUBLEVEL",
+    "type": "talk_topic",
+    "dynamic_line": {
+      "compare_string": [
+        "yes",
+        {
+          "u_val": "axiom_clearance_contractor"
+        }
+      ],
+      "yes": "That is the systems core: power conversion, cooling, data, robotics maintenance, security. Your yellow card gets you into the service shaft. The deeper rooms still expect the right color of plastic.",
+      "no": "Critical infrastructure. Not a mystery vault, unfortunately — mostly the machinery that keeps the lights, doors, robots, and people upstairs functioning. Visitor access stops before the service shaft."
+    },
+    "responses": [
+      {
+        "text": "Less treasure, more things I should not break. Got it.",
+        "topic": "TALK_AXIOM_LIAISON"
+      }
+    ]
+  },
+  {
+    "id": "TALK_AXIOM_KX91_WEAPONS",
+    "type": "talk_topic",
+    "dynamic_line": "They are not giant rifles with batteries taped on. The mounts drink straight from the aircraft bus — one focused pulse is about one hundred ten kilojoules. Use the cockpit turret controls to select a mode and aim the mounts. If the sealed fire-control nodes are intact, they can also handle automatic tracking. When the main batteries are empty, the lasers are expensive decorations.",
+    "responses": [
+      {
+        "text": "That answers both the weapon and the battery question.",
+        "topic": "TALK_AXIOM_FLIGHT_TECH"
+      }
+    ]
+  },
+  {
+    "type": "item_group",
+    "id": "AXIOM_SYS_SPECIALIST",
+    "subtype": "collection",
+    "entries": [
+      {
+        "item": "axiom_dense_cell",
+        "count": [
+          3,
+          6
+        ],
+        "charges": 503
+      },
+      {
+        "item": "nanomaterial",
+        "count": [
+          3,
+          6
+        ]
+      },
+      {
+        "item": "electrohack",
+        "charges": 100
+      },
+      {
+        "item": "processor",
+        "count": [
+          3,
+          6
+        ]
+      },
+      {
+        "item": "RAM",
+        "count": [
+          3,
+          6
+        ]
+      }
+    ]
+  },
+  {
+    "type": "item_group",
+    "id": "AXIOM_SYS_PROTOTYPE",
+    "subtype": "collection",
+    "entries": [
+      {
+        "item": "axiom_power_router",
+        "count": [
+          5,
+          8
+        ]
+      },
+      {
+        "item": "axiom_sensor_wafer",
+        "count": [
+          6,
+          10
+        ]
+      },
+      {
+        "item": "axiom_control_fiber",
+        "count": [
+          6,
+          10
+        ]
+      },
+      {
+        "item": "axiom_diagnostic_interface",
+        "charges": 100
+      },
+      {
+        "item": "axiom_dense_cell",
+        "count": [
+          4,
+          7
+        ],
+        "charges": 503
+      }
+    ]
+  },
+  {
+    "id": "TALK_AXIOM_QUARTERMASTER_SERVICES",
+    "type": "talk_topic",
+    "dynamic_line": "Shelf stock is for browsing. Field lots are different: I seal them, sign them out, and then explain to three different ledgers where the hardware went. I will do one for you every three days. Your card decides which list I am allowed to use.",
+    "responses": [
+      {
+        "text": "[Contractor] Pack a basic electronics field lot.",
+        "condition": {
+          "and": [
+            {
+              "compare_string": [
+                "yes",
+                {
+                  "u_val": "axiom_clearance_contractor"
+                }
+              ]
+            },
+            {
+              "or": [
+                {
+                  "not": {
+                    "math": [
+                      "has_var(u_timer_axiom_requisition)"
+                    ]
+                  }
+                },
+                {
+                  "math": [
+                    "time_since(u_timer_axiom_requisition) >= time('3 d')"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "effect": {
+          "u_buy_item": "AXIOM_SERVICE_REQUISITION_CONTRACTOR",
+          "use_item_group": true,
+          "cost": 12000,
+          "true_eocs": "EOC_AXIOM_MARK_REQUISITION"
+        },
+        "topic": "TALK_AXIOM_QUARTERMASTER_SERVICES"
+      },
+      {
+        "text": "[Specialist] I want the dense-power service lot.",
+        "condition": {
+          "and": [
+            {
+              "compare_string": [
+                "yes",
+                {
+                  "u_val": "axiom_clearance_specialist"
+                }
+              ]
+            },
+            {
+              "or": [
+                {
+                  "not": {
+                    "math": [
+                      "has_var(u_timer_axiom_requisition)"
+                    ]
+                  }
+                },
+                {
+                  "math": [
+                    "time_since(u_timer_axiom_requisition) >= time('3 d')"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "effect": {
+          "u_buy_item": "AXIOM_SERVICE_REQUISITION_SPECIALIST",
+          "use_item_group": true,
+          "cost": 24000,
+          "true_eocs": "EOC_AXIOM_MARK_REQUISITION"
+        },
+        "topic": "TALK_AXIOM_QUARTERMASTER_SERVICES"
+      },
+      {
+        "text": "[Prototype] Give me the restricted field-support lot.",
+        "condition": {
+          "and": [
+            {
+              "compare_string": [
+                "yes",
+                {
+                  "u_val": "axiom_clearance_prototype"
+                }
+              ]
+            },
+            {
+              "or": [
+                {
+                  "not": {
+                    "math": [
+                      "has_var(u_timer_axiom_requisition)"
+                    ]
+                  }
+                },
+                {
+                  "math": [
+                    "time_since(u_timer_axiom_requisition) >= time('3 d')"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "effect": {
+          "u_buy_item": "AXIOM_SERVICE_REQUISITION_PROTOTYPE",
+          "use_item_group": true,
+          "cost": 36000,
+          "true_eocs": "EOC_AXIOM_MARK_REQUISITION"
+        },
+        "topic": "TALK_AXIOM_QUARTERMASTER_SERVICES"
+      },
+      {
+        "text": "Never mind. I will use the shelves.",
+        "topic": "TALK_AXIOM_QUARTERMASTER"
+      }
+    ]
+  },
+  {
+    "id": "TALK_AXIOM_SYSTEMS_SERVICES",
+    "type": "talk_topic",
+    "dynamic_line": "If it is AXIOM hardware, I can at least put it on a proper bench instead of asking you to diagnose it with a flashlight. Dense cells are easy enough. I can also teach, if you are willing to sit still while I explain why guessing is not a troubleshooting method.",
+    "responses": [
+      {
+        "text": "[Specialist] Cycle and balance one of my AXIOM dense cells.",
+        "condition": {
+          "and": [
+            {
+              "compare_string": [
+                "yes",
+                {
+                  "u_val": "axiom_clearance_specialist"
+                }
+              ]
+            },
+            {
+              "u_has_items": {
+                "item": "axiom_dense_cell",
+                "count": 1
+              }
+            }
+          ]
+        },
+        "effect": [
+          {
+            "u_consume_item": "axiom_dense_cell",
+            "count": 1,
+            "popup": true
+          },
+          {
+            "u_spawn_item": "AXIOM_SERVICE_FULL_DENSE_CELL",
+            "use_item_group": true,
+            "suppress_message": true
+          },
+          {
+            "u_message": "Elias runs the cell through a balance-and-load cycle, reseats the service contacts, and hands it back at full charge.",
+            "type": "good"
+          }
+        ],
+        "topic": "TALK_AXIOM_SYSTEMS_SERVICES"
+      },
+      {
+        "text": "[Contractor] Show me how you troubleshoot this hardware.",
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "u_val": "axiom_clearance_contractor"
+            }
+          ]
+        },
+        "topic": "TALK_TRAIN"
+      },
+      {
+        "text": "That is all I needed.",
+        "topic": "TALK_AXIOM_SYSTEMS_ENGINEER"
+      }
+    ]
+  },
+  {
+    "id": "TALK_AXIOM_CORE_SERVICES",
+    "type": "talk_topic",
+    "dynamic_line": "I do not repair arbitrary scrap by miracle. Bring me known donor hardware and I can rebuild it to our tolerances. A clean power supply, a processor, and a memory module are enough for one useful service set. Anything stranger becomes a research project.",
+    "responses": [
+      {
+        "text": "[Specialist] Rework these donor parts into an AXIOM service set.",
+        "condition": {
+          "and": [
+            {
+              "compare_string": [
+                "yes",
+                {
+                  "u_val": "axiom_clearance_specialist"
+                }
+              ]
+            },
+            {
+              "u_has_items": {
+                "item": "power_supply",
+                "count": 1
+              }
+            },
+            {
+              "u_has_items": {
+                "item": "processor",
+                "count": 1
+              }
+            },
+            {
+              "u_has_items": {
+                "item": "RAM",
+                "count": 1
+              }
+            }
+          ]
+        },
+        "effect": [
+          {
+            "u_consume_item": "power_supply",
+            "count": 1,
+            "popup": true
+          },
+          {
+            "u_consume_item": "processor",
+            "count": 1,
+            "popup": true
+          },
+          {
+            "u_consume_item": "RAM",
+            "count": 1,
+            "popup": true
+          },
+          {
+            "u_spawn_item": "axiom_power_router",
+            "suppress_message": true
+          },
+          {
+            "u_spawn_item": "axiom_sensor_wafer",
+            "suppress_message": true
+          },
+          {
+            "u_spawn_item": "axiom_control_fiber",
+            "suppress_message": true
+          },
+          {
+            "u_message": "Viktor rejects two connectors, replaces a regulator, trims the board stack to AXIOM dimensions, and returns a matched router, wafer, and control-fiber set.",
+            "type": "good"
+          }
+        ],
+        "topic": "TALK_AXIOM_CORE_SERVICES"
+      },
+      {
+        "text": "[Contractor] Can you teach me the infrastructure side of this place?",
+        "condition": {
+          "compare_string": [
+            "yes",
+            {
+              "u_val": "axiom_clearance_contractor"
+            }
+          ]
+        },
+        "topic": "TALK_TRAIN"
+      },
+      {
+        "text": "I will come back when I have something worth putting on your bench.",
+        "topic": "TALK_AXIOM_CORE_ENGINEER"
+      }
+    ]
+  },
+  {
+    "id": "TALK_AXIOM_MEDICAL_DONE",
+    "type": "talk_topic",
+    "dynamic_line": "Operations keeps a treatment station for people we expect to send back outside. That is the quick pass, not surgery. If you are still leaking after this, stay inside.",
+    "responses": [
+      {
+        "text": "That will do. Thanks.",
+        "topic": "TALK_AXIOM_LIAISON"
+      }
+    ]
+  }
+]

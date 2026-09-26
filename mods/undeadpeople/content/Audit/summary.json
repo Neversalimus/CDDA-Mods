@@ -1,0 +1,112 @@
+{
+  "category": {
+    "field": {
+      "looks_like": 42,
+      "direct": 66,
+      "missing": 100,
+      "total": 208
+    },
+    "furniture": {
+      "direct": 559,
+      "looks_like": 172,
+      "missing": 56,
+      "total": 787
+    },
+    "item": {
+      "looks_like": 3729,
+      "direct": 6839,
+      "missing": 1853,
+      "partial": 4,
+      "total": 12425
+    },
+    "monster": {
+      "direct": 953,
+      "missing": 300,
+      "looks_like": 342,
+      "total": 1595
+    },
+    "overmap": {
+      "missing": 1441,
+      "looks_like": 2114,
+      "direct": 3604,
+      "total": 7159
+    },
+    "terrain": {
+      "looks_like": 416,
+      "direct": 854,
+      "missing": 57,
+      "total": 1327
+    },
+    "trap": {
+      "missing": 103,
+      "direct": 55,
+      "total": 158
+    },
+    "vehicle": {
+      "direct": 352,
+      "looks_like": 104,
+      "missing": 42,
+      "total": 498
+    }
+  },
+  "origin": {
+    "MMA": {
+      "looks_like": 2,
+      "direct": 15,
+      "total": 17
+    },
+    "bombastic_perks": {
+      "missing": 15,
+      "looks_like": 8,
+      "direct": 1,
+      "total": 24
+    },
+    "dda": {
+      "looks_like": 5435,
+      "direct": 12222,
+      "missing": 2995,
+      "partial": 4,
+      "total": 20656
+    },
+    "magiclysm": {
+      "direct": 718,
+      "missing": 361,
+      "looks_like": 503,
+      "total": 1582
+    },
+    "mindovermatter": {
+      "missing": 135,
+      "looks_like": 429,
+      "direct": 45,
+      "total": 609
+    },
+    "package_bionic_professions": {
+      "looks_like": 1,
+      "total": 1
+    },
+    "xedra_evolved": {
+      "looks_like": 541,
+      "missing": 446,
+      "direct": 281,
+      "total": 1268
+    }
+  },
+  "mods": [
+    "dda",
+    "no_npc_food",
+    "personal_portal_storms",
+    "magiclysm",
+    "mindovermatter",
+    "xedra_evolved",
+    "package_bionic_professions",
+    "perk_melee_system",
+    "extra_mut_scens",
+    "MMA",
+    "bombastic_perks"
+  ],
+  "unresolved": [],
+  "parse_errors": [],
+  "mod_tilesets": [],
+  "top_level_ids": 30008,
+  "runtime_tile_ids": 34126
+}

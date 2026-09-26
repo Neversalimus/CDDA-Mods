@@ -1,0 +1,152 @@
+[
+  {
+    "type": "item_group",
+    "id": "science",
+    "copy-from": "science",
+    "extend": {
+      "items": [
+        { "group": "afs_exo_basic_accessories", "prob": 1 },
+        { "group": "afs_exosuits_civ", "prob": 1 },
+        { "group": "afs_wintersuit_science_advanced", "prob": 1 },
+        { "group": "afs_genetech_commerical_safe", "prob": 1 },
+        { "group": "afs_energy_weapon_armory", "prob": 1 },
+        { "item": "bionic_maintenance_toolkit", "prob": 2 },
+        { "item": "afs_backpack_shieldgen", "prob": 1 },
+        { "item": "afs_translocation_device", "prob": 1 },
+        { "item": "afsp_gene_editor_kit", "prob": 1 },
+        { "item": "ap_exo_gantry", "prob": 1 },
+        { "item": "nano_forge", "prob": 1 },
+        { "item": "diamond_press", "prob": 1 },
+        { "item": "afs_battery_charger", "prob": 1 },
+        { "item": "afs_cRTG", "prob": 1 },
+        { "item": "schematics_nano_forge", "prob": 1 },
+        { "item": "schematics_diamond_press", "prob": 1 },
+        { "item": "exosuit_maintenance", "prob": 2 },
+        { "item": "recipe_augs", "prob": 1 },
+        { "item": "recipe_unusual_ammos", "prob": 1 },
+        { "item": "recipes_cryolab", "prob": 1 },
+        { "item": "recipes_resistance", "prob": 1 },
+        { "item": "recipe_uplift", "prob": 1 },
+        { "item": "millyficents_diary", "prob": 1 },
+        { "item": "textbook_atomic", "prob": 1 }
+      ]
+    }
+  },
+  {
+    "type": "item_group",
+    "id": "chem_lab",
+    "copy-from": "chem_lab",
+    "extend": {
+      "items": [
+        { "group": "afs_genetech_commerical_safe", "prob": 1 },
+        { "item": "afs_gene_disp_low_tier", "prob": 1 }
+      ]
+    }
+  },
+  {
+    "type": "item_group",
+    "id": "guns_milspec",
+    "copy-from": "guns_milspec",
+    "extend": {
+      "items": [
+        { "group": "afs_ballistic_armory", "prob": 2 },
+        { "group": "afs_energy_weapon_armory", "prob": 1 },
+        { "group": "afs_grenade_armory", "prob": 1 }
+      ]
+    }
+  },
+  {
+    "type": "item_group",
+    "id": "mil_armor",
+    "copy-from": "mil_armor",
+    "extend": {
+      "items": [
+        { "group": "afs_exosuit_military", "prob": 1 },
+        { "group": "afs_armor_military_infantry_g", "prob": 2 },
+        { "group": "afs_experimental_combat_gear", "prob": 1 },
+        { "item": "afs_backpack_shieldgen", "prob": 1 },
+        { "item": "afs_military_cloak", "prob": 2 }
+      ]
+    }
+  },
+  {
+    "type": "item_group",
+    "id": "hardware",
+    "copy-from": "hardware",
+    "extend": {
+      "items": [
+        [ "afs_power_cutter", 1 ],
+        [ "afs_imager", 1 ],
+        [ "afs_plasma_torch", 1 ]
+      ]
+    }
+  },
+  {
+    "type": "item_group",
+    "id": "schematics",
+    "copy-from": "schematics",
+    "extend": {
+      "items": [
+        [ "schematics_copbot", 4 ],
+        [ "schematics_eyebot", 4 ],
+        [ "schematics_hazmatbot", 4 ],
+        [ "schematics_riotbot", 3 ],
+        [ "schematics_skitterbot", 4 ],
+        [ "schematics_chickenbot", 1 ],
+        [ "schematics_tankbot", 1 ],
+        [ "schematics_tripod", 1 ]
+      ]
+    }
+  },
+  {
+    "type": "item_group",
+    "id": "bionics",
+    "copy-from": "bionics",
+    "extend": {
+      "items": [
+        [ "bio_microgen", 1 ],
+        [ "afs_bio_missiles", 2 ],
+        [ "afs_bio_monowhip", 2 ],
+        [ "afs_bio_blood_plus", 1 ],
+        [ "afs_bio_deck", 1 ],
+        [ "afs_bio_beavy_batteries", 1 ],
+        [ "afs_bio_blood_brain", 1 ],
+        [ "afs_bio_linguistic_coprocessor", 2 ],
+        [ "afs_bio_dopamine_stimulators", 2 ],
+        [ "afs_bio_melee_counteraction", 1 ],
+        [ "afs_bio_melee_optimization_unit", 1 ],
+        [ "afs_bio_neurosoft_aeronautics", 1 ],
+        [ "afs_bio_chemical_enhancement_rig", 1 ],
+        [ "afs_bio_skullgun", 1 ],
+        [ "afs_bio_translocator", 1 ],
+        [ "bio_cold_absorber", 2 ],
+        [ "bio_shield_weak", 2 ],
+        [ "bio_shield_medium", 1 ],
+        [ "bio_shield_heavy", 1 ]
+      ]
+    }
+  },
+  {
+    "type": "item_group",
+    "id": "tools_medical",
+    "subtype": "collection",
+    "copy-from": "tools_medical",
+    "extend": {
+      "entries": [
+        { "item": "bionic_maintenance_toolkit", "prob": 3 }
+      ]
+    }
+  },
+  {
+    "type": "item_group",
+    "id": "nanofab_recipes",
+    "subtype": "distribution",
+    "copy-from": "nanofab_recipes",
+    "extend": {
+      "entries": [
+        { "item": "afs_archeotech_cartridge", "prob": 2 },
+        { "item": "afs_translocation_device", "prob": 1 }
+      ]
+    }
+  }
+]

@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "repository": "Neversalimus/CDDA-Mods",
+  "suite_version": "0.1.0",
+  "ncmm_sdk": {
+    "repository": "Neversalimus/NCMM",
+    "commit": "97b93e7dbc1ea95a46d69ce8e603b25782589cc8"
+  },
+  "profiles": {
+    "all-content": [
+      "axiom_7",
+      "blazemod",
+      "secronom_plus",
+      "aftershock_prime",
+      "tankmod",
+      "undeadpeople"
+    ],
+    "secronom": [
+      "secronom",
+      "secronom_plus"
+    ],
+    "native": [
+      "advanced_world_settings",
+      "survivor_progression"
+    ]
+  }
+}

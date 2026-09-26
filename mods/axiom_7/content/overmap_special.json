@@ -1,0 +1,214 @@
+[
+  {
+    "type": "overmap_special",
+    "id": "axiom_7_facility_v06",
+    "overmaps": [
+      {
+        "point": [
+          0,
+          0,
+          0
+        ],
+        "overmap": "axiom_7_nw_north"
+      },
+      {
+        "point": [
+          1,
+          0,
+          0
+        ],
+        "overmap": "axiom_7_n_north"
+      },
+      {
+        "point": [
+          2,
+          0,
+          0
+        ],
+        "overmap": "axiom_7_ne_north"
+      },
+      {
+        "point": [
+          0,
+          1,
+          0
+        ],
+        "overmap": "axiom_7_w_north"
+      },
+      {
+        "point": [
+          1,
+          1,
+          0
+        ],
+        "overmap": "axiom_7_c_north"
+      },
+      {
+        "point": [
+          2,
+          1,
+          0
+        ],
+        "overmap": "axiom_7_e_north"
+      },
+      {
+        "point": [
+          0,
+          2,
+          0
+        ],
+        "overmap": "axiom_7_sw_north"
+      },
+      {
+        "point": [
+          1,
+          2,
+          0
+        ],
+        "overmap": "axiom_7_s_north"
+      },
+      {
+        "point": [
+          2,
+          2,
+          0
+        ],
+        "overmap": "axiom_7_se_north"
+      },
+      {
+        "point": [
+          0,
+          1,
+          1
+        ],
+        "overmap": "axiom_7_roof_w_north"
+      },
+      {
+        "point": [
+          1,
+          1,
+          1
+        ],
+        "overmap": "axiom_7_roof_c_north"
+      },
+      {
+        "point": [
+          2,
+          1,
+          1
+        ],
+        "overmap": "axiom_7_roof_e_north"
+      },
+      {
+        "point": [
+          0,
+          2,
+          1
+        ],
+        "overmap": "axiom_7_roof_sw_north"
+      },
+      {
+        "point": [
+          1,
+          2,
+          1
+        ],
+        "overmap": "axiom_7_roof_s_north"
+      },
+      {
+        "point": [
+          2,
+          2,
+          1
+        ],
+        "overmap": "axiom_7_roof_se_north"
+      },
+      {
+        "point": [
+          0,
+          1,
+          -1
+        ],
+        "overmap": "axiom_7_sub_w_north"
+      },
+      {
+        "point": [
+          1,
+          1,
+          -1
+        ],
+        "overmap": "axiom_7_sub_c_north"
+      },
+      {
+        "point": [
+          2,
+          1,
+          -1
+        ],
+        "overmap": "axiom_7_sub_e_north"
+      },
+      {
+        "point": [
+          0,
+          2,
+          -1
+        ],
+        "overmap": "axiom_7_sub_sw_north"
+      },
+      {
+        "point": [
+          1,
+          2,
+          -1
+        ],
+        "overmap": "axiom_7_sub_s_north"
+      },
+      {
+        "point": [
+          2,
+          2,
+          -1
+        ],
+        "overmap": "axiom_7_sub_se_north"
+      }
+    ],
+    "connections": [
+      {
+        "point": [
+          1,
+          -1,
+          0
+        ],
+        "terrain": "road",
+        "connection": "local_road",
+        "from": [
+          1,
+          0,
+          0
+        ]
+      }
+    ],
+    "locations": [
+      "field",
+      "forest_without_trail"
+    ],
+    "city_distance": [
+      6,
+      -1
+    ],
+    "city_sizes": [
+      1,
+      16
+    ],
+    "occurrences": [
+      1,
+      1
+    ],
+    "priority": 1,
+    "flags": [
+      "SAFE_AT_WORLDGEN",
+      "MAN_MADE",
+      "GLOBALLY_UNIQUE"
+    ]
+  }
+]

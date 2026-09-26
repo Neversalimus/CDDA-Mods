@@ -1,0 +1,16 @@
+[
+  {
+    "type": "MOD_INFO",
+    "id": "axiom_7",
+    "name": "AXIOM-7",
+    "authors": [
+      "Neversalimus"
+    ],
+    "description": "AXIOM-7 v0.8.2.3: KX-91 edge-case hardened branch plus Universal Auto Installer. Gameplay content is unchanged from v0.8.2.2; installer auto-detects Catapult/CatLauncher, Steam, running and portable CDDA installs and uses persistent user-mod directories.",
+    "category": "content",
+    "dependencies": [
+      "dda"
+    ],
+    "version": "0.8.2.3"
+  }
+]

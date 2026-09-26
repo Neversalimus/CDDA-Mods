@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "id": "secronom_plus",
+  "name": "Secronom+ Revival",
+  "kind": "json",
+  "folder": "secronom_lore_expansion",
+  "game_mod_ids": [
+    "secronom_lore_expansion"
+  ],
+  "dependencies": [
+    "secronom"
+  ],
+  "variants": [
+    {
+      "id": "baseline",
+      "version": "0.3.4",
+      "revision": 1,
+      "path": "content",
+      "targets": [
+        "experimental-2026-09-23-0546"
+      ],
+      "validation": "pending"
+    }
+  ]
+}

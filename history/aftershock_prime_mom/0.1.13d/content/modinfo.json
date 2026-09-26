@@ -1,0 +1,21 @@
+{
+  "type": "MOD_INFO",
+  "id": "aftershock_prime_mom_compat",
+  "name": "Aftershock Prime - Mind Over Matter Compatibility",
+  "authors": [
+    "Prime integration generated for compatibility"
+  ],
+  "maintainers": [
+    "local integration package"
+  ],
+  "description": "Compatibility layer that keeps Aftershock Prime genetech usable alongside Mind Over Matter without permanently blocking later psionic progression.",
+  "category": "content",
+  "dependencies": [
+    "dda",
+    "aftershock_prime",
+    "mindovermatter"
+  ],
+  "conflicts": [
+    "aftershock_exoplanet"
+  ]
+}

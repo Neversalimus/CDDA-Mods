@@ -1,0 +1,2015 @@
+[
+  {
+    "id": "axiom_service_ev",
+    "type": "vehicle",
+    "copy-from": "electric_car",
+    "name": "AXIOM service EV"
+  },
+  {
+    "id": "axiom_security_ev",
+    "type": "vehicle",
+    "copy-from": "suv_electric",
+    "name": "AXIOM security interceptor"
+  },
+  {
+    "id": "axiom_combat_helicopter",
+    "type": "vehicle",
+    "name": "AXIOM KX-91 enhanced armored combat helicopter",
+    "blueprint": [
+      "    │    ",
+      "   │─    ",
+      "   │#│   ",
+      "   ┌─┐   ",
+      "L──┘X│──L",
+      " └─│││─┘ ",
+      "  └│││┘  ",
+      "   └─┘   ",
+      "    │    ",
+      "    │    ",
+      "    │    ",
+      "    │    ",
+      "   │┃│   ",
+      "   └     "
+    ],
+    "parts": [
+      {
+        "x": 0,
+        "y": 1,
+        "parts": [
+          "frame#cross",
+          "seat",
+          "controls_electronic",
+          "seatbelt",
+          "dashboard"
+        ]
+      },
+      {
+        "x": 1,
+        "y": 1,
+        "parts": [
+          "frame#cross",
+          "windshield#horizontal_rear",
+          "plating_military"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -1,
+        "y": 1,
+        "parts": [
+          "frame#cross",
+          "storage_battery",
+          "stowboard#horizontal_rear",
+          "plating_military"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "plating_military",
+          "windshield#vertical_left"
+        ]
+      },
+      {
+        "x": 1,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -1,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "plating_military",
+          "board#ne"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 1,
+        "parts": [
+          "xlframe#horizontal",
+          "board#vertical",
+          "storage_battery",
+          "plating_military",
+          "heavy_duty_military_rotor"
+        ]
+      },
+      {
+        "x": -1,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "board#nw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 2,
+        "parts": [
+          "frame#sw",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 1,
+        "parts": [
+          "frame#cross",
+          "engine_turbine_medium",
+          "alternator_car",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 0,
+        "parts": [
+          "frame#se",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 3,
+        "parts": [
+          "frame#ne",
+          "board#horizontal",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 2,
+        "parts": [
+          "frame#nw",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -4,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "engine_turbine_medium",
+          "alternator_car",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 0,
+        "parts": [
+          "frame#ne",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": -1,
+        "parts": [
+          "frame#nw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 4,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 3,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal"
+        ]
+      },
+      {
+        "x": -4,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "plating_military",
+          "board#vertical"
+        ]
+      },
+      {
+        "x": -5,
+        "y": 1,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal",
+          {
+            "part": "tank_55gal_drum",
+            "fuel": "jp8"
+          }
+        ]
+      },
+      {
+        "x": -4,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "plating_military",
+          "board#vertical",
+          "storage_battery"
+        ]
+      },
+      {
+        "x": -3,
+        "y": -1,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal"
+        ]
+      },
+      {
+        "x": -2,
+        "y": -2,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 5,
+        "parts": [
+          "frame#horizontal_2",
+          "turret_mount"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 5,
+        "parts": [
+          "axiom_heli_laser_turret",
+          "axiom_heli_fire_control"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 4,
+        "parts": [
+          "frame#se",
+          "board#se",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -4,
+        "y": 3,
+        "parts": [
+          "frame#se",
+          "board#se",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -5,
+        "y": 2,
+        "parts": [
+          "frame#se",
+          "board#se",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -6,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -5,
+        "y": 0,
+        "parts": [
+          "frame#sw",
+          "board#sw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -4,
+        "y": -1,
+        "parts": [
+          "frame#sw",
+          "board#sw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -3,
+        "y": -2,
+        "parts": [
+          "frame#sw",
+          "board#sw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": -3,
+        "parts": [
+          "frame#horizontal_2",
+          "turret_mount"
+        ]
+      },
+      {
+        "x": -2,
+        "y": -3,
+        "parts": [
+          "axiom_heli_laser_turret",
+          "axiom_heli_fire_control"
+        ]
+      },
+      {
+        "x": -7,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -8,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -9,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -10,
+        "y": 1,
+        "parts": [
+          "frame#vertical_2",
+          "black_box",
+          "halfboard#vertical_2",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -10,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -10,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -11,
+        "y": 0,
+        "parts": [
+          "frame#sw",
+          "halfboard#sw",
+          "plating_military"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "axiom_kx91_dormant",
+    "type": "vehicle",
+    "name": "AXIOM KX-91 dormant restoration airframe",
+    "blueprint": [
+      "    │    ",
+      "   │─    ",
+      "   │#│   ",
+      "   ┌─┐   ",
+      "L──┘X│──L",
+      " └─│││─┘ ",
+      "  └│││┘  ",
+      "   └─┘   ",
+      "    │    ",
+      "    │    ",
+      "    │    ",
+      "    │    ",
+      "   │┃│   ",
+      "   └     "
+    ],
+    "parts": [
+      {
+        "x": 0,
+        "y": 1,
+        "parts": [
+          "frame#cross",
+          "seat",
+          "seatbelt",
+          "dashboard"
+        ]
+      },
+      {
+        "x": 1,
+        "y": 1,
+        "parts": [
+          "frame#cross",
+          "windshield#horizontal_rear",
+          "plating_military"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -1,
+        "y": 1,
+        "parts": [
+          "frame#cross",
+          "stowboard#horizontal_rear",
+          "plating_military"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "plating_military",
+          "windshield#vertical_left"
+        ]
+      },
+      {
+        "x": 1,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -1,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "plating_military",
+          "board#ne"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 1,
+        "parts": [
+          "xlframe#horizontal",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -1,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "board#nw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 2,
+        "parts": [
+          "frame#sw",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 1,
+        "parts": [
+          "frame#cross",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 0,
+        "parts": [
+          "frame#se",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 3,
+        "parts": [
+          "frame#ne",
+          "board#horizontal",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 2,
+        "parts": [
+          "frame#nw",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -4,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 0,
+        "parts": [
+          "frame#ne",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": -1,
+        "parts": [
+          "frame#nw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 4,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 3,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal"
+        ]
+      },
+      {
+        "x": -4,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "plating_military",
+          "board#vertical"
+        ]
+      },
+      {
+        "x": -5,
+        "y": 1,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal",
+          {
+            "part": "tank_55gal_drum",
+            "fuel": "jp8"
+          }
+        ]
+      },
+      {
+        "x": -4,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "plating_military",
+          "board#vertical"
+        ]
+      },
+      {
+        "x": -3,
+        "y": -1,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal"
+        ]
+      },
+      {
+        "x": -2,
+        "y": -2,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 5,
+        "parts": [
+          "frame#horizontal_2"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 4,
+        "parts": [
+          "frame#se",
+          "board#se",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -4,
+        "y": 3,
+        "parts": [
+          "frame#se",
+          "board#se",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -5,
+        "y": 2,
+        "parts": [
+          "frame#se",
+          "board#se",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -6,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -5,
+        "y": 0,
+        "parts": [
+          "frame#sw",
+          "board#sw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -4,
+        "y": -1,
+        "parts": [
+          "frame#sw",
+          "board#sw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -3,
+        "y": -2,
+        "parts": [
+          "frame#sw",
+          "board#sw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": -3,
+        "parts": [
+          "frame#horizontal_2"
+        ]
+      },
+      {
+        "x": -7,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -8,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -9,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -10,
+        "y": 1,
+        "parts": [
+          "frame#vertical_2",
+          "black_box",
+          "halfboard#vertical_2",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -10,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -10,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -11,
+        "y": 0,
+        "parts": [
+          "frame#sw",
+          "halfboard#sw",
+          "plating_military"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "axiom_kx91_powered",
+    "type": "vehicle",
+    "name": "AXIOM KX-91 powered restoration airframe",
+    "blueprint": [
+      "    │    ",
+      "   │─    ",
+      "   │#│   ",
+      "   ┌─┐   ",
+      "L──┘X│──L",
+      " └─│││─┘ ",
+      "  └│││┘  ",
+      "   └─┘   ",
+      "    │    ",
+      "    │    ",
+      "    │    ",
+      "    │    ",
+      "   │┃│   ",
+      "   └     "
+    ],
+    "parts": [
+      {
+        "x": 0,
+        "y": 1,
+        "parts": [
+          "frame#cross",
+          "seat",
+          "seatbelt",
+          "dashboard"
+        ]
+      },
+      {
+        "x": 1,
+        "y": 1,
+        "parts": [
+          "frame#cross",
+          "windshield#horizontal_rear",
+          "plating_military"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -1,
+        "y": 1,
+        "parts": [
+          "frame#cross",
+          "storage_battery",
+          "stowboard#horizontal_rear",
+          "plating_military"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "plating_military",
+          "windshield#vertical_left"
+        ]
+      },
+      {
+        "x": 1,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -1,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "plating_military",
+          "board#ne"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 1,
+        "parts": [
+          "xlframe#horizontal",
+          "board#vertical",
+          "storage_battery",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -1,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "board#nw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 2,
+        "parts": [
+          "frame#sw",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 1,
+        "parts": [
+          "frame#cross",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 0,
+        "parts": [
+          "frame#se",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 3,
+        "parts": [
+          "frame#ne",
+          "board#horizontal",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 2,
+        "parts": [
+          "frame#nw",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -4,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 0,
+        "parts": [
+          "frame#ne",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": -1,
+        "parts": [
+          "frame#nw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 4,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 3,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal"
+        ]
+      },
+      {
+        "x": -4,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "plating_military",
+          "board#vertical"
+        ]
+      },
+      {
+        "x": -5,
+        "y": 1,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal",
+          {
+            "part": "tank_55gal_drum",
+            "fuel": "jp8"
+          }
+        ]
+      },
+      {
+        "x": -4,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "plating_military",
+          "board#vertical",
+          "storage_battery"
+        ]
+      },
+      {
+        "x": -3,
+        "y": -1,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal"
+        ]
+      },
+      {
+        "x": -2,
+        "y": -2,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 5,
+        "parts": [
+          "frame#horizontal_2"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 4,
+        "parts": [
+          "frame#se",
+          "board#se",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -4,
+        "y": 3,
+        "parts": [
+          "frame#se",
+          "board#se",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -5,
+        "y": 2,
+        "parts": [
+          "frame#se",
+          "board#se",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -6,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -5,
+        "y": 0,
+        "parts": [
+          "frame#sw",
+          "board#sw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -4,
+        "y": -1,
+        "parts": [
+          "frame#sw",
+          "board#sw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -3,
+        "y": -2,
+        "parts": [
+          "frame#sw",
+          "board#sw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": -3,
+        "parts": [
+          "frame#horizontal_2"
+        ]
+      },
+      {
+        "x": -7,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -8,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -9,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -10,
+        "y": 1,
+        "parts": [
+          "frame#vertical_2",
+          "black_box",
+          "halfboard#vertical_2",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -10,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -10,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -11,
+        "y": 0,
+        "parts": [
+          "frame#sw",
+          "halfboard#sw",
+          "plating_military"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "axiom_kx91_avionics",
+    "type": "vehicle",
+    "name": "AXIOM KX-91 avionics restoration airframe",
+    "blueprint": [
+      "    │    ",
+      "   │─    ",
+      "   │#│   ",
+      "   ┌─┐   ",
+      "L──┘X│──L",
+      " └─│││─┘ ",
+      "  └│││┘  ",
+      "   └─┘   ",
+      "    │    ",
+      "    │    ",
+      "    │    ",
+      "    │    ",
+      "   │┃│   ",
+      "   └     "
+    ],
+    "parts": [
+      {
+        "x": 0,
+        "y": 1,
+        "parts": [
+          "frame#cross",
+          "seat",
+          "controls_electronic",
+          "seatbelt",
+          "dashboard"
+        ]
+      },
+      {
+        "x": 1,
+        "y": 1,
+        "parts": [
+          "frame#cross",
+          "windshield#horizontal_rear",
+          "plating_military"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -1,
+        "y": 1,
+        "parts": [
+          "frame#cross",
+          "storage_battery",
+          "stowboard#horizontal_rear",
+          "plating_military"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "plating_military",
+          "windshield#vertical_left"
+        ]
+      },
+      {
+        "x": 1,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -1,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "plating_military",
+          "board#ne"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 1,
+        "parts": [
+          "xlframe#horizontal",
+          "board#vertical",
+          "storage_battery",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -1,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "board#nw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 2,
+        "parts": [
+          "frame#sw",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 1,
+        "parts": [
+          "frame#cross",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 0,
+        "parts": [
+          "frame#se",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 3,
+        "parts": [
+          "frame#ne",
+          "board#horizontal",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 2,
+        "parts": [
+          "frame#nw",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -4,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 0,
+        "parts": [
+          "frame#ne",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": -1,
+        "parts": [
+          "frame#nw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 4,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 3,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal"
+        ]
+      },
+      {
+        "x": -4,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "plating_military",
+          "board#vertical"
+        ]
+      },
+      {
+        "x": -5,
+        "y": 1,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal",
+          {
+            "part": "tank_55gal_drum",
+            "fuel": "jp8"
+          }
+        ]
+      },
+      {
+        "x": -4,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "plating_military",
+          "board#vertical",
+          "storage_battery"
+        ]
+      },
+      {
+        "x": -3,
+        "y": -1,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal"
+        ]
+      },
+      {
+        "x": -2,
+        "y": -2,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 5,
+        "parts": [
+          "frame#horizontal_2"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 4,
+        "parts": [
+          "frame#se",
+          "board#se",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -4,
+        "y": 3,
+        "parts": [
+          "frame#se",
+          "board#se",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -5,
+        "y": 2,
+        "parts": [
+          "frame#se",
+          "board#se",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -6,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -5,
+        "y": 0,
+        "parts": [
+          "frame#sw",
+          "board#sw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -4,
+        "y": -1,
+        "parts": [
+          "frame#sw",
+          "board#sw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -3,
+        "y": -2,
+        "parts": [
+          "frame#sw",
+          "board#sw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": -3,
+        "parts": [
+          "frame#horizontal_2"
+        ]
+      },
+      {
+        "x": -7,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -8,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -9,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -10,
+        "y": 1,
+        "parts": [
+          "frame#vertical_2",
+          "black_box",
+          "halfboard#vertical_2",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -10,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -10,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -11,
+        "y": 0,
+        "parts": [
+          "frame#sw",
+          "halfboard#sw",
+          "plating_military"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "axiom_kx91_weapons_ready",
+    "type": "vehicle",
+    "name": "AXIOM KX-91 weapons-validated restoration airframe",
+    "blueprint": [
+      "    │    ",
+      "   │─    ",
+      "   │#│   ",
+      "   ┌─┐   ",
+      "L──┘X│──L",
+      " └─│││─┘ ",
+      "  └│││┘  ",
+      "   └─┘   ",
+      "    │    ",
+      "    │    ",
+      "    │    ",
+      "    │    ",
+      "   │┃│   ",
+      "   └     "
+    ],
+    "parts": [
+      {
+        "x": 0,
+        "y": 1,
+        "parts": [
+          "frame#cross",
+          "seat",
+          "controls_electronic",
+          "seatbelt",
+          "dashboard"
+        ]
+      },
+      {
+        "x": 1,
+        "y": 1,
+        "parts": [
+          "frame#cross",
+          "windshield#horizontal_rear",
+          "plating_military"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -1,
+        "y": 1,
+        "parts": [
+          "frame#cross",
+          "storage_battery",
+          "stowboard#horizontal_rear",
+          "plating_military"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "plating_military",
+          "windshield#vertical_left"
+        ]
+      },
+      {
+        "x": 1,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -1,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "plating_military",
+          "board#ne"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 1,
+        "parts": [
+          "xlframe#horizontal",
+          "board#vertical",
+          "storage_battery",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -1,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "board#nw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 2,
+        "parts": [
+          "frame#sw",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 1,
+        "parts": [
+          "frame#cross",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 0,
+        "parts": [
+          "frame#se",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 3,
+        "parts": [
+          "frame#ne",
+          "board#horizontal",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 2,
+        "parts": [
+          "frame#nw",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -4,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 0,
+        "parts": [
+          "frame#ne",
+          "board#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": -1,
+        "parts": [
+          "frame#nw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 4,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 3,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal"
+        ]
+      },
+      {
+        "x": -4,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "plating_military",
+          "board#vertical"
+        ]
+      },
+      {
+        "x": -5,
+        "y": 1,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal",
+          {
+            "part": "tank_55gal_drum",
+            "fuel": "jp8"
+          }
+        ]
+      },
+      {
+        "x": -4,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "plating_military",
+          "board#vertical",
+          "storage_battery"
+        ]
+      },
+      {
+        "x": -3,
+        "y": -1,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal"
+        ]
+      },
+      {
+        "x": -2,
+        "y": -2,
+        "parts": [
+          "frame#horizontal",
+          "plating_military",
+          "board#horizontal"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 5,
+        "parts": [
+          "frame#horizontal_2",
+          "turret_mount"
+        ]
+      },
+      {
+        "x": -2,
+        "y": 5,
+        "parts": [
+          "axiom_heli_laser_turret",
+          "axiom_heli_fire_control"
+        ]
+      },
+      {
+        "x": -3,
+        "y": 4,
+        "parts": [
+          "frame#se",
+          "board#se",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -4,
+        "y": 3,
+        "parts": [
+          "frame#se",
+          "board#se",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -5,
+        "y": 2,
+        "parts": [
+          "frame#se",
+          "board#se",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -6,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -5,
+        "y": 0,
+        "parts": [
+          "frame#sw",
+          "board#sw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -4,
+        "y": -1,
+        "parts": [
+          "frame#sw",
+          "board#sw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -3,
+        "y": -2,
+        "parts": [
+          "frame#sw",
+          "board#sw",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -2,
+        "y": -3,
+        "parts": [
+          "frame#horizontal_2",
+          "turret_mount"
+        ]
+      },
+      {
+        "x": -2,
+        "y": -3,
+        "parts": [
+          "axiom_heli_laser_turret",
+          "axiom_heli_fire_control"
+        ]
+      },
+      {
+        "x": -7,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -8,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -9,
+        "y": 1,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -10,
+        "y": 1,
+        "parts": [
+          "frame#vertical_2",
+          "black_box",
+          "halfboard#vertical_2",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -10,
+        "y": 2,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -10,
+        "y": 0,
+        "parts": [
+          "frame#vertical",
+          "halfboard#vertical",
+          "plating_military"
+        ]
+      },
+      {
+        "x": -11,
+        "y": 0,
+        "parts": [
+          "frame#sw",
+          "halfboard#sw",
+          "plating_military"
+        ]
+      }
+    ]
+  }
+]

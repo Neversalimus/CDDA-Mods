@@ -1,0 +1,626 @@
+[
+  {
+    "type": "trap",
+    "id": "tr_axiom_airframe_security",
+    "name": "AXIOM airframe intrusion sensor",
+    "color": "dark_gray",
+    "symbol": " ",
+    "visibility": -1,
+    "avoidance": 99,
+    "difficulty": 99,
+    "flags": [
+      "UNCONSUMED",
+      "UNDODGEABLE",
+      "AVATAR_ONLY"
+    ],
+    "action": "eocs",
+    "eocs": [
+      "EOC_AXIOM_AIRFRAME_INTRUSION"
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_AXIOM_SECURITY_ALARM",
+    "effect": [
+      {
+        "math": [
+          "faction_like('axiom_7') = -100"
+        ]
+      },
+      {
+        "math": [
+          "faction_respect('axiom_7') = -100"
+        ]
+      },
+      {
+        "math": [
+          "faction_trust('axiom_7') = -100"
+        ]
+      },
+      {
+        "u_add_var": "axiom_security_hostile",
+        "value": "yes"
+      },
+      {
+        "u_message": "AXIOM-7 SECURITY ALERT: hostile action confirmed. All local security assets are cleared to engage.",
+        "type": "bad",
+        "popup": true
+      },
+      {
+        "u_run_monster_eocs": [
+          {
+            "id": "EOC_AXIOM_SECURITY_MONSTER_HOSTILE",
+            "effect": [
+              {
+                "math": [
+                  "u_val('anger') = 100"
+                ]
+              }
+            ]
+          }
+        ],
+        "mtype_ids": [
+          "mon_axiom_patrol_sentry",
+          "mon_axiom_security_turret"
+        ],
+        "monster_range": 120
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_AXIOM_AIRFRAME_INTRUSION",
+    "condition": {
+      "and": [
+        {
+          "not": {
+            "compare_string": [
+              "yes",
+              {
+                "u_val": "axiom_security_hostile"
+              }
+            ]
+          }
+        },
+        {
+          "not": {
+            "compare_string": [
+              "yes",
+              {
+                "u_val": "axiom_kx91_service_authorized"
+              }
+            ]
+          }
+        },
+        {
+          "not": {
+            "compare_string": [
+              "yes",
+              {
+                "u_val": "axiom_kx91_operator_authorized"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "effect": [
+      {
+        "u_message": "A buried proximity grid chirps once beneath the KX-91. The flight deck immediately declares an unauthorized airframe intrusion.",
+        "type": "warning"
+      },
+      {
+        "run_eocs": "EOC_AXIOM_SECURITY_ALARM"
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_AXIOM_CHARACTER_MELEE_ATTACKS_CHARACTER",
+    "eoc_type": "EVENT",
+    "required_event": "character_melee_attacks_character",
+    "condition": {
+      "and": [
+        "u_is_avatar",
+        {
+          "or": [
+            {
+              "u_at_om_location": "axiom_7_nw"
+            },
+            {
+              "u_at_om_location": "axiom_7_n"
+            },
+            {
+              "u_at_om_location": "axiom_7_ne"
+            },
+            {
+              "u_at_om_location": "axiom_7_w"
+            },
+            {
+              "u_at_om_location": "axiom_7_c"
+            },
+            {
+              "u_at_om_location": "axiom_7_e"
+            },
+            {
+              "u_at_om_location": "axiom_7_sw"
+            },
+            {
+              "u_at_om_location": "axiom_7_s"
+            },
+            {
+              "u_at_om_location": "axiom_7_se"
+            },
+            {
+              "u_at_om_location": "axiom_7_roof_w"
+            },
+            {
+              "u_at_om_location": "axiom_7_roof_c"
+            },
+            {
+              "u_at_om_location": "axiom_7_roof_e"
+            },
+            {
+              "u_at_om_location": "axiom_7_roof_sw"
+            },
+            {
+              "u_at_om_location": "axiom_7_roof_s"
+            },
+            {
+              "u_at_om_location": "axiom_7_roof_se"
+            },
+            {
+              "u_at_om_location": "axiom_7_sub_w"
+            },
+            {
+              "u_at_om_location": "axiom_7_sub_c"
+            },
+            {
+              "u_at_om_location": "axiom_7_sub_e"
+            },
+            {
+              "u_at_om_location": "axiom_7_sub_sw"
+            },
+            {
+              "u_at_om_location": "axiom_7_sub_s"
+            },
+            {
+              "u_at_om_location": "axiom_7_sub_se"
+            }
+          ]
+        },
+        {
+          "not": {
+            "compare_string": [
+              "yes",
+              {
+                "u_val": "axiom_security_hostile"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "effect": {
+      "run_eocs": "EOC_AXIOM_SECURITY_ALARM"
+    }
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_AXIOM_CHARACTER_RANGED_ATTACKS_CHARACTER",
+    "eoc_type": "EVENT",
+    "required_event": "character_ranged_attacks_character",
+    "condition": {
+      "and": [
+        "u_is_avatar",
+        {
+          "or": [
+            {
+              "u_at_om_location": "axiom_7_nw"
+            },
+            {
+              "u_at_om_location": "axiom_7_n"
+            },
+            {
+              "u_at_om_location": "axiom_7_ne"
+            },
+            {
+              "u_at_om_location": "axiom_7_w"
+            },
+            {
+              "u_at_om_location": "axiom_7_c"
+            },
+            {
+              "u_at_om_location": "axiom_7_e"
+            },
+            {
+              "u_at_om_location": "axiom_7_sw"
+            },
+            {
+              "u_at_om_location": "axiom_7_s"
+            },
+            {
+              "u_at_om_location": "axiom_7_se"
+            },
+            {
+              "u_at_om_location": "axiom_7_roof_w"
+            },
+            {
+              "u_at_om_location": "axiom_7_roof_c"
+            },
+            {
+              "u_at_om_location": "axiom_7_roof_e"
+            },
+            {
+              "u_at_om_location": "axiom_7_roof_sw"
+            },
+            {
+              "u_at_om_location": "axiom_7_roof_s"
+            },
+            {
+              "u_at_om_location": "axiom_7_roof_se"
+            },
+            {
+              "u_at_om_location": "axiom_7_sub_w"
+            },
+            {
+              "u_at_om_location": "axiom_7_sub_c"
+            },
+            {
+              "u_at_om_location": "axiom_7_sub_e"
+            },
+            {
+              "u_at_om_location": "axiom_7_sub_sw"
+            },
+            {
+              "u_at_om_location": "axiom_7_sub_s"
+            },
+            {
+              "u_at_om_location": "axiom_7_sub_se"
+            }
+          ]
+        },
+        {
+          "not": {
+            "compare_string": [
+              "yes",
+              {
+                "u_val": "axiom_security_hostile"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "effect": {
+      "run_eocs": "EOC_AXIOM_SECURITY_ALARM"
+    }
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_AXIOM_CHARACTER_KILLS_CHARACTER",
+    "eoc_type": "EVENT",
+    "required_event": "character_kills_character",
+    "condition": {
+      "and": [
+        "u_is_avatar",
+        {
+          "or": [
+            {
+              "u_at_om_location": "axiom_7_nw"
+            },
+            {
+              "u_at_om_location": "axiom_7_n"
+            },
+            {
+              "u_at_om_location": "axiom_7_ne"
+            },
+            {
+              "u_at_om_location": "axiom_7_w"
+            },
+            {
+              "u_at_om_location": "axiom_7_c"
+            },
+            {
+              "u_at_om_location": "axiom_7_e"
+            },
+            {
+              "u_at_om_location": "axiom_7_sw"
+            },
+            {
+              "u_at_om_location": "axiom_7_s"
+            },
+            {
+              "u_at_om_location": "axiom_7_se"
+            },
+            {
+              "u_at_om_location": "axiom_7_roof_w"
+            },
+            {
+              "u_at_om_location": "axiom_7_roof_c"
+            },
+            {
+              "u_at_om_location": "axiom_7_roof_e"
+            },
+            {
+              "u_at_om_location": "axiom_7_roof_sw"
+            },
+            {
+              "u_at_om_location": "axiom_7_roof_s"
+            },
+            {
+              "u_at_om_location": "axiom_7_roof_se"
+            },
+            {
+              "u_at_om_location": "axiom_7_sub_w"
+            },
+            {
+              "u_at_om_location": "axiom_7_sub_c"
+            },
+            {
+              "u_at_om_location": "axiom_7_sub_e"
+            },
+            {
+              "u_at_om_location": "axiom_7_sub_sw"
+            },
+            {
+              "u_at_om_location": "axiom_7_sub_s"
+            },
+            {
+              "u_at_om_location": "axiom_7_sub_se"
+            }
+          ]
+        },
+        {
+          "not": {
+            "compare_string": [
+              "yes",
+              {
+                "u_val": "axiom_security_hostile"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "effect": {
+      "run_eocs": "EOC_AXIOM_SECURITY_ALARM"
+    }
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_AXIOM_CHARACTER_MELEE_ATTACKS_MONSTER",
+    "eoc_type": "EVENT",
+    "required_event": "character_melee_attacks_monster",
+    "condition": {
+      "and": [
+        "u_is_avatar",
+        {
+          "or": [
+            {
+              "compare_string": [
+                "mon_axiom_patrol_sentry",
+                {
+                  "context_val": "victim_type"
+                }
+              ]
+            },
+            {
+              "compare_string": [
+                "mon_axiom_security_turret",
+                {
+                  "context_val": "victim_type"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "not": {
+            "compare_string": [
+              "yes",
+              {
+                "u_val": "axiom_security_hostile"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "effect": {
+      "run_eocs": "EOC_AXIOM_SECURITY_ALARM"
+    }
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_AXIOM_CHARACTER_RANGED_ATTACKS_MONSTER",
+    "eoc_type": "EVENT",
+    "required_event": "character_ranged_attacks_monster",
+    "condition": {
+      "and": [
+        "u_is_avatar",
+        {
+          "or": [
+            {
+              "compare_string": [
+                "mon_axiom_patrol_sentry",
+                {
+                  "context_val": "victim_type"
+                }
+              ]
+            },
+            {
+              "compare_string": [
+                "mon_axiom_security_turret",
+                {
+                  "context_val": "victim_type"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "not": {
+            "compare_string": [
+              "yes",
+              {
+                "u_val": "axiom_security_hostile"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "effect": {
+      "run_eocs": "EOC_AXIOM_SECURITY_ALARM"
+    }
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_AXIOM_CHARACTER_KILLS_MONSTER",
+    "eoc_type": "EVENT",
+    "required_event": "character_kills_monster",
+    "condition": {
+      "and": [
+        "u_is_avatar",
+        {
+          "or": [
+            {
+              "compare_string": [
+                "mon_axiom_patrol_sentry",
+                {
+                  "context_val": "victim_type"
+                }
+              ]
+            },
+            {
+              "compare_string": [
+                "mon_axiom_security_turret",
+                {
+                  "context_val": "victim_type"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "not": {
+            "compare_string": [
+              "yes",
+              {
+                "u_val": "axiom_security_hostile"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "effect": {
+      "run_eocs": "EOC_AXIOM_SECURITY_ALARM"
+    }
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_AXIOM_SECURITY_REARM",
+    "eoc_type": "RECURRING",
+    "recurrence": "5 seconds",
+    "condition": {
+      "and": [
+        {
+          "compare_string": [
+            "yes",
+            {
+              "u_val": "axiom_security_hostile"
+            }
+          ]
+        },
+        {
+          "or": [
+            {
+              "u_at_om_location": "axiom_7_nw"
+            },
+            {
+              "u_at_om_location": "axiom_7_n"
+            },
+            {
+              "u_at_om_location": "axiom_7_ne"
+            },
+            {
+              "u_at_om_location": "axiom_7_w"
+            },
+            {
+              "u_at_om_location": "axiom_7_c"
+            },
+            {
+              "u_at_om_location": "axiom_7_e"
+            },
+            {
+              "u_at_om_location": "axiom_7_sw"
+            },
+            {
+              "u_at_om_location": "axiom_7_s"
+            },
+            {
+              "u_at_om_location": "axiom_7_se"
+            },
+            {
+              "u_at_om_location": "axiom_7_roof_w"
+            },
+            {
+              "u_at_om_location": "axiom_7_roof_c"
+            },
+            {
+              "u_at_om_location": "axiom_7_roof_e"
+            },
+            {
+              "u_at_om_location": "axiom_7_roof_sw"
+            },
+            {
+              "u_at_om_location": "axiom_7_roof_s"
+            },
+            {
+              "u_at_om_location": "axiom_7_roof_se"
+            },
+            {
+              "u_at_om_location": "axiom_7_sub_w"
+            },
+            {
+              "u_at_om_location": "axiom_7_sub_c"
+            },
+            {
+              "u_at_om_location": "axiom_7_sub_e"
+            },
+            {
+              "u_at_om_location": "axiom_7_sub_sw"
+            },
+            {
+              "u_at_om_location": "axiom_7_sub_s"
+            },
+            {
+              "u_at_om_location": "axiom_7_sub_se"
+            }
+          ]
+        }
+      ]
+    },
+    "effect": {
+      "u_run_monster_eocs": [
+        {
+          "id": "EOC_AXIOM_SECURITY_REARM_MONSTER",
+          "effect": [
+            {
+              "math": [
+                "u_val('anger') = 100"
+              ]
+            }
+          ]
+        }
+      ],
+      "mtype_ids": [
+        "mon_axiom_patrol_sentry",
+        "mon_axiom_security_turret"
+      ],
+      "monster_range": 120
+    }
+  }
+]

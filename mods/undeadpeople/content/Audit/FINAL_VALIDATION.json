@@ -1,0 +1,11 @@
+{
+  "protected_states_checked": 86032,
+  "protected_states_changed": 0,
+  "newly_drawable_states": 6548,
+  "v2_runtime_ids_preserved": 32454,
+  "new_runtime_ids": 1672,
+  "new_blank_tiles": [],
+  "original_atlases_byte_identical": true,
+  "layering_byte_identical": true,
+  "runtime_game_launched": false
+}

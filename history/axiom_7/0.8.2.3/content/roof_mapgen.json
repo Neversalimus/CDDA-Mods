@@ -1,0 +1,603 @@
+[
+  {
+    "type": "mapgen",
+    "om_terrain": [
+      [
+        "axiom_7_roof_w",
+        "axiom_7_roof_c",
+        "axiom_7_roof_e"
+      ],
+      [
+        "axiom_7_roof_sw",
+        "axiom_7_roof_s",
+        "axiom_7_roof_se"
+      ]
+    ],
+    "object": {
+      "fill_ter": "t_open_air",
+      "rows": [
+        "___RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR___",
+        "___R............................;;;;;;;;............................R___",
+        "___R............................;;;;;;;;............................R___",
+        "___R............................;;;;;;;;............................R___",
+        "___R............................;;;;;;;;............................R___",
+        "___R..YYYYYYYYYYYYYY............;;;;;;;;............YYYYYYYYYYYYYY..R___",
+        "___R..YPPPPPPPPPPPPY............;;;;;;;;............YPPPPPPPPPPPPY..R___",
+        "___R..YP1PP1PPPfPPPY............;;;;;;;;............YP2PPP2PPPPfPY..R___",
+        "___R..YPPPPPPPPPPPPY............;;;;;;;;............YPPPPPPPPPPPPY..R___",
+        "___R..YPPPPPPPPPPPPY............;;;;;;;;............YPPPPPPPPPPPPY..R___",
+        "___R..YP3PPP4PPPPkPY............;;;;;;;;............YP3PPPP4PPPkPY..R___",
+        "___R..YPPPPPPPPPPPPY............;;;;;;;;............YPPPPPPPPPPPPY..R___",
+        "___R..YYYYYYYYYYYYYY............;;;;;;;;............YYYYYYYYYYYYYY..R___",
+        "___R............................;;;;;;;;............................R___",
+        "___R;;;Y;;;;;Y;;;;;Y;;;;;Y;;;;;;;;;;;;;;;;;;;;;Y;;;;;Y;;;;;Y;;;;;Y;;R___",
+        "___R;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;R___",
+        "___R............................;;;;;;;;............................R___",
+        "___R..YYYYYYYYYYYYYY............;;;;;;;;............YYYYYYYYYYYYYY..R___",
+        "___R..YPPPPPPPPPPPPY............;;;;;;;;............YPPPPPPPPPPPPY..R___",
+        "___R..YP1PPP5PPPPfPY............;;;;;;;;............YP2PPP1PPPPfPY..R___",
+        "___R..YPPPPPPPPPPPPY............;;;;;;;;............YPPPPPPPPPPPPY..R___",
+        "___R..YPP4PPPP3PPkPY............;;;;;;;;............YP4PPPP3PPPkPY..R___",
+        "___R..YPPPPPPPPPPPPY............;;;;;;;;............YPPPPPPPPPPPPY..R___",
+        "___R..YYYYYYYYYYYYYY............;;;;;;;;............YYYYYYYYYYYYYY..R___",
+        "___R............................;;;;;;;;............................R___",
+        "___R.....................PPPPPPPPPPPPPPPPPPPPPP.....................R___",
+        "___R.....................PYYYYYYYYYYYYYYYYYYYYP.....................R___",
+        "___R.....................PYPPPPPPPPPPPPPPPPPPYP.....................R___",
+        "___R.....................PYPPPPPPPPPPPPPPPPPPYP.....................R___",
+        "___R.....................PYPPPPPPPPPPPPPPPPPPYP.....................R___",
+        "___R.....................PYPPPPPPPPPPPPPPPPPPYP.....................R___",
+        "___R.....................PYPPPPYPPPPPPPPYPPPPYP.....................R___",
+        "___R.....................PYPPPPYPPPPPPPPYPPPPYP.....................R___",
+        "___R.....................PYPPPPYPPPPPPPPYPPPPYP.....................R___",
+        "___R.....................PYPPPPYPPPPPPPPYPPPPY...........||||||||||||___",
+        "___R.....................PYPPPPYYYYYYYYYYPPPPY;;;;;;;;;;;|;;;;;;;;;;|___",
+        "___R.....................PYPPPPYPPPPPPPPYPPPPY;..........|;f;f;;;;f;|___",
+        "___R.....................PYPPPPYPPPPPPPPYPPPPY;..........|;;;;;;;;;;|___",
+        "___R.....f...............PYPPPPYPPPPPPPPYPPPPY;;;;;;;;;;;@;;f;;;;;f;|___",
+        "___R.....................PYPPPPYPPPPPPPPYPPPPY;;;;;;;;;;;x;;;;;;>;;;|___",
+        "___R.....................PYPPPPPPPPPPPPPPPPPPY;;;;;;;;;;;|;;;;;;;;;;|___",
+        "___R.....................PYPPPPPPPPPPPPPPPPPPY;..........|;;;;;;;;;;|___",
+        "___R.....................PYPPPPPPPPPPPPPPPPPPY;..........|;;k;;;;k;;|___",
+        "___R.....................PYPPPPPPPPPPPPPPPPPPY;;;;;;;;;;;|;;;;;;;;;;|___",
+        "___R.....................PYYYYYYYYYYYYYYYYYYYY...........||||||||||||___",
+        "___R.....................PPPPPPPPPPPPPPPPPPPPPP.....................R___",
+        "___RRRRRRRRRRRRRRRRRRRRRRRRRRRRR;;;;;;;;RRRRRRRRRRRRRRRRRRRRRRRRRRRRR___",
+        "________________________________________________________________________"
+      ],
+      "terrain": {
+        "_": "t_open_air",
+        ".": "t_flat_roof",
+        "R": "t_railing",
+        ";": "t_metal_floor_olight",
+        "P": "t_metal_floor_olight",
+        "Y": "t_pavement_y",
+        "|": "t_wall_metal",
+        "x": "t_door_metal_locked",
+        ">": "t_stairs_down",
+        "f": "t_metal_floor_olight",
+        "k": "t_metal_floor_olight",
+        "+": "t_door_metal_c",
+        "1": "t_metal_floor_olight",
+        "2": "t_metal_floor_olight",
+        "3": "t_metal_floor_olight",
+        "4": "t_metal_floor_olight",
+        "5": "t_metal_floor_olight",
+        "@": "t_axiom_reader_prototype"
+      },
+      "furniture": {
+        "f": "f_control_station",
+        "k": "f_locker",
+        "1": "f_machinery_electronic",
+        "2": "f_machinery_heavy",
+        "3": "f_workbench",
+        "4": "f_rack",
+        "5": "f_server"
+      },
+      "place_npcs": [
+        {
+          "class": "axiom_7_flight_tech",
+          "x": 62,
+          "y": 38,
+          "unique_id": "AXIOM_FLIGHT_TECH"
+        }
+      ],
+      "place_monster": [
+        {
+          "monster": "mon_axiom_patrol_sentry",
+          "x": 18,
+          "y": 16,
+          "spawn_data": {
+            "ammo": [
+              {
+                "ammo_id": "556",
+                "qty": [
+                  45,
+                  60
+                ]
+              }
+            ],
+            "patrol": [
+              {
+                "x": 6,
+                "y": 6
+              },
+              {
+                "x": 20,
+                "y": 6
+              },
+              {
+                "x": 20,
+                "y": 20
+              },
+              {
+                "x": 6,
+                "y": 20
+              }
+            ]
+          }
+        },
+        {
+          "monster": "mon_axiom_patrol_sentry",
+          "x": 54,
+          "y": 16,
+          "spawn_data": {
+            "ammo": [
+              {
+                "ammo_id": "556",
+                "qty": [
+                  45,
+                  60
+                ]
+              }
+            ],
+            "patrol": [
+              {
+                "x": 50,
+                "y": 6
+              },
+              {
+                "x": 64,
+                "y": 6
+              },
+              {
+                "x": 64,
+                "y": 20
+              },
+              {
+                "x": 50,
+                "y": 20
+              }
+            ]
+          }
+        },
+        {
+          "monster": "mon_axiom_patrol_sentry",
+          "x": 52,
+          "y": 39,
+          "spawn_data": {
+            "ammo": [
+              {
+                "ammo_id": "556",
+                "qty": [
+                  45,
+                  60
+                ]
+              }
+            ],
+            "patrol": [
+              {
+                "x": 47,
+                "y": 35
+              },
+              {
+                "x": 56,
+                "y": 35
+              },
+              {
+                "x": 56,
+                "y": 43
+              },
+              {
+                "x": 47,
+                "y": 43
+              }
+            ]
+          }
+        },
+        {
+          "monster": "mon_axiom_security_turret",
+          "x": 27,
+          "y": 27,
+          "spawn_data": {
+            "ammo": [
+              {
+                "ammo_id": "556",
+                "qty": [
+                  120,
+                  160
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "monster": "mon_axiom_security_turret",
+          "x": 44,
+          "y": 27,
+          "spawn_data": {
+            "ammo": [
+              {
+                "ammo_id": "556",
+                "qty": [
+                  120,
+                  160
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "monster": "mon_axiom_security_turret",
+          "x": 27,
+          "y": 43,
+          "spawn_data": {
+            "ammo": [
+              {
+                "ammo_id": "556",
+                "qty": [
+                  120,
+                  160
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "monster": "mon_axiom_security_turret",
+          "x": 44,
+          "y": 43,
+          "spawn_data": {
+            "ammo": [
+              {
+                "ammo_id": "556",
+                "qty": [
+                  120,
+                  160
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "place_vehicles": [
+        {
+          "vehicle": "axiom_kx91_dormant",
+          "x": 37,
+          "y": 36,
+          "rotation": 0,
+          "fuel": 0,
+          "status": 2,
+          "faction": "axiom_7"
+        }
+      ],
+      "faction_owner": [
+        {
+          "id": "axiom_7",
+          "x": [
+            0,
+            23
+          ],
+          "y": [
+            0,
+            23
+          ]
+        },
+        {
+          "id": "axiom_7",
+          "x": [
+            24,
+            47
+          ],
+          "y": [
+            0,
+            23
+          ]
+        },
+        {
+          "id": "axiom_7",
+          "x": [
+            48,
+            71
+          ],
+          "y": [
+            0,
+            23
+          ]
+        },
+        {
+          "id": "axiom_7",
+          "x": [
+            0,
+            23
+          ],
+          "y": [
+            24,
+            47
+          ]
+        },
+        {
+          "id": "axiom_7",
+          "x": [
+            24,
+            47
+          ],
+          "y": [
+            24,
+            47
+          ]
+        },
+        {
+          "id": "axiom_7",
+          "x": [
+            48,
+            71
+          ],
+          "y": [
+            24,
+            47
+          ]
+        }
+      ],
+      "place_graffiti": [
+        {
+          "text": "AXIOM-7 // FLIGHT DECK // RESTRICTED AIRFRAME ACCESS",
+          "x": 27,
+          "y": 24
+        },
+        {
+          "text": "ROOFTOP OPERATIONS / STAIRS + CONTROL ANNEX",
+          "x": 48,
+          "y": 39
+        },
+        {
+          "text": "KX-91 // ENHANCED TEST AIRFRAME // PROPERTY OF AXIOM-7",
+          "x": 24,
+          "y": 43
+        },
+        {
+          "text": "FLIGHT SUPPORT // AVIONICS SERVICE",
+          "x": 7,
+          "y": 5
+        },
+        {
+          "text": "FLIGHT SUPPORT // POWER CONDITIONING",
+          "x": 53,
+          "y": 5
+        },
+        {
+          "text": "DRONE / SENSOR SUPPORT",
+          "x": 7,
+          "y": 17
+        },
+        {
+          "text": "AIRFRAME SERVICE / PARTS STAGING",
+          "x": 53,
+          "y": 17
+        },
+        {
+          "text": "PROTOTYPE CLEARANCE REQUIRED BEYOND THIS LOCK",
+          "x": 58,
+          "y": 38
+        }
+      ],
+      "place_traps": [
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 26,
+          "y": 36
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 27,
+          "y": 36
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 27,
+          "y": 37
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 27,
+          "y": 38
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 28,
+          "y": 37
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 29,
+          "y": 37
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 30,
+          "y": 37
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 31,
+          "y": 37
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 32,
+          "y": 36
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 32,
+          "y": 37
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 32,
+          "y": 38
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 33,
+          "y": 35
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 33,
+          "y": 36
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 33,
+          "y": 37
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 33,
+          "y": 38
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 33,
+          "y": 39
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 34,
+          "y": 34
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 34,
+          "y": 35
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 34,
+          "y": 36
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 34,
+          "y": 37
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 34,
+          "y": 38
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 34,
+          "y": 39
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 34,
+          "y": 40
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 35,
+          "y": 33
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 35,
+          "y": 34
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 35,
+          "y": 35
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 35,
+          "y": 36
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 35,
+          "y": 37
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 35,
+          "y": 38
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 35,
+          "y": 39
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 35,
+          "y": 40
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 35,
+          "y": 41
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 36,
+          "y": 36
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 36,
+          "y": 37
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 36,
+          "y": 38
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 37,
+          "y": 36
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 37,
+          "y": 37
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 37,
+          "y": 38
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 38,
+          "y": 36
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 38,
+          "y": 37
+        },
+        {
+          "trap": "tr_axiom_airframe_security",
+          "x": 38,
+          "y": 38
+        }
+      ]
+    }
+  }
+]

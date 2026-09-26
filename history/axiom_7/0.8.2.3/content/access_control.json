@@ -1,0 +1,83 @@
+[
+  {
+    "type": "terrain",
+    "id": "t_axiom_reader_contractor",
+    "name": "AXIOM contractor access reader",
+    "description": "A hardened AXIOM-7 smartcard reader controlling service-level doors. Its local controller can also be attacked electronically by a skilled intruder.",
+    "symbol": "6",
+    "color": "yellow",
+    "copy-from": "t_card_science_maintenance_yellow",
+    "looks_like": "t_card_science_maintenance_yellow",
+    "examine_action": {
+      "type": "cardreader",
+      "flags": [
+        "AXIOM_CARD_CONTRACTOR"
+      ],
+      "consume_card": false,
+      "allow_hacking": true,
+      "despawn_monsters": false,
+      "radius": 3,
+      "terrain_changes": {
+        "t_door_metal_locked": "t_door_metal_c"
+      },
+      "query": true,
+      "query_msg": "Authorize contractor-level AXIOM access?",
+      "success_msg": "The AXIOM service lock disengages.",
+      "redundant_msg": "The service lock is already disengaged."
+    }
+  },
+  {
+    "type": "terrain",
+    "id": "t_axiom_reader_specialist",
+    "name": "AXIOM specialist access reader",
+    "description": "A blue-coded AXIOM-7 reader controlling infrastructure rooms whose contents can shut down whole sections of the enclave if mishandled.",
+    "symbol": "6",
+    "color": "light_blue",
+    "copy-from": "t_card_science_maintenance_blue",
+    "looks_like": "t_card_science_maintenance_blue",
+    "examine_action": {
+      "type": "cardreader",
+      "flags": [
+        "AXIOM_CARD_SPECIALIST"
+      ],
+      "consume_card": false,
+      "allow_hacking": true,
+      "despawn_monsters": false,
+      "radius": 3,
+      "terrain_changes": {
+        "t_door_metal_locked": "t_door_metal_c"
+      },
+      "query": true,
+      "query_msg": "Authorize specialist-level AXIOM access?",
+      "success_msg": "The infrastructure lock disengages.",
+      "redundant_msg": "The infrastructure lock is already disengaged."
+    }
+  },
+  {
+    "type": "terrain",
+    "id": "t_axiom_reader_prototype",
+    "name": "AXIOM restricted access reader",
+    "description": "A magenta-coded AXIOM-7 reader reserved for prototype, security and flight-systems spaces. The enclosure is hardened, but not magically immune to expert intrusion.",
+    "symbol": "6",
+    "color": "magenta",
+    "copy-from": "t_card_science_security_magenta",
+    "looks_like": "t_card_science_security_magenta",
+    "examine_action": {
+      "type": "cardreader",
+      "flags": [
+        "AXIOM_CARD_PROTOTYPE"
+      ],
+      "consume_card": false,
+      "allow_hacking": true,
+      "despawn_monsters": false,
+      "radius": 3,
+      "terrain_changes": {
+        "t_door_metal_locked": "t_door_metal_c"
+      },
+      "query": true,
+      "query_msg": "Authorize restricted AXIOM access?",
+      "success_msg": "The restricted lock disengages.",
+      "redundant_msg": "The restricted lock is already disengaged."
+    }
+  }
+]

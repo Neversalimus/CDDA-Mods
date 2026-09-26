@@ -1,0 +1,2308 @@
+
+msgid ""
+msgstr ""
+"Project-Id-Version: AXIOM-7 0.8.2.7\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-09-24 02:32+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ru\n"
+"Language-Team: ru <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid ""
+"A brief burst of laughter comes from one of the staff rooms before a door closes and the complex returns to its usual"
+" working murmur."
+msgstr ""
+"Из одной из комнат персонала доносится короткий взрыв смеха; дверь закрывается, и комплекс возвращается к обычному "
+"рабочему гулу."
+
+msgid ""
+"A buried proximity grid chirps once beneath the KX-91. The flight deck immediately declares an unauthorized airframe "
+"intrusion."
+msgstr ""
+"Под KX-91 один раз коротко пищит скрытая сетка датчиков. Лётная палуба немедленно объявляет несанкционированное "
+"проникновение на борт."
+
+msgid "A cabinet relay chatters in a rapid sequence.  Somewhere nearby, an engineer says, “There.  Leave it alone now.”"
+msgstr "Реле в шкафу отстукивают быструю последовательность. Рядом кто-то говорит: «Вот. Теперь не трогай.»"
+
+msgid ""
+"A calm voice comes over the local speakers.  “Receiving, do not put untagged hardware on Mara’s counter.  She will "
+"find out.”"
+msgstr ""
+"По локальным динамикам раздаётся спокойный голос: «Приёмка, не кладите немаркированное железо на стойку Мары. Она всё"
+" равно узнает.»"
+
+msgid "A ceiling sensor follows you for a moment.  A quiet tone sounds: “Visitor tag acquired.  Marked corridors are open.”"
+msgstr ""
+"Потолочный сенсор несколько секунд сопровождает вас. Звучит тихий сигнал: «Метка посетителя принята. Размеченные "
+"коридоры открыты.»"
+
+msgid "A clipped voice from Security says, “Routine perimeter check complete.  No changes worth waking anyone for.”"
+msgstr ""
+"Короткий голос службы безопасности сообщает: «Плановая проверка периметра завершена. Изменений, ради которых стоит "
+"кого-то будить, нет.»"
+
+msgid ""
+"A compact recorder used to capture short-lived power and cooling faults. Its memory contains a failure trace Viktor "
+"Hale wants for comparison with the Systems Core."
+msgstr ""
+"Компактный регистратор кратковременных сбоев питания и охлаждения. В его памяти хранится трасса отказа, которая нужна"
+" Виктору Хейлу для сравнения с Systems Core."
+
+msgid ""
+"A compact tracked AXIOM-7 security UGV fitted with a rifle mount, sensor mast and hardened IFF package. It follows a "
+"fixed patrol while the site is green; once AXIOM security declares a hostile, its rules of engagement change "
+"immediately."
+msgstr ""
+"Компактный гусеничный охранный БНА AXIOM-7 с винтовочной установкой, сенсорной мачтой и защищённым блоком IFF. Пока "
+"объект в зелёном режиме, он следует заданному маршруту; после объявления угрозы правила применения оружия меняются "
+"немедленно."
+
+msgid ""
+"A compact tracked AXIOM-7 security UGV fitted with a rifle mount, sensor mast and local navigation package. In normal"
+" operation it follows a fixed security circuit and yields to authorized personnel."
+msgstr ""
+"Компактный гусеничный охранный БНА AXIOM-7 с винтовочной установкой, сенсорной мачтой и локальным навигационным "
+"модулем. В штатном режиме он следует заданному маршруту охраны и уступает дорогу авторизованному персоналу."
+
+msgid ""
+"A compatible industrial conversion stack should still exist in an electronics store we had surveyed before the "
+"collapse. Recover it intact. This is the sort of boring component that keeps the impressive machines alive."
+msgstr ""
+"Совместимый промышленный преобразовательный стек должен оставаться в магазине электроники, который мы обследовали до "
+"коллапса. Верните его целым. Именно такие скучные компоненты и поддерживают в живых впечатляющие машины."
+
+msgid ""
+"A console quietly refreshes your badge permissions.  “Specialist authorization propagated.  Blue-sector diagnostics "
+"and stores are live.”"
+msgstr ""
+"Консоль тихо обновляет права вашей карты. «Допуск специалиста распространён по системе. Диагностика и склады синего "
+"сектора доступны.»"
+
+msgid "A cooling pump changes pitch.  Three seconds later a green status tone answers from somewhere behind the machinery."
+msgstr "Охлаждающий насос меняет тон. Через три секунды где-то за оборудованием отвечает зелёный сигнал состояния."
+
+msgid "A fabrication arm cycles through an empty motion, checking its limits before returning to standby."
+msgstr "Манипулятор фабрикатора выполняет пустой цикл, проверяя пределы хода, и снова замирает."
+
+msgid ""
+"A glass-ceramic data wafer carrying a damaged AXIOM-7 navigation handshake.  Its route data is heavily encrypted, but"
+" the remaining phase-lock header can still resolve the enclave's globally unique central transponder and add the "
+"facility to your overmap."
+msgstr ""
+"Стеклокерамическая пластина данных с повреждённым навигационным рукопожатием AXIOM-7. Маршрутные данные сильно "
+"зашифрованы, но уцелевший заголовок фазовой синхронизации всё ещё способен определить глобально уникальный "
+"центральный транспондер анклава и отметить комплекс на карте."
+
+msgid ""
+"A higher-level AXIOM-7 credential carrying contractor and infrastructure authorization. It grants access to sensitive"
+" power, data and engineering spaces."
+msgstr ""
+"Карта повышенного уровня AXIOM-7 с полномочиями подрядчика и инженерной инфраструктуры. Даёт доступ к чувствительным "
+"энергетическим, вычислительным и техническим помещениям."
+
+msgid ""
+"A maintenance controller chirps twice and announces, “Robotics bay path reserved.”  A nearby patrol unit briefly "
+"yields the corridor."
+msgstr ""
+"Контроллер обслуживания дважды пищит: «Маршрут робототехнического отсека зарезервирован». Ближайший патрульный робот "
+"на секунду уступает проход."
+
+msgid ""
+"A maintenance note appears on the nearest flight console: AIRFRAME INSPECTION QUEUE — 17 ITEMS.  Nadia has crossed "
+"out the number and written 23."
+msgstr ""
+"На ближайшей лётной консоли появляется запись: ОЧЕРЕДЬ ОСМОТРА ПЛАНЕРА — 17 ПУНКТОВ. Надя зачеркнула число и написала"
+" 23."
+
+msgid ""
+"A patrol sentry pauses at an intersection while its sensor mast turns through a slow diagnostic sweep, then continues"
+" on its route."
+msgstr ""
+"Патрульный робот останавливается на перекрёстке, его сенсорная мачта медленно проходит диагностический круг, после "
+"чего машина продолжает маршрут."
+
+msgid ""
+"A permanently installed AXIOM-7 remote weapon station. Unlike portable military CROWS units, the local control "
+"package has no user-accessible shutdown mode; authorized maintenance is performed from the security network."
+msgstr ""
+"Стационарный дистанционный боевой модуль AXIOM-7. В отличие от переносных военных CROWS, его локальный контроллер не "
+"имеет доступного пользователю режима отключения: штатное обслуживание выполняется через сеть безопасности."
+
+msgid ""
+"A permanently integrated KX-91 pulse-laser mount. It is hard-wired into the airframe and cannot be uninstalled intact"
+" in the field."
+msgstr ""
+"Постоянно интегрированная импульсно-лазерная установка KX-91. Она жёстко встроена в планер и не может быть "
+"демонтирована в полевых условиях без разрушения узла."
+
+msgid ""
+"A personalized AXIOM-7 contractor credential. It opens service-level doors while leaving research, security and "
+"flight systems restricted."
+msgstr ""
+"Персональная карта подрядчика AXIOM-7. Открывает служебные двери, но исследовательские, охранные и авиационные "
+"системы остаются закрыты."
+
+msgid "A printer somewhere in Operations spits out a short burst of labels.  Nobody sounds pleased about it."
+msgstr "Где-то в Operations принтер короткой серией выплёвывает этикетки. Судя по голосам, никто этому не рад."
+
+msgid ""
+"A relay node at a radio tower stopped reporting during the first week. We do not need the mast; we need its sealed "
+"calibration core. Bring it back and I will register you as an AXIOM contractor."
+msgstr ""
+"Релейный узел на радиовышке перестал отвечать ещё в первую неделю. Мачта нам не нужна — нужно герметичное "
+"калибровочное ядро. Верните его, и я зарегистрирую вас как подрядчика AXIOM."
+
+msgid ""
+"A remote enclosure logged a thermal transient before the network went dark. The fault itself is ancient history; the "
+"shape of it is not. Bring me the logger. If our Core starts developing the same signature, I would like to recognize "
+"it before the room becomes educational."
+msgstr ""
+"Удалённый шкаф автоматики записал тепловой переходный процесс перед потерей связи. Сам сбой давно в прошлом, но его "
+"профиль — нет. Принесите регистратор. Если наше Системное ядро начнёт показывать ту же сигнатуру, я хочу распознать "
+"её до того, как помещение превратится в наглядное пособие."
+
+msgid ""
+"A restricted AXIOM-7 credential recognized by contractor, specialist and prototype security readers. It grants "
+"access, not ownership: equipment inside remains AXIOM property."
+msgstr ""
+"Ограниченная карта AXIOM-7, распознаваемая считывателями подрядного, инженерного и прототипного уровней. Она даёт "
+"доступ, а не право собственности: оборудование внутри остаётся собственностью AXIOM."
+
+msgid "A roof-mounted sensor tracks something far beyond the perimeter for several seconds before returning to its idle arc."
+msgstr ""
+"Крышный сенсор несколько секунд сопровождает что-то далеко за периметром, затем возвращается к обычному сектору "
+"обзора."
+
+msgid ""
+"A rugged field coupler used to mirror traffic on AXIOM power and control buses without breaking the circuit. Elias "
+"Chen needs the old unit for calibration references."
+msgstr ""
+"Прочный полевой ответвитель, позволяющий зеркалировать обмен на силовых и управляющих шинах AXIOM без разрыва цепи. "
+"Элиасу Чену нужен старый модуль как калибровочный эталон."
+
+msgid ""
+"A sealed AXIOM logistics wafer carrying a pre-Cataclysm routing manifest and inventory signatures. Mara Voss wants "
+"this exact wafer back, not the hardware around it."
+msgstr ""
+"Герметичная логистическая пластина AXIOM с довоенным маршрутным манифестом и инвентарными подписями. Маре Восс нужна "
+"именно эта пластина, а не оборудование вокруг неё."
+
+msgid ""
+"A sealed AXIOM-7 fire-control node coupled directly to one KX-91 laser mount. It supplies local tracking, IFF and "
+"automatic-targeting control and is not intended for field removal."
+msgstr ""
+"Герметичный узел управления огнём AXIOM-7, напрямую связанный с одной лазерной установкой KX-91. Он обеспечивает "
+"локальное сопровождение целей, IFF и автоматическое наведение и не предназначен для полевого демонтажа."
+
+msgid ""
+"A sealed inertial reference package from the same supplier family used by KX-series aircraft. Nadia Karpenko wants it"
+" as a donor and calibration reference for KX-91."
+msgstr ""
+"Герметичный инерциальный эталонный блок того же семейства поставщика, что использовалось на машинах серии KX. Наде "
+"Карпенко он нужен как донор и калибровочный эталон для KX-91."
+
+msgid ""
+"A security courier failed safe in the wrong direction. It is armed, mobile and carrying compromised IFF state. "
+"Destroy it before it wanders back toward inhabited ground. Complete this and I will authorize prototype contractor "
+"stock."
+msgstr ""
+"Охранный курьер сработал аварийно не в ту сторону. Он вооружён, мобилен и несёт скомпрометированное состояние IFF. "
+"Уничтожьте его, прежде чем он вернётся к населённым районам. После этого я открою подрядный доступ к прототипам."
+
+msgid "A security unit dropped off our net and came back with the wrong idea about authority."
+msgstr "Один охранный модуль выпал из нашей сети и вернулся с неправильным представлением о том, кто здесь командует."
+
+msgid "A service door opens somewhere out of sight.  Wheels rattle over metal flooring, then fade toward the workshop wing."
+msgstr ""
+"Где-то вне поля зрения открывается сервисная дверь. Колёса стучат по металлическому полу и затихают в направлении "
+"мастерских."
+
+msgid "A service panel near the aircraft flashes amber, runs through a column of checks, and returns to green."
+msgstr "Сервисная панель возле машины загорается янтарным, быстро прогоняет колонку проверок и снова становится зелёной."
+
+msgid "A shipment ledger vanished with one of our pre-Cataclysm staging caches."
+msgstr "Вместе с одним из довоенных складских резервов пропал журнал поставки."
+
+msgid "A site clock chimes once.  Several distant doors open and close as staff trade stations."
+msgstr ""
+"Системные часы подают одиночный сигнал. Вдалеке открывается и закрывается несколько дверей — персонал меняется "
+"постами."
+
+msgid ""
+"A soft chime precedes a site-wide announcement.  “Shift handoff in ten minutes.  Open fault logs stay open until "
+"somebody owns them.”"
+msgstr ""
+"Тихий сигнал предваряет общую трансляцию: «Передача смены через десять минут. Открытые журналы неисправностей "
+"остаются открытыми, пока у них не появится ответственный.»"
+
+msgid ""
+"A supplier shipped us a spare inertial reference package before the world ended. It never reached the airframe; "
+"Logistics parked the crate in a warehouse. I do not need it because KX-91's unit is dead. I need it because I want to"
+" know whether KX-91's unit is lying."
+msgstr ""
+"До конца света поставщик отправил нам запасной инерциальный эталонный блок. До машины он так и не дошёл — Logistics "
+"оставила ящик на складе. Он нужен мне не потому, что блок KX-91 мёртв. Он нужен, чтобы понять, врёт ли блок KX-91."
+
+msgid ""
+"A surviving autonomous research and fabrication enclave specializing in photonics, robotics, dense power systems, "
+"medical automation, nanofabrication and advanced materials. AXIOM-7 behaves like a functioning institution, not a "
+"survivor camp."
+msgstr ""
+"Уцелевший автономный исследовательско-производственный анклав, специализирующийся на фотонике, робототехнике, "
+"энергонасыщенных системах, медицинской автоматизации, нанофабрикации и продвинутых материалах. AXIOM-7 ведёт себя как"
+" действующий институт, а не лагерь выживших."
+
+msgid ""
+"A two-tone chime sounds overhead.  “Maintenance, west service aisle is clear.  You have six minutes before the next "
+"cart movement.”"
+msgstr ""
+"Над головой звучит двухтональный сигнал. «Техслужба, западный сервисный проход свободен. До следующего движения "
+"тележки — шесть минут.»"
+
+msgid ""
+"A vehicle-integrated AXIOM-7 heavy pulse laser package for the KX-91 combat helicopter. This is not a handheld "
+"weapon: the emitter, cooling jacket and power conditioner are hard-wired into the airframe. When mounted, each shot "
+"draws 110 kJ directly from the helicopter storage batteries; there is no ammunition magazine or separate UPS to "
+"reload. Operate it from the KX-91 cockpit vehicle controls using the turret-aim/fire commands."
+msgstr ""
+"Интегрированный в боевой вертолёт KX-91 тяжёлый импульсный лазерный комплекс AXIOM-7. Это не ручное оружие: "
+"излучатель, охлаждение и силовой преобразователь жёстко подключены к планеру. В установленном виде каждый выстрел "
+"забирает 110 кДж напрямую из бортовых аккумуляторов вертолёта; отдельного магазина или UPS для перезарядки нет. "
+"Используйте его из кабины через меню управления транспортом и команды наведения/огня турелей."
+
+msgid ""
+"A wind sensor mast clicks through a calibration sweep.  The local display updates and immediately marks the airframe "
+"hold as unchanged."
+msgstr ""
+"Мачта датчика ветра щёлкает, проходя калибровочный цикл. Локальный дисплей обновляется и сразу оставляет запрет на "
+"полёты без изменений."
+
+msgid "AX-41 photon carbine prototype"
+msgstr "прототип фотонного карабина AX-41"
+
+msgid "AX-EMP field projector prototype"
+msgstr "прототип полевого ЭМИ-проектора AX-EMP"
+
+msgid "AXIOM Flight Systems Engineer"
+msgstr "Инженер авиационных систем AXIOM"
+
+msgid "AXIOM Infrastructure Chief"
+msgstr "Главный инженер инфраструктуры AXIOM"
+
+msgid "AXIOM KX-91 armored combat helicopter"
+msgstr "усиленный боевой вертолёт AXIOM KX-91"
+
+msgid "AXIOM KX-91 enhanced armored combat helicopter"
+msgstr "усиленный бронированный боевой вертолёт AXIOM KX-91"
+
+msgid "AXIOM Operations Liaison"
+msgstr "Операционный координатор AXIOM"
+
+msgid "AXIOM Prototype Sentinel"
+msgstr "Страж прототипов AXIOM"
+
+msgid "AXIOM Quartermaster"
+msgstr "Квартирмейстер AXIOM"
+
+msgid "AXIOM Security"
+msgstr "Охрана AXIOM"
+
+msgid "AXIOM Security Director"
+msgstr "Директор безопасности AXIOM"
+
+msgid "AXIOM Systems Engineer"
+msgstr "Системный инженер AXIOM"
+
+msgid "AXIOM adaptive field shell prototype"
+msgstr "прототип адаптивной полевой оболочки AXIOM"
+
+msgid "AXIOM airframe intrusion sensor"
+msgstr "датчик вторжения в авиационный контур AXIOM"
+
+msgid "AXIOM autonomous security turret"
+msgstr "автономная охранная турель AXIOM"
+
+msgid "AXIOM contract: dead bus tap"
+msgstr "Контракт AXIOM: потерянный ответвитель"
+
+msgid "AXIOM contract: inertial reference"
+msgstr "Контракт AXIOM: инерциальный эталон"
+
+msgid "AXIOM contract: missing manifest"
+msgstr "Контракт AXIOM: пропавший манифест"
+
+msgid "AXIOM contract: orphan sentry"
+msgstr "Контракт AXIOM: бесхозный страж"
+
+msgid "AXIOM contract: spare compute"
+msgstr "Контракт AXIOM: запас вычислителей"
+
+msgid "AXIOM contract: transient logger"
+msgstr "Контракт AXIOM: регистратор переходных процессов"
+
+msgid "AXIOM contractor access card"
+msgstr "карта доступа подрядчика AXIOM"
+
+msgid "AXIOM contractor access reader"
+msgstr "считыватель доступа подрядчиков AXIOM"
+
+msgid "AXIOM control fiber"
+msgstr "контрольное волокно AXIOM"
+
+msgid "AXIOM diagnostic bus tap"
+msgstr "диагностический ответвитель шины AXIOM"
+
+msgid "AXIOM diagnostic interface"
+msgstr "диагностический интерфейс AXIOM"
+
+msgid "AXIOM high-density tool cell"
+msgstr "энергоячейка повышенной плотности AXIOM"
+
+msgid "AXIOM logistics manifest wafer"
+msgstr "логистическая пластина-манифест AXIOM"
+
+msgid "AXIOM patrol sentry"
+msgstr "патрульный страж AXIOM"
+
+msgid "AXIOM phase-locked locator wafer"
+msgstr "фазово-синхронизированная навигационная пластина AXIOM"
+
+msgid "AXIOM power-conversion stack"
+msgstr "силовой преобразовательный стек AXIOM"
+
+msgid "AXIOM power-routing cassette"
+msgstr "кассета силовой маршрутизации AXIOM"
+
+msgid "AXIOM prototype access card"
+msgstr "карта ограниченного доступа AXIOM"
+
+msgid "AXIOM relay core"
+msgstr "релейное ядро AXIOM"
+
+msgid "AXIOM restricted access reader"
+msgstr "считыватель ограниченного доступа AXIOM"
+
+msgid "AXIOM security interceptor"
+msgstr "охранный электроперехватчик AXIOM"
+
+msgid "AXIOM security shell"
+msgstr "охранная силовая оболочка AXIOM"
+
+msgid "AXIOM sensor wafer"
+msgstr "сенсорная матрица AXIOM"
+
+msgid "AXIOM service EV"
+msgstr "служебный электромобиль AXIOM"
+
+msgid "AXIOM service harness"
+msgstr "сервисная гермоупряжь AXIOM"
+
+msgid "AXIOM specialist access card"
+msgstr "карта доступа специалиста AXIOM"
+
+msgid "AXIOM specialist access reader"
+msgstr "считыватель доступа специалистов AXIOM"
+
+msgid "AXIOM thermal transient logger"
+msgstr "регистратор тепловых переходных процессов AXIOM"
+
+msgid "AXIOM-7 SECURITY ALERT: hostile action confirmed. All local security assets are cleared to engage."
+msgstr "ТРЕВОГА AXIOM-7: подтверждено враждебное действие. Всем местным охранным системам разрешено открывать огонь."
+
+msgid "AXIOM-7 access plaza"
+msgstr "AXIOM-7: въездной комплекс"
+
+msgid "AXIOM-7 central atrium"
+msgstr "AXIOM-7: центральный атриум"
+
+msgid "AXIOM-7 east motor pool"
+msgstr "AXIOM-7: восточный автопарк"
+
+msgid "AXIOM-7 fabrication wing"
+msgstr "AXIOM-7: фабрикационное крыло"
+
+msgid "AXIOM-7 prototype gallery"
+msgstr "AXIOM-7: галерея прототипов"
+
+msgid "AXIOM-7 service wing"
+msgstr "AXIOM-7: сервисное крыло"
+
+msgid "AXIOM-7 sublevel: data core"
+msgstr "AXIOM-7: подуровень вычислительного ядра"
+
+msgid "AXIOM-7 sublevel: power conversion"
+msgstr "AXIOM-7: подуровень силового преобразования"
+
+msgid "AXIOM-7 sublevel: restricted systems"
+msgstr "AXIOM-7: закрытые системы"
+
+msgid "AXIOM-7 sublevel: robotics maintenance"
+msgstr "AXIOM-7: обслуживание робототехники"
+
+msgid "AXIOM-7 sublevel: security operations"
+msgstr "AXIOM-7: центр безопасности"
+
+msgid "AXIOM-7 sublevel: thermal backbone"
+msgstr "AXIOM-7: подуровень теплового контура"
+
+msgid "AXIOM-7 systems wing"
+msgstr "AXIOM-7: системное крыло"
+
+msgid "AXIOM-7 trade wing"
+msgstr "AXIOM-7: торговое крыло"
+
+msgid ""
+"AXIOM-7 v0.4 adds a fortified 3x3 ultra-high-tech enclave with a vehicle approach, owned security vehicles, "
+"autonomous perimeter defenses, hardened prototype galleries, useful AXIOM components, tiered traders, and a real "
+"three-mission contractor chain."
+msgstr ""
+"AXIOM-7 v0.4 добавляет укреплённый ультратехнологичный анклав 3x3 с автомобильным подъездом, принадлежащим фракции "
+"транспортом, автономной обороной периметра, защищённой галереей прототипов, полезными компонентами AXIOM, "
+"многоуровневыми торговцами и настоящей цепочкой из трёх заданий."
+
+msgid "AXIOM-7 west motor pool"
+msgstr "AXIOM-7: западный автопарк"
+
+msgid "AXIOM: blind sensor sector"
+msgstr "AXIOM: слепой сектор сенсоров"
+
+msgid "AXIOM: conversion stack"
+msgstr "AXIOM: преобразовательный стек"
+
+msgid "AXIOM: rogue courier sentinel"
+msgstr "AXIOM: сбойный курьер-страж"
+
+msgid "About one of the assignments..."
+msgstr "По поводу одного из заданий..."
+
+msgid "About the assignment..."
+msgstr "По поводу задания..."
+
+msgid "About the job you gave me..."
+msgstr "Насчёт работы, которую вы мне дали..."
+
+msgid ""
+"An old relay on a radio tower went silent during the first week. I do not care about the mast. Inside is a sealed "
+"calibration core we can still use. Bring that back intact and I can stop treating you as a visitor."
+msgstr ""
+"Старый ретранслятор на радиовышке замолчал ещё в первую неделю. Мачта меня не интересует. Внутри есть герметичное "
+"калибровочное ядро, которое нам всё ещё пригодится. Верните его целым — и я перестану считать вас просто посетителем."
+
+msgid ""
+"An upgraded vehicle-integrated AXIOM-7 heavy pulse laser package for the KX-91 combat helicopter. The emitter stack, "
+"cooling jacket and power conditioning hardware are too massive for infantry use. It hits harder and reaches farther "
+"than the earlier roof prototype, drawing directly from the vehicle power bus."
+msgstr ""
+"Усиленный тяжёлый импульсный лазерный комплекс AXIOM-7, интегрированный в боевой вертолёт KX-91. Блок излучателей, "
+"охлаждение и силовая электроника слишком массивны для пехотного применения. Он мощнее и дальнобойнее раннего "
+"прототипа и питается непосредственно от бортовой энергосистемы."
+
+msgid "And those lasers — how are they fed and fired?"
+msgstr "А эти лазеры — чем питаются и как ими стрелять?"
+
+msgid "And what is under our feet?"
+msgstr "А что у нас под ногами?"
+
+msgid "Any security work outside the perimeter?"
+msgstr "За периметром есть работа для службы безопасности?"
+
+msgid "Any smaller jobs Operations is sitting on?"
+msgstr "У Operations есть какие-нибудь небольшие дела?"
+
+msgid "Anything on your flight list I can fetch?"
+msgstr "В твоём лётном списке есть что-нибудь, что я могу принести?"
+
+msgid "Anything outside the Core you need brought back?"
+msgstr "За пределами Core есть что-нибудь, что нужно вернуть?"
+
+msgid "Anything you need picked up beyond the fence?"
+msgstr "За периметром есть что-нибудь, что тебе нужно забрать?"
+
+msgid "Anything you want recovered while I am outside?"
+msgstr "Пока я снаружи, есть что-нибудь, что стоит вернуть?"
+
+msgid ""
+"At this point I should probably stop calling you a visitor. Three assignments, three clean returns, and no reason for"
+" Security to learn your name the unpleasant way. What do you need?"
+msgstr ""
+"Пожалуй, пора перестать называть вас посетителем. Три задания, три нормальных возвращения и ни одного повода для "
+"охраны запомнить ваше имя неприятным способом. Что вам нужно?"
+
+msgid ""
+"Back again. Yellow card suits you. The service routes are open now, and people here will start treating you less like"
+" a guest and more like someone who might actually come back."
+msgstr ""
+"Снова вы. Жёлтая карта вам идёт. Сервисные маршруты теперь открыты, и здесь начнут относиться к вам меньше как к "
+"гостю и больше как к человеку, который действительно вернётся."
+
+msgid "Be honest. Could KX-91 actually fly again?"
+msgstr "Честно: KX-91 вообще сможет снова летать?"
+
+msgid ""
+"Before the Cataclysm I left a diagnostic coupler with a retailer that was helping us reproduce an intermittent fault."
+" Ridiculous place to lose something useful, but here we are. If the coupler survived, its calibration history is "
+"worth more to me than the hardware."
+msgstr ""
+"До Катаклизма я оставил диагностический ответвитель у продавца, который помогал нам воспроизвести плавающий сбой. "
+"Нелепое место, чтобы потерять полезную вещь, но имеем что имеем. Если модуль уцелел, его история калибровок для меня "
+"ценнее самого железа."
+
+msgid ""
+"Before the Cataclysm this site handled photonics, autonomous fabrication, robotics, medical automation, dense power "
+"systems and advanced materials. Most institutions died. This one lost people, capacity and reach, but not continuity."
+msgstr ""
+"До Катаклизма этот объект занимался фотоникой, автономной фабрикацией, робототехникой, медицинской автоматизацией, "
+"энергонасыщенными системами и продвинутыми материалами. Большинство институтов погибло. Этот потерял людей, мощности "
+"и охват, но не непрерывность работы."
+
+msgid ""
+"Before the Cataclysm, AXIOM-7 was where you sent a problem when normal engineering had already failed politely. "
+"Photonics, robotics, dense power, medical automation, materials work. We lost people, satellites, suppliers, and most"
+" of the world outside the fence. We did not lose the habit of coming to work."
+msgstr ""
+"До Катаклизма в AXIOM-7 отправляли проблему, когда обычная инженерия уже вежливо признала поражение. Фотоника, "
+"робототехника, плотная энергетика, медицинская автоматизация, материалы. Мы потеряли людей, спутники, поставщиков и "
+"почти весь мир за оградой. Но не потеряли привычку приходить на работу."
+
+msgid ""
+"Blue card. Now we are talking. I can release hardened gear and dense-power stock, within reason. We still need to "
+"keep this place running."
+msgstr ""
+"Синяя карта. Вот теперь можно разговаривать. Могу отпустить усиленное снаряжение и плотные энергоячейки — в разумных "
+"пределах. Нам ещё нужно поддерживать это место в работе."
+
+msgid ""
+"Blue clearance already. You have been useful faster than most of our pre-Cataclysm contractors ever managed. There is"
+" still one restricted problem left, if you want it."
+msgstr ""
+"Уже синий допуск. Вы оказались полезнее и быстрее большинства наших подрядчиков ещё до Катаклизма. Осталась одна "
+"закрытая проблема, если хотите взяться."
+
+msgid ""
+"Blue clearance gets you dense cells, processors, and infrastructure spares — the things I normally hide from Mara's "
+"inventory sheets."
+msgstr ""
+"Синий допуск даёт доступ к плотным ячейкам, процессорам и инфраструктурным запчастям — тому, что я обычно прячу от "
+"инвентарных ведомостей Мары."
+
+msgid ""
+"Blue gets you into the infrastructure spaces and the better technical stock. There is one more Operations job between"
+" you and the prototype areas. It is the one Security cares about most."
+msgstr ""
+"Синий открывает инфраструктурные зоны и более серьёзный технический ассортимент. Между вами и прототипными секциями "
+"осталось одно задание Операционного отдела. Именно оно больше всего волнует охрану."
+
+msgid "Bring four intact processors to Operations for the site's repair reserve."
+msgstr "Принести четыре исправных процессора в Operations для ремонтного резерва комплекса."
+
+msgid "Can Operations patch me up before I head back out?"
+msgstr "Operations может привести меня в порядок перед тем, как я снова выйду наружу?"
+
+msgid "Can Security teach me anything useful while I am here?"
+msgstr "Пока я здесь, служба безопасности может чему-нибудь полезному меня научить?"
+
+msgid "Can you do bench work on AXIOM hardware for me?"
+msgstr "Можешь нормально обслужить для меня оборудование AXIOM на стенде?"
+
+msgid "Can you teach me the sort of technical work you do up here?"
+msgstr "Можешь научить меня той технической работе, которой вы занимаетесь здесь наверху?"
+
+msgid "Clear enough."
+msgstr "Понятно."
+
+msgid "Complete the first Operations recovery job. If you bring back what we need, I will register you as a contractor."
+msgstr ""
+"Выполните первое восстановительное задание Операционного отдела. Вернёте нужный объект — я зарегистрирую вас как "
+"подрядчика."
+
+msgid ""
+"Confirmed. Clean enough. Take two EMP grenades from Security stores. I would rather you use them on someone else's "
+"machines than test them on mine."
+msgstr ""
+"Подтверждаю. Достаточно чисто. Возьмите две ЭМИ-гранаты со склада Security. Предпочту, чтобы вы использовали их на "
+"чужих машинах, а не проверяли на моих."
+
+msgid ""
+"Confirmed. Prototype contractor clearance granted. Keep the PX-9; consider it both payment and a reminder that "
+"prototypes are earned here."
+msgstr ""
+"Подтверждено. Подрядный доступ к прототипам открыт. PX-9 оставьте себе — считайте его и оплатой, и напоминанием, что "
+"прототипы здесь нужно заслужить."
+
+msgid ""
+"Confirmed. Prototype contractor clearance granted. Your restricted credential is active; remember that access to "
+"AXIOM hardware is not permission to take it."
+msgstr ""
+"Подтверждено. Прототипный уровень подрядчика выдан. Ограниченная карта активна; помните: доступ к оборудованию AXIOM "
+"не означает разрешение забирать его."
+
+msgid "Contractor authorization accepted.  Service components and AXIOM diagnostic interfaces are available."
+msgstr "Допуск подрядчика принят. Доступны сервисные компоненты и диагностические интерфейсы AXIOM."
+
+msgid ""
+"Contractor clearance active.  Yellow service readers, the service shaft and contractor trade stock are authorized.  "
+"Further Operations work upgrades both physical access and inventory tiers."
+msgstr ""
+"Допуск подрядчика активен. Разрешены жёлтые сервисные считыватели, служебная шахта и ассортимент для подрядчиков. "
+"Дальнейшая работа для Operations повышает и физический допуск, и торговые уровни."
+
+msgid "Contractor clearance unlocks the useful service components."
+msgstr "Подрядный допуск открывает доступ к действительно полезным сервисным компонентам."
+
+msgid ""
+"Contractor status approved.  Your yellow credential now opens the service shaft, and contractor trade tiers are "
+"active with both the quartermaster and systems desk."
+msgstr ""
+"Статус подрядчика утверждён. Ваш жёлтый пропуск теперь открывает служебную шахту, а ассортимент подрядчика "
+"активирован у квартирмейстера и инженера систем."
+
+msgid ""
+"Contractor status approved. I have also issued a physical contractor card; the service shaft and yellow-coded AXIOM "
+"readers will recognize it."
+msgstr ""
+"Статус подрядчика утверждён. Я также выдала физическую карту подрядчика: служебная шахта и жёлтые считыватели AXIOM "
+"её распознают."
+
+msgid ""
+"Contractor status verified.  Service equipment, electronic countermeasures and AXIOM field interfaces are now cleared"
+" for trade."
+msgstr ""
+"Подтверждён статус подрядчика. Сервисное оборудование, средства электронной борьбы и полевые интерфейсы AXIOM теперь "
+"разрешены к торговле."
+
+msgid "Coordinates uploaded. The core is rugged, but the site may not be quiet."
+msgstr "Координаты загружены. Ядро прочное, но место может оказаться неспокойным."
+
+msgid "Could it actually fly again?"
+msgstr "Он действительно сможет снова летать?"
+
+msgid ""
+"Critical infrastructure. Not a mystery vault, unfortunately — mostly the machinery that keeps the lights, doors, "
+"robots, and people upstairs functioning. Visitor access stops before the service shaft."
+msgstr ""
+"Критическая инфраструктура. Увы, не таинственное хранилище — в основном техника, благодаря которой наверху работают "
+"свет, двери, роботы и люди. Доступ посетителя заканчивается перед сервисной шахтой."
+
+msgid "Destroy a detached security UGV that no longer recognizes AXIOM authority."
+msgstr "Уничтожить оторванный от сети охранный UGV, который больше не признаёт команды AXIOM."
+
+msgid "Destroy the damaged autonomous security unit carrying compromised IFF data."
+msgstr "Уничтожьте повреждённый автономный охранный модуль с скомпрометированными данными IFF."
+
+msgid "Did our very expensive boring box survive?"
+msgstr "Наша очень дорогая скучная коробка выжила?"
+
+msgid "Did the old bus tap survive?"
+msgstr "Старый ответвитель уцелел?"
+
+msgid "Did you find the reference unit?"
+msgstr "Эталонный блок нашли?"
+
+msgid "Did you recover the conversion stack?"
+msgstr "Преобразовательный стек нашли?"
+
+msgid "Do not negotiate with it. It has no useful concept of surrender."
+msgstr "Не пытайтесь с ним договариваться. Полезного понятия о сдаче у него нет."
+
+msgid "Do not open it. The interesting part is the logged reference data."
+msgstr "Не вскрывайте его. Самое интересное — сохранённые эталонные данные."
+
+msgid "Do not try to fix it in the street. Its rifle still works and its judgment does not."
+msgstr "Не пытайтесь чинить его на улице. Винтовка у него работает, а здравый смысл — нет."
+
+msgid "Do not try to reprogram it in the field. Destroy it."
+msgstr "Не пытайтесь перепрограммировать его в поле. Уничтожьте."
+
+msgid "Do you actually take outside hardware onto your benches?"
+msgstr "Вы вообще берёте стороннее оборудование на свои стенды?"
+
+msgid "Do you have my transient trace?"
+msgstr "Моя трасса переходного процесса у вас?"
+
+msgid "Do you have the four processors?"
+msgstr "Четыре процессора нашли?"
+
+msgid "Do you have the relay core?"
+msgstr "Релейное ядро у вас?"
+
+msgid "Do you have work for me?"
+msgstr "Есть работа?"
+
+msgid "Do you issue prepared field lots, or is everything shelf by shelf?"
+msgstr "Вы выдаёте готовые полевые комплекты или всё только поштучно со склада?"
+
+msgid "Dr. Viktor Hale"
+msgstr "д-р Виктор Хейл"
+
+msgid "Electronics store is marked. Look for a squat service module with AXIOM markings."
+msgstr "Магазин электроники отмечен. Ищите приземистый сервисный модуль с маркировкой AXIOM."
+
+msgid "Elias runs the cell through a balance-and-load cycle, reseats the service contacts, and hands it back at full charge."
+msgstr ""
+"Элиас прогоняет ячейку через цикл балансировки и нагрузки, заново усаживает сервисные контакты и возвращает её "
+"полностью заряженной."
+
+msgid ""
+"Everything impressive upstairs depends on this level. Dense power comes in here, gets converted and buffered, heat is"
+" pushed out through the thermal loop, and the data core keeps the autonomous systems synchronized. Break enough of it"
+" and AXIOM stops being a high-tech enclave in minutes."
+msgstr ""
+"Всё впечатляющее наверху зависит от этого уровня. Здесь плотная энергия преобразуется и буферизуется, тепло отводится"
+" через тепловой контур, а вычислительное ядро синхронизирует автономные системы. Достаточно серьёзно повредить этот "
+"уровень — и за считаные минуты AXIOM перестанет быть высокотехнологичным анклавом."
+
+msgid ""
+"Exactly what we needed. Specialist trade clearance granted, and your credential has been upgraded for blue-coded "
+"infrastructure spaces."
+msgstr "Именно то, что требовалось. Торговый допуск специалиста выдан, а ваша карта обновлена для синих инженерных зон."
+
+msgid "Exactly what we needed. Specialist trade clearance granted."
+msgstr "Именно то, что нужно. Специализированный торговый допуск выдан."
+
+msgid "Exactly. The gallery is what visitors remember. This is what keeps the gallery lit."
+msgstr "Именно. Посетители запоминают галерею. А это — то, благодаря чему в галерее вообще горит свет."
+
+msgid ""
+"Excellent. There it is — the same oscillation family, but not the same failure. That is reassuring. Take these "
+"nanomaterial packs; they are more useful to you than sitting in my reserve."
+msgstr ""
+"Отлично. Вот она — то же семейство колебаний, но не тот же отказ. Это успокаивает. Возьмите эти пакеты наноматериала;"
+" у вас от них будет больше пользы, чем в моём резерве."
+
+msgid "Fair enough. Then we stay at visitor access for now."
+msgstr "Справедливо. Тогда пока остаёмся на уровне посетителя."
+
+msgid "Fair. It is not urgent. The aircraft is very good at staying exactly where it is."
+msgstr "Справедливо. Срочности нет. Вертолёт сейчас очень хорошо умеет оставаться ровно там, где стоит."
+
+msgid "Fine. I will continue comparing failures against my memory, which is a terrible instrument."
+msgstr "Ладно. Продолжу сравнивать сбои со своей памятью, а это отвратительный измерительный прибор."
+
+msgid ""
+"Fly again? Yes. Land safely afterward? Ask me when the rotor, turbine controls, avionics, fuel system, and half a "
+"week of my life are in better condition. The frame survived. That is encouraging, not airworthiness."
+msgstr ""
+"Снова летать? Да. Потом безопасно сесть? Спросите, когда ротор, управление турбинами, авионика, топливная система и "
+"половина моей недели будут в лучшем состоянии. Каркас выжил. Это обнадёживает, но ещё не делает машину лётной."
+
+msgid "For a moment the complex smells faintly of hot electronics and cleaning solvent.  Then the ventilation clears it away."
+msgstr "На мгновение в комплексе пахнет нагретой электроникой и чистящим растворителем. Вентиляция быстро уносит запах."
+
+msgid "Four intact processors. Burned boards do not count, however persuasive your expression is."
+msgstr "Четыре исправных процессора. Сгоревшие платы не считаются, каким бы убедительным ни было ваше лицо."
+
+msgid ""
+"Funny, is it not? There are lasers behind glass upstairs, and part of this complex is being held together by a "
+"conversion stack the size of a microwave. We surveyed a compatible unit in an electronics store before everything "
+"collapsed. Bring it back intact and I can justify blue clearance."
+msgstr ""
+"Забавно, правда? Наверху за стеклом стоят лазеры, а часть комплекса держится на преобразовательном стеке размером с "
+"микроволновку. До коллапса мы отметили совместимый блок в магазине электроники. Верните его целым — и я смогу "
+"обосновать синий допуск."
+
+msgid "Good. Contractor status approved. Mara and Elias will now expose the contractor inventory tier."
+msgstr "Хорошо. Статус подрядчика подтверждён. Мара и Элиас теперь откроют подрядный уровень ассортимента."
+
+msgid ""
+"Good. Telemetry agrees with you. Three jobs, no drama, and no missing pieces. You have earned the purple card. The "
+"flight deck and prototype areas will recognize it. That is access, not ownership — Rhea would insist I say that part."
+msgstr ""
+"Хорошо. Телеметрия с вами согласна. Три задания, без драмы и без пропавших деталей. Пурпурную карту вы заслужили. "
+"Лётная палуба и прототипные зоны её примут. Это доступ, а не право собственности — Рея настояла бы, чтобы я это "
+"сказала."
+
+msgid ""
+"Good. That buys us a little breathing room. Viktor converted a pair of our own spares for you — router and sensor "
+"wafer. Consider it a better trade than cash."
+msgstr ""
+"Хорошо. Это даст нам немного запаса. Виктор переделал для вас пару наших собственных деталей — маршрутизатор и "
+"сенсорную пластину. Считайте это более полезной оплатой, чем наличные."
+
+msgid "Goodbye."
+msgstr "До встречи."
+
+msgid "Got it."
+msgstr "Понятно."
+
+msgid "Heart, lungs, nerves — pick your metaphor. I only care that all three are still working tomorrow morning."
+msgstr "Сердце, лёгкие, нервы — выбирайте метафору. Мне важно только, чтобы завтра утром всё это ещё работало."
+
+msgid "How do I get deeper access?"
+msgstr "Как получить более глубокий доступ?"
+
+msgid "How do the KX-91 laser mounts work?"
+msgstr "Как работают лазерные установки KX-91?"
+
+msgid "How much of this place are you actually willing to let me see?"
+msgstr "Какую часть комплекса вы вообще готовы мне показать?"
+
+msgid "I am responsible for security policy, access control, and making sure warnings remain warnings."
+msgstr "Я отвечаю за политику безопасности, контроль доступа и за то, чтобы предупреждения оставались предупреждениями."
+
+msgid "I can count to four. So can the inventory system."
+msgstr "Я умею считать до четырёх. Инвентарная система тоже."
+
+msgid "I control field equipment allocation and external trade."
+msgstr "Я отвечаю за выдачу полевого оборудования и внешнюю торговлю."
+
+msgid "I coordinate external contractors, recovery operations and access clearance."
+msgstr "Я координирую внешних подрядчиков, операции по извлечению имущества и уровни допуска."
+
+msgid "I decide what AXIOM can afford to sell, issue, or lose."
+msgstr "Я решаю, что AXIOM может позволить себе продать, выдать или потерять."
+
+msgid ""
+"I do not repair arbitrary scrap by miracle. Bring me known donor hardware and I can rebuild it to our tolerances. A "
+"clean power supply, a processor, and a memory module are enough for one useful service set. Anything stranger becomes"
+" a research project."
+msgstr ""
+"Я не превращаю случайный лом в исправную технику чудом. Принесите понятные донорские узлы — я переделаю их под наши "
+"допуски. Чистого блока питания, процессора и модуля памяти достаточно для одного нормального сервисного набора. Всё "
+"необычнее уже становится исследовательской работой."
+
+msgid "I guard the restricted prototype gallery."
+msgstr "Я охраняю закрытую галерею прототипов."
+
+msgid "I had a feeling there was a catch."
+msgstr "Я так и думал, что есть подвох."
+
+msgid "I handle outsiders, field work, and the problems that arrive with both."
+msgstr "Я занимаюсь чужаками, полевой работой и проблемами, которые приходят вместе с ними."
+
+msgid ""
+"I have a warehouse manifest that never made it into the final inventory. The warehouse itself is probably worthless "
+"by now, but the routing wafer was sealed. Bring me that wafer and I can stop carrying six missing crates as if they "
+"might walk through the gate tomorrow."
+msgstr ""
+"У меня есть складской манифест, который так и не попал в окончательную инвентаризацию. Сам склад сейчас наверняка "
+"ничего не стоит, но маршрутная пластина была герметичной. Принесёте её — и я наконец перестану учитывать шесть "
+"пропавших ящиков так, будто завтра они сами войдут в ворота."
+
+msgid "I keep AXIOM hardware talking to itself instead of catching fire."
+msgstr "Я слежу, чтобы техника AXIOM разговаривала сама с собой, а не загоралась."
+
+msgid "I keep people on the correct side of the prototype glass."
+msgstr "Я слежу, чтобы люди оставались с правильной стороны стекла галереи прототипов."
+
+msgid "I keep the buried power, thermal and data backbone running."
+msgstr "Я поддерживаю подземный энергетический, тепловой и вычислительный контур."
+
+msgid "I keep the enclave's power, electronics and autonomous systems alive."
+msgstr "Я поддерживаю энергетику, электронику и автономные системы анклава."
+
+msgid "I keep the flight deck honest about what can still fly."
+msgstr "Я слежу, чтобы лётная палуба не врала нам о том, что ещё способно летать."
+
+msgid "I keep the infrastructure below us alive long enough for everything above us to matter."
+msgstr "Я поддерживаю инфраструктуру под нами в рабочем состоянии, чтобы всё наверху вообще имело смысл."
+
+msgid "I keep the public route public and the restricted route restricted."
+msgstr "Я слежу, чтобы общественный маршрут оставался общественным, а закрытый — закрытым."
+
+msgid "I maintain AXIOM-7 perimeter and access security."
+msgstr "Я обеспечиваю охрану периметра и контроль доступа AXIOM-7."
+
+msgid "I maintain the flight deck and what remains of KX-91."
+msgstr "Я обслуживаю лётную палубу и то, что осталось от KX-91."
+
+msgid "I marked the warehouse. Small blue wafer, AXIOM seal. Do not waste time hauling the shelves home."
+msgstr "Склад отмечен. Небольшая синяя пластина, печать AXIOM. Не тратьте время на то, чтобы тащить домой стеллажи."
+
+msgid "I need a failure trace from one of the old field power enclosures."
+msgstr "Мне нужна трасса отказа с одного из старых полевых силовых шкафов."
+
+msgid "I need to ask about one of the jobs."
+msgstr "Нужно спросить об одном из заданий."
+
+msgid "I prefer doors that stay boring."
+msgstr "Предпочитаю, чтобы двери оставались скучными."
+
+msgid "I run physical security, access control and incident response for AXIOM-7."
+msgstr "Я отвечаю за физическую безопасность, контроль доступа и реагирование на инциденты в AXIOM-7."
+
+msgid "I want an old field bus tap back before its calibration history disappears with it."
+msgstr "Хочу вернуть старый полевой ответвитель шины, пока вместе с ним не исчезла его история калибровок."
+
+msgid "I will admire it from the correct side of the lock."
+msgstr "Буду любоваться с правильной стороны замка."
+
+msgid "I will come back when I have something worth putting on your bench."
+msgstr "Вернусь, когда будет что-то, что действительно стоит класть на ваш стенд."
+
+msgid "I will keep my hands out of the arteries."
+msgstr "Постараюсь не лезть руками в артерии."
+
+msgid "I will let you get back to counting everything twice."
+msgstr "Не буду мешать вам пересчитывать всё второй раз."
+
+msgid "I will look around."
+msgstr "Я осмотрюсь."
+
+msgid "I will mark the store. Please resist the traditional scavenger solution of smashing the expensive box free."
+msgstr "Отмечу магазин. Постарайтесь не использовать традиционный метод мародёра — выбить дорогую коробку вместе со стеной."
+
+msgid ""
+"I will mark the tower. Bring me the core, not the whole radio station. And assume anything quiet out there is only "
+"temporarily quiet."
+msgstr "Отмечу вышку. Принесите ядро, а не всю радиостанцию. И считайте, что всё тихое снаружи тихо лишь временно."
+
+msgid "I will stay out of the locked doors."
+msgstr "В запертые двери лезть не буду."
+
+msgid "I will stay out of the machinery."
+msgstr "Не буду лезть в оборудование."
+
+msgid "I will try not to bring anything back smoking."
+msgstr "Постараюсь не приносить ничего дымящегося."
+
+msgid "If Lena has upgraded your clearance, my inventory updates automatically."
+msgstr "Если Лена повысила ваш допуск, мой ассортимент обновится автоматически."
+
+msgid ""
+"If it is AXIOM hardware, I can at least put it on a proper bench instead of asking you to diagnose it with a "
+"flashlight. Dense cells are easy enough. I can also teach, if you are willing to sit still while I explain why "
+"guessing is not a troubleshooting method."
+msgstr ""
+"Если это оборудование AXIOM, я хотя бы могу поставить его на нормальный стенд, а не предлагать вам диагностировать "
+"его фонариком. С плотными ячейками всё просто. И могу поучить, если вы готовы спокойно посидеть и выслушать, почему "
+"угадывание — не метод диагностики."
+
+msgid ""
+"If it plugs in, blinks, or overheats, someone eventually leaves it on my desk. Visitor clearance keeps us to the "
+"harmless pile."
+msgstr ""
+"Если что-то подключается, мигает или перегревается, рано или поздно это оказывается у меня на столе. С допуском "
+"посетителя ограничимся безопасной кучей."
+
+msgid ""
+"In principle, yes. In practice you would need a helicopter pilot, a great deal of repair work, fuel, intact rotor "
+"hardware and patience. The frame survived. That is not the same thing as being airworthy."
+msgstr ""
+"Теоретически — да. Практически понадобятся пилот вертолёта, огромный объём ремонта, топливо, исправная роторная "
+"система и много терпения. Каркас уцелел. Это ещё не означает, что машина пригодна к полёту."
+
+msgid "Is 12-K off the board?"
+msgstr "12-K снят с доски?"
+
+msgid "Is the courier finally down?"
+msgstr "Курьер наконец уничтожен?"
+
+msgid "Is the rogue sentinel down?"
+msgstr "Сбойный страж уничтожен?"
+
+msgid "It is a military security robot with a rifle. Treat it accordingly."
+msgstr "Это военный охранный робот с винтовкой. Относитесь к нему соответственно."
+
+msgid "It is a rifle UGV. Break line of sight, make it spend time reacquiring you, and do not stand in a doorway."
+msgstr ""
+"Это винтовочный UGV. Рвите линию видимости, заставляйте его тратить время на повторный захват и не стойте в дверном "
+"проёме."
+
+msgid ""
+"Its IFF is corrupted. Right now it is wandering through empty houses, which makes it our problem. If it reaches "
+"people, it becomes everyone's problem. Put it down. Do that cleanly and I will sign off on prototype clearance."
+msgstr ""
+"Его IFF повреждён. Сейчас он бродит по пустым домам, поэтому это наша проблема. Доберётся до людей — станет общей. "
+"Уничтожьте его. Сделаете всё чисто — я подпишу прототипный допуск."
+
+msgid "KX-91 dorsal pulse laser"
+msgstr "бортовой импульсный лазер KX-91"
+
+msgid "KX-91 heavy pulse laser"
+msgstr "тяжёлый импульсный лазер KX-91"
+
+msgid "KX-91 integrated heavy pulse laser"
+msgstr "интегрированный тяжёлый импульсный лазер KX-91"
+
+msgid ""
+"KX-91 is not a prize somebody forgot on the roof. The airframe is badly damaged, several flight systems are degraded "
+"and the laser mounts are maintenance-hungry. Restricted clearance lets you inspect our flight infrastructure; it does"
+" not transfer ownership of the aircraft."
+msgstr ""
+"KX-91 — не приз, который кто-то забыл на крыше. Планер сильно повреждён, часть лётных систем деградировала, а "
+"лазерные установки требуют постоянного обслуживания. Ограниченный допуск позволяет осматривать авиационную "
+"инфраструктуру, но не передаёт вам право собственности на машину."
+
+msgid ""
+"KX-91 is on the roof. Nadia calls it repairable; Security calls it property; I call it the reason visitors keep "
+"asking about the roof. If you eventually get prototype access, you may inspect it. That is not the same as being "
+"given an aircraft."
+msgstr ""
+"На крыше стоит KX-91. Надя называет его ремонтопригодным, охрана — собственностью, а я — причиной, по которой "
+"посетители постоянно спрашивают о крыше. Если получите прототипный допуск, сможете его осмотреть. Это не означает, "
+"что вам подарили вертолёт."
+
+msgid "KX-91 sealed fire-control node"
+msgstr "герметичный узел управления огнём KX-91"
+
+msgid "KX-91’s auxiliary bus wakes for a diagnostic pulse.  Pumps tick, a relay closes, and the aircraft goes quiet again."
+msgstr ""
+"Вспомогательная шина KX-91 просыпается для диагностического импульса. Насосы тикают, замыкается реле — и вертолёт "
+"снова затихает."
+
+msgid "KX-series inertial reference unit"
+msgstr "инерциальный эталонный блок серии KX"
+
+msgid "Keep to the marked public routes. If a door is locked, assume someone had a reason."
+msgstr "Держитесь отмеченных общественных маршрутов. Если дверь заперта, считайте, что у кого-то была на то причина."
+
+msgid ""
+"Lena gave you yellow? Then I can sell you service interfaces and parts that actually talk to our systems. Try not to "
+"teach them any new failure modes."
+msgstr ""
+"Лена выдала жёлтую? Тогда могу продать сервисные интерфейсы и детали, которые действительно умеют разговаривать с "
+"нашими системами. Постарайтесь не обучить их новым способам ломаться."
+
+msgid "Less treasure, more things I should not break. Got it."
+msgstr "Меньше сокровищ, больше вещей, которые лучше не ломать. Понятно."
+
+msgid "Let me see what you are willing to part with."
+msgstr "Покажите, с чем вы готовы расстаться."
+
+msgid "Look for the sealed AXIOM-marked module we cached there."
+msgstr "Ищите герметичный модуль с маркировкой AXIOM, который мы там оставили."
+
+msgid "Look for the sealed AXIOM-marked module. Heavy, rectangular, boring. That is usually how you recognize infrastructure."
+msgstr "Ищите герметичный модуль с маркировкой AXIOM. Тяжёлый, прямоугольный, скучный. Так обычно и выглядит инфраструктура."
+
+msgid "Makes sense."
+msgstr "Логично."
+
+msgid "Marked. Avoid smashing the module if you can."
+msgstr "Отмечено. По возможности не разбейте модуль."
+
+msgid "Message received."
+msgstr "Ясно."
+
+msgid "Nadia Karpenko"
+msgstr "Надя Карпенко"
+
+msgid ""
+"Nadia’s voice comes over the deck intercom.  “If anyone moved my torque adapter, bring it back before I start "
+"checking pockets.”"
+msgstr ""
+"По интеркому площадки звучит голос Нади: «Если кто-то опять взял мой динамометрический переходник, верните его до "
+"того, как я начну проверять карманы.»"
+
+msgid "Never mind. I will use the shelves."
+msgstr "Неважно. Обойдусь обычными полками."
+
+msgid "Nice box. Not our box."
+msgstr "Хорошая коробка. Но не наша."
+
+msgid "No problem. This one is a convenience, not an emergency."
+msgstr "Без проблем. Это удобство, не авария."
+
+msgid "No trouble from me."
+msgstr "Проблем от меня не будет."
+
+msgid "No. I need the physical calibrated core."
+msgstr "Нет. Мне нужно физическое калиброванное ядро."
+
+msgid "No. Its telemetry stopped being trustworthy; its transponder did not."
+msgstr "Нет. Телеметрии я не доверяю, транспондеру — вполне."
+
+msgid "No. This device has never logged anything more complicated than a boot sequence."
+msgstr "Нет. Этот прибор никогда не записывал ничего сложнее последовательности загрузки."
+
+msgid "No. Wrong weight, wrong casing, and no calibration seal. Try again."
+msgstr "Нет. Не тот вес, не тот корпус и нет калибровочной пломбы. Попробуйте ещё раз."
+
+msgid ""
+"Not every AXIOM problem needs an AXIOM part. We use ordinary processors as donor hardware for control boards, test "
+"rigs, and anything else Elias can bully into cooperating. Bring me four intact processors. No coordinates this time; "
+"I assume you know what an office looks like."
+msgstr ""
+"Не каждой проблеме AXIOM нужна деталь AXIOM. Обычные процессоры идут у нас донорами для управляющих плат, "
+"испытательных стендов и всего остального, что Элиас способен заставить работать. Принесите четыре исправных "
+"процессора. Координат на этот раз не будет — надеюсь, офис вы узнаете."
+
+msgid "Offices, electronics stores, broken computers. Nothing exotic."
+msgstr "Офисы, магазины электроники, сломанные компьютеры. Ничего экзотического."
+
+msgid "One of our courier sentinels has decided almost everything is hostile. That includes us."
+msgstr "Один из наших курьерских стражей решил, что почти всё вокруг враждебно. Мы тоже попали в список."
+
+msgid "One of our courier sentinels is running on corrupted IFF."
+msgstr "Один из наших курьерских стражей работает с повреждённым IFF."
+
+msgid "One of our external sensor sectors went blind."
+msgstr "Один из наших внешних сенсорных секторов ослеп."
+
+msgid ""
+"One of the wall consoles gives a soft confirmation tone.  A few seconds later another answers from deeper in the "
+"complex."
+msgstr ""
+"Одна из настенных консолей тихо подтверждает что-то сигналом. Через несколько секунд из глубины комплекса отвечает "
+"другая."
+
+msgid ""
+"One old sentry missed the recall and rebuilt its threat table from bad local data. It is not connected to our network"
+" anymore, so shutting it down here does nothing. I have its last position. Destroy it."
+msgstr ""
+"Один старый страж пропустил отзыв и пересобрал таблицу угроз по плохим локальным данным. К нашей сети он больше не "
+"подключён, поэтому отключить его отсюда нельзя. У меня есть последняя позиция. Уничтожьте его."
+
+msgid "Operations is burning through ordinary compute hardware faster than I like."
+msgstr "Operations расходует обычное вычислительное железо быстрее, чем мне нравится."
+
+msgid ""
+"Operations keeps a treatment station for people we expect to send back outside. That is the quick pass, not surgery. "
+"If you are still leaking after this, stay inside."
+msgstr ""
+"Operations держит лечебный пост для тех, кого мы рассчитываем снова отправить наружу. Это быстрая обработка, не "
+"хирургия. Если после неё вы всё ещё где-то течёте — оставайтесь внутри."
+
+msgid ""
+"Owned equipment is tracked. If personnel witness theft or unauthorized vehicle use, the normal faction warning system"
+" applies. Repeated violations turn a paperwork problem into an armed one very quickly."
+msgstr ""
+"Имущество с владельцем отслеживается. Если персонал заметит кражу или несанкционированное использование транспорта, "
+"сработает штатная система предупреждений фракции. Повторные нарушения очень быстро превращают бумажную проблему в "
+"вооружённую."
+
+msgid "PX-9 photonic sidearm prototype"
+msgstr "прототип фотонного пистолета PX-9"
+
+msgid ""
+"People remember the glass gallery because it is bright. I remember what feeds it: conversion stacks, thermal loops, "
+"buffers, data trunks, maintenance crawlers. Upstairs is the performance. Down here is the part that cannot miss a "
+"cue."
+msgstr ""
+"Люди запоминают стеклянную галерею, потому что она яркая. Я помню то, что её питает: преобразовательные стеки, "
+"тепловые контуры, буферы, магистрали данных, ремонтные машины. Наверху — представление. Здесь внизу — то, что не "
+"имеет права пропустить реплику."
+
+msgid "Perimeter sentries are running live IFF. Do not give them a reason to reconsider you."
+msgstr "Периметровые системы работают с активным IFF. Не давайте им повода пересматривать ваш статус."
+
+msgid "Please tell me that box in your pack is my relay core."
+msgstr "Скажите, что коробка у вас в рюкзаке — моё релейное ядро."
+
+msgid "Please tell me you found my missing paperwork in solid-state form."
+msgstr "Скажите, что нашли мою пропавшую бюрократию в твердотельной форме."
+
+msgid ""
+"Power-routing cassettes, sensor wafers and control fibers are service parts, not flavor text. With enough electronics"
+" skill you can build AXIOM diagnostic interfaces and rebuild high-density tool cells from them. Operations also "
+"requests those parts for contractor work."
+msgstr ""
+"Кассеты силовой маршрутизации, сенсорные матрицы и контрольные волокна — реальные сервисные детали, а не декоративный"
+" лут. При достаточном навыке электроники из них можно собирать диагностические интерфейсы AXIOM и восстанавливать "
+"энергоячейки повышенной плотности. Эти же компоненты используются в подрядных работах."
+
+msgid ""
+"Prototype authorization accepted.  I can release our highest external tier of dense-power components, diagnostic "
+"hardware and fabrication interfaces."
+msgstr ""
+"Допуск к прототипам принят. Я могу предоставить высший внешний уровень компонентов плотной энергетики, "
+"диагностического оборудования и интерфейсов производства."
+
+msgid ""
+"Prototype clearance active.  Purple readers, flight-deck access and prototype contractor stock are authorized.  You "
+"may inspect restricted AXIOM systems, but faction-owned hardware remains AXIOM property."
+msgstr ""
+"Допуск к прототипам активен. Разрешены пурпурные считыватели, доступ на лётную палубу и прототипный ассортимент для "
+"подрядчиков. Вы можете осматривать закрытые системы AXIOM, но имущество фракции остаётся собственностью AXIOM."
+
+msgid ""
+"Prototype clearance confirmed.  The flight-deck lock will accept your restricted credential, so you may inspect KX-91"
+" and the deck systems.  Inspection still does not transfer ownership of the aircraft."
+msgstr ""
+"Подтверждён допуск к прототипам. Замок лётной палубы примет ваш закрытый пропуск, поэтому вы можете осматривать KX-91"
+" и системы палубы. Осмотр по-прежнему не передаёт право собственности на вертолёт."
+
+msgid ""
+"Prototype contractor clearance granted.  Purple readers, the flight deck and prototype contractor stock are now "
+"authorized.  Remember: access is permission to inspect, not permission to take faction-owned hardware."
+msgstr ""
+"Допуск подрядчика к прототипам выдан. Теперь разрешены пурпурные считыватели, лётная палуба и прототипный "
+"ассортимент. Помните: доступ разрешает осмотр, но не присвоение имущества фракции."
+
+msgid ""
+"Prototype contractor status verified.  Restricted field hardware can now appear in my allocation pool, though the "
+"rarest systems remain limited stock."
+msgstr ""
+"Подтверждён статус подрядчика с допуском к прототипам. Закрытое полевое оборудование теперь может появляться в моём "
+"фонде выдачи, хотя самые редкие системы остаются ограниченным товаром."
+
+msgid ""
+"Purple card. Fine. Some prototype hardware can leave the cage with you now. \"Can\" is doing a lot of work there; if "
+"I only have one, the answer is still no."
+msgstr ""
+"Пурпурная карта. Ладно. Теперь часть прототипов может покинуть клетку вместе с вами. Но слово «может» здесь очень "
+"важное: если у меня остался один экземпляр, ответ всё равно нет."
+
+msgid ""
+"Purple card? Then the lock will stop arguing with you. You are welcome on the deck. KX-91 is still AXIOM's aircraft "
+"and, for the moment, my headache."
+msgstr ""
+"Пурпурная карта? Тогда замок перестанет с вами спорить. На палубу проходите. KX-91 всё ещё принадлежит AXIOM и пока "
+"остаётся моей головной болью."
+
+msgid ""
+"Purple clearance? All right. That opens the odd shelf: fabrication interfaces, high-density parts, and things with "
+"calibration procedures longer than their manuals."
+msgstr ""
+"Пурпурный допуск? Ладно. Тогда открывается странная полка: интерфейсы фабрикации, высокоплотные компоненты и вещи, у "
+"которых процедура калибровки длиннее инструкции."
+
+msgid ""
+"Purple means we trust you near things we cannot easily replace. Near, not with. The flight deck and prototype "
+"sections will recognize your card; ownership rules have not changed."
+msgstr ""
+"Пурпурный означает, что мы доверяем вам находиться рядом с вещами, которые трудно заменить. Рядом, а не вместе с "
+"ними. Лётная палуба и прототипные секции примут вашу карту; правила собственности не изменились."
+
+msgid "Recover a KX-series inertial reference unit from a pre-Cataclysm storage cache."
+msgstr "Вернуть инерциальный эталонный блок серии KX из довоенного складского резерва."
+
+msgid "Recover a compatible power-conversion stack for AXIOM-7."
+msgstr "Верните совместимый силовой преобразовательный стек для AXIOM-7."
+
+msgid "Recover a sealed AXIOM logistics wafer from an abandoned warehouse."
+msgstr "Вернуть герметичную логистическую пластину AXIOM из заброшенного склада."
+
+msgid "Recover a thermal transient logger from an abandoned AXIOM field installation."
+msgstr "Вернуть регистратор тепловых переходных процессов с заброшенной полевой установки AXIOM."
+
+msgid "Recover an old AXIOM diagnostic bus tap from an electronics store."
+msgstr "Вернуть старый диагностический ответвитель AXIOM из магазина электроники."
+
+msgid "Recover the sealed AXIOM relay core from a failed external sensor node."
+msgstr "Верните герметичное релейное ядро AXIOM из отказавшего внешнего сенсорного узла."
+
+msgid "Resolve AXIOM-7 coordinates"
+msgstr "Определить координаты AXIOM-7"
+
+msgid "Rhea Mercer"
+msgstr "Рея Мерсер"
+
+msgid ""
+"Routing cassettes move power where it is needed. Sensor wafers do the measuring. Control fiber carries the nervous-"
+"system traffic between them. With decent electronics work you can turn the lot into diagnostic interfaces or rebuild "
+"our dense tool cells. None of it looks glamorous until the glamorous thing stops working."
+msgstr ""
+"Кассеты маршрутизации гонят питание туда, где оно нужно. Сенсорные пластины измеряют. Контрольное волокно переносит "
+"между ними весь этот нервный трафик. Если разбираетесь в электронике, из этого можно собрать диагностический "
+"интерфейс или восстановить наши плотные инструментальные ячейки. Всё выглядит скучно ровно до тех пор, пока не "
+"перестаёт работать что-то эффектное."
+
+msgid "Server fans surge hard enough to be heard through the walls, then wind down one bank at a time."
+msgstr "Вентиляторы серверов раскручиваются так, что их слышно через стены, затем поочерёдно сбрасывают обороты."
+
+msgid ""
+"Shelf stock is for browsing. Field lots are different: I seal them, sign them out, and then explain to three "
+"different ledgers where the hardware went. I will do one for you every three days. Your card decides which list I am "
+"allowed to use."
+msgstr ""
+"Полки — для обычной торговли. Полевые комплекты — другое дело: я их запечатываю, оформляю выдачу, а потом объясняю "
+"трём разным журналам, куда делось железо. Один комплект раз в три дня. Какой именно — решает цвет вашей карты."
+
+msgid "Show me the approved equipment."
+msgstr "Покажите доступное оснащение."
+
+msgid "Show me the pile I am allowed to buy."
+msgstr "Покажите ту кучу, которую мне разрешено покупать."
+
+msgid "Show me the systems inventory."
+msgstr "Покажите системный склад."
+
+msgid "So I earn access by being useful. Fair enough."
+msgstr "То есть доступ нужно заслужить пользой. Справедливо."
+
+msgid "So the boring parts are the important parts."
+msgstr "То есть скучные детали — самые важные."
+
+msgid "So the warning is the generous part."
+msgstr "То есть предупреждение — это ещё щедрость."
+
+msgid "So this is still an institution, not just a shelter."
+msgstr "То есть это всё ещё организация, а не просто убежище."
+
+msgid "So this is the real heart of AXIOM-7."
+msgstr "То есть это настоящее сердце AXIOM-7."
+
+msgid "So this is the real heart of the site."
+msgstr "То есть это настоящее сердце комплекса."
+
+msgid "So: possible, not sensible."
+msgstr "То есть возможно, но пока неразумно."
+
+msgid ""
+"Something heavy moves on a service rail in the distance.  Viktor’s voice follows over the intercom: “That is normal."
+"  For once.”"
+msgstr ""
+"Вдали по сервисной направляющей перемещается что-то тяжёлое. Следом по интеркому звучит голос Виктора: «Это "
+"нормально. На этот раз.»"
+
+msgid ""
+"Somewhere beyond the glass, an electric driver chatters for a few seconds, followed by a technician muttering, “Good "
+"enough.  Log it and move on.”"
+msgstr ""
+"Где-то за стеклом несколько секунд трещит электрический гайковёрт, затем техник бормочет: «Сойдёт. Запиши и идём "
+"дальше.»"
+
+msgid "Somewhere inside the KX-91, a cooling valve snaps open and shut during an automated pressure test."
+msgstr "Где-то внутри KX-91 клапан охлаждения резко открывается и закрывается во время автоматической проверки давления."
+
+msgid ""
+"Specialist authorization accepted.  Blue-tier infrastructure parts, dense cells and higher-grade electronics are "
+"available."
+msgstr ""
+"Допуск специалиста принят. Доступны инфраструктурные компоненты синего уровня, плотные энергоячейки и электроника "
+"более высокого класса."
+
+msgid ""
+"Specialist clearance active.  Blue infrastructure readers and specialist systems stock are authorized.  Complete the "
+"remaining Operations assignment to qualify for prototype-level access."
+msgstr ""
+"Допуск специалиста активен. Разрешены синие инфраструктурные считыватели и специализированный системный ассортимент. "
+"Выполните оставшееся задание Operations, чтобы получить допуск к прототипам."
+
+msgid ""
+"Specialist status approved.  Blue infrastructure readers and specialist systems stock are now authorized.  The "
+"restricted flight deck remains one tier above you."
+msgstr ""
+"Статус специалиста утверждён. Теперь разрешены синие инфраструктурные считыватели и специализированный системный "
+"ассортимент. Закрытая лётная палуба остаётся на один уровень допуска выше."
+
+msgid ""
+"Specialist status verified.  I can issue hardened protection, dense-power stock and higher-grade field support "
+"hardware."
+msgstr ""
+"Подтверждён статус специалиста. Я могу выдавать усиленную защиту, плотные энергоносители и полевое оборудование более"
+" высокого класса."
+
+msgid ""
+"Start by doing one useful thing for us. Bring back what I ask for, intact, and I will issue you a yellow contractor "
+"card. Around here, trust is mostly a record of problems you did not create."
+msgstr ""
+"Начните с одной полезной вещи для нас. Верните то, что я попрошу, целым — и получите жёлтую карту подрядчика. Здесь "
+"доверие в основном измеряется списком проблем, которые вы не создали."
+
+msgid ""
+"Take a tool by mistake and someone tells you to put it back. Force a lock, strip a vehicle, or keep going after a "
+"warning and the conversation changes. The automated systems are faster at changing tone than I am."
+msgstr ""
+"Возьмёте инструмент по ошибке — вам скажут вернуть. Взломаете дверь, начнёте разбирать транспорт или продолжите после"
+" предупреждения — разговор изменится. Автоматика меняет тон быстрее меня."
+
+msgid "Telemetry says otherwise."
+msgstr "Телеметрия говорит обратное."
+
+msgid "Telemetry still has it moving. I trust telemetry on this one."
+msgstr "По телеметрии он всё ещё движется. В этом случае я верю телеметрии."
+
+msgid "That answers both the weapon and the battery question."
+msgstr "Это отвечает и на вопрос про оружие, и про питание."
+
+msgid "That answers it."
+msgstr "Понятно."
+
+msgid "That explains the infrastructure."
+msgstr "Это объясняет инфраструктуру."
+
+msgid "That is a power module. Similar shape, completely different argument."
+msgstr "Это силовой модуль. Похожая форма, совершенно другой спор."
+
+msgid "That is all I needed."
+msgstr "Это всё, что мне было нужно."
+
+msgid ""
+"That is it. Viktor will be insufferably pleased for at least ten minutes. Here — blue card. Infrastructure spaces are"
+" open to you now. The flight deck is still above your pay grade, figuratively and literally."
+msgstr ""
+"Это она. Виктор будет невыносимо доволен как минимум десять минут. Вот — синяя карта. Инфраструктурные зоны теперь "
+"открыты. Лётная палуба всё ещё выше вашего уровня — и в переносном, и в буквальном смысле."
+
+msgid "That is not an inertial reference unit. It may be expensive, but it is expensive in the wrong direction."
+msgstr "Это не инерциальный эталонный блок. Возможно, вещь дорогая, но дорогая совсем не в ту сторону."
+
+msgid "That is not the module I asked for."
+msgstr "Это не тот модуль, который я просила."
+
+msgid ""
+"That is the one. Good. I can finally close the old manifest instead of inventing a new excuse every time I audit it. "
+"Take this charged cell; field gear is more useful than my gratitude."
+msgstr ""
+"Она. Отлично. Теперь я наконец закрою старый манифест вместо того, чтобы придумывать новое оправдание при каждой "
+"ревизии. Возьмите заряженную ячейку — в поле она полезнее моей благодарности."
+
+msgid ""
+"That is the systems core: power conversion, cooling, data, robotics maintenance, security. Your yellow card gets you "
+"into the service shaft. The deeper rooms still expect the right color of plastic."
+msgstr ""
+"Это системное ядро: преобразование питания, охлаждение, данные, обслуживание робототехники, безопасность. Жёлтая "
+"карта открывает сервисную шахту. Более глубокие помещения всё ещё ждут пластик правильного цвета."
+
+msgid "That makes more sense."
+msgstr "Теперь понятно."
+
+msgid "That sounds like an engineer's answer."
+msgstr "Похоже на ответ инженера."
+
+msgid "That will do. Thanks."
+msgstr "Сойдёт. Спасибо."
+
+msgid ""
+"The PA crackles.  “Inventory count starts at the next bell.  If you borrowed a tool, now is the traditional time to "
+"remember.”"
+msgstr ""
+"Громкая связь потрескивает: «Инвентаризация начинается со следующего сигнала. Если вы одолжили инструмент, сейчас "
+"традиционно подходящий момент это вспомнить.»"
+
+msgid "The air smells briefly of ozone as an automated test bank discharges into a dummy load."
+msgstr "В воздухе ненадолго появляется запах озона — автоматический стенд сбрасывает заряд в эквивалент нагрузки."
+
+msgid "The core is a sealed electronics block. If you find yourself reaching for a screwdriver, stop."
+msgstr "Ядро — герметичный электронный блок. Если рука потянулась за отвёрткой — остановитесь."
+
+msgid "The core is a sealed electronics module. Do not dismantle it."
+msgstr "Ядро — герметичный электронный модуль. Не разбирайте его."
+
+msgid "The crate label should mention KX-series navigation or inertial reference. Ignore everything that says actuator."
+msgstr "На ящике должно быть указано «навигация серии KX» или «инерциальный эталон». Всё с пометкой «привод» игнорируйте."
+
+msgid "The deck lights brighten for a few seconds while the landing guidance system performs a self-test."
+msgstr "Огни площадки на несколько секунд становятся ярче — система посадочного наведения выполняет самопроверку."
+
+msgid "The display gallery is there so visitors understand what AXIOM can still build."
+msgstr "Галерея нужна, чтобы посетители понимали, что AXIOM всё ещё способен создавать."
+
+msgid "The flight-deck edge lights blink in sequence, one circuit at a time, then return to steady illumination."
+msgstr "Краевые огни лётной площадки поочерёдно мигают, проверяя цепи, после чего снова горят ровно."
+
+msgid "The floor vibrates gently as a conversion stack takes a new load.  Indicator tones ripple across the room and stop."
+msgstr ""
+"Пол слегка вибрирует, когда преобразователь принимает новую нагрузку. По залу проходит волна сигналов состояния и "
+"затихает."
+
+msgid "The glass is only the first barrier. The prototype gallery is an active secure area, not a museum."
+msgstr "Стекло — только первый барьер. Галерея прототипов является действующей охраняемой зоной, а не музеем."
+
+msgid "The glass lets you look. That is the entire agreement."
+msgstr "Стекло позволяет смотреть. На этом разрешение заканчивается."
+
+msgid "The helipad speakers emit a short warning tone.  “Crosswind threshold exceeded for light operations.”"
+msgstr "Динамики площадки подают короткий предупреждающий сигнал. «Порог бокового ветра превышен для лёгких операций.»"
+
+msgid "The lights dip by a fraction, recover, and a distant relay closes with a heavy metallic clack."
+msgstr "Свет едва заметно проседает, тут же восстанавливается, и вдали с тяжёлым металлическим щелчком замыкается реле."
+
+msgid ""
+"The lower level is not a vault. It is where a bad decision turns into a dark building, dead cooling, or blind "
+"security. Your card opens what Operations has cleared. If a reader says no, take the answer."
+msgstr ""
+"Нижний уровень — не хранилище. Здесь одно плохое решение превращается в тёмный комплекс, мёртвое охлаждение или "
+"слепую охрану. Ваша карта открывает то, что разрешил Операционный отдел. Если считыватель говорит «нет» — примите "
+"ответ."
+
+msgid "The power-conversion hall gives off a deep rising hum, then settles back into its usual steady note."
+msgstr "Зал преобразования энергии наполняется глубоким нарастающим гулом, после чего возвращается к обычному ровному тону."
+
+msgid "The public systems stock is only the layer we can afford to lose."
+msgstr "Публичный системный склад — лишь тот слой, потерю которого мы можем пережить."
+
+msgid "The relay site is marked. Small recorder, sealed casing, likely still bolted near the control electronics."
+msgstr ""
+"Релейная площадка отмечена. Небольшой регистратор в герметичном корпусе, скорее всего всё ещё закреплён рядом с "
+"управляющей электроникой."
+
+msgid "The sentries are less patient than I am. Please do not make me find out how much less."
+msgstr "Стражи терпеливы меньше меня. Не заставляйте меня выяснять, насколько именно."
+
+msgid ""
+"The site network pauses on your credential for half a second, then returns a clean tone.  “Prototype access "
+"acknowledged.  Flight-deck corridor released.”"
+msgstr ""
+"Сеть комплекса на полсекунды задерживается на вашей карте, затем отвечает чистым сигналом. «Допуск к прототипам "
+"подтверждён. Коридор лётной палубы открыт.»"
+
+msgid ""
+"The stair annex is open to cleared contractors, but the flight deck itself is prototype-restricted.  Finish "
+"Operations clearance before you cross the magenta lock."
+msgstr ""
+"Лестничный блок открыт допущенным подрядчикам, но сама лётная палуба требует допуска к прототипам. Завершите цепочку "
+"Operations, прежде чем проходить через пурпурный замок."
+
+msgid ""
+"The sublevel is not a bunker full of treasure. It is the nervous system of the site: power routing, security control,"
+" robotics and data. Your card opens exactly the doors Operations has authorized. Hacking past that is still "
+"intrusion, even if the reader lets you get away with it."
+msgstr ""
+"Подуровень — не бункер, набитый сокровищами. Это нервная система объекта: распределение энергии, безопасность, "
+"робототехника и данные. Ваша карта открывает ровно те двери, которые разрешил Операционный отдел. Взлом остальных всё"
+" равно считается вторжением, даже если считыватель удалось обмануть."
+
+msgid "The vehicles outside are AXIOM property. Their alarms are not decorative."
+msgstr "Транспорт снаружи принадлежит AXIOM. Сигнализация там не декоративная."
+
+msgid ""
+"The vehicles use ordinary electric architecture under a lot of AXIOM hardening. That makes them repairable, not "
+"disposable magic."
+msgstr ""
+"Транспорт использует обычную электрическую архитектуру под серьёзной доработкой AXIOM. Поэтому его можно "
+"ремонтировать, это не магическая одноразовая техника."
+
+msgid "The ventilation note changes almost imperceptibly as AXIOM shifts load between air-handling loops."
+msgstr "Тон вентиляции едва заметно меняется — AXIOM перераспределяет нагрузку между контурами воздухообмена."
+
+msgid "The wafer reconstructs a phase-locked navigation solution.  AXIOM-7 is added to your map."
+msgstr "Пластина восстанавливает фазово-синхронизированное навигационное решение. AXIOM-7 добавлен на карту."
+
+msgid "The wafer should be near the old receiving floor, not in an office safe."
+msgstr "Пластина должна быть у старой зоны приёмки, не в офисном сейфе."
+
+msgid "Then I continue watching our thermal curves without the comparison. Less comfortable, not fatal."
+msgstr "Тогда продолжу смотреть на наши тепловые кривые без эталона. Менее приятно, но не смертельно."
+
+msgid "Then I keep the line open and pretend optimism is a logistics method."
+msgstr "Тогда оставлю строку открытой и буду делать вид, что оптимизм — это метод логистики."
+
+msgid "Then I keep treating every attitude estimate from KX-91 as a suggestion."
+msgstr "Тогда продолжу считать каждую оценку ориентации KX-91 всего лишь предложением."
+
+msgid "Then I will keep treating every unusual thermal slope as guilty until proven innocent."
+msgstr "Тогда продолжу считать любой необычный тепловой уклон виновным, пока не доказано обратное."
+
+msgid "Then I will schedule a team when the perimeter can spare one."
+msgstr "Тогда отправлю группу, когда периметр сможет её отпустить."
+
+msgid "Then Security will pull someone off the perimeter to deal with it. I would rather not do that."
+msgstr "Тогда охране придётся снять кого-то с периметра. Я бы предпочла этого не делать."
+
+msgid "Then Viktor keeps routing around the fault and pretending he is not annoyed about it."
+msgstr "Тогда Виктор продолжит обходить неисправность и делать вид, что его это не раздражает."
+
+msgid "Then it is still armed, mobile, and somebody's future emergency."
+msgstr "Значит, он всё ещё вооружён, мобилен и является чьей-то будущей чрезвычайной ситуацией."
+
+msgid "Then it remains an active hazard."
+msgstr "Тогда он остаётся активной угрозой."
+
+msgid "Then it remains armed and unsupervised. I dislike both words."
+msgstr "Тогда он остаётся вооружённым и без присмотра. Мне не нравится ни одно из этих слов."
+
+msgid "Then that calibration trace is gone, and I get to learn the same lesson twice."
+msgstr "Тогда эта калибровочная трасса потеряна, и мне придётся второй раз усваивать тот же урок."
+
+msgid "Then that sector stays blind."
+msgstr "Тогда этот сектор останется слепым."
+
+msgid "Then the six crates remain a philosophical problem for Logistics."
+msgstr "Тогда эти шесть ящиков останутся философской проблемой Logistics."
+
+msgid "Then visitor clearance remains visitor clearance."
+msgstr "Тогда гостевой допуск останется гостевым."
+
+msgid "Then we continue operating with reduced margin."
+msgstr "Тогда продолжим работать с меньшим запасом мощности."
+
+msgid "Then we keep cannibalizing the least important machines first."
+msgstr "Тогда продолжим разбирать на запчасти сначала самые неважные машины."
+
+msgid "Then we keep one blind direction and compensate the old-fashioned way."
+msgstr "Тогда сохраняем одно слепое направление и компенсируем по-старому."
+
+msgid "Then we keep operating with less margin than I would like."
+msgstr "Тогда продолжаем работать с меньшим запасом, чем мне хотелось бы."
+
+msgid "Then we will have to divert internal security."
+msgstr "Тогда придётся отвлекать внутреннюю охрану."
+
+msgid "There is one KX-series reference unit I would very much like to compare with KX-91."
+msgstr "Есть один эталонный блок серии KX, который я очень хочу сравнить с KX-91."
+
+msgid ""
+"There it is. Seal intact, contacts clean enough. Good. I was probably being too cautious with you. Take the yellow "
+"card — the service shaft is open to you now, and Mara and Elias can show you the useful shelves."
+msgstr ""
+"Вот оно. Пломба цела, контакты достаточно чистые. Хорошо. Пожалуй, я была с вами слишком осторожна. Берите жёлтую "
+"карту — сервисная шахта теперь открыта, а Мара и Элиас покажут полезные полки."
+
+msgid ""
+"They are not giant rifles with batteries taped on. The mounts drink straight from the aircraft bus — one focused "
+"pulse is about one hundred ten kilojoules. Use the cockpit turret controls to select a mode and aim the mounts. If "
+"the sealed fire-control nodes are intact, they can also handle automatic tracking. When the main batteries are empty,"
+" the lasers are expensive decorations."
+msgstr ""
+"Это не огромные винтовки с приклеенными батареями. Установки питаются прямо от бортовой шины — один сфокусированный "
+"импульс стоит примерно сто десять килоджоулей. Через органы управления в кабине выбираете режим и наводите установки."
+" Если герметичные узлы управления огнём целы, они умеют и автоматическое сопровождение. Когда основные аккумуляторы "
+"пусты, лазеры превращаются в очень дорогой декор."
+
+msgid ""
+"They are not magazine-fed guns. Sit at the cockpit controls and use the vehicle turret commands: choose a firing "
+"mode, then aim the turrets manually or select one mount. Each focused pulse draws 110 kJ from the KX-91 storage "
+"batteries. The sealed fire-control nodes also permit automatic targeting while they remain intact."
+msgstr ""
+"Это не оружие с магазинным питанием. Сядьте за органы управления в кабине и используйте команды турелей транспорта: "
+"выберите режим огня, затем наведите турели вручную либо выберите конкретную установку. Каждый сфокусированный импульс"
+" расходует 110 кДж из бортовых аккумуляторов KX-91. Пока герметичные узлы управления огнём исправны, доступно и "
+"автоматическое наведение."
+
+msgid "Those AXIOM parts — what do people actually do with them?"
+msgstr "А эти детали AXIOM — что с ними вообще делают?"
+
+msgid "Treat it like a military robot that has forgotten the friendly half of friend-or-foe."
+msgstr "Считайте его военным роботом, который забыл дружескую половину системы «свой-чужой»."
+
+msgid ""
+"Two staff members argue quietly about a missing calibration fixture.  The argument ends when one of them remembers "
+"who borrowed it."
+msgstr ""
+"Двое сотрудников негромко спорят о пропавшем калибровочном приспособлении. Спор заканчивается, когда один вспоминает,"
+" кто его одолжил."
+
+msgid "Understood."
+msgstr "Понял."
+
+msgid "Vehicles, service bays, and anything behind a colored reader belong to AXIOM. Ask before touching."
+msgstr "Транспорт, сервисные зоны и всё за цветными считывателями принадлежит AXIOM. Сначала спросите, потом трогайте."
+
+msgid ""
+"Viktor rejects two connectors, replaces a regulator, trims the board stack to AXIOM dimensions, and returns a matched"
+" router, wafer, and control-fiber set."
+msgstr ""
+"Виктор отбраковывает два разъёма, меняет регулятор, подгоняет сборку плат под размеры AXIOM и возвращает "
+"согласованный комплект из маршрутизатора, сенсорной пластины и управляющего волокна."
+
+msgid "Visitor clearance confirmed. Stay on the public route."
+msgstr "Гостевой допуск подтверждён. Держитесь публичного маршрута."
+
+msgid "Visitor clearance only.  I can sell ordinary electronics and non-sensitive power hardware."
+msgstr "Только гостевой допуск. Я могу продавать обычную электронику и нечувствительное силовое оборудование."
+
+msgid "Visitor status verified.  Public stock is practical, but sensitive AXIOM hardware stays behind clearance."
+msgstr ""
+"Подтверждён гостевой статус. Публичный ассортимент практичен, но чувствительное оборудование AXIOM остаётся за "
+"уровнем допуска."
+
+msgid "Visitor stock is practical. Contractor stock is better. Prototype stock is earned."
+msgstr "Гостевой ассортимент практичен. Подрядный — лучше. Доступ к прототипам нужно заслужить."
+
+msgid ""
+"Warehouse is marked. Sealed gray module, shock mounts on both ends. Please do not drop the thing you are fetching to "
+"measure not-dropping."
+msgstr ""
+"Склад отмечен. Серый герметичный модуль, амортизаторы с обоих концов. Пожалуйста, не роняйте устройство, которое вы "
+"несёте для измерения того, как не ронять."
+
+msgid "We are short one thoroughly unglamorous piece of power electronics."
+msgstr "Нам не хватает одной до невозможности негламурной детали силовой электроники."
+
+msgid "We have a blind spot outside the perimeter, and I would like it to stop being blind."
+msgstr "За периметром у нас слепая зона, и я бы предпочла, чтобы она перестала быть слепой."
+
+msgid "We need a conversion stack for an external power interface."
+msgstr "Нам нужен преобразовательный стек для внешнего силового интерфейса."
+
+msgid "We will route around the fault and lose more capacity."
+msgstr "Обойдём неисправность и потеряем ещё часть мощности."
+
+msgid ""
+"Welcome to AXIOM-7. The upper motor pool and security plaza are part of the public approach; the atrium, trade wing "
+"and observation gallery are open to visitors. Contractor clearance is earned through Operations."
+msgstr ""
+"Добро пожаловать в AXIOM-7. Верхний автопарк и охранная площадь входят в публичную зону подхода; атриум, торговое "
+"крыло и обзорная галерея открыты посетителям. Подрядный допуск выдаёт Операционный отдел."
+
+msgid "What are the AXIOM components actually for?"
+msgstr "Для чего на самом деле нужны компоненты AXIOM?"
+
+msgid "What happens if someone steals AXIOM hardware?"
+msgstr "Что будет, если кто-то украдёт оборудование AXIOM?"
+
+msgid "What happens when someone ignores the answer?"
+msgstr "Что происходит, если кто-то игнорирует этот ответ?"
+
+msgid "What is AXIOM-7?"
+msgstr "Что такое AXIOM-7?"
+
+msgid "What is below the main complex?"
+msgstr "Что находится под основным комплексом?"
+
+msgid "What is up on the roof?"
+msgstr "Что находится на крыше?"
+
+msgid "What was this place before everything fell apart?"
+msgstr "Чем было это место до того, как всё рухнуло?"
+
+msgid "Wrong serial block. I know my own missing paperwork."
+msgstr "Не тот серийный блок. Я узнаю собственную пропавшую бюрократию."
+
+msgid ""
+"Yellow card? Good. That means I can stop pretending all the useful service kit is \"out of stock.\" Do not make me "
+"regret the paperwork."
+msgstr ""
+"Жёлтая карта? Хорошо. Значит, я могу перестать делать вид, что всё полезное сервисное снаряжение «закончилось». Не "
+"заставляйте меня жалеть о бумажной работе."
+
+msgid ""
+"Yellow opens the service routes and tells Mara and Elias they can stop showing you the visitor shelves. Keep doing "
+"useful work and I can justify opening more doors."
+msgstr ""
+"Жёлтый открывает сервисные маршруты и сообщает Маре с Элиасом, что вам можно перестать показывать полки для "
+"посетителей. Продолжайте приносить пользу, и я смогу обосновать открытие следующих дверей."
+
+msgid ""
+"Yes. Contacts are ugly, memory is intact. Perfect. Keep this diagnostic interface; if you are going to bring me "
+"broken systems, I would prefer you know what they are saying first."
+msgstr ""
+"Да. Контакты ужасны, память цела. Отлично. Оставьте себе этот диагностический интерфейс; если собираетесь приносить "
+"мне сломанные системы, я предпочту, чтобы сначала вы понимали, что они вам говорят."
+
+msgid ""
+"Yes. Same supplier revision. Give me a minute... good. KX-91 is drifting, but predictably. That is much better than "
+"randomly. Take a charged cell and two composite packs. You saved me several days of guessing."
+msgstr ""
+"Да. Та же ревизия поставщика. Дайте минуту... хорошо. KX-91 дрейфует, но предсказуемо. Это намного лучше случайного "
+"дрейфа. Возьмите заряженную ячейку и два пакета композита. Вы сэкономили мне несколько дней угадывания."
+
+msgid ""
+"You already hold prototype-level contractor clearance. That is about as far as an external operator goes without "
+"joining us."
+msgstr "У вас уже подрядный допуск уровня прототипов. Для внешнего оператора это почти максимум без вступления в AXIOM."
+
+msgid "You are already recognized as an AXIOM contractor. Complete more Operations work and we will open higher stock tiers."
+msgstr ""
+"Вы уже зарегистрированы как подрядчик AXIOM. Выполните дополнительные задания Операционного отдела — откроются более "
+"высокие уровни ассортимента."
+
+msgid ""
+"You are on the public list. I can spare tools, consumables, and ordinary protection. If you want the interesting "
+"shelves, convince Lena you are useful."
+msgstr ""
+"Вы в списке посетителей. Могу продать инструменты, расходники и обычную защиту. Хотите увидеть интересные полки — "
+"убедите Лену, что от вас есть польза."
+
+msgid ""
+"You can use the stair annex, but not the deck. The magenta lock is there because KX-91 attracts exactly the kind of "
+"curiosity that ruins aircraft."
+msgstr ""
+"Лестничным блоком пользоваться можно, палубой — нет. Пурпурный замок там потому, что KX-91 вызывает именно тот вид "
+"любопытства, который портит авиацию."
+
+msgid ""
+"You currently have visitor clearance.  Complete the first Operations recovery job and I can register you as an AXIOM "
+"contractor."
+msgstr ""
+"Сейчас у вас гостевой допуск. Выполните первое восстановительное задание Operations, и я смогу зарегистрировать вас "
+"как подрядчика AXIOM."
+
+msgid ""
+"You made it through the approach under your own power. These days, that is already a better introduction than most "
+"people manage. Welcome to AXIOM-7."
+msgstr ""
+"Вы добрались до нашего входа своим ходом. Сейчас это уже лучшее представление, чем получается у большинства. Добро "
+"пожаловать в AXIOM-7."
+
+msgid "You said useful. What needs doing?"
+msgstr "Вы сказали «полезным». Что нужно сделать?"
+
+msgid "You want the logger, not the relay core and not the antenna hardware."
+msgstr "Нужен регистратор, не релейное ядро и не антенное оборудование."
+
+msgid ""
+"Your yellow credential produces a different tone from the nearest reader.  “Contractor profile synchronized.  Service"
+" routing enabled.”  Somewhere nearby, a lock cycles."
+msgstr ""
+"Ближайший считыватель отвечает на жёлтую карту уже другим тоном. «Профиль подрядчика синхронизирован. Сервисные "
+"маршруты открыты.» Где-то рядом срабатывает замок."
+
+msgid "[Contractor] Can you teach me the infrastructure side of this place?"
+msgstr "[Подрядчик] Можешь научить меня разбираться в инфраструктуре комплекса?"
+
+msgid "[Contractor] Pack a basic electronics field lot."
+msgstr "[Подрядчик] Собери базовый полевой комплект электроники."
+
+msgid "[Contractor] Show me how you troubleshoot this hardware."
+msgstr "[Подрядчик] Покажи, как вы диагностируете это оборудование."
+
+msgid "[Prototype] Give me the restricted field-support lot."
+msgstr "[Прототип] Выдай ограниченный комплект полевой поддержки."
+
+msgid "[Specialist] Cycle and balance one of my AXIOM dense cells."
+msgstr "[Специалист] Прогони цикл и отбалансируй одну мою плотную ячейку AXIOM."
+
+msgid "[Specialist] I want the dense-power service lot."
+msgstr "[Специалист] Нужен комплект для работы с плотной энергетикой."
+
+msgid "[Specialist] Rework these donor parts into an AXIOM service set."
+msgstr "[Специалист] Переделай эти донорские детали в сервисный набор AXIOM."
+
+msgid "Понятно."
+msgstr "Понятно."
+
+msgid "Что находится на крыше?"
+msgstr "Что находится на крыше?"
+
+msgid ""
+"“Blue bus test in thirty seconds,” the PA announces.  “If your bench reboots, your complaint has already been filed "
+"on your behalf.”"
+msgstr ""
+"«Проверка синей шины через тридцать секунд, — сообщает громкая связь. — Если ваш стенд перезагрузится, жалоба уже "
+"подана от вашего имени.»"
+
+msgid "“Medical automation test in the east wing.  False alarms are still alarms until the test ends.”"
+msgstr "«Проверка медицинской автоматики в восточном крыле. Ложные тревоги остаются тревогами до окончания теста.»"
+
+msgid "“Operations to workshop: next power window is yours.  Please try not to use all of it this time.”"
+msgstr "«Operations — мастерской: следующее окно мощности ваше. Постарайтесь в этот раз не использовать его целиком.»"
+
+msgid "“Systems Core to Operations: load balance is stable.  Stop asking every five minutes.”"
+msgstr "«Systems Core — Operations: баланс нагрузки стабилен. Перестаньте спрашивать каждые пять минут.»"
+
+msgid "“Thermal loop two purge complete,” a synthesized voice reports.  “No intervention required.”"
+msgstr "«Продувка второго теплового контура завершена, — сообщает синтезированный голос. — Вмешательство не требуется.»"
+
+msgid "KX-91 diagnostic service probe"
+msgstr "диагностический сервисный зонд KX-91"
+
+msgid ""
+"A sealed AXIOM service probe keyed to KX-91. Nadia uses it to wake the aircraft diagnostic bus without granting "
+"control of the airframe."
+msgstr ""
+"Герметичный сервисный зонд AXIOM, привязанный к KX-91. Надя использует его, чтобы кратковременно включать "
+"диагностическую шину вертолёта, не предоставляя управление машиной."
+
+msgid "Run KX-91 diagnostic handshake"
+msgstr "Запустить диагностическое рукопожатие KX-91"
+
+msgid "KX-91 high-load bus regulator"
+msgstr "силовой регулятор шины KX-91"
+
+msgid ""
+"A hardened high-load regulator sized for the KX-91 power-distribution bus. The original unit in the aircraft failed "
+"beyond calibration tolerance."
+msgstr ""
+"Защищённый силовой регулятор для распределительной шины KX-91. Штатный блок вышел из строя настолько, что его уже "
+"нельзя вернуть в допуски калибровкой."
+
+msgid "KX-91 navigation reference archive"
+msgstr "эталонный навигационный архив KX-91"
+
+msgid ""
+"A ruggedized navigation archive containing reference ephemeris, inertial compensation tables and terrain-correlation "
+"data for the KX flight stack."
+msgstr ""
+"Защищённый навигационный архив с эталонными эфемеридами, таблицами инерциальной компенсации и данными сопоставления "
+"местности для лётного комплекса KX."
+
+msgid ""
+"The service probe negotiates a maintenance handshake with KX-91. The aircraft wakes for forty-three seconds, logs "
+"seven primary faults, then drops back to the safe bus."
+msgstr ""
+"Сервисный зонд устанавливает техническое соединение с KX-91. Вертолёт просыпается на сорок три секунды, регистрирует "
+"семь основных неисправностей и снова уходит на безопасную шину."
+
+msgid "The KX-91 service probe cannot establish a valid maintenance session here."
+msgstr "Здесь сервисный зонд KX-91 не может установить корректный технический сеанс."
+
+msgid "KX-91: cold diagnostic"
+msgstr "KX-91: холодная диагностика"
+
+msgid "Use Nadia's service probe on the KX-91 flight deck and return with a clean diagnostic handshake."
+msgstr "Использовать сервисный зонд Нади на лётной палубе KX-91 и получить корректный диагностический сеанс."
+
+msgid "Wake KX-91 on the maintenance bus and collect a real fault picture."
+msgstr "Включить KX-91 через сервисную шину и получить реальную картину неисправностей."
+
+msgid ""
+"I am done guessing from dead indicators. Take this service probe to the aircraft, stand on the flight deck, and run a"
+" maintenance handshake. It cannot grant flight control; it only wakes the diagnostic bus long enough to tell us what "
+"is actually broken."
+msgstr ""
+"Хватит гадать по мёртвым индикаторам. Возьмите этот сервисный зонд, поднимитесь к машине на лётную палубу и запустите"
+" техническое рукопожатие. Управление полётом он не даст — только разбудит диагностическую шину достаточно надолго, "
+"чтобы понять, что действительно сломано."
+
+msgid "Good. The deck will treat you as service-authorized while the project is active. Do not improvise with the controls."
+msgstr ""
+"Хорошо. Пока проект активен, палуба будет считать вас допущенным к обслуживанию. Только не импровизируйте с органами "
+"управления."
+
+msgid "Then KX-91 can continue being an extremely expensive roof ornament."
+msgstr "Тогда KX-91 продолжит быть чрезвычайно дорогим украшением крыши."
+
+msgid ""
+"Use the probe on the KX-91 section of the flight deck. If you are not on the correct overmap tile, it will refuse the"
+" handshake."
+msgstr ""
+"Используйте зонд в секторе KX-91 на лётной палубе. Если вы находитесь не в нужной клетке глобальной карты, он "
+"откажется устанавливать соединение."
+
+msgid "Did you get a clean maintenance handshake?"
+msgstr "Удалось получить чистый технический сеанс?"
+
+msgid ""
+"Seven primary faults. Better than I expected, worse than I hoped. Most importantly, the airframe bus is coherent. "
+"KX-91 is repairable."
+msgstr ""
+"Семь основных неисправностей. Лучше, чем я ожидала, и хуже, чем надеялась. Главное — шина планера согласована. KX-91 "
+"можно восстановить."
+
+msgid "The probe records its own handshake. If it did not run, I know."
+msgstr "Зонд сам записывает сеанс. Если он не запускался, я это увижу."
+
+msgid "Then we go back to treating the aircraft as a sealed unknown."
+msgstr "Тогда снова считаем машину закрытым неизвестным объектом."
+
+msgid "KX-91: power spine"
+msgstr "KX-91: силовая магистраль"
+
+msgid "Recover a high-load regulator from a surviving electrical substation and return it to Elias Chen."
+msgstr "Вернуть силовой регулятор с уцелевшей электрической подстанции Элиасу Чену."
+
+msgid "KX-91 needs a replacement regulator before we can energize the main distribution spine."
+msgstr "KX-91 нужен новый регулятор, прежде чем можно будет включить основную распределительную магистраль."
+
+msgid ""
+"The aircraft did not lose its batteries first. It lost the regulator that decides how brutally they are allowed to "
+"feed the rest of the machine. A compatible industrial unit should still be sitting in one of the substations we "
+"surveyed. Bring me the regulator, not the whole cabinet."
+msgstr ""
+"Сначала машина потеряла не аккумуляторы. Она потеряла регулятор, который решает, насколько жестоко им разрешено "
+"кормить остальную систему. На одной из обследованных подстанций должен оставаться совместимый промышленный блок. "
+"Принесите регулятор, а не весь шкаф."
+
+msgid ""
+"Substation marked. The regulator is a hardened module, roughly the size of a car battery, with ceramic bus lugs on "
+"both ends."
+msgstr ""
+"Подстанция отмечена. Регулятор — защищённый модуль примерно размером с автомобильный аккумулятор, с керамическими "
+"силовыми выводами с обеих сторон."
+
+msgid "Then I keep the aircraft on the safe bus and nothing expensive catches fire."
+msgstr "Тогда оставляю машину на безопасной шине, и ничего дорогого не загорается."
+
+msgid "The substation floor is the target. Do not waste time stripping transformers; I need the control-side regulator."
+msgstr "Нужен наземный уровень подстанции. Не тратьте время на трансформаторы — мне нужен регулятор управляющей стороны."
+
+msgid "Do you have the high-load regulator?"
+msgstr "Силовой регулятор у вас?"
+
+msgid ""
+"Good. Give me the afternoon. The main bus will wake in sections, not all at once. If you hear Nadia swearing, that "
+"means the test is proceeding normally."
+msgstr ""
+"Хорошо. Дайте мне полдня. Основная шина будет включаться по секциям, не вся сразу. Если услышите, как Надя ругается, "
+"значит испытание идёт штатно."
+
+msgid "That is not the regulator. It is heavy and electrical, which is not the same thing."
+msgstr "Это не регулятор. Он тяжёлый и электрический, но этого недостаточно."
+
+msgid "Then the KX stays on auxiliary power until we find another donor."
+msgstr "Тогда KX остаётся на вспомогательном питании, пока не найдём другого донора."
+
+msgid ""
+"AXIOM maintenance replaces the failed KX-91 regulator. Main storage batteries and the protected service bus are "
+"brought online."
+msgstr ""
+"Техники AXIOM заменяют отказавший регулятор KX-91. Основные бортовые аккумуляторы и защищённая сервисная шина "
+"вводятся в работу."
+
+msgid "KX-91: reference solution"
+msgstr "KX-91: эталонное решение"
+
+msgid "Recover a hardened navigation reference archive from an abandoned radio site for Viktor Hale."
+msgstr "Вернуть Виктору Хейлу защищённый эталонный навигационный архив с заброшенного радиоузла."
+
+msgid "Viktor needs a clean reference set before he will trust KX-91 navigation again."
+msgstr "Виктору нужен чистый набор эталонных данных, прежде чем он снова станет доверять навигации KX-91."
+
+msgid ""
+"The inertial unit can be calibrated now, but calibration without reference data only gives you a very precise way to "
+"be wrong. One of our old radio sites kept a hardened navigation archive for field aircraft. Recover it and I can "
+"rebuild the correlation tables."
+msgstr ""
+"Инерциальный блок теперь можно откалибровать, но калибровка без эталонных данных лишь позволяет ошибаться очень "
+"точно. На одном из старых радиоузлов хранился защищённый навигационный архив для полевых машин. Верните его, и я "
+"восстановлю таблицы корреляции."
+
+msgid "Radio site marked. Look near the control electronics, not the mast itself."
+msgstr "Радиоузел отмечен. Ищите у управляющей электроники, не на самой мачте."
+
+msgid "Then Nadia keeps a map on her clipboard and the aircraft keeps pretending that counts as navigation."
+msgstr "Тогда Надя продолжит держать карту на планшете, а машина — делать вид, что это считается навигацией."
+
+msgid "The archive is a sealed processor module. Water damage outside the casing is acceptable; impact damage is not."
+msgstr "Архив находится в герметичном процессорном модуле. Следы воды снаружи корпуса допустимы, ударные повреждения — нет."
+
+msgid "Did the navigation archive survive?"
+msgstr "Навигационный архив уцелел?"
+
+msgid ""
+"It did. Good. I can reconcile the inertial drift against known reference sets instead of inventing corrections from "
+"scratch."
+msgstr "Уцелел. Хорошо. Теперь я могу сверить инерциальный дрейф с известными эталонами, а не изобретать поправки с нуля."
+
+msgid "No. This is not a navigation reference package."
+msgstr "Нет. Это не эталонный навигационный пакет."
+
+msgid "Then the flight computer remains blind in a very sophisticated way."
+msgstr "Тогда бортовой компьютер останется слепым, пусть и очень изощрённым образом."
+
+msgid "Viktor rebuilds the KX-91 reference tables and Nadia brings the flight computers through a stable avionics boot."
+msgstr ""
+"Виктор восстанавливает эталонные таблицы KX-91, а Надя проводит бортовые компьютеры через стабильную загрузку "
+"авионики."
+
+msgid "KX-91: fire-control validation"
+msgstr "KX-91: проверка управления огнём"
+
+msgid "Destroy Security's remote threat-simulation unit so Rhea can validate the KX-91 IFF and weapons authorization tables."
+msgstr ""
+"Уничтожить удалённый имитатор угрозы службы безопасности, чтобы Рея могла проверить таблицы IFF и разрешений оружия "
+"KX-91."
+
+msgid "Security wants a real hostile track before the KX-91 weapon bus is certified."
+msgstr "Службе безопасности нужен реальный враждебный трек, прежде чем она сертифицирует оружейную шину KX-91."
+
+msgid ""
+"I have one remote threat-simulation unit left from the old range inventory. It is running an isolated hostile profile"
+" and a known transponder pattern. Destroy it. I will compare the engagement trace against KX-91's reconstructed IFF "
+"tables before I authorize the weapon nodes."
+msgstr ""
+"У меня остался один дистанционный имитатор угрозы со старого полигона. Он работает с изолированным враждебным "
+"профилем и известным транспондерным шаблоном. Уничтожьте его. Я сравню трассу боя с восстановленными таблицами IFF "
+"KX-91 и только после этого разрешу оружейные узлы."
+
+msgid "Target is in open ground. Treat it as live; because it is."
+msgstr "Цель на открытой местности. Считайте её боевой — потому что она боевая."
+
+msgid "Then the lasers stay electrically isolated from the aircraft bus."
+msgstr "Тогда лазеры останутся электрически изолированы от шины машины."
+
+msgid "Same rules as any rifle UGV: break line of sight, force reacquisition, do not trade bursts with it."
+msgstr ""
+"Правила те же, что с любым винтовочным БНА: рвите линию видимости, заставляйте его заново захватывать цель и не "
+"обменивайтесь очередями."
+
+msgid "Is V-31 destroyed?"
+msgstr "V-31 уничтожен?"
+
+msgid "Telemetry matches. No false friendlies, no dropped hostile track. I am signing the fire-control release."
+msgstr ""
+"Телеметрия сходится. Ложных дружественных целей нет, враждебный трек не потерян. Подписываю разрешение на систему "
+"управления огнём."
+
+msgid "The simulator is still transmitting. Try again."
+msgstr "Имитатор всё ещё передаёт сигнал. Попробуйте ещё раз."
+
+msgid "Then I have no clean validation trace and the weapon nodes remain sealed."
+msgstr "Тогда у меня нет чистой проверочной трассы, и оружейные узлы остаются опечатанными."
+
+msgid ""
+"Rhea signs off the KX-91 IFF and fire-control tables. Nadia reseals the weapon nodes and returns both pulse-laser "
+"mounts to the aircraft bus."
+msgstr ""
+"Рея утверждает таблицы IFF и управления огнём KX-91. Надя заново герметизирует оружейные узлы и подключает обе "
+"импульсно-лазерные установки к бортовой шине."
+
+msgid "KX-91: final integration"
+msgstr "KX-91: финальная интеграция"
+
+msgid "Bring Nadia the matched AXIOM components needed to close the restoration and perform the final ground run."
+msgstr "Принести Наде согласованный комплект компонентов AXIOM для завершения восстановления и финального наземного прогона."
+
+msgid "The major systems are ready. Nadia needs matched AXIOM service stock for the final integration run."
+msgstr "Основные системы готовы. Наде нужен согласованный сервисный запас AXIOM для финальной интеграции."
+
+msgid ""
+"Power is stable, navigation is coherent, and Rhea signed the weapon tables. What remains is the ugly part: replacing "
+"every temporary bridge we used to get here. Bring me two dense cells, two power routers, two sensor wafers, two "
+"control-fiber bundles, and two nanomaterial packs. Then we close the panels and find out whether KX-91 is an aircraft"
+" again."
+msgstr ""
+"Питание стабильно, навигация согласована, Рея подписала оружейные таблицы. Осталась грязная часть: заменить все "
+"временные перемычки, с которыми мы дошли до этого этапа. Принесите две плотные ячейки, два маршрутизатора питания, "
+"две сенсорные пластины, два комплекта управляющего волокна и два пакета наноматериала. После этого закроем панели и "
+"узнаем, снова ли KX-91 стал летательным аппаратом."
+
+msgid "Matched parts only. This is not the stage where I reward creativity."
+msgstr "Только согласованные детали. На этом этапе творческий подход я не поощряю."
+
+msgid "Fine. The aircraft is safer half-finished than finished badly."
+msgstr "Хорошо. Полузаконченная машина безопаснее плохо законченной."
+
+msgid ""
+"Mara and Elias can supply most of it if your stores are thin. Viktor can rework donor electronics into some of the "
+"AXIOM service parts."
+msgstr ""
+"Если запасы малы, большую часть можно получить у Мары и Элиаса. Виктор умеет переделывать донорскую электронику в "
+"часть сервисных компонентов AXIOM."
+
+msgid "Do you have the matched integration stock?"
+msgstr "Согласованный комплект для интеграции у вас?"
+
+msgid ""
+"That is everything. Panels closed, buses clean, rotor green, both turbines stable. KX-91 is operational. It still "
+"belongs to AXIOM, but it is no longer a monument."
+msgstr ""
+"Это всё. Панели закрыты, шины чистые, ротор в зелёной зоне, обе турбины стабильны. KX-91 снова работоспособен. Он всё"
+" ещё принадлежит AXIOM, но больше не является памятником."
+
+msgid "No. I need the entire matched set before I close this aircraft."
+msgstr "Нет. Мне нужен весь согласованный комплект, прежде чем я закрою эту машину."
+
+msgid "Then the final integration stays open and the turbines stay cold."
+msgstr "Тогда финальная интеграция остаётся незавершённой, а турбины — холодными."
+
+msgid ""
+"KX-91 completes a full-power ground cycle. Both turbines stabilize, the rotor system reports green, navigation locks,"
+" and the flight computer accepts the restored fire-control nodes. The aircraft is operational again."
+msgstr ""
+"KX-91 завершает наземный цикл на полной мощности. Обе турбины стабилизируются, роторная система сообщает зелёный "
+"статус, навигация фиксируется, а бортовой компьютер принимает восстановленные узлы управления огнём. Машина снова "
+"работоспособна."
+
+msgid "Start with the truth. What does KX-91 actually need?"
+msgstr "Начнём с правды. Что на самом деле нужно KX-91?"
+
+msgid "The subsystems are ready. What do you need for final integration?"
+msgstr "Подсистемы готовы. Что нужно для финальной интеграции?"
+
+msgid "I lost the KX-91 diagnostic probe."
+msgstr "Я потерял диагностический зонд KX-91."
+
+msgid "Nadia says KX-91 needs its main power spine rebuilt."
+msgstr "Надя говорит, KX-91 нужно восстановить основную силовую магистраль."
+
+msgid "KX-91 has power. What is wrong with its navigation?"
+msgstr "Питание KX-91 восстановлено. Что не так с навигацией?"
+
+msgid "Nadia says the KX-91 weapon bus is waiting on Security."
+msgstr "Надя говорит, оружейная шина KX-91 ждёт разрешения службы безопасности."
+
+msgid ""
+"It flies again. Full-power ground run was clean, both turbines are stable, and the flight stack is coherent. Do not "
+"confuse operational with yours; AXIOM still owns the aircraft."
+msgstr ""
+"Он снова может летать. Наземный прогон на полной мощности прошёл чисто, обе турбины стабильны, лётный комплекс "
+"согласован. Только не путайте «работоспособен» с «ваш»: машина всё ещё принадлежит AXIOM."
+
+msgid ""
+"Fire-control is validated and the weapon nodes are back on the aircraft bus. The last job is final integration: "
+"replace the temporary bridges, close the panels, and run the turbines."
+msgstr ""
+"Управление огнём проверено, оружейные узлы снова подключены к бортовой шине. Осталась финальная интеграция: заменить "
+"временные перемычки, закрыть панели и запустить турбины."
+
+msgid ""
+"Power and avionics are stable. Rhea still refuses to connect the weapon nodes until the rebuilt IFF tables survive a "
+"live validation trace."
+msgstr ""
+"Питание и авионика стабильны. Рея всё ещё не разрешает подключать оружейные узлы, пока восстановленные таблицы IFF не"
+" пройдут живую проверочную трассу."
+
+msgid ""
+"The main distribution spine is alive. That gives us enough power to rebuild navigation and prove whether the flight "
+"computers can agree on where the aircraft is."
+msgstr ""
+"Основная распределительная магистраль ожила. Теперь мощности достаточно, чтобы восстановить навигацию и проверить, "
+"способны ли бортовые компьютеры договориться о том, где находится машина."
+
+msgid ""
+"The diagnostic bus is coherent. The ugly surprise is the power regulator: it failed hard enough that I will not "
+"energize the main spine until Elias has a replacement."
+msgstr ""
+"Диагностическая шина согласована. Неприятный сюрприз — силовой регулятор: он отказал настолько серьёзно, что я не "
+"включу основную магистраль, пока Элиас не найдёт замену."
+
+msgid ""
+"Fly again? Maybe. Right now KX-91 is an airframe with several expensive arguments happening inside it. We need a cold"
+" diagnostic before I call any of them repairable."
+msgstr ""
+"Снова летать? Возможно. Сейчас KX-91 — это планер, внутри которого спорят несколько очень дорогих систем. Сначала "
+"нужна холодная диагностика, и только потом я назову хоть что-то ремонтопригодным."
+
+msgid "AXIOM KX-91 dormant restoration airframe"
+msgstr "неактивный восстанавливаемый планер AXIOM KX-91"
+
+msgid "AXIOM KX-91 powered restoration airframe"
+msgstr "восстанавливаемый планер AXIOM KX-91 с питанием"
+
+msgid "AXIOM KX-91 avionics restoration airframe"
+msgstr "восстанавливаемый планер AXIOM KX-91 с авионикой"
+
+msgid "AXIOM KX-91 weapons-validated restoration airframe"
+msgstr "восстанавливаемый планер AXIOM KX-91 с проверенным вооружением"
+
+
+msgid "KX-91 custody handshake recorder"
+msgstr "Регистратор передачи KX-91"
+
+msgid "A sealed AXIOM recorder carrying the custody-transfer challenge for KX-91. It can authorize a final ownership handshake but cannot directly control the aircraft."
+msgstr "Опломбированный регистратор AXIOM с проверочным запросом для передачи KX-91. Он может подтвердить финальную процедуру передачи, но не даёт прямого управления машиной."
+
+msgid "Run KX-91 custody handshake"
+msgstr "Выполнить процедуру передачи KX-91"
+
+msgid "The recorder exchanges a signed challenge with KX-91. The flight computer accepts your operator identity and produces a custody-transfer record for Operations."
+msgstr "Регистратор обменивается с KX-91 подписанным проверочным запросом. Полётный компьютер принимает вашу личность оператора и формирует запись о передаче для Operations."
+
+msgid "The custody recorder cannot complete a valid KX-91 transfer handshake here."
+msgstr "Регистратор не может выполнить корректную процедуру передачи KX-91 в этом месте."
+
+msgid "KX-91: operational custody"
+msgstr "KX-91: передача в эксплуатацию"
+
+msgid "Perform the signed custody handshake on KX-91 and return the recorder to Lena Orlov so Operations can release the aircraft to you."
+msgstr "Выполните подписанную процедуру передачи на KX-91 и верните регистратор Лене Орлов, чтобы Operations официально передал вам машину."
+
+msgid "Formalize custody of the restored KX-91."
+msgstr "Оформить передачу восстановленного KX-91."
+
+msgid "KX-91 is operational. What happens to the aircraft now?"
+msgstr "KX-91 снова работает. Что теперь будет с машиной?"
+
+msgid "I lost the KX-91 custody recorder."
+msgstr "Я потерял регистратор передачи KX-91."
+
+msgid "AXIOM long-range beacon core"
+msgstr "Ядро дальнего маяка AXIOM"
+
+msgid "AXIOM flight telemetry archive"
+msgstr "Архив полётной телеметрии AXIOM"
+
+msgid "AXIOM recovery manifest"
+msgstr "Манифест восстановления AXIOM"
+
+msgid "KX-91 operation: Long Reach"
+msgstr "Операция KX-91: Дальний рубеж"
+
+msgid "KX-91 operation: Quiet Corridor"
+msgstr "Операция KX-91: Тихий коридор"
+
+msgid "KX-91 operation: Black Glass"
+msgstr "Операция KX-91: Чёрное стекло"
+
+msgid "KX-91 operation: Last Mile"
+msgstr "Операция KX-91: Последняя миля"
+
+msgid "KX-91 is mine now. Does AXIOM have a real field operation for it?"
+msgstr "KX-91 теперь у меня. У AXIOM есть для него настоящая полевая операция?"
+
+msgid "Lena opened the long-range program. Anything dangerous blocking the routes?"
+msgstr "Лена открыла программу дальних вылетов. На маршрутах есть что-то опасное?"
+
+msgid "The corridor is clear. What does KX-91 need before we rely on it farther out?"
+msgstr "Коридор чист. Что нужно KX-91, прежде чем мы начнём полагаться на него в дальних вылетах?"
+
+msgid "Viktor has his telemetry. What do you need to make regular KX flights sustainable?"
+msgstr "Виктор получил телеметрию. Что нужно, чтобы регулярные вылеты KX стали устойчивыми?"
+
+msgid "Sign out the weekly KX-91 flight-support lot."
+msgstr "Выдай недельный комплект поддержки KX-91."
+
+msgid "AXIOM-7 v0.8.2.2: KX-91 edge-case hardening. Includes Restoration, Operational Custody, Field Operations, bounded mission-target search behavior, authorization-state hygiene, inert recovery devices, and safer installation rollback."
+msgstr "AXIOM-7 v0.8.2.2: усиление KX-91 для крайних случаев. Включает восстановление, официальную передачу, полевые операции, безопасный поиск целей миссий, нормализацию состояний допуска, инертные сервисные устройства и установку с откатом."

@@ -1,0 +1,37 @@
+[
+  {
+    "id": "axiom_heli_laser_turret",
+    "copy-from": "turret_generic",
+    "type": "vehicle_part",
+    "item": "axiom_heli_laser",
+    "looks_like": "laser_rifle",
+    "color": "light_cyan",
+    "broken_color": "dark_gray",
+    "name": {
+      "str": "KX-91 integrated heavy pulse laser"
+    },
+    "description": "A permanently integrated KX-91 pulse-laser mount. It is hard-wired into the airframe and cannot be uninstalled intact in the field.",
+    "extend": {
+      "flags": [
+        "NO_INSTALL_HIDDEN",
+        "NO_UNINSTALL"
+      ]
+    }
+  },
+  {
+    "id": "axiom_heli_fire_control",
+    "copy-from": "controls_turret",
+    "type": "vehicle_part",
+    "name": {
+      "str": "KX-91 sealed fire-control node"
+    },
+    "description": "A sealed AXIOM-7 fire-control node coupled directly to one KX-91 laser mount. It supplies local tracking, IFF and automatic-targeting control and is not intended for field removal.",
+    "looks_like": "controls_turret",
+    "extend": {
+      "flags": [
+        "NO_INSTALL_HIDDEN",
+        "NO_UNINSTALL"
+      ]
+    }
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "type": "faction",
+    "id": "axiom_7",
+    "name": "AXIOM-7",
+    "likes_u": 0,
+    "respects_u": 0,
+    "known_by_u": false,
+    "size": 78,
+    "power": 260,
+    "wealth": 95000000,
+    "relations": {
+      "axiom_7": {
+        "kill on sight": false,
+        "watch your back": true,
+        "share my stuff": true,
+        "guard your stuff": true,
+        "lets you in": true,
+        "defends your space": true,
+        "knows your voice": true
+      }
+    },
+    "description": "A surviving autonomous research and fabrication enclave specializing in photonics, robotics, dense power systems, medical automation, nanofabrication and advanced materials. AXIOM-7 behaves like a functioning institution, not a survivor camp.",
+    "mon_faction": "axiom_security_bot"
+  }
+]

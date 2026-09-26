@@ -1,0 +1,32 @@
+[
+  {
+    "type": "vehicle_group",
+    "id": "parkinglot",
+    "vehicles": [
+      [ "compact_atomic", 1 ],
+      [ "car_atomic", 1 ],
+      [ "suv_atomic", 1 ],
+      [ "car_sports_atomic", 1 ],
+      [ "robotic_taxi", 1 ],
+      [ "bubble_car", 1 ],
+      [ "light_cycle", 1 ]
+    ]
+  },
+  {
+    "type": "vehicle_group",
+    "id": "city_vehicles",
+    "vehicles": [
+      [ "robotic_taxi", 1 ],
+      [ "compact_atomic", 1 ],
+      [ "policecar_atomic", 1 ]
+    ]
+  },
+  {
+    "type": "vehicle_group",
+    "id": "military_vehicles",
+    "vehicles": [
+      [ "armored_robot_carrier", 2 ],
+      [ "uica_lynx_ex", 1 ]
+    ]
+  }
+]

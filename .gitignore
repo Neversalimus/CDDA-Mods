@@ -1,0 +1,11 @@
+/dist/
+/build/
+/external/
+/native-artifacts/
+__pycache__/
+*.pyc
+*.tmp
+*.pdb
+*.obj
+*.log
+.DS_Store

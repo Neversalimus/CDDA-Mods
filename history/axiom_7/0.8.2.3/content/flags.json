@@ -1,0 +1,17 @@
+[
+  {
+    "id": "AXIOM_CARD_CONTRACTOR",
+    "type": "json_flag",
+    "info": "This item is recognized by AXIOM-7 contractor access readers."
+  },
+  {
+    "id": "AXIOM_CARD_SPECIALIST",
+    "type": "json_flag",
+    "info": "This item is recognized by AXIOM-7 specialist access readers."
+  },
+  {
+    "id": "AXIOM_CARD_PROTOTYPE",
+    "type": "json_flag",
+    "info": "This item is recognized by AXIOM-7 prototype/restricted access readers."
+  }
+]

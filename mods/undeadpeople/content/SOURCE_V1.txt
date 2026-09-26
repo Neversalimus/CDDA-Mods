@@ -1,0 +1,20 @@
+UndeadPeople 0.J Hybrid - source snapshot
+=========================================
+Base / priority tileset:
+  Repository: Goodgulf-PL/UndeadPeopleTileset_Unpacked_New_Version
+  Commit: 4b1e7d907724be2f47c56765c5384b2bf00873ee
+  Release family: v0.0.7 (2026-07-23)
+  GitHub Actions artifact: 8568377713
+
+Fallback-only donor:
+  Repository: I-am-Erk/CDDA-Tilesets
+  Tileset: MShockXotto+
+  Commit: aebb9c2768537e78d0471a65241f0347f91ba395
+  Release: 2026-09-13
+  GitHub Actions artifact: 10139040173
+
+Merge policy:
+  Existing UndeadPeople IDs are never replaced.
+  Only MShockXotto+ top-level tile IDs absent from UndeadPeople are registered.
+  MSX atlases are copied losslessly and their global sprite indices are shifted.
+  UDP layering contexts win; only previously absent MSX contexts are appended.

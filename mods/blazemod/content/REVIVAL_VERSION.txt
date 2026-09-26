@@ -1,0 +1,22 @@
+Blazemod Revival
+Version: 0.5.5
+Target CDDA: cdda_experimental_2026_09_23_0546
+Target commit: e262adb299a7613b4aedc5f12c08fe0413c56a84
+
+Cumulative layers:
+- v0.4.0 Core Isolation
+- v0.4.1 Blob Semantics
+- v0.4.2 Content Reachability
+- v0.5 Runtime & Save Integrity Gate
+
+Installer / portability layer:
+- automatically locates CatLauncher/Catapult, portable and common game-folder installs
+- remembers the last successful game root in %APPDATA%\BlazemodRevival\installer.json
+- fresh install downloads the pinned baseline commit only when Blazemod is absent
+- existing installs are backed up before update
+- transactional staging; live working mod is untouched until static checks pass
+- previous live mod is moved outside data\mods during validation, preventing duplicate mod IDs
+- validator uses the normal game data tree; no alternate datadir is used
+- automatic rollback on real validator failure
+- blob split uses zero-return EOC tick_action; original friendliness roll is reproduced without tick_action charge warnings
+- preserves TRACKED custom flag used by blob wheels/hulls

@@ -1,2 +1,88 @@
-# CDDA-Mods
-Independently versioned CDDA mods, shared installer and compatibility workflow. NCMM runtime remains separate.
+# Neversalimus CDDA Mods
+
+Единый репозиторий модов CDDA с раздельными версиями, установщиком Windows
+PowerShell 5.1/7 и учётом совместимости по точному коммиту игры.
+NCMM остаётся отдельным проектом.
+
+| Компонент | Текущая перенесённая версия |
+|---|---|
+| AXIOM-7 | 0.8.2.7 |
+| Blazemod Revival | 0.5.5 |
+| Secronom / Secronom+ | 1.5.1 / 0.3.4, восстановленные исходники |
+| Aftershock Prime + MoM compatibility | Hotfix14a, installer 1.1.1 |
+| Tankmod Revived | 2026 Fix4 |
+| UndeadPeople Hybrid | v3 FULL, все патчи |
+| Advanced World Settings | 0.5.0 |
+| Survivor Progression | 0.9.10 clean v13, исходники; новая DLL ещё не выпущена |
+
+**Текущий статус:** закрытый репозиторий создан; загрузка исходников и Windows CI
+выполняются. Перенос JSON проверен на синтаксис, но эта сборка
+не объявлена прошедшей проверку в игре. Детали: [docs/STATUS.md](docs/STATUS.md).
+Не устанавливайте старую DLL Survivor 0.9.0 поверх существующей 0.9.10.
+
+## Установка
+
+Скачать полный `CDDA-Mods-Installer.zip`, распаковать и запустить `INSTALL.cmd`.
+Python, Git, Visual Studio и компиляция CDDA игроку не нужны. Инсталлер находит
+CatLauncher/портативную/Steam-установку; при нескольких вариантах предлагает выбор.
+Затем выберите нужные компоненты. Зависимости добавляются автоматически.
+
+```powershell
+.\Install-Mods.ps1 -GameRoot 'C:\Games\CDDA' -Mods axiom_7,blazemod
+.\Install-Mods.ps1 -GameRoot 'C:\Games\CDDA' -Profile secronom
+.\Install-Mods.ps1 -GameRoot 'C:\Games\CDDA' -Mods axiom_7 -PlanOnly -AllowUntested
+```
+
+Для пока не проверенной комбинации нужен явный `-AllowUntested` или согласие
+в меню; JSON-моды всё равно проходят родной валидатор игры **до** замены файлов.
+Сбой, тайм-аут или ошибка ванильной базы останавливают установку.
+Это не обход проверки. Сохранения при проверке не используются.
+
+Установка делает резервные копии только выбранных каталогов. При сбое откатывает
+всю выбранную группу. История: `<game>/_CDDA-Mods/transactions/`. Резервные копии
+не лежат внутри сканируемого `mods`. Новые моды ставятся в `data/mods`; для ранее
+установленного мода сохраняется его единственное найденное расположение, включая
+CatLauncher UserData. При дублирующихся IDs установка остановится с путями копий.
+Обновление общей UserData-копии влияет на все игры, использующие эту папку.
+
+```powershell
+.\Install-Mods.ps1 -GameRoot 'C:\Games\CDDA' -Update -Online
+.\Install-Mods.ps1 -GameRoot 'C:\Games\CDDA' -Mods axiom_7 -Online
+.\Install-Mods.ps1 -GameRoot 'C:\Games\CDDA' -Rollback 'ИД_ТРАНЗАКЦИИ'
+```
+
+Онлайн-обновление заработает после публикации GitHub Release в публично доступном
+репозитории. Для закрытого репозитория используйте полный архив релиза после
+авторизованного скачивания. Никакие токены не надо вставлять в чат или установщик.
+Откат отказывается перезаписывать изменённые после установки файлы.
+Тайлсет выбирается в настройках игры; новые JSON-моды — в настройках мира.
+Инсталлер не правит сохранения и не включает моды в существующих мирах сам.
+
+## Работа из чатов и обновление игры
+
+Начать с [AGENTS.md](AGENTS.md), [процесса чатов](docs/CHAT_WORKFLOW_RU.md) и
+[процесса совместимости](docs/COMPATIBILITY_RU.md).
+
+```sh
+python tools/modsuite.py context --mods axiom_7,blazemod
+python tools/modsuite.py prepare-target --tag ТОЧНЫЙ_GITHUB_TAG --mods axiom_7,blazemod
+python tools/modsuite.py validate
+python tools/modsuite.py build
+```
+
+Каждый мод получает свой ZIP и SHA-256; общий каталог связывает пакет с целевой
+сборкой. Исторические версии не заменяются новой эксперименталкой. Кодовые моды
+собираются отдельно от NCMM host, на GitHub Actions, с закреплённым внешним SDK.
+
+## Структура
+
+- `mods/<id>/manifest.json` — версия, тип, зависимости, варианты и цели.
+- `mods/<id>/content` — редактируемые готовые игровые файлы.
+- `mods/<id>/native` — исходники кодового мода.
+- `catalog/targets` — стабильные/экспериментальные версии и точные SHA игры.
+- `installer` — общий установщик; `tools` — обслуживание и сборка.
+- `history` — предыдущие импортированные версии; в релизы не включаются.
+- `docs` — актуальное состояние и инструкции для новых чатов.
+
+Авторство и лицензии сторонних модов/графики сохраняются. Репозиторий не объявляет
+все сторонние материалы собственностью Neversalimus. См. THIRD_PARTY_NOTICES.md.
