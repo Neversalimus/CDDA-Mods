@@ -16,17 +16,17 @@ jobs:
           from pathlib import Path, PurePosixPath
           import hashlib,json,zipfile
           archive=Path('update-20260927.zip')
-          assert hashlib.sha256(archive.read_bytes()).hexdigest()=='1105fffef9d0f92234c40e39ba38d4a310f65f87d3230f99079c1b6806f82d6a'
+          assert hashlib.sha256(archive.read_bytes()).hexdigest()=='ed5b6fecaa0573fe88b8e13f83cd82c8f08f2cf231948835258e37a249c68c3c'
           digest=lambda b:hashlib.sha256(b).hexdigest()
           with zipfile.ZipFile(archive) as z:
               rows=json.loads(z.read('update-manifest.json'))
-              assert len(rows)==40
+              assert len(rows)==41
               assert set(z.namelist())=={'update-manifest.json'}|{r['path'] for r in rows if r['after']}
               for row in rows:
                   name=row['path'];p=PurePosixPath(name)
                   assert not p.is_absolute() and '..' not in p.parts and p.parts[0] in {'README.md','catalog','docs','history','installer','mods','tools'}
                   dest=Path(name)
-                  assert (digest(dest.read_bytes().replace(b'\r\n',b'\n')) if dest.exists() and dest.suffix in {'.ps1','.psm1','.cmd'} else (digest(dest.read_bytes()) if dest.exists() else None))==row['before'], 'Concurrent change: '+name
+                  assert (digest(dest.read_bytes().replace(b'\r\n',b'\n')) if dest.exists() and dest.suffix.lower() not in {'.dll','.png','.mo','.zip'} else (digest(dest.read_bytes()) if dest.exists() else None))==row['before'], 'Concurrent change: '+name
                   if row['after']: assert digest(z.read(name))==row['after']
               for row in rows:
                   dest=Path(row['path'])
