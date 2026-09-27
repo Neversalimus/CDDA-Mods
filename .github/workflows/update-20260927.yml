@@ -16,11 +16,11 @@ jobs:
           from pathlib import Path, PurePosixPath
           import hashlib,json,zipfile
           archive=Path('update-20260927.zip')
-          assert hashlib.sha256(archive.read_bytes()).hexdigest()=='ed5b6fecaa0573fe88b8e13f83cd82c8f08f2cf231948835258e37a249c68c3c'
+          assert hashlib.sha256(archive.read_bytes()).hexdigest()=='2c3a923adc2ed07d86555c20e5ea120e46e2596ab04ceb0898529be0490300a8'
           digest=lambda b:hashlib.sha256(b).hexdigest()
           with zipfile.ZipFile(archive) as z:
               rows=json.loads(z.read('update-manifest.json'))
-              assert len(rows)==41
+              assert len(rows)==29
               assert set(z.namelist())=={'update-manifest.json'}|{r['path'] for r in rows if r['after']}
               for row in rows:
                   name=row['path'];p=PurePosixPath(name)
@@ -41,5 +41,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add README.md catalog docs history installer mods tools update-20260927.zip
-          git commit -m 'Refresh native modules to v8.6.5 and fix PS 5.1 duplicate detection'
+          git commit -m 'Refresh Survivor 0.9.15 and AWS sources from v8.7.3'
           git push origin HEAD:main
