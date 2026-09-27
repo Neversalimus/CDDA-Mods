@@ -1,15 +1,15 @@
 {
   "schema": 1,
-  "id": "advanced_world_settings",
-  "name": "Advanced World Settings",
+  "id": "survivor_progression",
+  "name": "Survivor Progression",
   "kind": "native",
-  "folder": "AdvancedWorldSettings",
+  "folder": "SurvivorProgression",
   "game_mod_ids": [],
   "dependencies": [],
   "variants": [
     {
       "id": "baseline",
-      "version": "0.6.1",
+      "version": "0.9.14",
       "revision": 1,
       "path": "native",
       "targets": [
@@ -19,7 +19,7 @@
       "available": false
     }
   ],
+  "external_host": "External NCMM API 1.5, active_mods.v1 and Survivor 0.9.14 v8.5 gameplay/metrics/tree hooks; runtime compatibility NOT certified",
   "sdk_commit": "c15fbff6dffbded6382a638288f3984228873fa4",
-  "sdk_recipe": "tools/prepare_survivor_sdk.py",
-  "external_host": "External NCMM API 1.7, UI theme and world_settings.v2; v8.6.5 matching engine hooks; runtime NOT certified"
+  "sdk_recipe": "tools/prepare_survivor_sdk.py"
 }

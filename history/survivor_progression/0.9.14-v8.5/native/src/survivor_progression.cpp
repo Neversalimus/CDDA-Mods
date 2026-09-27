@@ -31,7 +31,6 @@ const char *required_caps[] = {
     "ui.tree.v1",
     "gameplay.metrics.v1",
     "active_mods.v1",
-    "ui.theme.v1",
     "module_hotkeys.context.v1",
     "module_hotkeys.v1",
     "api.versioning.v1",
@@ -779,78 +778,6 @@ std::string integration_mod_name( const perk_def &perk )
     return {};
 }
 
-uint32_t branch_theme_color( branch_id branch )
-{
-    switch( branch ) {
-        case branch_id::combat: return NCMM_UI_COLOR_RED;
-        case branch_id::survival: return NCMM_UI_COLOR_GREEN;
-        case branch_id::mobility: return NCMM_UI_COLOR_CYAN;
-        case branch_id::crafting: return NCMM_UI_COLOR_YELLOW;
-        case branch_id::scavenging: return NCMM_UI_COLOR_BLUE;
-        case branch_id::mastery: return NCMM_UI_COLOR_MAGENTA;
-    }
-    return NCMM_UI_COLOR_DEFAULT;
-}
-
-uint32_t integration_theme_color( const std::string &mod_id )
-{
-    if( mod_id == "magiclysm" ) return NCMM_UI_COLOR_MAGENTA;
-    if( mod_id == "mindovermatter" ) return NCMM_UI_COLOR_CYAN;
-    if( mod_id == "xedra_evolved" ) return NCMM_UI_COLOR_GREEN;
-    if( mod_id == "aftershock_exoplanet" ) return NCMM_UI_COLOR_BLUE;
-    if( mod_id == "aftershock_prime" ) return NCMM_UI_COLOR_MAGENTA;
-    if( mod_id == "secronom" ) return NCMM_UI_COLOR_RED;
-    if( mod_id == "secronom_lore_expansion" ) return NCMM_UI_COLOR_YELLOW;
-    return NCMM_UI_COLOR_DEFAULT;
-}
-
-ncmm_ui_theme_v1 branch_ui_theme( branch_id branch )
-{
-    return { branch_theme_color( branch ),
-             NCMM_UI_THEME_STRONG_BORDER | NCMM_UI_THEME_WIDE_NODES,
-             30, 46, nullptr, 0 };
-}
-
-ncmm_ui_theme_v1 integration_ui_theme( const std::string &mod_id )
-{
-    return { integration_theme_color( mod_id ),
-             NCMM_UI_THEME_STRONG_BORDER | NCMM_UI_THEME_WIDE_NODES,
-             30, 46, nullptr, 0 };
-}
-
-std::string compact_tree_badge( const perk_def &perk, bool unlocked,
-                                int64_t perk_points, int64_t major_points,
-                                bool mod_branch )
-{
-    const int rank = perk_rank( perk );
-    const int max_rank = perk_max_rank( perk );
-    const bool maxed = rank >= max_rank;
-    const bool enough = perk.currency == currency_id::perk ? perk_points > 0 : major_points > 0;
-
-    std::string result;
-    if( mod_branch ) {
-        result = "MOD";
-    }
-    const std::string chevrons = rank_chevrons( perk );
-    if( !chevrons.empty() ) {
-        if( !result.empty() ) result += " | ";
-        result += chevrons;
-    }
-    if( !result.empty() ) result += " | ";
-    if( maxed ) {
-        result += max_rank > 1 ? tr( "MAX ", "МАКС " ) + std::to_string( rank ) + "/" +
-                  std::to_string( max_rank ) : tr( "OWN", "КУП" );
-    } else if( rank > 0 ) {
-        result += "R" + std::to_string( rank ) + "/" + std::to_string( max_rank );
-    } else if( !unlocked ) {
-        result += tr( "LOCK", "ЗАКР" );
-    } else if( !enough ) {
-        result += tr( "NO PTS", "НЕТ ОЧК" );
-    } else {
-        result += tr( "READY", "ГОТОВ" );
-    }
-    return result;
-}
 bool perk_world_available( const perk_def &perk )
 {
     const integration_id integration = perk_integration( perk );
@@ -1965,18 +1892,6 @@ void show_branch( branch_id branch )
                 const perk_def &perk = *branch_perks[i];
                 tree_node_text node;
                 node.card = texts[i];
-                const int tree_rank = perk_rank( perk );
-                const int tree_max_rank = perk_max_rank( perk );
-                const bool tree_unlocked = level >= perk.required_level && prerequisites_met( perk );
-                node.card.subtitle = "T" + std::to_string( perk.tier ) + " | " +
-                                     tr( "L", "ур." ) + std::to_string( perk.required_level ) +
-                                     " | " + ( perk.currency == currency_id::perk ? "1P" : "1M" );
-                if( tree_max_rank > 1 && tree_rank > 0 ) {
-                    node.card.subtitle += " | R" + std::to_string( tree_rank ) + "/" +
-                                          std::to_string( tree_max_rank );
-                }
-                node.card.badge = compact_tree_badge( perk, tree_unlocked,
-                                                       perk_points, major_points, false );
                 node.card.body += "\n" + tr( "Prerequisites: ", "Требования: " ) +
                                   prereq_text( perk );
                 const std::pair<int, int> position = branch_tree_position( branch, i );
@@ -2005,10 +1920,9 @@ void show_branch( branch_id branch )
             const std::string tree_summary =
                 summary + tr( " | Routed tree | Tab: cards",
                               " | Разведённое дерево | Tab: карточки" );
-            const ncmm_ui_theme_v1 theme = branch_ui_theme( branch );
-            const int choice = host->ui_tree_choose_themed(
+            const int choice = host->ui_tree_choose(
                                    title.c_str(), tree_summary.c_str(), &progress,
-                                   nodes.data(), nodes.size(), edges.data(), edges.size(), &theme );
+                                   nodes.data(), nodes.size(), edges.data(), edges.size() );
             if( choice == NCMM_UI_TREE_SHOW_CARDS ) {
                 tree_mode = false;
                 continue;
@@ -2024,10 +1938,9 @@ void show_branch( branch_id branch )
         const std::string card_summary =
             summary + tr( " | Cards | Tab: tree",
                           " | Карточки | Tab: дерево" );
-        const ncmm_ui_theme_v1 theme = branch_ui_theme( branch );
-        const int choice = host->ui_card_choose_themed ?
-                           host->ui_card_choose_themed( title.c_str(), card_summary.c_str(), &progress,
-                                                        cards.data(), cards.size(), 2, &theme ) :
+        const int choice = host->ui_card_choose ?
+                           host->ui_card_choose( title.c_str(), card_summary.c_str(), &progress,
+                                                 cards.data(), cards.size(), 2 ) :
                            -1;
         if( choice == NCMM_UI_CARD_SHOW_TREE ) {
             tree_mode = true;
@@ -2333,23 +2246,9 @@ void show_integration_branch( const std::string &mod_id )
             tree_texts.reserve( mod_perks.size() );
             std::map<std::string, size_t> index_by_id;
             for( size_t i = 0; i < mod_perks.size(); ++i ) {
-                const perk_def &tree_perk = *mod_perks[i];
                 tree_node_text node;
                 node.card = texts[i];
-                const int tree_rank = perk_rank( tree_perk );
-                const int tree_max_rank = perk_max_rank( tree_perk );
-                const bool tree_unlocked = survivor_level >= tree_perk.required_level &&
-                                           prerequisites_met( tree_perk );
-                node.card.subtitle = tr( "L", "ур." ) + std::to_string( tree_perk.required_level ) +
-                                     " | " + ( tree_perk.currency == currency_id::perk ? "1P" : "1M" );
-                if( tree_max_rank > 1 && tree_rank > 0 ) {
-                    node.card.subtitle += " | R" + std::to_string( tree_rank ) + "/" +
-                                          std::to_string( tree_max_rank );
-                }
-                node.card.badge = compact_tree_badge( tree_perk, tree_unlocked,
-                                                       perk_points, major_points, true );
-                node.card.body += "\n" + tr( "Prerequisites: ", "Требования: " ) +
-                                  prereq_text( tree_perk );
+                node.card.body += "\n" + tr( "Prerequisites: ", "Требования: " ) + prereq_text( *mod_perks[i] );
                 const std::pair<int, int> pos = integration_tree_position( i );
                 node.row = pos.first;
                 node.column = pos.second;
@@ -2367,9 +2266,8 @@ void show_integration_branch( const std::string &mod_id )
                 add_edge( mod_perks[i]->prereq2, i );
             }
             std::vector<ncmm_ui_tree_node_v1> nodes = bind_tree_nodes( tree_texts );
-            const ncmm_ui_theme_v1 theme = integration_ui_theme( mod_id );
-            const int choice = host->ui_tree_choose_themed( title.c_str(), summary.c_str(), &progress,
-                               nodes.data(), nodes.size(), edges.data(), edges.size(), &theme );
+            const int choice = host->ui_tree_choose( title.c_str(), summary.c_str(), &progress,
+                               nodes.data(), nodes.size(), edges.data(), edges.size() );
             if( choice == NCMM_UI_TREE_SHOW_CARDS ) { tree_mode = false; continue; }
             if( choice < 0 || static_cast<size_t>( choice ) >= mod_perks.size() ) return;
             show_perk_detail( *mod_perks[choice] );
@@ -2377,10 +2275,9 @@ void show_integration_branch( const std::string &mod_id )
         }
 
         std::vector<ncmm_ui_card_v1> cards = bind_cards( texts );
-        const ncmm_ui_theme_v1 theme = integration_ui_theme( mod_id );
-        const int choice = host->ui_card_choose_themed ?
-                           host->ui_card_choose_themed( title.c_str(), summary.c_str(), &progress,
-                                                        cards.data(), cards.size(), 2, &theme ) : -1;
+        const int choice = host->ui_card_choose ?
+                           host->ui_card_choose( title.c_str(), summary.c_str(), &progress,
+                                                 cards.data(), cards.size(), 2 ) : -1;
         if( choice == NCMM_UI_CARD_SHOW_TREE ) { tree_mode = true; continue; }
         if( choice < 0 || static_cast<size_t>( choice ) >= mod_perks.size() ) return;
         show_perk_detail( *mod_perks[choice] );
@@ -2520,24 +2417,9 @@ void open_progression()
         ncmm_ui_progress_v1 progress{ progress_label.c_str(), xp, xp_needed };
 
         std::vector<ncmm_ui_card_v1> cards = bind_cards( texts );
-        std::vector<uint32_t> item_accents;
-        item_accents.reserve( cards.size() );
-        for( branch_id branch : branches ) {
-            item_accents.push_back( branch_theme_color( branch ) );
-        }
-        for( const std::string &mod_id : mod_branches ) {
-            item_accents.push_back( integration_theme_color( mod_id ) );
-        }
-        while( item_accents.size() < cards.size() ) {
-            item_accents.push_back( NCMM_UI_COLOR_DEFAULT );
-        }
-        const ncmm_ui_theme_v1 overview_theme{
-            NCMM_UI_COLOR_DEFAULT, NCMM_UI_THEME_STRONG_BORDER, 0, 0,
-            item_accents.data(), item_accents.size()
-        };
-        const int choice = host->ui_card_choose_themed ?
-                           host->ui_card_choose_themed( title.c_str(), summary.c_str(), &progress,
-                                                        cards.data(), cards.size(), 3, &overview_theme ) :
+        const int choice = host->ui_card_choose ?
+                           host->ui_card_choose( title.c_str(), summary.c_str(), &progress,
+                                                 cards.data(), cards.size(), 3 ) :
                            -1;
 
         if( choice >= 0 && choice < static_cast<int>( branches.size() ) ) {
@@ -2837,7 +2719,7 @@ int init( const ncmm_host_api_v1 *api )
         !api->character_state_set_i64 || !api->character_modifier_set ||
         !api->character_modifier_clear_module || !api->ui_choose || !api->ui_tile_choose ||
         !api->ui_card_choose || !api->ui_tree_choose ||
-        !api->gameplay_metric_get_i64 || !api->world_mod_active || !api->ui_card_choose_themed || !api->ui_tree_choose_themed || !api->ui_message ) {
+        !api->gameplay_metric_get_i64 || !api->world_mod_active || !api->ui_message ) {
         return 0;
     }
 

@@ -1,4 +1,4 @@
-# Survivor Progression 0.9.14
+# Advanced World Settings 0.6.1
 
 Recovered from NCMM_SURVIVOR_WORLD_SETTINGS_API_V2_v8.6.5_UI_INFRA_BALANCED.zip; only module code is maintained here. Build against external SDK using the hash-bound tools/prepare_survivor_sdk.py recipe, then CMake. The recipe reproduces API 1.7 declarations only; it supplies no NCMM runtime.
 

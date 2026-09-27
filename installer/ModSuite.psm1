@@ -118,7 +118,9 @@ function Get-ModDirectories([string[]]$Roots,[string[]]$Ids){
     foreach($root in $Roots){
         if(-not $root -or -not(Test-Path -LiteralPath $root)){continue}
         foreach($f in @(Get-ChildItem -LiteralPath $root -Filter modinfo.json -File -Recurse -ErrorAction Stop)){
-            $records=@(Read-Json $f.FullName)
+            # PS 5.1 preserves a JSON root array as one pipeline object.
+            # Assignment works with both that array and PS 7's enumerated output.
+            $records=Read-Json $f.FullName
             foreach($m in $records){if($m.PSObject.Properties['type'] -and $m.type -eq 'MOD_INFO' -and $m.PSObject.Properties['id'] -and $Ids -contains $m.id){$result[$f.Directory.FullName]=$true}}
         }
     }

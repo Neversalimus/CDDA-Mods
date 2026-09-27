@@ -4,7 +4,7 @@
   "version": "0.9.14",
   "loader_api": 1,
   "api_major": 1,
-  "api_min_minor": 7,
+  "api_min_minor": 5,
   "state_schema": 7,
   "state_min_supported": 0,
   "requires": [
@@ -20,7 +20,6 @@
     "ui.tree.v1",
     "gameplay.metrics.v1",
     "active_mods.v1",
-    "ui.theme.v1",
     "module_hotkeys.v1",
     "module_hotkeys.context.v1",
     "api.versioning.v1",

@@ -1,23 +1,9 @@
-# Handoff
+# Handoff — 2026-09-27
 
-Task: establish Neversalimus/CDDA-Mods, excluding NCMM, with shared installer and
-independent mod/target updates. User required rechecking latest versions on Sep 26.
+The private Neversalimus/CDDA-Mods repository is populated; initial import 14bafb0, CI setup d4c2ac5. Read AGENTS.md and STATUS.md, then refresh remote HEAD and latest Actions before editing. The connector currently lacks private-repository access; owner authorized browser uploads. Never overwrite another chat's changes.
 
-Read STATUS.md and AGENTS.md. The private GitHub repository exists with initial commit
-a247f12b62a379d4ebadf061d917288bf9236125. Browser-based source import is in progress;
-verify remote main and Actions before treating the upload as complete.
+This update imports module-only Survivor 0.9.14 cumulative v8.6.5, archives 0.9.10, and fixes PS 5.1 root-array handling during duplicate mod detection. Provenance is in catalog/provenance.json. SDK recipe is header-only and hash-bound; external NCMM host remains excluded. SOURCE_SHA256.json describes the initial import, not later git commits.
 
-Next actions:
-1. Create/push new repository under Neversalimus; run Windows CI.
-2. Run tools/verify_game.py on exact working Windows game baseline. For Secronom,
-   compare reconstruction to an export of the user's working core + expansion.
-3. Promote only hash-matched successful reports, retaining pending for others.
-4. Build Survivor 0.9.10 DLL through native CI. Verify its API 1.4/tree UI/metrics
-   requirements against the separate NCMM clean-v13 host before promoting a
-   binary package. Do not update NCMM from this repository.
-5. Tag a reviewed suite release; use separate per-mod ZIPs and the full bundle.
+Next: examine latest Windows CI; download the PREVIEW release bundle after signing into GitHub. Test exact Windows game baseline + selected individual mods + combined stack with tools/verify_game.py. Compare Secronom reconstruction with the user's working pair. Promote only matching successful reports. Verify Survivor API 1.7/gameplay hooks, UI and save migration against external NCMM before allowing DLL installation. Prepare new targets for named mods only, preserving prior variants. Do not recreate repository or rerun initial importer.
 
-Version source files and SHA256 are recorded in catalog/provenance.json.
-SOURCE_SHA256.json is the reviewed initial source snapshot inventory; modifying
-sources intentionally requires revalidating and regenerating it before the initial
-publisher will accept them. After normal git adoption use commit history/CI.
+Native refresh: AWS 0.6.1 and Survivor 0.9.14 revision 2 from v8.6.5 are source-only. Old AWS 0.5.0 DLL is history-only; both current native installs are blocked pending compatible external API 1.7 host. Module source audits and g++ checks passed. Upstream installer parser defect was corrected only in disposable recovery staging; no host/game installer ran.

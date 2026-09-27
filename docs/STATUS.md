@@ -1,53 +1,13 @@
-# Current status — 2026-09-26
+# Current status — 2026-09-27
 
-## Version refresh
+Source import is complete in private Neversalimus/CDDA-Mods (14bafb0); CI enabled in d4c2ac5. NCMM remains external.
 
-Latest archives were searched again after the user's explicit warning that work
-continued in other chats. Current selected versions: AXIOM 0.8.2.7; Prime
-Hotfix14a/installer 1.1.1; Survivor 0.9.10 clean v13. Blazemod 0.5.5, Secronom
-builder 2.0, Tankmod Fix4 and UDP FULL remained the latest matching artifacts.
-Previous imported versions live under history/ and are not installation defaults.
+Current versions: AXIOM 0.8.2.7; Blazemod 0.5.5; Secronom 1.5.1 + expansion 0.3.4 reconstructed; Prime Hotfix14a / installer 1.1.1; Tankmod Fix4; UDP v3 FULL; AWS 0.6.1; Survivor 0.9.14 cumulative v8.6.5. Refresh cutoff: 2026-09-27. Prior Survivor 0.9.10 is preserved in history.
 
-## Implemented
+Implemented: independent packages and checksums; Windows installer with selection/dependencies, exact game binding, pre-install validation, backup and transactional group rollback; target preparation for stable/experimental builds; chat/worktree handoffs. Private repository releases require an authenticated manual download; use UPDATE.cmd from the new bundle for selected installed components. No credentials belong in the installer.
 
-- Ten independently described components; complete current JSON/tileset payloads.
-- Native AWS 0.5.0 source + original binary; latest Survivor 0.9.10 source.
-- Windows PowerShell installer: discovery, selection, dependencies, exact game
-  commit matching, package/file hashes, pre-install engine validation, backups,
-  transaction journal, group rollback, explicit rollback with local-edit guard.
-- Offline full bundle and separate mod ZIPs. Online per-mod updates after release.
-- Stable/experimental target preparation and immutable old variants.
-- Native CI compilation against external pinned NCMM SDKs; runtime excluded.
-- Chat/worktree workflow, handoff templates, provenance and maintenance CLI.
+Evidence: 630 payload JSON files and catalog validated, four Python tests and 30 PowerShell 7/Linux assertions passed before publication. Windows CI run 36280934305 successfully built AWS 0.5.0 and Survivor 0.9.10 DLL candidates. That run found a PS 5.1 JSON-array enumeration bug in duplicate-mod detection; fixed in the subsequent update. Consult latest CI for Windows verification of the updated tree. Survivor 0.9.14 cumulative upstream source audit and g++ C++17 syntax check passed. CI builds it with an explicit header-only API 1.7 recipe against pinned external SDK, without building host/runtime.
 
-## Verification actually completed
+Unresolved: exact game target experimental-2026-09-23-0546 / e262adb299a7613b4aedc5f12c08fe0413c56a84 has no completed clean engine baseline. Linux attempts timed out; no component is marked load-tested. Secronom reconstruction may differ from the final working user tandem. Survivor 0.9.14 remains source-only and unavailable to installer pending matching external NCMM host/gameplay/save migration tests. No automatic compatibility is claimed for other stable or experimental builds. Infrastructure releases remain PREVIEW.
 
-- Catalog and 630 current payload JSON files parse; descriptors, IDs, dependency
-  graph and tileset image references checked.
-- Blazemod recovery's semantic assertions and vanilla collision audit passed.
-- Prime Hotfix14a recovery's static completeness and collision gates passed.
-- All 30 installer transaction/security/dependency assertions passed under
-  PowerShell 7/Linux, including interrupted rollback and receipt restoration.
-- Four Python maintenance tests passed. CLI PlanOnly successfully identified
-  the exact game commit and planned AXIOM 0.8.2.7 without changing game files.
-- Both native module sources passed g++ C++17 syntax checking against their pinned
-  external SDK headers. This is not a Windows DLL build or gameplay test.
-
-## Not yet completed / do not claim otherwise
-
-- The private GitHub repository Neversalimus/CDDA-Mods was created on September
-  26. Source import and Windows CI are being completed. The GitHub connector
-  cannot currently access it; the owner authorized browser upload.
-- Windows PowerShell 5.1/Windows filesystem testing runs in the supplied CI after
-  push; has not run in this Linux environment.
-- Exact target is experimental-2026-09-23-0546 / e262adb299a7613b4aedc5f12c08fe0413c56a84.
-  Attempted Linux engine baseline checks did not complete within the timeout;
-  after correcting missing gfx in the terminal distribution no clean baseline
-  result was obtained. No package is falsely labelled load-tested.
-- Secronom payload is a reconstruction, not an export of the user's final working
-  tandem; validator-directed text fixes may still differ. Native validation is
-  required. The installable snapshot remains pending.
-- Survivor 0.9.10 DLL/required host are not silently replaced with 0.9.0. It is
-  source-only until Windows native CI and compatible host checks are complete.
-  Host changes from CLEAN_v13 belong to NCMM and were not imported here.
-- Other stable/experimental versions have no compatibility claim yet.
+Native refresh: AWS 0.6.1 and Survivor 0.9.14 revision 2 from v8.6.5 are source-only. Old AWS 0.5.0 DLL is history-only; both current native installs are blocked pending compatible external API 1.7 host. Module source audits and g++ checks passed. Upstream installer parser defect was corrected only in disposable recovery staging; no host/game installer ran.
