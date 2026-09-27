@@ -49,6 +49,9 @@ jobs:
           repository: Neversalimus/NCMM
           ref: ${{ steps.sdk.outputs.sha }}
           path: external/ncmm
+      - name: Prepare explicit Survivor API 1.5 build declarations
+        if: matrix.mod == 'survivor_progression'
+        run: python tools/prepare_survivor_sdk.py external/ncmm/sdk
       - name: Compile only the selected mod (no CDDA host build)
         shell: pwsh
         run: |

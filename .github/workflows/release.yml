@@ -2,6 +2,7 @@ name: Publish prepared release
 on:
   push:
     tags: ['v*']
+  workflow_dispatch:
 permissions:
   contents: write
 jobs:
@@ -12,20 +13,28 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Match immutable tag to suite version
+      - name: Select immutable preview version
+        id: version
         shell: pwsh
         run: |
           $c=Get-Content catalog/repository.json -Raw | ConvertFrom-Json
-          if($env:GITHUB_REF_NAME -ne "v$($c.suite_version)"){throw 'Tag/catalog version mismatch'}
+          $tag="v$($c.suite_version)"
+          if($env:GITHUB_EVENT_NAME -eq 'push' -and $env:GITHUB_REF_NAME -ne $tag){throw 'Tag/catalog version mismatch'}
+          if($env:GITHUB_EVENT_NAME -eq 'workflow_dispatch' -and $env:GITHUB_REF_NAME -ne 'main'){throw 'Manual release requires main'}
+          "tag=$tag" >> $env:GITHUB_OUTPUT
       - run: python tools/modsuite.py build
-      - name: Test actual packaged installer on Windows 5.1
+      - name: Windows PowerShell 5.1 installer tests
         shell: powershell
         run: ./tests/installer.tests.ps1
+      - name: PowerShell 7 installer tests
+        shell: pwsh
+        run: ./tests/installer.tests.ps1
       - run: python -m unittest discover -s tests -p 'test_*.py' -v
-      - name: Create release with full bundle and per-mod assets
+      - name: Publish immutable PREVIEW assets
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ steps.version.outputs.tag }}
         run: |
-          gh release create "$env:GITHUB_REF_NAME" dist/* --verify-tag --title "CDDA Mods $env:GITHUB_REF_NAME" --notes-file docs/RELEASE_NOTES.md
-          if($LASTEXITCODE){throw 'Release creation failed'}
+          gh release create "$env:RELEASE_TAG" dist/* --target "$env:GITHUB_SHA" --prerelease --title "CDDA Mods $env:RELEASE_TAG PREVIEW" --notes-file docs/RELEASE_NOTES.md
+          if($LASTEXITCODE){throw 'Release creation failed; existing tags/assets are never overwritten'}
