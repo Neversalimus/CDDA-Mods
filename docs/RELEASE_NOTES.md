@@ -2,10 +2,10 @@
 
 Выбор отдельных модов и групп, зависимости, SHA-256, точная привязка к сборке CDDA, проверка перед установкой, резервные копии и групповой откат. Документация для работы в нескольких чатах и переноса выбранных модов на новые стабильные/экспериментальные сборки.
 
-Survivor обновлён до 0.9.14 cumulative v8.6.5 (исходники; установка пока заблокирована). Предыдущая 0.9.10 сохранена в истории. NCMM runtime/host исключён. Исправлена обработка JSON-массивов в обнаружении дубликатов под Windows PowerShell 5.1.
+Survivor обновлён до 0.9.15 cumulative v8.7.3 (исходники; установка пока заблокирована). Предыдущая 0.9.10 сохранена в истории. NCMM runtime/host исключён. Исправлена обработка JSON-массивов в обнаружении дубликатов под Windows PowerShell 5.1.
 
 Это PREVIEW, а не подтверждение игровой совместимости. Все компоненты пока pending: чистая ванильная база/индивидуальная/совместная игровая проверка не завершены. Secronom восстановлен и требует сверки. Поддерживаемая для проверки цель: experimental-2026-09-23-0546, commit e262adb299a7613b4aedc5f12c08fe0413c56a84.
 
 Скачать CDDA-Mods-Installer.zip, распаковать, запустить INSTALL.cmd. Для обновления из нового архива — UPDATE.cmd. Закрытый репозиторий требует авторизованного скачивания через GitHub; анонимный Online не работает. Новую экспериментальную или стабильную сборку сначала добавить и проверить отдельно.
 
-Native refresh: AWS 0.6.1 and Survivor 0.9.14 revision 2 from v8.6.5 are source-only. Old AWS 0.5.0 DLL is history-only; both current native installs are blocked pending compatible external API 1.7 host. Module source audits and g++ checks passed. Upstream installer parser defect was corrected only in disposable recovery staging; no host/game installer ran.
+Native refresh: AWS 0.6.1 and Survivor 0.9.15 revision 1 from v8.7.3 are source-only. Old AWS 0.5.0 DLL is history-only; both current native installs are blocked pending compatible external API 1.8 host. Module source audits and g++ checks passed. No host/game installer ran.

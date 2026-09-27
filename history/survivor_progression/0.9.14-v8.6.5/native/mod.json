@@ -1,11 +1,11 @@
 {
   "id": "survivor_progression",
   "name": "Survivor Progression",
-  "version": "0.9.15",
+  "version": "0.9.14",
   "loader_api": 1,
   "api_major": 1,
-  "api_min_minor": 8,
-  "state_schema": 8,
+  "api_min_minor": 7,
+  "state_schema": 7,
   "state_min_supported": 0,
   "requires": [
     "core.v1",
@@ -21,8 +21,6 @@
     "gameplay.metrics.v1",
     "active_mods.v1",
     "ui.theme.v1",
-    "active_mods.registry.v2",
-    "ui.layout.v1",
     "module_hotkeys.v1",
     "module_hotkeys.context.v1",
     "api.versioning.v1",

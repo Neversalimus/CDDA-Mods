@@ -56,6 +56,12 @@
       "sha256": "162ee9f899648fc6f085f355bd6a16f5bb7f6ecc75bb96f77ff7c336cfd123e0",
       "selection": "current-2026-09-27T07:18Z; modules only; Library version 1",
       "recovery_note": "Upstream installer has PowerShell parser error in unused robocopy helper at $code:. Scratch-only recovery corrected it to ${code}: before parsing definitions; full installer was never executed. Module transforms/audits unchanged."
+    },
+    {
+      "file": "NCMM_SURVIVOR_WORLD_SETTINGS_API_V2_v8.7.3_RPG_VISUAL_POINTER_HOTFIX.zip",
+      "sha256": "10e53961f9bbd857d0e4b8245c0dc658ac3a8772019234bc226debf36af3f0c2",
+      "selection": "current-2026-09-27T12:27Z; modules only",
+      "recovery_note": "Pinned seed c15fbff6; source-only transforms and audits; full installer never executed. v8.7.4 referenced in another chat was not available in file search at this cutoff."
     }
   ]
 }

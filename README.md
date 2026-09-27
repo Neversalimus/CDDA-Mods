@@ -13,7 +13,7 @@ NCMM остаётся отдельным проектом.
 | Tankmod Revived | 2026 Fix4 |
 | UndeadPeople Hybrid | v3 FULL, все патчи |
 | Advanced World Settings | 0.6.1, исходники |
-| Survivor Progression | 0.9.14, cumulative v8.6.5, исходники; новая DLL ещё не выпущена |
+| Survivor Progression | 0.9.15, cumulative v8.7.3, исходники; новая DLL ещё не выпущена |
 
 **Текущий статус:** исходники опубликованы в закрытом репозитории; инфраструктурный
 выпуск имеет статус PREVIEW. Перенос JSON проверен на синтаксис, но эта сборка
@@ -87,4 +87,4 @@ python tools/modsuite.py build
 Авторство и лицензии сторонних модов/графики сохраняются. Репозиторий не объявляет
 все сторонние материалы собственностью Neversalimus. См. THIRD_PARTY_NOTICES.md.
 
-Native refresh: AWS 0.6.1 and Survivor 0.9.14 revision 2 from v8.6.5 are source-only. Old AWS 0.5.0 DLL is history-only; both current native installs are blocked pending compatible external API 1.7 host. Module source audits and g++ checks passed. Upstream installer parser defect was corrected only in disposable recovery staging; no host/game installer ran.
+Native refresh: AWS 0.6.1 and Survivor 0.9.15 revision 1 from v8.7.3 are source-only. Old AWS 0.5.0 DLL is history-only; both current native installs are blocked pending compatible external API 1.8 host. Module source audits and g++ checks passed. No host/game installer ran.

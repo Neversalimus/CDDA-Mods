@@ -36,7 +36,7 @@ python tools/modsuite.py record-validation --report build/check/report.json
 
 Native: новая версия игры требует подходящего внешнего NCMM host. Здесь меняются
 только модули. CI собирает DLL с exact SDK, но не компилирует CDDA на ПК игрока.
-Survivor 0.9.14 требует API 1.7 и host с механиками cumulative v8.6.5; пока его контракт и DLL не
+Survivor 0.9.15 требует API 1.8 и host с механиками cumulative v8.7.3; пока его контракт и DLL не
 подтверждены вместе, пакет остаётся source-only. Не заменять его 0.9.0.
 
-Native refresh: AWS 0.6.1 and Survivor 0.9.14 revision 2 from v8.6.5 are source-only. Old AWS 0.5.0 DLL is history-only; both current native installs are blocked pending compatible external API 1.7 host. Module source audits and g++ checks passed. Upstream installer parser defect was corrected only in disposable recovery staging; no host/game installer ran.
+Native refresh: AWS 0.6.1 and Survivor 0.9.15 revision 1 from v8.7.3 are source-only. Old AWS 0.5.0 DLL is history-only; both current native installs are blocked pending compatible external API 1.8 host. Module source audits and g++ checks passed. No host/game installer ran.

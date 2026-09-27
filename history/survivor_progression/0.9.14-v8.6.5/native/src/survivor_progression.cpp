@@ -8,7 +8,6 @@
 #include <iomanip>
 #include <limits>
 #include <map>
-#include <set>
 #include <sstream>
 #include <string>
 #include <string_view>
@@ -17,7 +16,7 @@
 namespace
 {
 const char *const module_id = "survivor_progression";
-constexpr int state_schema = 8;
+constexpr int state_schema = 7;
 
 const char *required_caps[] = {
     "core.v1",
@@ -33,8 +32,6 @@ const char *required_caps[] = {
     "gameplay.metrics.v1",
     "active_mods.v1",
     "ui.theme.v1",
-    "active_mods.registry.v2",
-    "ui.layout.v1",
     "module_hotkeys.context.v1",
     "module_hotkeys.v1",
     "api.versioning.v1",
@@ -227,39 +224,39 @@ const perk_def perks[] = {
     { "ae_longgame", branch_id::mastery, 4, 26, currency_id::perk, "a_polymath", "ae_integrate", "Long Game", "Долгая игра", "+6% Survivor XP per active Survivor branch.", "+6% опыта Survivor за каждую активную ветку.", {{ { nullptr, 0.0 }, { nullptr, 0.0 }, { nullptr, 0.0 }, { nullptr, 0.0 } }}, 0, 6, perk_kind::effect, perk_scaling::per_active_branch, 0, 0 },
     { "ae_legacy", branch_id::mastery, 5, 32, currency_id::perk, "ae_compound", "ae_longgame", "Legacy Mindset", "Мышление наследия", "+0.05 STR/DEX/PER/INT per owned major perk.", "+0,05 СИЛ/ЛОВ/ВОС/ИНТ за каждый большой перк.", {{ { "str_flat", 0.05 }, { "dex_flat", 0.05 }, { "per_flat", 0.05 }, { "int_flat", 0.05 } }}, 4, 0, perk_kind::effect, perk_scaling::per_owned_major, 0, 0 },
     { "ae_ascendant", branch_id::mastery, 6, 40, currency_id::major, "a_transcendent", "ae_legacy", "Ascendant", "Восхождение", "All stat perks are 10% stronger and Survivor XP +50%.", "Все статовые перки на 10% сильнее, опыт Survivor +50%.", {{ { nullptr, 0.0 }, { nullptr, 0.0 }, { nullptr, 0.0 }, { nullptr, 0.0 } }}, 0, 50, perk_kind::effect, perk_scaling::fixed, 0, 10 },
-    { "spc_c_juggernaut", branch_id::combat, 4, 15, currency_id::perk, "c_conditioning", "", "Prime Juggernaut", "Прайм: Штурмовик", "PRIME TRADEOFF: +2 STR, +25% stamina, +20% carry; -12% speed.", "ПРАЙМ-КОМПРОМИСС: +2 СИЛ, +25% выносливости, +20% груза; -12% скорости.", {{ { "str_flat", 2 }, { "stamina_max_pct", 25 }, { "carry_weight_pct", 20 }, { "speed_pct", -12 } }}, 4, 0, perk_kind::effect },
-    { "spc_c_duelist", branch_id::combat, 4, 15, currency_id::perk, "c_tempo", "", "Prime Duelist", "Прайм: Дуэлянт", "PRIME TRADEOFF: +10% speed, +2 dodge, -10% move cost; -25% carry.", "ПРАЙМ-КОМПРОМИСС: +10% скорости, +2 уклонения, -10% стоимости движения; -25% груза.", {{ { "speed_pct", 10 }, { "dodge_flat", 2 }, { "move_cost_pct", -10 }, { "carry_weight_pct", -25 } }}, 4, 0, perk_kind::effect },
-    { "spc_c_tactician", branch_id::combat, 4, 15, currency_id::perk, "c_precision", "c_reflexes", "Prime Tactician", "Прайм: Тактик", "PRIME TRADEOFF: +2 PER, +1.5 melee hit, +5% speed; -20% stamina.", "ПРАЙМ-КОМПРОМИСС: +2 ВОС, +1,5 точности ближнего боя, +5% скорости; -20% выносливости.", {{ { "per_flat", 2 }, { "melee_hit_flat", 1.5 }, { "speed_pct", 5 }, { "stamina_max_pct", -20 } }}, 4, 0, perk_kind::effect },
+    { "spc_c_juggernaut", branch_id::combat, 4, 15, currency_id::perk, "c_conditioning", "", "Juggernaut", "Штурмовик", "Commit to armored endurance: +10% stamina and +0.5 STR.", "Ставка на силовую выносливость: +10% выносливости и +0,5 СИЛ.", {{ { "stamina_max_pct", 10 }, { "str_flat", 0.5 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 0 },
+    { "spc_c_duelist", branch_id::combat, 4, 15, currency_id::perk, "c_tempo", "", "Duelist", "Дуэлянт", "Commit to mobility and timing: +3% speed and +0.5 dodge.", "Ставка на мобильность и темп: +3% скорости и +0,5 уклонения.", {{ { "speed_pct", 3 }, { "dodge_flat", 0.5 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 0 },
+    { "spc_c_tactician", branch_id::combat, 4, 15, currency_id::perk, "c_precision", "c_reflexes", "Tactician", "Тактик", "Commit to control: +0.5 PER and +0.25 melee hit.", "Ставка на контроль: +0,5 ВОС и +0,25 точности ближнего боя.", {{ { "per_flat", 0.5 }, { "melee_hit_flat", 0.25 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 0 },
     { "spc_c_juggernaut_cap", branch_id::combat, 5, 25, currency_id::major, "spc_c_juggernaut", "", "Iron Advance", "Железный натиск", "Juggernaut capstone: +1 STR, +12% stamina, +5% carry.", "Вершина штурмовика: +1 СИЛ, +12% выносливости, +5% груза.", {{ { "str_flat", 1 }, { "stamina_max_pct", 12 }, { "carry_weight_pct", 5 }, { nullptr, 0 } }}, 3, 0 },
     { "spc_c_duelist_cap", branch_id::combat, 5, 25, currency_id::major, "spc_c_duelist", "", "Perfect Tempo", "Идеальный темп", "Duelist capstone: +5% speed, +1 dodge, -3% move cost.", "Вершина дуэлянта: +5% скорости, +1 уклонение, -3% стоимости движения.", {{ { "speed_pct", 5 }, { "dodge_flat", 1 }, { "move_cost_pct", -3 }, { nullptr, 0 } }}, 3, 0 },
     { "spc_c_tactician_cap", branch_id::combat, 5, 25, currency_id::major, "spc_c_tactician", "", "Battlefield Control", "Контроль поля боя", "Tactician capstone: +1 PER, +0.75 melee hit, +3% speed.", "Вершина тактика: +1 ВОС, +0,75 точности, +3% скорости.", {{ { "per_flat", 1 }, { "melee_hit_flat", 0.75 }, { "speed_pct", 3 }, { nullptr, 0 } }}, 3, 0 },
-    { "spc_s_nomad", branch_id::survival, 4, 15, currency_id::perk, "s_endurance", "", "Prime Nomad", "Прайм: Кочевник", "PRIME TRADEOFF: +30% stamina, +30% carry; -12% speed.", "ПРАЙМ-КОМПРОМИСС: +30% выносливости, +30% груза; -12% скорости.", {{ { "stamina_max_pct", 30 }, { "carry_weight_pct", 30 }, { "speed_pct", -12 }, { nullptr, 0 } }}, 3, 0, perk_kind::effect },
-    { "spc_s_medic", branch_id::survival, 4, 15, currency_id::perk, "s_field", "s_resilient", "Prime Field Medic", "Прайм: Полевой медик", "PRIME TRADEOFF: +60% healing, +15% stamina; -25% carry.", "ПРАЙМ-КОМПРОМИСС: +60% лечения, +15% выносливости; -25% груза.", {{ { "healing_pct", 60 }, { "stamina_max_pct", 15 }, { "carry_weight_pct", -25 }, { nullptr, 0 } }}, 3, 0, perk_kind::effect },
-    { "spc_s_quartermaster", branch_id::survival, 4, 15, currency_id::perk, "s_pack", "", "Prime Quartermaster", "Прайм: Интендант", "PRIME TRADEOFF: +40% carry, +25% crafting speed; -12% speed.", "ПРАЙМ-КОМПРОМИСС: +40% груза, +25% скорости крафта; -12% скорости.", {{ { "carry_weight_pct", 40 }, { "craft_speed_pct", 25 }, { "speed_pct", -12 }, { nullptr, 0 } }}, 3, 0, perk_kind::effect },
+    { "spc_s_nomad", branch_id::survival, 4, 15, currency_id::perk, "s_endurance", "", "Nomad", "Кочевник", "Commit to long expeditions: +8% stamina and +8% carry.", "Ставка на дальние походы: +8% выносливости и +8% груза.", {{ { "stamina_max_pct", 8 }, { "carry_weight_pct", 8 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 0 },
+    { "spc_s_medic", branch_id::survival, 4, 15, currency_id::perk, "s_field", "s_resilient", "Field Medic", "Полевой медик", "Commit to recovery: +15% healing.", "Ставка на восстановление: +15% лечения.", {{ { "healing_pct", 15 }, { nullptr, 0 }, { nullptr, 0 }, { nullptr, 0 } }}, 1, 0 },
+    { "spc_s_quartermaster", branch_id::survival, 4, 15, currency_id::perk, "s_pack", "", "Quartermaster", "Интендант", "Commit to preparation: +15% carry and +5% crafting speed.", "Ставка на подготовку: +15% груза и +5% скорости крафта.", {{ { "carry_weight_pct", 15 }, { "craft_speed_pct", 5 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 0 },
     { "spc_s_nomad_cap", branch_id::survival, 5, 25, currency_id::major, "spc_s_nomad", "", "Long Road", "Долгая дорога", "Nomad capstone: +15% stamina, +15% carry, -3% move cost.", "Вершина кочевника: +15% выносливости, +15% груза, -3% стоимости движения.", {{ { "stamina_max_pct", 15 }, { "carry_weight_pct", 15 }, { "move_cost_pct", -3 }, { nullptr, 0 } }}, 3, 0 },
     { "spc_s_medic_cap", branch_id::survival, 5, 25, currency_id::major, "spc_s_medic", "", "Trauma Veteran", "Ветеран травм", "Medic capstone: +30% healing and +8% stamina.", "Вершина медика: +30% лечения и +8% выносливости.", {{ { "healing_pct", 30 }, { "stamina_max_pct", 8 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 0 },
     { "spc_s_quartermaster_cap", branch_id::survival, 5, 25, currency_id::major, "spc_s_quartermaster", "", "Prepared for Anything", "Готов ко всему", "Quartermaster capstone: +25% carry and +8% crafting speed.", "Вершина интенданта: +25% груза и +8% скорости крафта.", {{ { "carry_weight_pct", 25 }, { "craft_speed_pct", 8 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 0 },
-    { "spc_m_sprinter", branch_id::mobility, 4, 15, currency_id::perk, "m_cardio", "", "Prime Sprinter", "Прайм: Спринтер", "PRIME TRADEOFF: +12% speed, -10% move cost; -35% carry.", "ПРАЙМ-КОМПРОМИСС: +12% скорости, -10% стоимости движения; -35% груза.", {{ { "speed_pct", 12 }, { "move_cost_pct", -10 }, { "carry_weight_pct", -35 }, { nullptr, 0 } }}, 3, 0, perk_kind::effect },
-    { "spc_m_ghost", branch_id::mobility, 4, 15, currency_id::perk, "m_light", "m_parkour", "Prime Ghost", "Прайм: Призрак", "PRIME TRADEOFF: -15% move cost, +2 dodge; -25% stamina.", "ПРАЙМ-КОМПРОМИСС: -15% стоимости движения, +2 уклонения; -25% выносливости.", {{ { "move_cost_pct", -15 }, { "dodge_flat", 2 }, { "stamina_max_pct", -25 }, { nullptr, 0 } }}, 3, 0, perk_kind::effect },
-    { "spc_m_pathfinder", branch_id::mobility, 4, 15, currency_id::perk, "m_stride", "", "Prime Pathfinder", "Прайм: Путепроходец", "PRIME TRADEOFF: -12% move cost, +25% stamina, +20% carry; -25% healing.", "ПРАЙМ-КОМПРОМИСС: -12% стоимости движения, +25% выносливости, +20% груза; -25% лечения.", {{ { "move_cost_pct", -12 }, { "stamina_max_pct", 25 }, { "carry_weight_pct", 20 }, { "healing_pct", -25 } }}, 4, 0, perk_kind::effect },
+    { "spc_m_sprinter", branch_id::mobility, 4, 15, currency_id::perk, "m_cardio", "", "Sprinter", "Спринтер", "Commit to burst mobility: +3% speed and +5% stamina.", "Ставка на рывок: +3% скорости и +5% выносливости.", {{ { "speed_pct", 3 }, { "stamina_max_pct", 5 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 0 },
+    { "spc_m_ghost", branch_id::mobility, 4, 15, currency_id::perk, "m_light", "m_parkour", "Ghost", "Призрак", "Commit to evasive movement: -4% move cost and +0.5 dodge.", "Ставка на уклончивость: -4% стоимости движения и +0,5 уклонения.", {{ { "move_cost_pct", -4 }, { "dodge_flat", 0.5 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 0 },
+    { "spc_m_pathfinder", branch_id::mobility, 4, 15, currency_id::perk, "m_stride", "", "Pathfinder", "Путепроходец", "Commit to efficient travel: -3% move cost and +8% stamina.", "Ставка на эффективный путь: -3% стоимости движения и +8% выносливости.", {{ { "move_cost_pct", -3 }, { "stamina_max_pct", 8 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 0 },
     { "spc_m_sprinter_cap", branch_id::mobility, 5, 25, currency_id::major, "spc_m_sprinter", "", "Burst Engine", "Двигатель рывка", "Sprinter capstone: +6% speed and +10% stamina.", "Вершина спринтера: +6% скорости и +10% выносливости.", {{ { "speed_pct", 6 }, { "stamina_max_pct", 10 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 0 },
     { "spc_m_ghost_cap", branch_id::mobility, 5, 25, currency_id::major, "spc_m_ghost", "", "Vanishing Step", "Исчезающий шаг", "Ghost capstone: -7% move cost and +1 dodge.", "Вершина призрака: -7% стоимости движения и +1 уклонение.", {{ { "move_cost_pct", -7 }, { "dodge_flat", 1 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 0 },
     { "spc_m_pathfinder_cap", branch_id::mobility, 5, 25, currency_id::major, "spc_m_pathfinder", "", "Always a Route", "Путь всегда есть", "Pathfinder capstone: -5% move cost, +10% carry, +10% stamina.", "Вершина путепроходца: -5% стоимости движения, +10% груза, +10% выносливости.", {{ { "move_cost_pct", -5 }, { "carry_weight_pct", 10 }, { "stamina_max_pct", 10 }, { nullptr, 0 } }}, 3, 0 },
-    { "spc_f_systems", branch_id::crafting, 4, 15, currency_id::perk, "f_engineer", "", "Prime Systems Engineer", "Прайм: Системный инженер", "PRIME TRADEOFF: +30% crafting speed, +2 INT; -12% speed.", "ПРАЙМ-КОМПРОМИСС: +30% скорости крафта, +2 ИНТ; -12% скорости.", {{ { "craft_speed_pct", 30 }, { "int_flat", 2 }, { "speed_pct", -12 }, { nullptr, 0 } }}, 3, 0, perk_kind::effect },
-    { "spc_f_improviser", branch_id::crafting, 4, 15, currency_id::perk, "f_hands", "f_workflow", "Prime Improviser", "Прайм: Импровизатор", "PRIME TRADEOFF: +25% crafting speed, +25% carry; -30% reading speed.", "ПРАЙМ-КОМПРОМИСС: +25% скорости крафта, +25% груза; -30% скорости чтения.", {{ { "craft_speed_pct", 25 }, { "carry_weight_pct", 25 }, { "read_speed_pct", -30 }, { nullptr, 0 } }}, 3, 0, perk_kind::effect },
-    { "spc_f_researcher", branch_id::crafting, 4, 15, currency_id::perk, "f_reader", "f_scholar", "Prime Researcher", "Прайм: Исследователь", "PRIME TRADEOFF: +35% reading speed, +2 INT; -20% crafting speed.", "ПРАЙМ-КОМПРОМИСС: +35% скорости чтения, +2 ИНТ; -20% скорости крафта.", {{ { "read_speed_pct", 35 }, { "int_flat", 2 }, { "craft_speed_pct", -20 }, { nullptr, 0 } }}, 3, 0, perk_kind::effect },
+    { "spc_f_systems", branch_id::crafting, 4, 15, currency_id::perk, "f_engineer", "", "Systems Engineer", "Системный инженер", "Commit to engineering: +10% crafting speed and +0.5 INT.", "Ставка на инженерию: +10% скорости крафта и +0,5 ИНТ.", {{ { "craft_speed_pct", 10 }, { "int_flat", 0.5 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 0 },
+    { "spc_f_improviser", branch_id::crafting, 4, 15, currency_id::perk, "f_hands", "f_workflow", "Improviser", "Импровизатор", "Commit to practical work: +8% crafting speed and +5% carry.", "Ставка на практику: +8% скорости крафта и +5% груза.", {{ { "craft_speed_pct", 8 }, { "carry_weight_pct", 5 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 0 },
+    { "spc_f_researcher", branch_id::crafting, 4, 15, currency_id::perk, "f_reader", "f_scholar", "Researcher", "Исследователь", "Commit to theory: +10% reading speed and +0.5 INT.", "Ставка на теорию: +10% скорости чтения и +0,5 ИНТ.", {{ { "read_speed_pct", 10 }, { "int_flat", 0.5 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 0 },
     { "spc_f_systems_cap", branch_id::crafting, 5, 25, currency_id::major, "spc_f_systems", "", "Systems Architect", "Архитектор систем", "Engineer capstone: +18% crafting speed and +1 INT.", "Вершина инженера: +18% скорости крафта и +1 ИНТ.", {{ { "craft_speed_pct", 18 }, { "int_flat", 1 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 0 },
     { "spc_f_improviser_cap", branch_id::crafting, 5, 25, currency_id::major, "spc_f_improviser", "", "Make It Work", "Заставить работать", "Improviser capstone: +15% crafting speed and +10% carry.", "Вершина импровизатора: +15% скорости крафта и +10% груза.", {{ { "craft_speed_pct", 15 }, { "carry_weight_pct", 10 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 0 },
     { "spc_f_researcher_cap", branch_id::crafting, 5, 25, currency_id::major, "spc_f_researcher", "", "Applied Theory", "Прикладная теория", "Researcher capstone: +20% reading, +1 INT, +5% crafting speed.", "Вершина исследователя: +20% чтения, +1 ИНТ, +5% скорости крафта.", {{ { "read_speed_pct", 20 }, { "int_flat", 1 }, { "craft_speed_pct", 5 }, { nullptr, 0 } }}, 3, 0 },
-    { "spc_g_prospector", branch_id::scavenging, 4, 15, currency_id::perk, "g_observer", "", "Prime Prospector", "Прайм: Искатель", "PRIME TRADEOFF: +2 PER, +25% carry; -12% speed.", "ПРАЙМ-КОМПРОМИСС: +2 ВОС, +25% груза; -12% скорости.", {{ { "per_flat", 2 }, { "carry_weight_pct", 25 }, { "speed_pct", -12 }, { nullptr, 0 } }}, 3, 0, perk_kind::effect },
-    { "spc_g_courier", branch_id::scavenging, 4, 15, currency_id::perk, "g_pack", "g_endurance", "Prime Courier", "Прайм: Курьер", "PRIME TRADEOFF: +40% carry, -12% move cost; -1.5 PER.", "ПРАЙМ-КОМПРОМИСС: +40% груза, -12% стоимости движения; -1,5 ВОС.", {{ { "carry_weight_pct", 40 }, { "move_cost_pct", -12 }, { "per_flat", -1.5 }, { nullptr, 0 } }}, 3, 0, perk_kind::effect },
-    { "spc_g_investigator", branch_id::scavenging, 4, 15, currency_id::perk, "g_awareness", "", "Prime Investigator", "Прайм: Исследователь руин", "PRIME TRADEOFF: +2 PER, +30% reading speed; -25% carry.", "ПРАЙМ-КОМПРОМИСС: +2 ВОС, +30% скорости чтения; -25% груза.", {{ { "per_flat", 2 }, { "read_speed_pct", 30 }, { "carry_weight_pct", -25 }, { nullptr, 0 } }}, 3, 0, perk_kind::effect },
+    { "spc_g_prospector", branch_id::scavenging, 4, 15, currency_id::perk, "g_observer", "", "Prospector", "Искатель", "Commit to finding value: +0.5 PER and +5% carry.", "Ставка на поиск ценного: +0,5 ВОС и +5% груза.", {{ { "per_flat", 0.5 }, { "carry_weight_pct", 5 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 0 },
+    { "spc_g_courier", branch_id::scavenging, 4, 15, currency_id::perk, "g_pack", "g_endurance", "Courier", "Курьер", "Commit to loaded travel: +15% carry and -2% move cost.", "Ставка на движение с грузом: +15% груза и -2% стоимости движения.", {{ { "carry_weight_pct", 15 }, { "move_cost_pct", -2 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 0 },
+    { "spc_g_investigator", branch_id::scavenging, 4, 15, currency_id::perk, "g_awareness", "", "Investigator", "Исследователь руин", "Commit to reading the environment: +1 PER and +5% reading speed.", "Ставка на анализ окружения: +1 ВОС и +5% скорости чтения.", {{ { "per_flat", 1 }, { "read_speed_pct", 5 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 0 },
     { "spc_g_prospector_cap", branch_id::scavenging, 5, 25, currency_id::major, "spc_g_prospector", "", "Nothing Wasted", "Ничего не пропадает", "Prospector capstone: +1 PER and +10% carry.", "Вершина искателя: +1 ВОС и +10% груза.", {{ { "per_flat", 1 }, { "carry_weight_pct", 10 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 0 },
     { "spc_g_courier_cap", branch_id::scavenging, 5, 25, currency_id::major, "spc_g_courier", "", "Heavy Route", "Тяжёлый маршрут", "Courier capstone: +25% carry, -4% move cost, +8% stamina.", "Вершина курьера: +25% груза, -4% стоимости движения, +8% выносливости.", {{ { "carry_weight_pct", 25 }, { "move_cost_pct", -4 }, { "stamina_max_pct", 8 }, { nullptr, 0 } }}, 3, 0 },
     { "spc_g_investigator_cap", branch_id::scavenging, 5, 25, currency_id::major, "spc_g_investigator", "", "Read the Ruins", "Читать руины", "Investigator capstone: +1.5 PER, +10% reading, -2% move cost.", "Вершина исследователя: +1,5 ВОС, +10% чтения, -2% стоимости движения.", {{ { "per_flat", 1.5 }, { "read_speed_pct", 10 }, { "move_cost_pct", -2 }, { nullptr, 0 } }}, 3, 0 },
-    { "spc_a_specialist", branch_id::mastery, 4, 15, currency_id::perk, "a_focus", "a_growth", "Prime Specialist", "Прайм: Специалист", "PRIME TRADEOFF: +30% Survivor XP and +1 INT; -1 STR, -1 DEX.", "ПРАЙМ-КОМПРОМИСС: +30% опыта Survivor и +1 ИНТ; -1 СИЛ, -1 ЛОВ.", {{ { "int_flat", 1 }, { "str_flat", -1 }, { "dex_flat", -1 }, { nullptr, 0 } }}, 3, 30, perk_kind::effect },
-    { "spc_a_polymath", branch_id::mastery, 4, 15, currency_id::perk, "a_balance", "a_polymath", "Prime Polymath", "Прайм: Универсал", "PRIME TRADEOFF: +1 STR/DEX/PER/INT; -20% Survivor XP.", "ПРАЙМ-КОМПРОМИСС: +1 СИЛ/ЛОВ/ВОС/ИНТ; -20% опыта Survivor.", {{ { "str_flat", 1 }, { "dex_flat", 1 }, { "per_flat", 1 }, { "int_flat", 1 } }}, 4, -20, perk_kind::effect },
-    { "spc_a_selfteacher", branch_id::mastery, 4, 15, currency_id::perk, "a_adapt", "", "Prime Self-Teacher", "Прайм: Самоучка", "PRIME TRADEOFF: +25% reading, +25% crafting, +15% Survivor XP; -15% speed.", "ПРАЙМ-КОМПРОМИСС: +25% чтения, +25% крафта, +15% опыта Survivor; -15% скорости.", {{ { "read_speed_pct", 25 }, { "craft_speed_pct", 25 }, { "speed_pct", -15 }, { nullptr, 0 } }}, 3, 15, perk_kind::effect },
+    { "spc_a_specialist", branch_id::mastery, 4, 15, currency_id::perk, "a_focus", "a_growth", "Specialist", "Специалист", "Commit to depth: +10% Survivor XP.", "Ставка на глубину: +10% опыта Survivor.", {{ { nullptr, 0 }, { nullptr, 0 }, { nullptr, 0 }, { nullptr, 0 } }}, 0, 10 },
+    { "spc_a_polymath", branch_id::mastery, 4, 15, currency_id::perk, "a_balance", "a_polymath", "Polymath Path", "Путь универсала", "Commit to breadth: +0.25 to all primary stats.", "Ставка на широту: +0,25 ко всем основным характеристикам.", {{ { "str_flat", 0.25 }, { "dex_flat", 0.25 }, { "per_flat", 0.25 }, { "int_flat", 0.25 } }}, 4, 0 },
+    { "spc_a_selfteacher", branch_id::mastery, 4, 15, currency_id::perk, "a_adapt", "", "Self-Teacher", "Самоучка", "Commit to self-directed growth: +5% reading, +5% crafting, +5% Survivor XP.", "Ставка на самостоятельный рост: +5% чтения, +5% крафта, +5% опыта Survivor.", {{ { "read_speed_pct", 5 }, { "craft_speed_pct", 5 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 5 },
     { "spc_a_specialist_cap", branch_id::mastery, 5, 25, currency_id::major, "spc_a_specialist", "", "Deep Practice", "Глубокая практика", "Specialist capstone: +20% Survivor XP.", "Вершина специалиста: +20% опыта Survivor.", {{ { nullptr, 0 }, { nullptr, 0 }, { nullptr, 0 }, { nullptr, 0 } }}, 0, 20 },
     { "spc_a_polymath_cap", branch_id::mastery, 5, 25, currency_id::major, "spc_a_polymath", "", "Cross Discipline", "Перекрёстная дисциплина", "Polymath capstone: +0.5 to all primary stats.", "Вершина универсала: +0,5 ко всем основным характеристикам.", {{ { "str_flat", 0.5 }, { "dex_flat", 0.5 }, { "per_flat", 0.5 }, { "int_flat", 0.5 } }}, 4, 0 },
     { "spc_a_selfteacher_cap", branch_id::mastery, 5, 25, currency_id::major, "spc_a_selfteacher", "", "Compounding Insight", "Накопительное понимание", "Self-teacher capstone: +10% reading, +10% crafting, +10% Survivor XP.", "Вершина самоучки: +10% чтения, +10% крафта, +10% опыта Survivor.", {{ { "read_speed_pct", 10 }, { "craft_speed_pct", 10 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 10 },
@@ -407,34 +404,7 @@ const perk_def perks[] = {
     { "secx_living_arsenal", branch_id::mastery, 7, 30, currency_id::perk, "secx_fleshcraft_mastery", "secx_biomorph_mastery", "Living Arsenal", "Живой арсенал", "Secronom+ convergence: +0.5 Flesh Weaving and +0.5 Bio-organic Weapons.", "Сведение Secronom+: +0,5 Flesh Weaving и +0,5 Bio-organic Weapons.", {{ { "secx_flesh_craft_flat", 0.5 }, { "secx_flesh_combat_flat", 0.5 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 0, perk_kind::effect },
     { "secx_adaptive_morph", branch_id::mastery, 7, 30, currency_id::perk, "secx_biomorph_mastery", "secx_flesh_vessel_mastery", "Adaptive Morph", "Адаптивный морф", "Secronom+ convergence: +0.5 Bio-organic Weapons, activation time -4%.", "Сведение Secronom+: +0,5 Bio-organic Weapons, время активации -4%.", {{ { "secx_flesh_combat_flat", 0.5 }, { "secx_cast_time_pct", -4 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 0, perk_kind::effect },
     { "secx_artificial_ecology", branch_id::mastery, 7, 30, currency_id::perk, "secx_fleshcraft_mastery", "secx_flesh_vessel_mastery", "Artificial Ecology", "Искусственная экология", "Secronom+ convergence: +0.5 Flesh Weaving, ability XP +6%.", "Сведение Secronom+: +0,5 Flesh Weaving, опыт способностей +6%.", {{ { "secx_flesh_craft_flat", 0.5 }, { "secx_spell_xp_pct", 6 }, { nullptr, 0 }, { nullptr, 0 } }}, 2, 0, perk_kind::effect },
-    { "secx_flesh_architect", branch_id::mastery, 8, 40, currency_id::major, "secx_living_arsenal", "secx_adaptive_morph", "Flesh Architect", "Архитектор плоти", "Secronom+ apex: +0.75 Flesh Weaving, +0.75 Bio-organic Weapons, potency +6%, energy cost -5%.", "Вершина Secronom+: +0,75 Flesh Weaving, +0,75 Bio-organic Weapons, мощность +6%, стоимость энергии -5%.", {{ { "secx_flesh_craft_flat", 0.75 }, { "secx_flesh_combat_flat", 0.75 }, { "secx_spell_power_pct", 6 }, { "secx_spell_cost_pct", -5 } }}, 4, 0, perk_kind::effect },
-    { "mg_prime_arcanist", branch_id::mastery, 9, 45, currency_id::major, "mg_archmage", "", "Prime Arcanist", "Прайм: Арканист", "PRIME TRADEOFF: +2 Spellcraft, +20% potency, +15% range; mana cost +30%.", "ПРАЙМ-КОМПРОМИСС: +2 Spellcraft, +20% мощность, +15% дальность; стоимость маны +30%.", {{ { "mg_spellcraft_flat", 2 }, { "mg_spell_power_pct", 20 }, { "mg_range_pct", 15 }, { "mg_spell_cost_pct", 30 } }}, 4, 0, perk_kind::effect },
-    { "mg_prime_channeler", branch_id::mastery, 9, 45, currency_id::major, "mg_archmage", "", "Prime Channeler", "Прайм: Проводник", "PRIME TRADEOFF: +40% mana, +30% mana regen, spell cost -20%; casting time +30%.", "ПРАЙМ-КОМПРОМИСС: +40% маны, +30% регена маны, стоимость заклинаний -20%; время сотворения +30%.", {{ { "mg_mana_max_pct", 40 }, { "mg_mana_regen_pct", 30 }, { "mg_spell_cost_pct", -20 }, { "mg_cast_time_pct", 30 } }}, 4, 0, perk_kind::effect },
-    { "mg_prime_warcaster", branch_id::mastery, 9, 45, currency_id::major, "mg_archmage", "", "Prime Warcaster", "Прайм: Боевой маг", "PRIME TRADEOFF: casting time -25%, failure -20%, potency +20%; spell XP -35%.", "ПРАЙМ-КОМПРОМИСС: время сотворения -25%, провал -20%, мощность +20%; опыт заклинаний -35%.", {{ { "mg_cast_time_pct", -25 }, { "mg_fail_pct", -20 }, { "mg_spell_power_pct", 20 }, { "mg_spell_xp_pct", -35 } }}, 4, 0, perk_kind::effect },
-
-    { "mom_prime_kinetic", branch_id::mastery, 9, 45, currency_id::major, "mom_transcendent_focus", "", "Prime Kinetic Savant", "Прайм: Кинетик", "PRIME TRADEOFF: potency +25%, range +20%, area +20%; psionic cost +30%.", "ПРАЙМ-КОМПРОМИСС: мощность +25%, дальность +20%, площадь +20%; стоимость псионики +30%.", {{ { "mom_spell_power_pct", 25 }, { "mom_range_pct", 20 }, { "mom_aoe_pct", 20 }, { "mom_spell_cost_pct", 30 } }}, 4, 0, perk_kind::effect },
-    { "mom_prime_overclock", branch_id::mastery, 9, 45, currency_id::major, "mom_transcendent_focus", "", "Prime Neural Overclock", "Прайм: Нейроразгон", "PRIME TRADEOFF: +1.5 Metaphysics, activation -25%, power XP +20%; failure +30%.", "ПРАЙМ-КОМПРОМИСС: +1,5 Metaphysics, активация -25%, опыт сил +20%; провал +30%.", {{ { "mom_metaphysics_flat", 1.5 }, { "mom_cast_time_pct", -25 }, { "mom_spell_xp_pct", 20 }, { "mom_fail_pct", 30 } }}, 4, 0, perk_kind::effect },
-    { "mom_prime_ascetic", branch_id::mastery, 9, 45, currency_id::major, "mom_transcendent_focus", "", "Prime Deep Focus", "Прайм: Глубокий фокус", "PRIME TRADEOFF: failure -25%, cost -20%, duration +30%; potency -20%.", "ПРАЙМ-КОМПРОМИСС: провал -25%, стоимость -20%, длительность +30%; мощность -20%.", {{ { "mom_fail_pct", -25 }, { "mom_spell_cost_pct", -20 }, { "mom_duration_pct", 30 }, { "mom_spell_power_pct", -20 } }}, 4, 0, perk_kind::effect },
-
-    { "xe_prime_analyst", branch_id::mastery, 9, 45, currency_id::major, "xe_boundary_master", "", "Prime Anomaly Analyst", "Прайм: Аналитик аномалий", "PRIME TRADEOFF: +1.5 Deduction, +1.5 Gramarye, potency +20%; failure +30%.", "ПРАЙМ-КОМПРОМИСС: +1,5 Deduction, +1,5 Gramarye, мощность +20%; провал +30%.", {{ { "xe_deduction_flat", 1.5 }, { "xe_gramarye_flat", 1.5 }, { "xe_spell_power_pct", 20 }, { "xe_fail_pct", 30 } }}, 4, 0, perk_kind::effect },
-    { "xe_prime_resonant", branch_id::mastery, 9, 45, currency_id::major, "xe_boundary_master", "", "Prime Resonance Vessel", "Прайм: Резонансный сосуд", "PRIME TRADEOFF: +40% mana, +30% mana regen, cost -20%; range -20%.", "ПРАЙМ-КОМПРОМИСС: +40% маны, +30% регена маны, стоимость -20%; дальность -20%.", {{ { "xe_mana_max_pct", 40 }, { "xe_mana_regen_pct", 30 }, { "xe_spell_cost_pct", -20 }, { "xe_range_pct", -20 } }}, 4, 0, perk_kind::effect },
-    { "xe_prime_riftwalker", branch_id::mastery, 9, 45, currency_id::major, "xe_boundary_master", "", "Prime Rift Operator", "Прайм: Оператор разлома", "PRIME TRADEOFF: range +30%, area +25%, casting time -20%; duration -30%.", "ПРАЙМ-КОМПРОМИСС: дальность +30%, площадь +25%, время сотворения -20%; длительность -30%.", {{ { "xe_range_pct", 30 }, { "xe_aoe_pct", 25 }, { "xe_cast_time_pct", -20 }, { "xe_duration_pct", -30 } }}, 4, 0, perk_kind::effect },
-
-    { "af_prime_smartgun", branch_id::mastery, 9, 45, currency_id::major, "af_posthuman_operator", "", "Prime Smartgun Ace", "Прайм: Ас Smartgun", "PRIME TRADEOFF: +2 Smartgun, potency +20%, range +15%; energy cost +30%.", "ПРАЙМ-КОМПРОМИСС: +2 Smartgun, мощность +20%, дальность +15%; стоимость энергии +30%.", {{ { "af_smartgun_flat", 2 }, { "af_spell_power_pct", 20 }, { "af_range_pct", 15 }, { "af_spell_cost_pct", 30 } }}, 4, 0, perk_kind::effect },
-    { "af_prime_systems", branch_id::mastery, 9, 45, currency_id::major, "af_posthuman_operator", "", "Prime Systems Savant", "Прайм: Системный савант", "PRIME TRADEOFF: +1.5 Metaphysics, cost -20%, activation -20%; ability XP -30%.", "ПРАЙМ-КОМПРОМИСС: +1,5 Metaphysics, стоимость -20%, активация -20%; опыт способностей -30%.", {{ { "af_metaphysics_flat", 1.5 }, { "af_spell_cost_pct", -20 }, { "af_cast_time_pct", -20 }, { "af_spell_xp_pct", -30 } }}, 4, 0, perk_kind::effect },
-    { "af_prime_phase", branch_id::mastery, 9, 45, currency_id::major, "af_posthuman_operator", "", "Prime Phase Engineer", "Прайм: Фазовый инженер", "PRIME TRADEOFF: range +30%, area +25%, duration +25%; failure +30%.", "ПРАЙМ-КОМПРОМИСС: дальность +30%, площадь +25%, длительность +25%; провал +30%.", {{ { "af_range_pct", 30 }, { "af_aoe_pct", 25 }, { "af_duration_pct", 25 }, { "af_fail_pct", 30 } }}, 4, 0, perk_kind::effect },
-
-    { "afp_prime_gunslinger", branch_id::mastery, 9, 45, currency_id::major, "afp_prime_integrator", "", "Prime Gunslinger", "Прайм: Стрелок Prime", "PRIME TRADEOFF: +2 Smartgun, potency +20%, range +15%; energy cost +30%.", "ПРАЙМ-КОМПРОМИСС: +2 Smartgun, мощность +20%, дальность +15%; стоимость энергии +30%.", {{ { "afp_smartgun_flat", 2 }, { "afp_spell_power_pct", 20 }, { "afp_range_pct", 15 }, { "afp_spell_cost_pct", 30 } }}, 4, 0, perk_kind::effect },
-    { "afp_prime_systems_specialist", branch_id::mastery, 9, 45, currency_id::major, "afp_prime_integrator", "", "Prime Systems Integrator", "Прайм: Интегратор систем", "PRIME TRADEOFF: energy cost -25%, activation -20%, duration +25%; ability XP -30%.", "ПРАЙМ-КОМПРОМИСС: стоимость энергии -25%, активация -20%, длительность +25%; опыт способностей -30%.", {{ { "afp_spell_cost_pct", -25 }, { "afp_cast_time_pct", -20 }, { "afp_duration_pct", 25 }, { "afp_spell_xp_pct", -30 } }}, 4, 0, perk_kind::effect },
-    { "afp_prime_translocator", branch_id::mastery, 9, 45, currency_id::major, "afp_prime_integrator", "", "Prime Translocator", "Прайм: Транслокатор", "PRIME TRADEOFF: range +35%, area +25%, activation -20%; failure +30%.", "ПРАЙМ-КОМПРОМИСС: дальность +35%, площадь +25%, активация -20%; провал +30%.", {{ { "afp_range_pct", 35 }, { "afp_aoe_pct", 25 }, { "afp_cast_time_pct", -20 }, { "afp_fail_pct", 30 } }}, 4, 0, perk_kind::effect },
-
-    { "sec_prime_hunter", branch_id::mastery, 9, 45, currency_id::major, "sec_nightmare_specialist", "", "Prime Hunter", "Прайм: Охотник", "PRIME TRADEOFF: +20% damage vs Secronom, +15% elite damage; -20% Secronom resistance.", "ПРАЙМ-КОМПРОМИСС: +20% урона по Secronom, +15% урона по элите; -20% защиты от Secronom.", {{ { "sec_damage_pct", 20 }, { "sec_elite_damage_pct", 15 }, { "sec_resist_pct", -20 }, { nullptr, 0 } }}, 3, 0, perk_kind::effect },
-    { "sec_prime_bulwark", branch_id::mastery, 9, 45, currency_id::major, "sec_nightmare_specialist", "", "Prime Bulwark", "Прайм: Бастион", "PRIME TRADEOFF: +25% Secronom resistance, +20% elite resistance; -20% damage vs Secronom.", "ПРАЙМ-КОМПРОМИСС: +25% защиты от Secronom, +20% защиты от элиты; -20% урона по Secronom.", {{ { "sec_resist_pct", 25 }, { "sec_elite_resist_pct", 20 }, { "sec_damage_pct", -20 }, { nullptr, 0 } }}, 3, 0, perk_kind::effect },
-    { "sec_prime_crimson", branch_id::mastery, 9, 45, currency_id::major, "sec_nightmare_specialist", "", "Prime Crimson Reaper", "Прайм: Багровый жнец", "PRIME TRADEOFF: +30% Crimson damage, +20% elite damage; -25% Crimson resistance.", "ПРАЙМ-КОМПРОМИСС: +30% урона по Crimson, +20% урона по элите; -25% защиты от Crimson.", {{ { "sec_crimson_damage_pct", 30 }, { "sec_elite_damage_pct", 20 }, { "sec_crimson_resist_pct", -25 }, { nullptr, 0 } }}, 3, 0, perk_kind::effect },
-
-    { "secx_prime_architect", branch_id::mastery, 9, 45, currency_id::major, "secx_flesh_architect", "", "Prime Flesh Architect", "Прайм: Архитектор плоти", "PRIME TRADEOFF: +2 Flesh Weaving, potency +20%, ability XP +20%; energy cost +30%.", "ПРАЙМ-КОМПРОМИСС: +2 Flesh Weaving, мощность +20%, опыт способностей +20%; стоимость энергии +30%.", {{ { "secx_flesh_craft_flat", 2 }, { "secx_spell_power_pct", 20 }, { "secx_spell_xp_pct", 20 }, { "secx_spell_cost_pct", 30 } }}, 4, 0, perk_kind::effect },
-    { "secx_prime_predator", branch_id::mastery, 9, 45, currency_id::major, "secx_flesh_architect", "", "Prime Biomorph Predator", "Прайм: Биоморф-хищник", "PRIME TRADEOFF: +2 Bio-organic Weapons, potency +20%, range +15%; failure +30%.", "ПРАЙМ-КОМПРОМИСС: +2 Bio-organic Weapons, мощность +20%, дальность +15%; провал +30%.", {{ { "secx_flesh_combat_flat", 2 }, { "secx_spell_power_pct", 20 }, { "secx_range_pct", 15 }, { "secx_fail_pct", 30 } }}, 4, 0, perk_kind::effect },
-    { "secx_prime_vessel", branch_id::mastery, 9, 45, currency_id::major, "secx_flesh_architect", "", "Prime Flesh Vessel", "Прайм: Сосуд плоти", "PRIME TRADEOFF: energy cost -25%, failure -20%, duration +30%; Flesh Weaving -1.5.", "ПРАЙМ-КОМПРОМИСС: стоимость энергии -25%, провал -20%, длительность +30%; Flesh Weaving -1,5.", {{ { "secx_spell_cost_pct", -25 }, { "secx_fail_pct", -20 }, { "secx_duration_pct", 30 }, { "secx_flesh_craft_flat", -1.5 } }}, 4, 0, perk_kind::effect }
+    { "secx_flesh_architect", branch_id::mastery, 8, 40, currency_id::major, "secx_living_arsenal", "secx_adaptive_morph", "Flesh Architect", "Архитектор плоти", "Secronom+ apex: +0.75 Flesh Weaving, +0.75 Bio-organic Weapons, potency +6%, energy cost -5%.", "Вершина Secronom+: +0,75 Flesh Weaving, +0,75 Bio-organic Weapons, мощность +6%, стоимость энергии -5%.", {{ { "secx_flesh_craft_flat", 0.75 }, { "secx_flesh_combat_flat", 0.75 }, { "secx_spell_power_pct", 6 }, { "secx_spell_cost_pct", -5 } }}, 4, 0, perk_kind::effect }
 };
 
 bool russian()
@@ -764,27 +734,6 @@ integration_id perk_integration( const perk_def &perk )
         { "secx_adaptive_morph", integration_id::secronom_plus },
         { "secx_artificial_ecology", integration_id::secronom_plus },
         { "secx_flesh_architect", integration_id::secronom_plus },
-        { "mg_prime_arcanist", integration_id::magiclysm },
-        { "mg_prime_channeler", integration_id::magiclysm },
-        { "mg_prime_warcaster", integration_id::magiclysm },
-        { "mom_prime_kinetic", integration_id::mindovermatter },
-        { "mom_prime_overclock", integration_id::mindovermatter },
-        { "mom_prime_ascetic", integration_id::mindovermatter },
-        { "xe_prime_analyst", integration_id::xedra_evolved },
-        { "xe_prime_resonant", integration_id::xedra_evolved },
-        { "xe_prime_riftwalker", integration_id::xedra_evolved },
-        { "af_prime_smartgun", integration_id::aftershock_exoplanet },
-        { "af_prime_systems", integration_id::aftershock_exoplanet },
-        { "af_prime_phase", integration_id::aftershock_exoplanet },
-        { "afp_prime_gunslinger", integration_id::aftershock_prime },
-        { "afp_prime_systems_specialist", integration_id::aftershock_prime },
-        { "afp_prime_translocator", integration_id::aftershock_prime },
-        { "sec_prime_hunter", integration_id::secronom },
-        { "sec_prime_bulwark", integration_id::secronom },
-        { "sec_prime_crimson", integration_id::secronom },
-        { "secx_prime_architect", integration_id::secronom_plus },
-        { "secx_prime_predator", integration_id::secronom_plus },
-        { "secx_prime_vessel", integration_id::secronom_plus },
     };
     const auto it = registry.find( perk.id ? std::string_view( perk.id ) : std::string_view() );
     return it == registry.end() ? integration_id::none : it->second;
@@ -855,72 +804,18 @@ uint32_t integration_theme_color( const std::string &mod_id )
     return NCMM_UI_COLOR_DEFAULT;
 }
 
-bool prime_visual_perk( const perk_def &perk )
-{
-    const std::string id = perk.id ? perk.id : "";
-    const std::string name = perk.name_en ? perk.name_en : "";
-    return id.rfind( "spc_", 0 ) == 0 || name.find( "Prime" ) != std::string::npos;
-}
-
-uint32_t rpg_border_style_for( const perk_def &perk )
-{
-    if( prime_visual_perk( perk ) ) {
-        return NCMM_UI_BORDER_PRIME;
-    }
-    if( perk.currency == currency_id::major ) {
-        return NCMM_UI_BORDER_MAJOR;
-    }
-    return NCMM_UI_BORDER_NORMAL;
-}
-
-std::string rpg_detail_body( const perk_def &perk, const std::string &body,
-                             const std::string &requires_text )
-{
-    std::string bonus = body;
-    std::string drawback;
-    if( prime_visual_perk( perk ) ) {
-        const size_t colon = bonus.find( ':' );
-        if( colon != std::string::npos ) {
-            bonus = bonus.substr( colon + 1 );
-        }
-        const size_t semicolon = bonus.find( ';' );
-        if( semicolon != std::string::npos ) {
-            drawback = bonus.substr( semicolon + 1 );
-            bonus = bonus.substr( 0, semicolon );
-        }
-        while( !bonus.empty() && bonus.front() == ' ' ) bonus.erase( bonus.begin() );
-        while( !drawback.empty() && drawback.front() == ' ' ) drawback.erase( drawback.begin() );
-    }
-
-    std::string result;
-    result += tr( "BONUS:", "БОНУС:" );
-    result += "\n" + bonus;
-    if( prime_visual_perk( perk ) ) {
-        result += "\n\n";
-        result += tr( "TRADEOFF:", "КОМПРОМИСС:" );
-        result += "\n" + ( drawback.empty() ? tr( "Exclusive Prime commitment until full respec.",
-                                                   "Эксклюзивный Прайм-путь до полного сброса." ) : drawback );
-    }
-    result += "\n\n";
-    result += tr( "REQUIRES:", "ТРЕБУЕТ:" );
-    result += "\n" + requires_text;
-    return result;
-}
-
 ncmm_ui_theme_v1 branch_ui_theme( branch_id branch )
 {
     return { branch_theme_color( branch ),
-             NCMM_UI_THEME_STRONG_BORDER | NCMM_UI_THEME_WIDE_NODES |
-             NCMM_UI_THEME_HORIZONTAL_VIEWPORT | NCMM_UI_THEME_SECTIONED_DETAIL,
-             30, 50, nullptr, 0 };
+             NCMM_UI_THEME_STRONG_BORDER | NCMM_UI_THEME_WIDE_NODES,
+             30, 46, nullptr, 0 };
 }
 
 ncmm_ui_theme_v1 integration_ui_theme( const std::string &mod_id )
 {
     return { integration_theme_color( mod_id ),
-             NCMM_UI_THEME_STRONG_BORDER | NCMM_UI_THEME_WIDE_NODES |
-             NCMM_UI_THEME_HORIZONTAL_VIEWPORT | NCMM_UI_THEME_SECTIONED_DETAIL,
-             30, 50, nullptr, 0 };
+             NCMM_UI_THEME_STRONG_BORDER | NCMM_UI_THEME_WIDE_NODES,
+             30, 46, nullptr, 0 };
 }
 
 std::string compact_tree_badge( const perk_def &perk, bool unlocked,
@@ -1022,75 +917,6 @@ bool specialization_allowed( const perk_def &perk )
     return selected_slot == slot;
 }
 
-int mod_prime_root_slot( const char *raw_id )
-{
-    const std::string_view id = raw_id ? std::string_view( raw_id ) : std::string_view();
-    if( id == "mg_prime_arcanist" || id == "mom_prime_kinetic" || id == "xe_prime_analyst" ||
-        id == "af_prime_smartgun" || id == "afp_prime_gunslinger" || id == "sec_prime_hunter" ||
-        id == "secx_prime_architect" ) return 1;
-    if( id == "mg_prime_channeler" || id == "mom_prime_overclock" || id == "xe_prime_resonant" ||
-        id == "af_prime_systems" || id == "afp_prime_systems_specialist" || id == "sec_prime_bulwark" ||
-        id == "secx_prime_predator" ) return 2;
-    if( id == "mg_prime_warcaster" || id == "mom_prime_ascetic" || id == "xe_prime_riftwalker" ||
-        id == "af_prime_phase" || id == "afp_prime_translocator" || id == "sec_prime_crimson" ||
-        id == "secx_prime_vessel" ) return 3;
-    return 0;
-}
-
-bool mod_prime_specialization_root( const perk_def &perk )
-{
-    return mod_prime_root_slot( perk.id ) > 0;
-}
-
-std::string mod_prime_state_key( const perk_def &perk )
-{
-    switch( perk_integration( perk ) ) {
-        case integration_id::magiclysm: return "prime_magiclysm";
-        case integration_id::mindovermatter: return "prime_mindovermatter";
-        case integration_id::xedra_evolved: return "prime_xedra_evolved";
-        case integration_id::aftershock_exoplanet: return "prime_aftershock_exoplanet";
-        case integration_id::aftershock_prime: return "prime_aftershock_prime";
-        case integration_id::secronom: return "prime_secronom";
-        case integration_id::secronom_plus: return "prime_secronom_plus";
-        default: return "prime_unknown";
-    }
-}
-
-bool mod_prime_specialization_allowed( const perk_def &perk )
-{
-    const int slot = mod_prime_root_slot( perk.id );
-    if( slot <= 0 ) return true;
-    const int64_t selected = get_state( mod_prime_state_key( perk ), 0 );
-    return selected == 0 || selected == slot;
-}
-
-bool exclusive_specialization_perk( const perk_def &perk )
-{
-    return specialization_perk( perk ) || mod_prime_specialization_root( perk );
-}
-
-bool exclusive_specialization_root( const perk_def &perk )
-{
-    return specialization_root( perk ) || mod_prime_specialization_root( perk );
-}
-
-int exclusive_specialization_slot( const perk_def &perk )
-{
-    const int mod_slot = mod_prime_root_slot( perk.id );
-    return mod_slot > 0 ? mod_slot : specialization_slot( perk );
-}
-
-std::string exclusive_specialization_state_key( const perk_def &perk )
-{
-    return mod_prime_specialization_root( perk ) ?
-           mod_prime_state_key( perk ) : specialization_state_key( perk.branch );
-}
-
-bool exclusive_specialization_allowed( const perk_def &perk )
-{
-    if( mod_prime_specialization_root( perk ) ) return mod_prime_specialization_allowed( perk );
-    return specialization_allowed( perk );
-}
 bool owned( const perk_def &perk )
 {
     return perk_world_available( perk ) && perk_rank( perk ) > 0;
@@ -1578,13 +1404,17 @@ int64_t perk_progression_level( const perk_def &perk )
 }
 bool prerequisites_met( const perk_def &perk )
 {
-    if( !perk_world_available( perk ) || !exclusive_specialization_allowed( perk ) ) {
+    if( !perk_world_available( perk ) || !specialization_allowed( perk ) ) {
         return false;
     }
     for( const char *id : { perk.prereq1, perk.prereq2 } ) {
-        if( id == nullptr || *id == '\0' ) continue;
+        if( id == nullptr || *id == '\0' ) {
+            continue;
+        }
         const perk_def *required = find_perk( id );
-        if( required == nullptr || !owned( *required ) ) return false;
+        if( required == nullptr || !owned( *required ) ) {
+            return false;
+        }
     }
     return true;
 }
@@ -1728,14 +1558,6 @@ void migrate_state()
                            get_state( branch_state_key( branch, "streak" ), 0 ) ) ) );
     }
 
-    for( const char *key : {
-             "prime_magiclysm", "prime_mindovermatter", "prime_xedra_evolved",
-             "prime_aftershock_exoplanet", "prime_aftershock_prime",
-             "prime_secronom", "prime_secronom_plus"
-         } ) {
-        const int64_t selected = get_state( key, 0 );
-        set_state( key, selected >= 1 && selected <= 3 ? selected : 0 );
-    }
     set_state( "schema", state_schema );
     effects_dirty = true;
 }
@@ -1783,19 +1605,21 @@ bool purchase_perk( const perk_def &perk )
         return false;
     }
     if( rank >= max_rank ) {
-        message( tr( "This perk is already at maximum rank.", "Этот перк уже максимального ранга." ) );
+        message( tr( "This perk is already at maximum rank.",
+                     "Этот перк уже максимального ранга." ) );
         return false;
     }
     if( level < perk.required_level ) {
         message( integration_perk( perk ) ?
-                 tr( "Your Survivor level is too low for this mod perk.", "Недостаточный уровень Survivor для этого перка мода." ) :
+                 tr( "Your Survivor level is too low for this mod perk.",
+                     "Недостаточный уровень Survivor для этого перка мода." ) :
                  tr( "Your branch level is too low.", "Недостаточный уровень этой ветки." ) );
         return false;
     }
     if( !prerequisites_met( perk ) ) {
-        if( exclusive_specialization_perk( perk ) && !exclusive_specialization_allowed( perk ) ) {
-            message( tr( "Another Prime specialization is already committed here. Full respec is required to change it.",
-                         "Здесь уже выбрана другая Прайм-специализация. Для смены нужен полный сброс." ) );
+        if( specialization_perk( perk ) && !specialization_allowed( perk ) ) {
+            message( tr( "Another specialization is already committed in this branch. Respec to change it.",
+                         "В этой ветке уже выбрана другая специализация. Для смены нужен сброс." ) );
         } else {
             message( tr( "Prerequisites are not met.", "Не выполнены требования предыдущих перков." ) );
         }
@@ -1803,17 +1627,15 @@ bool purchase_perk( const perk_def &perk )
     }
 
     int chosen_slot = 0;
-    std::string chosen_state;
-    if( exclusive_specialization_root( perk ) ) {
-        chosen_slot = exclusive_specialization_slot( perk );
-        chosen_state = exclusive_specialization_state_key( perk );
-        const int64_t existing = get_state( chosen_state, 0 );
+    if( specialization_root( perk ) ) {
+        chosen_slot = specialization_slot( perk );
+        const int64_t existing = get_state( specialization_state_key( perk.branch ), 0 );
         if( existing == 0 ) {
             std::string prompt = tr(
-                "Commit to this PRIME specialization? Its strong bonus AND strong drawback are both permanent until a full respec. The other two Prime choices here will lock.\n",
-                "Выбрать эту ПРАЙМ-специализацию? Сильный бонус И сильный штраф останутся до полного сброса. Два других Прайм-пути здесь закроются.\n" );
-            prompt += perk_display_name( perk ) + "\n" + perk_description( perk );
-            std::string yes = tr( "Commit PRIME", "Выбрать ПРАЙМ" );
+                "Commit to this specialization? The other two paths in this branch will lock until a full respec.\n",
+                "Выбрать эту специализацию? Два других пути этой ветки закроются до полного сброса.\n" );
+            prompt += perk_display_name( perk );
+            std::string yes = tr( "Commit", "Выбрать" );
             std::string no = tr( "Cancel", "Отмена" );
             const char *entries[] = { yes.c_str(), no.c_str() };
             const int choice = host->ui_choose ? host->ui_choose( prompt.c_str(), entries, 2 ) : -1;
@@ -1835,16 +1657,16 @@ bool purchase_perk( const perk_def &perk )
         set_state( "major_points", major_points - 1 );
     }
 
-    if( chosen_slot > 0 ) set_state( chosen_state, chosen_slot );
+    if( chosen_slot > 0 ) set_state( specialization_state_key( perk.branch ), chosen_slot );
     set_state( perk_key( perk ), rank + 1 );
     effects_dirty = true;
     recalculate_effects();
 
-    std::string result = rank == 0 ? tr( "Perk purchased: ", "Куплен перк: " ) :
-                                     tr( "Perk upgraded: ", "Перк улучшен: " );
-    result += russian() ? perk.name_ru : perk.name_en;
-    if( max_rank > 1 ) result += " " + std::to_string( rank + 1 ) + "/" + std::to_string( max_rank );
-    message( result );
+    std::string text = rank == 0 ? tr( "Perk purchased: ", "Куплен перк: " ) :
+                                   tr( "Perk upgraded: ", "Перк улучшен: " );
+    text += russian() ? perk.name_ru : perk.name_en;
+    if( max_rank > 1 ) text += " " + std::to_string( rank + 1 ) + "/" + std::to_string( max_rank );
+    message( text );
     return true;
 }
 
@@ -1861,22 +1683,22 @@ void show_perk_detail( const perk_def &perk )
         title += "\n" + perk_description( perk );
         title += "\n" + tr( "Tier ", "Тир " ) + std::to_string( perk.tier );
         if( integration_perk( perk ) ) {
-            title += " | " + tr( "Requires Survivor level ", "Нужен уровень Survivor " ) + std::to_string( perk.required_level );
+            title += " | " + tr( "Requires Survivor level ", "Нужен уровень Survivor " ) +
+                     std::to_string( perk.required_level );
         } else {
-            title += " | " + tr( "Requires branch level ", "Нужен уровень ветки " ) + std::to_string( perk.required_level );
+            title += " | " + tr( "Requires branch level ", "Нужен уровень ветки " ) +
+                     std::to_string( perk.required_level );
         }
         title += "\n" + tr( "Prerequisites: ", "Требования: " ) + prereq_text( perk );
         title += "\n" + tr( "Cost per rank: ", "Цена за ранг: " ) + cost_text( perk );
-        if( exclusive_specialization_root( perk ) ) {
-            title += "\n" + tr( "PRIME: exclusive choice with a strong permanent bonus and drawback until full respec.",
-                                  "ПРАЙМ: эксклюзивный выбор с сильным постоянным бонусом и штрафом до полного сброса." );
-        } else if( specialization_perk( perk ) ) {
-            title += "\n" + tr( "Prime specialization path.", "Путь Прайм-специализации." );
+        if( specialization_root( perk ) ) {
+            title += "\n" + tr( "Exclusive choice: locks the other two specializations until full respec.",
+                                  "Эксклюзивный выбор: две другие специализации закроются до полного сброса." );
         }
         if( integration_perk( perk ) ) {
             title += "\n" + tr( "World mod: ", "Мод мира: " ) + integration_mod_name( perk );
-            title += "\n" + tr( "Mod-native effect: affects that mod's mechanics rather than generic stat inflation.",
-                                  "Эффект мода: влияет на механику этого мода вместо общей инфляции характеристик." );
+            title += "\n" + tr( "Mod-native effect: does not grant generic Survivor STR/DEX/PER/INT/speed/carry bonuses.",
+                                  "Эффект мода: не даёт общих бонусов Survivor к СИЛ/ЛОВ/ВОС/ИНТ/скорости/грузу." );
         }
 
         std::string buy;
@@ -1889,7 +1711,8 @@ void show_perk_detail( const perk_def &perk )
         std::string back = tr( "Back", "Назад" );
         const char *entries[] = { buy.c_str(), back.c_str() };
         const int choice = host->ui_choose ? host->ui_choose( title.c_str(), entries, 2 ) : -1;
-        if( choice != 0 || maxed ) return;
+        if( choice != 0 ) return;
+        if( maxed ) return;
         if( !unlocked ) {
             message( tr( "This perk is locked.", "Этот перк пока закрыт." ) );
             continue;
@@ -1979,13 +1802,12 @@ std::pair<int, int> branch_tree_position( branch_id branch, size_t branch_index 
         return standard[branch_index];
     }
 
-    // 20..22 are exclusive Prime roots; 23..25 their capstones.
-    // Keep all three choices simultaneously visible in the RPG tree viewport.
+    // 20..22 are exclusive specialization roots; 23..25 their capstones.
     if( branch_index < 23 ) {
-        return { 12, static_cast<int>( branch_index - 20 ) };
+        return { 12, static_cast<int>( ( branch_index - 20 ) * 2 ) };
     }
     if( branch_index < 26 ) {
-        return { 14, static_cast<int>( branch_index - 23 ) };
+        return { 14, static_cast<int>( ( branch_index - 23 ) * 2 ) };
     }
 
     // Conditional mod-integration nodes live below specializations in a compact grid.
@@ -2016,14 +1838,15 @@ std::vector<ncmm_ui_tree_node_v1> bind_tree_nodes( std::vector<tree_node_text> &
 
 std::string perk_kind_label( const perk_def &perk )
 {
-    if( mod_prime_specialization_root( perk ) || specialization_root( perk ) ) {
-        return tr( "PRIME SPECIALIZATION", "ПРАЙМ-СПЕЦИАЛИЗАЦИЯ" );
-    }
     if( specialization_perk( perk ) ) {
-        return tr( "PRIME PATH", "ПРАЙМ-ПУТЬ" );
+        return tr( "SPECIALIZATION", "СПЕЦИАЛИЗАЦИЯ" );
     }
-    if( integration_perk( perk ) ) return tr( "MOD SYNERGY", "СИНЕРГИЯ МОДА" );
-    if( perk.currency == currency_id::major ) return tr( "KEYSTONE", "КЛЮЧЕВОЙ" );
+    if( integration_perk( perk ) ) {
+        return tr( "MOD SYNERGY", "СИНЕРГИЯ МОДА" );
+    }
+    if( perk.currency == currency_id::major ) {
+        return tr( "KEYSTONE", "КЛЮЧЕВОЙ" );
+    }
     return effective_kind( perk ) == perk_kind::effect ?
            tr( "EFFECT", "ЭФФЕКТ" ) : tr( "STAT", "СТАТ" );
 }
@@ -2152,12 +1975,10 @@ void show_branch( branch_id branch )
                     node.card.subtitle += " | R" + std::to_string( tree_rank ) + "/" +
                                           std::to_string( tree_max_rank );
                 }
-                if( prime_visual_perk( perk ) ) {
-                    node.card.title = "★ " + node.card.title;
-                }
                 node.card.badge = compact_tree_badge( perk, tree_unlocked,
                                                        perk_points, major_points, false );
-                node.card.body = rpg_detail_body( perk, node.card.body, prereq_text( perk ) );
+                node.card.body += "\n" + tr( "Prerequisites: ", "Требования: " ) +
+                                  prereq_text( perk );
                 const std::pair<int, int> position = branch_tree_position( branch, i );
                 node.row = position.first;
                 node.column = position.second;
@@ -2184,27 +2005,10 @@ void show_branch( branch_id branch )
             const std::string tree_summary =
                 summary + tr( " | Routed tree | Tab: cards",
                               " | Разведённое дерево | Tab: карточки" );
-            std::vector<uint32_t> rpg_item_accents;
-            std::vector<uint32_t> rpg_item_borders;
-            rpg_item_accents.reserve( branch_perks.size() );
-            rpg_item_borders.reserve( branch_perks.size() );
-            for( const perk_def *visual_perk : branch_perks ) {
-                rpg_item_accents.push_back( branch_theme_color( branch ) );
-                rpg_item_borders.push_back( visual_perk ? rpg_border_style_for( *visual_perk ) : NCMM_UI_BORDER_NORMAL );
-            }
-            const ncmm_ui_theme_ex_v1 theme{
-                branch_theme_color( branch ),
-                NCMM_UI_THEME_STRONG_BORDER | NCMM_UI_THEME_WIDE_NODES |
-                NCMM_UI_THEME_HORIZONTAL_VIEWPORT | NCMM_UI_THEME_SECTIONED_DETAIL,
-                30, 50, rpg_item_accents.data(), rpg_item_accents.size(),
-                rpg_item_borders.data(), rpg_item_borders.size()
-            };
-            const int choice = host->ui_tree_choose_rpg ?
-                                   host->ui_tree_choose_rpg( title.c_str(), tree_summary.c_str(), &progress,
-                                                             nodes.data(), nodes.size(), edges.data(), edges.size(), &theme ) :
-                                   host->ui_tree_choose_themed( title.c_str(), tree_summary.c_str(), &progress,
-                                                                nodes.data(), nodes.size(), edges.data(), edges.size(),
-                                                                reinterpret_cast<const ncmm_ui_theme_v1 *>( &theme ) );
+            const ncmm_ui_theme_v1 theme = branch_ui_theme( branch );
+            const int choice = host->ui_tree_choose_themed(
+                                   title.c_str(), tree_summary.c_str(), &progress,
+                                   nodes.data(), nodes.size(), edges.data(), edges.size(), &theme );
             if( choice == NCMM_UI_TREE_SHOW_CARDS ) {
                 tree_mode = false;
                 continue;
@@ -2245,7 +2049,7 @@ void show_overview()
     const int normal_owned = owned_count( currency_id::perk );
     const int major_owned = owned_count( currency_id::major );
 
-    std::string out = "Survivor Progression v0.9.15\n";
+    std::string out = "Survivor Progression v0.9.14\n";
     out += tr( "Level ", "Уровень " ) + std::to_string( level );
     out += " | XP " + std::to_string( xp ) + "/" + std::to_string( xp_to_next( level ) );
     out += "\nP " + std::to_string( perk_points ) + " | M " + std::to_string( major_points );
@@ -2348,13 +2152,6 @@ void respec()
     for( branch_id branch : all_branches ) {
         set_state( specialization_state_key( branch ), 0 );
     }
-    for( const char *key : {
-             "prime_magiclysm", "prime_mindovermatter", "prime_xedra_evolved",
-             "prime_aftershock_exoplanet", "prime_aftershock_prime",
-             "prime_secronom", "prime_secronom_plus"
-         } ) {
-        set_state( key, 0 );
-    }
     effects_dirty = true;
     recalculate_effects();
 
@@ -2362,27 +2159,6 @@ void respec()
              std::to_string( refund_perk ) + "P / " + std::to_string( refund_major ) + "M" );
 }
 
-std::vector<std::string> active_supported_integration_mods()
-{
-    static const std::array<const char *, 7> supported = {{
-        "magiclysm", "mindovermatter", "xedra_evolved", "aftershock_exoplanet",
-        "aftershock_prime", "secronom", "secronom_lore_expansion"
-    }};
-    std::set<std::string> active;
-    if( host != nullptr && host->world_mod_count != nullptr && host->world_mod_id != nullptr ) {
-        const size_t count = std::min<size_t>( host->world_mod_count(), 1024 );
-        for( size_t i = 0; i < count; ++i ) {
-            const char *id = host->world_mod_id( i );
-            if( id != nullptr && id[0] != '\0' ) active.emplace( id );
-        }
-    }
-    std::vector<std::string> result;
-    result.reserve( supported.size() );
-    for( const char *id : supported ) {
-        if( active.count( id ) != 0 || active_world_mod( id ) ) result.emplace_back( id );
-    }
-    return result;
-}
 const char *integration_anchor_id( const std::string &mod_id )
 {
     if( mod_id == "magiclysm" ) return "mg_arcane_focus";
@@ -2465,10 +2241,7 @@ std::pair<int, int> integration_tree_position( size_t i )
         { 12, 0 }, { 12, 2 }, { 12, 4 },
         { 14, 2 }
     }};
-    if( i < layout.size() ) return layout[i];
-    if( i < 23 ) return { 16, static_cast<int>( i - 20 ) };
-    return { 18 + static_cast<int>( ( i - 23 ) / 3 ) * 2,
-             static_cast<int>( ( i - 23 ) % 3 ) };
+    return i < layout.size() ? layout[i] : std::make_pair( 16, static_cast<int>( i % 3 ) * 2 );
 }
 
 void show_integration_branch( const std::string &mod_id )
@@ -2488,7 +2261,7 @@ void show_integration_branch( const std::string &mod_id )
         const int64_t major_points = get_state( "major_points", 0 );
 
         std::vector<const perk_def *> mod_perks;
-        mod_perks.reserve( 24 );
+        mod_perks.reserve( 20 );
         const char *anchor_id = integration_anchor_id( mod_id );
         const perk_def *anchor = find_perk( anchor_id );
         if( anchor != nullptr && integration_perk( *anchor ) && mod_id == integration_mod_id( *anchor ) ) {
@@ -2573,12 +2346,10 @@ void show_integration_branch( const std::string &mod_id )
                     node.card.subtitle += " | R" + std::to_string( tree_rank ) + "/" +
                                           std::to_string( tree_max_rank );
                 }
-                if( prime_visual_perk( tree_perk ) ) {
-                    node.card.title = "★ " + node.card.title;
-                }
                 node.card.badge = compact_tree_badge( tree_perk, tree_unlocked,
                                                        perk_points, major_points, true );
-                node.card.body = rpg_detail_body( tree_perk, node.card.body, prereq_text( tree_perk ) );
+                node.card.body += "\n" + tr( "Prerequisites: ", "Требования: " ) +
+                                  prereq_text( tree_perk );
                 const std::pair<int, int> pos = integration_tree_position( i );
                 node.row = pos.first;
                 node.column = pos.second;
@@ -2596,27 +2367,9 @@ void show_integration_branch( const std::string &mod_id )
                 add_edge( mod_perks[i]->prereq2, i );
             }
             std::vector<ncmm_ui_tree_node_v1> nodes = bind_tree_nodes( tree_texts );
-            std::vector<uint32_t> rpg_item_accents;
-            std::vector<uint32_t> rpg_item_borders;
-            rpg_item_accents.reserve( mod_perks.size() );
-            rpg_item_borders.reserve( mod_perks.size() );
-            for( const perk_def *visual_perk : mod_perks ) {
-                rpg_item_accents.push_back( integration_theme_color( mod_id ) );
-                rpg_item_borders.push_back( visual_perk ? rpg_border_style_for( *visual_perk ) : NCMM_UI_BORDER_NORMAL );
-            }
-            const ncmm_ui_theme_ex_v1 theme{
-                integration_theme_color( mod_id ),
-                NCMM_UI_THEME_STRONG_BORDER | NCMM_UI_THEME_WIDE_NODES |
-                NCMM_UI_THEME_HORIZONTAL_VIEWPORT | NCMM_UI_THEME_SECTIONED_DETAIL,
-                30, 50, rpg_item_accents.data(), rpg_item_accents.size(),
-                rpg_item_borders.data(), rpg_item_borders.size()
-            };
-            const int choice = host->ui_tree_choose_rpg ?
-                               host->ui_tree_choose_rpg( title.c_str(), summary.c_str(), &progress,
-                                                         nodes.data(), nodes.size(), edges.data(), edges.size(), &theme ) :
-                               host->ui_tree_choose_themed( title.c_str(), summary.c_str(), &progress,
-                                                            nodes.data(), nodes.size(), edges.data(), edges.size(),
-                                                            reinterpret_cast<const ncmm_ui_theme_v1 *>( &theme ) );
+            const ncmm_ui_theme_v1 theme = integration_ui_theme( mod_id );
+            const int choice = host->ui_tree_choose_themed( title.c_str(), summary.c_str(), &progress,
+                               nodes.data(), nodes.size(), edges.data(), edges.size(), &theme );
             if( choice == NCMM_UI_TREE_SHOW_CARDS ) { tree_mode = false; continue; }
             if( choice < 0 || static_cast<size_t>( choice ) >= mod_perks.size() ) return;
             show_perk_detail( *mod_perks[choice] );
@@ -2703,9 +2456,13 @@ void open_progression()
             card.flags = NCMM_UI_CARD_ACCENT;
             texts.push_back( std::move( card ) );
         };
-        for( const std::string &mod_id : active_supported_integration_mods() ) {
-            add_mod_branch( mod_id.c_str() );
-        }
+        add_mod_branch( "magiclysm" );
+        add_mod_branch( "mindovermatter" );
+        add_mod_branch( "xedra_evolved" );
+        add_mod_branch( "aftershock_exoplanet" );
+        add_mod_branch( "aftershock_prime" );
+        add_mod_branch( "secronom" );
+        add_mod_branch( "secronom_lore_expansion" );
 
         const int overview_index = static_cast<int>( texts.size() );
         card_text overview;
@@ -2744,7 +2501,7 @@ void open_progression()
                                 owned_count( currency_id::major );
         const int total_perks = visible_perk_count();
 
-        std::string title = "Survivor Progression v0.9.15";
+        std::string title = "Survivor Progression v0.9.14";
         std::string summary =
             tr( "Level ", "Уровень " ) + std::to_string( level ) +
             " | P " + std::to_string( perk_points ) +
@@ -3080,13 +2837,13 @@ int init( const ncmm_host_api_v1 *api )
         !api->character_state_set_i64 || !api->character_modifier_set ||
         !api->character_modifier_clear_module || !api->ui_choose || !api->ui_tile_choose ||
         !api->ui_card_choose || !api->ui_tree_choose ||
-        !api->gameplay_metric_get_i64 || !api->world_mod_active || !api->world_mod_count || !api->world_mod_id || !api->ui_card_choose_themed || !api->ui_tree_choose_themed || !api->ui_tree_choose_rpg || !api->ui_message ) {
+        !api->gameplay_metric_get_i64 || !api->world_mod_active || !api->ui_card_choose_themed || !api->ui_tree_choose_themed || !api->ui_message ) {
         return 0;
     }
 
     host = api;
     api->log( NCMM_LOG_INFO,
-              "Survivor Progression 0.9.15 initialized: branch bars / exclusive specializations / conditional deep mod integrations." );
+              "Survivor Progression 0.9.14 initialized: branch bars / exclusive specializations / conditional deep mod integrations." );
     return 1;
 }
 
@@ -3104,7 +2861,7 @@ const ncmm_mod_descriptor_v1 descriptor = {
     NCMM_ABI_VERSION,
     module_id,
     "Survivor Progression",
-    "0.9.15",
+    "0.9.14",
     required_caps,
     sizeof( required_caps ) / sizeof( required_caps[0] ),
     &init,

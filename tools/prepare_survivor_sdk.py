@@ -1,4 +1,4 @@
-"""Prepare external API 1.7 compile declarations for both native modules. No runtime."""
+"""Prepare external API 1.8 compile declarations for both native modules. No runtime."""
 import hashlib,json,sys
 from pathlib import Path
 recipe=json.loads(Path(__file__).with_name('native_sdk_recipe.json').read_text())
@@ -12,4 +12,4 @@ for edit in reversed(recipe['edits']):
 result=''.join(lines).encode('utf-8')
 assert hashlib.sha256(result).hexdigest()==recipe['result_sha256']
 header.write_bytes(result)
-print('Prepared external API 1.7 declarations; matching runtime still required')
+print('Prepared external API 1.8 declarations; matching runtime still required')

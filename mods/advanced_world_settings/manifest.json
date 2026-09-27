@@ -10,7 +10,7 @@
     {
       "id": "baseline",
       "version": "0.6.1",
-      "revision": 1,
+      "revision": 2,
       "path": "native",
       "targets": [
         "experimental-2026-09-23-0546"
@@ -21,5 +21,5 @@
   ],
   "sdk_commit": "c15fbff6dffbded6382a638288f3984228873fa4",
   "sdk_recipe": "tools/prepare_survivor_sdk.py",
-  "external_host": "External NCMM API 1.7, UI theme and world_settings.v2; v8.6.5 matching engine hooks; runtime NOT certified"
+  "external_host": "External NCMM API 1.8, active_mods.registry.v2, ui.layout.v1 and matching v8.7.3 host/game hooks; runtime NOT certified"
 }

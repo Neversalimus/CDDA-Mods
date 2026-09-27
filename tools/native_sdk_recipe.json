@@ -1,13 +1,13 @@
 {
   "seed_sha256": "4f41fcaa512fbade3497705ad6fcaf4e5f2dd837c38ae66852cccac7495277ea",
-  "result_sha256": "e2ab34ac4ff846ab873f0d474e2e87aa076ac493672159d6ac98df216dc8fec1",
-  "source": "v8.6.5 API declarations only; no host/runtime",
+  "result_sha256": "22f1aaf9f43d6be1fabf344b8ad64068ade9a0c9f7311376a0ce0e57ffad5229",
+  "source": "v8.7.3 API 1.8 declarations only; no host/runtime",
   "edits": [
     {
       "start": 21,
       "end": 22,
       "replacement": [
-        "#define NCMM_API_VERSION_MINOR 7u\n",
+        "#define NCMM_API_VERSION_MINOR 8u\n",
         "/* capability: world_settings.v2 */\n"
       ]
     },
@@ -34,7 +34,9 @@
         "typedef enum ncmm_ui_theme_flags_v1 {\n",
         "    NCMM_UI_THEME_NONE = 0u,\n",
         "    NCMM_UI_THEME_STRONG_BORDER = 1u << 0,\n",
-        "    NCMM_UI_THEME_WIDE_NODES = 1u << 1\n",
+        "    NCMM_UI_THEME_WIDE_NODES = 1u << 1,\n",
+        "    NCMM_UI_THEME_HORIZONTAL_VIEWPORT = 1u << 2,\n",
+        "    NCMM_UI_THEME_SECTIONED_DETAIL = 1u << 3\n",
         "} ncmm_ui_theme_flags_v1;\n",
         "\n",
         "typedef struct ncmm_ui_theme_v1 {\n",
@@ -44,7 +46,26 @@
         "    int32_t preferred_detail_width;\n",
         "    const uint32_t *item_accents;\n",
         "    size_t item_accent_count;\n",
-        "} ncmm_ui_theme_v1;\n"
+        "} ncmm_ui_theme_v1;\n",
+        "\n",
+        "typedef enum ncmm_ui_border_style_v1 {\n",
+        "    NCMM_UI_BORDER_AUTO = 0u,\n",
+        "    NCMM_UI_BORDER_NORMAL = 1u,\n",
+        "    NCMM_UI_BORDER_MAJOR = 2u,\n",
+        "    NCMM_UI_BORDER_PRIME = 3u,\n",
+        "    NCMM_UI_BORDER_EXCLUDED = 4u\n",
+        "} ncmm_ui_border_style_v1;\n",
+        "\n",
+        "typedef struct ncmm_ui_theme_ex_v1 {\n",
+        "    uint32_t accent;\n",
+        "    uint32_t flags;\n",
+        "    int32_t preferred_node_width;\n",
+        "    int32_t preferred_detail_width;\n",
+        "    const uint32_t *item_accents;\n",
+        "    size_t item_accent_count;\n",
+        "    const uint32_t *item_border_styles;\n",
+        "    size_t item_border_style_count;\n",
+        "} ncmm_ui_theme_ex_v1;\n"
       ]
     },
     {
@@ -90,7 +111,23 @@
         "                                    const ncmm_ui_progress_v1 *progress,\n",
         "                                    const ncmm_ui_tree_node_v1 *nodes, size_t node_count,\n",
         "                                    const ncmm_ui_tree_edge_v1 *edges, size_t edge_count,\n",
-        "                                    const ncmm_ui_theme_v1 *theme );\n"
+        "                                    const ncmm_ui_theme_v1 *theme );\n",
+        "\n",
+        "    /* NCMM API 1.8: enumerate active world mods through a stable host registry. */\n",
+        "    size_t ( *world_mod_count )();\n",
+        "    const char *( *world_mod_id )( size_t index );\n",
+        "\n",
+        "    /* v8.7 additive UI host extension: per-node border styles, horizontal tree viewport,\n",
+        "       and structured/sectioned detail panes for RPG-like progression screens. */\n",
+        "    int ( *ui_card_choose_rpg )( const char *title, const char *summary,\n",
+        "                                 const ncmm_ui_progress_v1 *progress,\n",
+        "                                 const ncmm_ui_card_v1 *cards, size_t count,\n",
+        "                                 size_t columns, const ncmm_ui_theme_ex_v1 *theme );\n",
+        "    int ( *ui_tree_choose_rpg )( const char *title, const char *summary,\n",
+        "                                 const ncmm_ui_progress_v1 *progress,\n",
+        "                                 const ncmm_ui_tree_node_v1 *nodes, size_t node_count,\n",
+        "                                 const ncmm_ui_tree_edge_v1 *edges, size_t edge_count,\n",
+        "                                 const ncmm_ui_theme_ex_v1 *theme );\n"
       ]
     }
   ]
