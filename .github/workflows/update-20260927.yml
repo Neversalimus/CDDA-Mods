@@ -16,20 +16,23 @@ jobs:
           from pathlib import Path, PurePosixPath
           import hashlib,json,zipfile
           archive=Path('update-20260927.zip')
-          assert hashlib.sha256(archive.read_bytes()).hexdigest()=='941786e5360e978676c6e634a7d3e30e2a2b2db7ec5feaeb5cec4bf362833a36'
+          assert hashlib.sha256(archive.read_bytes()).hexdigest()=='1105fffef9d0f92234c40e39ba38d4a310f65f87d3230f99079c1b6806f82d6a'
           digest=lambda b:hashlib.sha256(b).hexdigest()
           with zipfile.ZipFile(archive) as z:
               rows=json.loads(z.read('update-manifest.json'))
-              assert len(rows)==19
-              assert set(z.namelist())=={'update-manifest.json'}|{r['path'] for r in rows}
+              assert len(rows)==40
+              assert set(z.namelist())=={'update-manifest.json'}|{r['path'] for r in rows if r['after']}
               for row in rows:
                   name=row['path'];p=PurePosixPath(name)
                   assert not p.is_absolute() and '..' not in p.parts and p.parts[0] in {'README.md','catalog','docs','history','installer','mods','tools'}
                   dest=Path(name)
-                  assert (digest(dest.read_bytes()) if dest.exists() else None)==row['before'], 'Concurrent change: '+name
-                  assert digest(z.read(name))==row['after']
+                  assert (digest(dest.read_bytes().replace(b'\r\n',b'\n')) if dest.exists() and dest.suffix in {'.ps1','.psm1','.cmd'} else (digest(dest.read_bytes()) if dest.exists() else None))==row['before'], 'Concurrent change: '+name
+                  if row['after']: assert digest(z.read(name))==row['after']
               for row in rows:
-                  dest=Path(row['path']);dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(z.read(row['path']))
+                  dest=Path(row['path'])
+                  if row['after']:
+                      dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(z.read(row['path']))
+                  else: dest.unlink()
           archive.unlink()
           PY
       - run: python tools/modsuite.py validate
@@ -38,5 +41,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add README.md catalog docs history installer mods tools update-20260927.zip
-          git commit -m 'Import Survivor 0.9.14 v8.5 and fix PS 5.1 duplicate detection'
+          git commit -m 'Refresh native modules to v8.6.5 and fix PS 5.1 duplicate detection'
           git push origin HEAD:main
