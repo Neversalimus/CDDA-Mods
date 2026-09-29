@@ -256,6 +256,10 @@ function Test-CheckModsInteractionCapability([string]$Exe,[string]$GameRoot,[str
         if($evidence -match [regex]::Escape($token)){
             return $false
         }
+        if($probe.exit_code -eq 124){
+            Write-Warning 'Validator capability probe timed out; treating dependency mod_interactions as unsupported and deferring only affected roots.'
+            return $false
+        }
         if($probe.exit_code -eq 0 -and @($probe.errors).Count -eq 0){
             return $true
         }
@@ -265,7 +269,7 @@ function Test-CheckModsInteractionCapability([string]$Exe,[string]$GameRoot,[str
         Remove-Item -LiteralPath $dep -Recurse -Force -ErrorAction SilentlyContinue
     }
 }
-function Test-StagedMods([string]$GameRoot,[object[]]$Plan,[string]$Work,[int]$TimeoutSeconds=240){
+function Test-StagedMods([string]$GameRoot,[object[]]$Plan,[string]$Work,[int]$TimeoutSeconds=240,[string]$CheckModsInteractions='auto'){
     $json=@($Plan | Where-Object {$_.package.kind -eq 'json'});if(-not $json.Count){return}
     $exe=@('cataclysm-tiles.vanilla.exe','cataclysm-tiles.exe','cataclysm.exe','cataclysm') | ForEach-Object {Join-Path $GameRoot $_} | Where-Object {Test-Path -LiteralPath $_} | Select-Object -First 1
     if(-not $exe){throw 'Game validator not found'}
@@ -275,7 +279,15 @@ function Test-StagedMods([string]$GameRoot,[object[]]$Plan,[string]$Work,[int]$T
     $gfx=Join-Path $GameRoot 'gfx';if(Test-Path $gfx){Copy-Item -LiteralPath $gfx -Destination (Join-Path $data 'gfx') -Recurse -Force}
     $base=Invoke-GameCheck $exe $GameRoot $data (Join-Path $Work 'validation/baseline') @('dda') $TimeoutSeconds
     if($base.exit_code -ne 0 -or @($base.errors).Count){throw "Vanilla baseline validation failed; report: $($base.log)"}
-    $interactionSupported=Test-CheckModsInteractionCapability $exe $GameRoot $data (Join-Path $Work 'validation/capability-check-mods-interactions') $TimeoutSeconds
+    if($CheckModsInteractions -eq 'supported'){
+        $interactionSupported=$true
+    }elseif($CheckModsInteractions -eq 'broken'){
+        $interactionSupported=$false
+    }elseif($CheckModsInteractions -eq 'auto'){
+        $interactionSupported=Test-CheckModsInteractionCapability $exe $GameRoot $data (Join-Path $Work 'validation/capability-check-mods-interactions') $TimeoutSeconds
+    }else{
+        throw "Unknown check-mods interaction capability mode: $CheckModsInteractions"
+    }
     Write-Host ("Validator capability: dependency mod_interactions = " + $(if($interactionSupported){'supported'}else{'broken; exact-source defer required'}))
     foreach($entry in $json){
         foreach($old in @(Get-ModDirectories @((Join-Path $data 'mods')) $entry.package.game_mod_ids)){Remove-Item -LiteralPath $old -Recurse -Force}
