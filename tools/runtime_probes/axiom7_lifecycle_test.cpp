@@ -20,6 +20,7 @@
 #include "math_parser_diag_value.h"
 #include "mission.h"
 #include "monster.h"
+#include "mtype.h"
 #include "npc.h"
 #include "omdata.h"
 #include "overmapbuffer.h"
