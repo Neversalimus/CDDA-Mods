@@ -28,110 +28,136 @@ on:
         default: true
         type: boolean
   schedule:
-    # Scheduled runs are OFF unless repository variable CDDA_DEEP_TESTS_ENABLED=true.
+    # The schedule is inert unless CDDA_DEEP_TESTS_ENABLED=true.
     - cron: '17 2 * * 0'
 
 permissions:
   contents: read
 
 concurrency:
-  group: deep-real-cdda-${{ github.ref }}
+  group: deep-real-cdda-${{ github.ref }}-${{ github.event_name }}
   cancel-in-progress: false
 
-env:
-  DEEP_TARGET: ${{ github.event_name == 'workflow_dispatch' && inputs.target || 'experimental-2026-09-23-0546' }}
-  DEEP_DEPTH: ${{ github.event_name == 'workflow_dispatch' && inputs.depth || 'full' }}
-
 jobs:
+  plan:
+    name: Resolve exact target and deep-test matrix
+    runs-on: ubuntu-24.04
+    outputs:
+      enabled: ${{ steps.plan.outputs.enabled }}
+      target: ${{ steps.plan.outputs.target }}
+      commit: ${{ steps.plan.outputs.commit }}
+      tag: ${{ steps.plan.outputs.tag }}
+      depth: ${{ steps.plan.outputs.depth }}
+      run_release: ${{ steps.plan.outputs.run_release }}
+      run_source: ${{ steps.plan.outputs.run_source }}
+      suites: ${{ steps.plan.outputs.suites }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - id: plan
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_TARGET: ${{ inputs.target }}
+          INPUT_DEPTH: ${{ inputs.depth }}
+          INPUT_RELEASE: ${{ inputs.release_binary }}
+          INPUT_SOURCE: ${{ inputs.source_runtime }}
+          AUTO_ENABLED: ${{ vars.CDDA_DEEP_TESTS_ENABLED }}
+          AUTO_TARGET: ${{ vars.CDDA_DEEP_TESTS_TARGET }}
+          AUTO_DEPTH: ${{ vars.CDDA_DEEP_TESTS_DEPTH }}
+        run: |
+          python - <<'PY'
+          import json, os, sys
+          from pathlib import Path
+
+          sys.path.insert(0, str(Path('tools').resolve()))
+          import deep_cdda_runtime as deep
+
+          manual=os.environ['EVENT_NAME']=='workflow_dispatch'
+          enabled=manual or os.environ.get('AUTO_ENABLED','').lower()=='true'
+          target=(os.environ.get('INPUT_TARGET') or '').strip() if manual else (os.environ.get('AUTO_TARGET') or '').strip()
+          if not target:
+              target='experimental-2026-09-23-0546'
+          depth=(os.environ.get('INPUT_DEPTH') or '').strip() if manual else (os.environ.get('AUTO_DEPTH') or '').strip()
+          if not depth:
+              depth='full'
+          if depth not in {'load','full','exhaustive'}:
+              raise SystemExit('Invalid deep-test depth: '+depth)
+
+          target_doc=json.loads((Path('catalog/targets')/(target+'.json')).read_text(encoding='utf-8'))
+          _, rows=deep.build_suites(target)
+          suites=[row['name'] for row in rows]
+          if not suites:
+              raise SystemExit('Deep runtime plan is empty')
+
+          run_release=enabled and ((os.environ.get('INPUT_RELEASE','true').lower()=='true') if manual else True)
+          run_source=enabled and ((os.environ.get('INPUT_SOURCE','true').lower()=='true') if manual else True)
+          outputs={
+              'enabled':str(enabled).lower(),
+              'target':target,
+              'commit':target_doc['commit'],
+              'tag':target_doc['tag'],
+              'depth':depth,
+              'run_release':str(run_release).lower(),
+              'run_source':str(run_source).lower(),
+              'suites':json.dumps({'suite':suites},separators=(',',':')),
+          }
+          with open(os.environ['GITHUB_OUTPUT'],'a',encoding='utf-8') as fh:
+              for key,value in outputs.items():
+                  fh.write(f'{key}={value}\n')
+          print(json.dumps(outputs,indent=2))
+          PY
+
   release-binary:
-    name: Official release binary / loader matrix
-    if: >-
-      ${{
-        (github.event_name == 'workflow_dispatch' && inputs.release_binary) ||
-        (github.event_name == 'schedule' && vars.CDDA_DEEP_TESTS_ENABLED == 'true')
-      }}
+    name: Official Windows release / loader matrix
+    needs: plan
+    if: needs.plan.outputs.run_release == 'true'
     runs-on: windows-latest
     timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-
       - name: Static repository gate
         run: python tools/modsuite.py validate
-
       - name: Download exact official CDDA release
         shell: pwsh
         env:
           GH_API_TOKEN: ${{ github.token }}
-        run: >
-          python tools/fetch_cdda_release.py
-          --target "$env:DEEP_TARGET"
-          --out build/cdda-release
-          --token "$env:GH_API_TOKEN"
-
-      - name: Run baseline, every JSON component, profiles and combined stack
+        run: python tools/fetch_cdda_release.py --target "${{ needs.plan.outputs.target }}" --out build/cdda-release --token "$env:GH_API_TOKEN"
+      - name: Baseline, every JSON component, profiles and combined stack
         shell: pwsh
         run: |
           $gameRoot=(Get-Content build/cdda-release/game-root.txt -Raw).Trim()
-          python tools/deep_cdda_runtime.py run-release `
-            --game-root "$gameRoot" `
-            --target "$env:DEEP_TARGET" `
-            --out build/deep-release `
-            --timeout 900
+          python tools/deep_cdda_runtime.py run-release --game-root "$gameRoot" --target "${{ needs.plan.outputs.target }}" --out build/deep-release --timeout 900
           if($LASTEXITCODE){exit $LASTEXITCODE}
-
-      - name: Upload binary-runtime evidence
+      - uses: actions/upload-artifact@v4
         if: always()
-        uses: actions/upload-artifact@v4
         with:
-          name: deep-release-${{ env.DEEP_TARGET }}
+          name: deep-release-${{ needs.plan.outputs.target }}
           path: |
             build/deep-release/**
             build/cdda-release/release.json
           if-no-files-found: warn
           retention-days: 30
 
-  source-runtime:
-    name: Exact source / native cata_test runtime
-    if: >-
-      ${{
-        (github.event_name == 'workflow_dispatch' && inputs.source_runtime) ||
-        (github.event_name == 'schedule' && vars.CDDA_DEEP_TESTS_ENABLED == 'true')
-      }}
+  source-build:
+    name: Build exact CDDA cata_test once
+    needs: plan
+    if: needs.plan.outputs.run_source == 'true'
     runs-on: ubuntu-24.04
-    timeout-minutes: 360
+    timeout-minutes: 240
     steps:
       - uses: actions/checkout@v4
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Resolve exact catalog commit
-        id: target
-        shell: bash
-        run: |
-          python - <<'PY'
-          import json, os
-          from pathlib import Path
-          target=os.environ["DEEP_TARGET"]
-          data=json.loads((Path("catalog/targets")/(target+".json")).read_text(encoding="utf-8"))
-          with open(os.environ["GITHUB_OUTPUT"],"a",encoding="utf-8") as f:
-              f.write("commit="+data["commit"]+"\n")
-              f.write("tag="+data["tag"]+"\n")
-          PY
-
-      - name: Checkout exact CDDA source
-        uses: actions/checkout@v4
         with:
           repository: CleverRaven/Cataclysm-DDA
-          ref: ${{ steps.target.outputs.commit }}
+          ref: ${{ needs.plan.outputs.commit }}
           path: external/cdda
           fetch-depth: 1
-
+          persist-credentials: false
       - name: Install curses build dependencies
         shell: bash
         run: |
@@ -139,38 +165,75 @@ jobs:
           sudo apt-get install -y build-essential libncursesw5-dev ccache gettext parallel
           ccache --max-size=5G
           ccache --zero-stats
-
-      - name: Cache compiler output
-        uses: actions/cache@v4
+      - uses: actions/cache@v4
         with:
-          path: ~/.ccache
-          key: cdda-cata-test-${{ runner.os }}-${{ steps.target.outputs.commit }}
+          path: ~/.cache/ccache
+          key: cdda-cata-test-${{ runner.os }}-${{ needs.plan.outputs.commit }}
           restore-keys: |
             cdda-cata-test-${{ runner.os }}-
-
       - name: Build CDDA's own test executable
         working-directory: external/cdda
         shell: bash
         run: |
-          make -j2 RELEASE=1 LOCALIZE=0 TILES=0 SOUND=0 ASTYLE=0 LINTJSON=0 CCACHE=1
-          test -x tests/cata_test || { echo "tests/cata_test was not built"; exit 1; }
-          ccache --show-stats
+          set -euo pipefail
+          bash ./build-scripts/requirements.sh
+          make -j2 RELEASE=1 LOCALIZE=0 TILES=0 SOUND=0 TESTS=1 ASTYLE=0 LINTJSON=0 CCACHE=1
+          test -x tests/cata_test
+          ./tests/cata_test "[force_load_game]" --user-dir=baseline-build-smoke
+          ccache --show-stats || true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cata-test-${{ needs.plan.outputs.commit }}
+          path: external/cdda/tests/cata_test
+          if-no-files-found: error
+          retention-days: 7
 
-      - name: Run CDDA tests with repository mods loaded
+  source-runtime:
+    name: Exact source / ${{ matrix.suite }}
+    needs: [plan, source-build]
+    if: needs.plan.outputs.run_source == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix: ${{ fromJSON(needs.plan.outputs.suites) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/checkout@v4
+        with:
+          repository: CleverRaven/Cataclysm-DDA
+          ref: ${{ needs.plan.outputs.commit }}
+          path: external/cdda
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: cata-test-${{ needs.plan.outputs.commit }}
+          path: external/cdda/tests
+      - name: Prepare exact-source runtime
+        shell: bash
+        run: |
+          chmod +x external/cdda/tests/cata_test
+          sudo apt-get update
+          sudo apt-get install -y libncursesw6
+      - name: Run one isolated mod/profile suite
         shell: bash
         run: |
           python tools/deep_cdda_runtime.py run-source \
             --cdda-root external/cdda \
-            --target "$DEEP_TARGET" \
-            --out build/deep-source \
-            --depth "$DEEP_DEPTH" \
-            --timeout 7200
-
-      - name: Upload source-runtime evidence
+            --target "${{ needs.plan.outputs.target }}" \
+            --out "build/deep-source/${{ matrix.suite }}" \
+            --depth "${{ needs.plan.outputs.depth }}" \
+            --suite "${{ matrix.suite }}" \
+            --timeout 10800
+      - uses: actions/upload-artifact@v4
         if: always()
-        uses: actions/upload-artifact@v4
         with:
-          name: deep-source-${{ env.DEEP_TARGET }}-${{ env.DEEP_DEPTH }}
-          path: build/deep-source/**
+          name: deep-source-${{ matrix.suite }}-${{ needs.plan.outputs.depth }}
+          path: build/deep-source/${{ matrix.suite }}/**
           if-no-files-found: warn
           retention-days: 30
