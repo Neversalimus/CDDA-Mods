@@ -27,6 +27,11 @@ on:
         required: true
         default: true
         type: boolean
+      install_scenario:
+        description: Installer lifecycle scenario id, or all
+        required: true
+        default: all
+        type: string
   schedule:
     # The schedule is inert unless CDDA_DEEP_TESTS_ENABLED=true.
     - cron: '17 2 * * 0'
@@ -115,14 +120,16 @@ jobs:
     needs: plan
     if: needs.plan.outputs.run_release == 'true'
     runs-on: windows-latest
-    timeout-minutes: 120
+    timeout-minutes: 240
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - name: Static repository gate
-        run: python tools/modsuite.py validate
+        run: |
+          python tools/modsuite.py validate
+          python tools/modsuite.py build
       - name: Download exact official CDDA release
         shell: pwsh
         env:
@@ -134,12 +141,22 @@ jobs:
           $gameRoot=(Get-Content build/cdda-release/game-root.txt -Raw).Trim()
           python tools/deep_cdda_runtime.py run-release --game-root "$gameRoot" --target "${{ needs.plan.outputs.target }}" --out build/deep-release --timeout 900
           if($LASTEXITCODE){exit $LASTEXITCODE}
+      - name: Real installer lifecycle on pristine official CDDA copies
+        shell: powershell
+        timeout-minutes: 180
+        run: |
+          $gameRoot=(Get-Content build/cdda-release/game-root.txt -Raw).Trim()
+          $scenario='${{ inputs.install_scenario }}'
+          if([string]::IsNullOrWhiteSpace($scenario)){$scenario='all'}
+          ./tools/run_deep_install_matrix.ps1 -RepositoryRoot "$env:GITHUB_WORKSPACE" -GameRoot "$gameRoot" -PackageRoot "$env:GITHUB_WORKSPACE/dist" -Target "${{ needs.plan.outputs.target }}" -Scenario "$scenario" -Out "$env:GITHUB_WORKSPACE/build/deep-install" -ValidationTimeout 1200
+          if($LASTEXITCODE){exit $LASTEXITCODE}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: deep-release-${{ needs.plan.outputs.target }}
           path: |
             build/deep-release/**
+            build/deep-install/**
             build/cdda-release/release.json
           if-no-files-found: warn
           retention-days: 30
