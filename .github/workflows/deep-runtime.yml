@@ -200,7 +200,8 @@ jobs:
       - name: Inject repository-owned exact-engine runtime probes
         shell: bash
         run: |
-          cp harness/tools/runtime_probes/axiom7_lifecycle_test.cpp             external/cdda/tests/axiom7_lifecycle_test.cpp
+          cp harness/tools/runtime_probes/axiom7_lifecycle_test.cpp \
+            external/cdda/tests/axiom7_lifecycle_test.cpp
 
       - name: Build and smoke the real engine test executable
         working-directory: external/cdda
