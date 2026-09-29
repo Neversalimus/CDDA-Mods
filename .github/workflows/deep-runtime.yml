@@ -313,3 +313,48 @@ jobs:
           path: build/deep-source/${{ matrix.suite }}/**
           if-no-files-found: warn
           retention-days: 30
+
+  summary:
+    name: Read-only deep evidence summary
+    if: always()
+    needs: [release-binary, source_plan, source_build, source-runtime]
+    runs-on: ubuntu-24.04
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Download deep evidence
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          pattern: deep-*
+          path: build/deep-collected
+          merge-multiple: false
+
+      - name: Build read-only summary
+        continue-on-error: true
+        shell: bash
+        run: |
+          python tools/deep_summary.py \
+            --root build/deep-collected \
+            --out build/deep-summary \
+            --baseline .github/deep-style-baseline.json \
+            --job-result "release-binary=${{ needs.release-binary.result }}" \
+            --job-result "source-plan=${{ needs.source_plan.result }}" \
+            --job-result "source-build=${{ needs.source_build.result }}" \
+            --job-result "source-runtime=${{ needs.source-runtime.result }}"
+
+      - name: Upload compact deep summary
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: deep-summary-${{ env.DEEP_TARGET }}
+          path: build/deep-summary/**
+          if-no-files-found: warn
+          retention-days: 30
+
