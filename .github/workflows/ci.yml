@@ -84,15 +84,65 @@ jobs:
             sdk
       - name: Prepare explicit API 1.7 build declarations
         run: python tools/prepare_survivor_sdk.py external/ncmm/sdk
+      - name: Prepare sccache
+        id: sccache
+        continue-on-error: true
+        uses: mozilla-actions/sccache-action@fc920bf0ec8de6ee65d409111f7ec508035751ba
+        with:
+          version: "v0.18.0"
       - name: Compile only the selected mod (no CDDA host build)
         shell: pwsh
+        env:
+          SCCACHE_GHA_ENABLED: "true"
+          SCCACHE_IGNORE_SERVER_IO_ERROR: "1"
+          SCCACHE_C_CUSTOM_CACHE_BUSTER: native-msvc-v1-${{ matrix.mod }}-${{ steps.sdk.outputs.sha }}
         run: |
-          cmake -S 'mods/${{ matrix.mod }}/native' -B 'build/${{ matrix.mod }}' -A x64 "-DNCMM_SDK_DIR=$pwd/external/ncmm/sdk"
-          if($LASTEXITCODE){throw 'Configure failed'}
-          cmake --build 'build/${{ matrix.mod }}' --config Release
-          if($LASTEXITCODE){throw 'Compile failed'}
+          $source='mods/${{ matrix.mod }}/native'
+          $cachedBuild='build/${{ matrix.mod }}-sccache'
+          $directBuild='build/${{ matrix.mod }}'
+          $dll=$null
+          $sccache=Get-Command sccache -ErrorAction SilentlyContinue
+          $ninja=Get-Command ninja -ErrorAction SilentlyContinue
+
+          if($sccache -and $ninja){
+            try {
+              $vswhere="${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+              if(-not (Test-Path $vswhere)){throw 'vswhere not found'}
+              $vsPath=(& $vswhere -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath).Trim()
+              if(-not $vsPath){throw 'MSVC installation not found'}
+              $devShell=Join-Path $vsPath 'Common7\Tools\Microsoft.VisualStudio.DevShell.dll'
+              Import-Module $devShell -Force
+              Enter-VsDevShell -VsInstallPath $vsPath -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64'
+
+              sccache --zero-stats | Out-Host
+              cmake -S $source -B $cachedBuild -G Ninja `
+                -DCMAKE_BUILD_TYPE=Release `
+                -DCMAKE_CXX_COMPILER_LAUNCHER=sccache `
+                "-DNCMM_SDK_DIR=$pwd/external/ncmm/sdk"
+              if($LASTEXITCODE){throw 'Cached configure failed'}
+              cmake --build $cachedBuild
+              if($LASTEXITCODE){throw 'Cached compile failed'}
+              sccache --show-stats | Out-Host
+              $dll=Join-Path $cachedBuild 'ncmm_mod.dll'
+              if(-not (Test-Path $dll)){throw 'Cached DLL output missing'}
+            } catch {
+              Write-Warning ("sccache/Ninja path failed; retrying the unchanged MSVC build directly: " + $_.Exception.Message)
+              $dll=$null
+            }
+          } else {
+            Write-Warning 'sccache or Ninja unavailable; using the unchanged MSVC build path.'
+          }
+
+          if(-not $dll){
+            cmake -S $source -B $directBuild -A x64 "-DNCMM_SDK_DIR=$pwd/external/ncmm/sdk"
+            if($LASTEXITCODE){throw 'Configure failed'}
+            cmake --build $directBuild --config Release
+            if($LASTEXITCODE){throw 'Compile failed'}
+            $dll=Join-Path $directBuild 'Release/ncmm_mod.dll'
+          }
+
           New-Item -ItemType Directory -Force 'native-artifacts/${{ matrix.mod }}' | Out-Null
-          Copy-Item 'build/${{ matrix.mod }}/Release/ncmm_mod.dll' 'native-artifacts/${{ matrix.mod }}/'
+          Copy-Item $dll 'native-artifacts/${{ matrix.mod }}/ncmm_mod.dll'
           Copy-Item 'mods/${{ matrix.mod }}/native/mod.json' 'native-artifacts/${{ matrix.mod }}/'
       - uses: actions/upload-artifact@v4
         with:
