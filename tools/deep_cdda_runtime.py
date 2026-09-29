@@ -324,8 +324,6 @@ def run_installed(
         str(exe),
         "--basepath",
         str(game_root) + "/",
-        "--datadir",
-        str(game_root / "data") + "/",
         "--userdir",
         str(user) + "/",
         "--seed",
