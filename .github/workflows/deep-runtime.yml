@@ -53,7 +53,7 @@ jobs:
     if: >-
       ${{
         (github.event_name == 'workflow_dispatch' && (inputs.release_binary || inputs.installation_matrix)) ||
-        (github.event_name == 'schedule' && vars.CDDA_DEEP_TESTS_ENABLED == 'true')
+        (github.event_name == 'schedule' && vars.CDDA_DEEP_TESTS_ENABLED != 'false')
       }}
     runs-on: windows-latest
     timeout-minutes: 240
@@ -78,6 +78,7 @@ jobs:
           --token "$env:GH_API_TOKEN"
 
       - name: Run baseline, every JSON component, profiles and combined stack
+        if: ${{ github.event_name == 'schedule' || inputs.release_binary }}
         shell: pwsh
         run: |
           $gameRoot=(Get-Content build/cdda-release/game-root.txt -Raw).Trim()
@@ -115,7 +116,7 @@ jobs:
           retention-days: 30
 
       - name: Upload binary-runtime evidence
-        if: always()
+        if: always() && (github.event_name == 'schedule' || inputs.release_binary)
         uses: actions/upload-artifact@v4
         with:
           name: deep-release-${{ env.DEEP_TARGET }}
@@ -130,7 +131,7 @@ jobs:
     if: >-
       ${{
         (github.event_name == 'workflow_dispatch' && inputs.source_runtime) ||
-        (github.event_name == 'schedule' && vars.CDDA_DEEP_TESTS_ENABLED == 'true')
+        (github.event_name == 'schedule' && vars.CDDA_DEEP_TESTS_ENABLED != 'false')
       }}
     runs-on: ubuntu-24.04
     timeout-minutes: 360
