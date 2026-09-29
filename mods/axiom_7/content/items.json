@@ -112,7 +112,7 @@
     "copy-from": "phase_immersion_suit",
     "type": "ITEM",
     "name": {
-      "str": "AXIOM service harness"
+      "str": "AXIOM service harness",\n      "str_pl": "AXIOM service harnesses"
     },
     "description": "A sealed high-technology service suit adapted for electronics, power-distribution and fabrication work inside AXIOM-7."
   },
