@@ -5,7 +5,8 @@ param(
     [Parameter(Mandatory=$true)][string]$PackageRoot,
     [Parameter(Mandatory=$true)][string]$Target,
     [Parameter(Mandatory=$true)][string]$Out,
-    [int]$ValidationTimeout=900
+    [int]$ValidationTimeout=900,
+    [ValidateSet('auto','supported','broken')][string]$CheckModsInteractions='auto'
 )
 
 $ErrorActionPreference='Stop'
@@ -27,13 +28,17 @@ if($targetInfo.Count -ne 1){throw "Target not found or ambiguous: $Target"}
 
 $script:results=New-Object 'System.Collections.Generic.List[object]'
 
-# Probe the exact game binary once for the whole lifecycle matrix. Live checks
-# reuse this result instead of re-running the engine capability probe each time.
-$capabilityOut=Join-Path $outRoot 'validator-capability'
-& python (Join-Path $repo 'tools/deep_cdda_runtime.py') probe-check-mods --game-root $game --target $Target --out $capabilityOut --timeout ([Math]::Min($ValidationTimeout,120))
-if($LASTEXITCODE -ne 0){throw 'Could not determine validator mod_interactions capability'}
-$validatorCapability=Get-Content (Join-Path $capabilityOut 'report.json') -Raw -Encoding UTF8 | ConvertFrom-Json
-$script:checkModsInteractions=[string]$validatorCapability.status
+# Probe the exact game binary once for the whole lifecycle matrix unless the
+# caller already has a capability result from the release-loader pass.
+if($CheckModsInteractions -eq 'auto'){
+    $capabilityOut=Join-Path $outRoot 'validator-capability'
+    & python (Join-Path $repo 'tools/deep_cdda_runtime.py') probe-check-mods --game-root $game --target $Target --out $capabilityOut --timeout ([Math]::Min($ValidationTimeout,120))
+    if($LASTEXITCODE -ne 0){throw 'Could not determine validator mod_interactions capability'}
+    $validatorCapability=Get-Content (Join-Path $capabilityOut 'report.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    $script:checkModsInteractions=[string]$validatorCapability.status
+}else{
+    $script:checkModsInteractions=$CheckModsInteractions
+}
 if($script:checkModsInteractions -notin @('supported','broken')){throw "Unexpected validator capability: $script:checkModsInteractions"}
 Write-Host "Exact game validator capability: dependency mod_interactions = $script:checkModsInteractions"
 
