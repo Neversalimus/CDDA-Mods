@@ -33,7 +33,7 @@ on:
         default: true
         type: boolean
   schedule:
-    # Scheduled runs are OFF unless repository variable CDDA_DEEP_TESTS_ENABLED=true.
+    # Weekly deep runs are ON by default; set CDDA_DEEP_TESTS_ENABLED=false to disable.
     - cron: '17 2 * * 0'
 
 permissions:
