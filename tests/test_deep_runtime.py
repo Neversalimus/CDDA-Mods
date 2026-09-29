@@ -77,12 +77,28 @@ class DeepRuntimePlanTests(unittest.TestCase):
                 for v in m["variants"]
             )
         }
+        by_id = {m["id"]: m for m in manifests}
+
+        def package_closure(ids):
+            out = set()
+            def visit(mid):
+                if mid in out:
+                    return
+                for dep in by_id[mid].get("dependencies", []):
+                    visit(dep)
+                out.add(mid)
+            for mid in ids:
+                visit(mid)
+            return out
+
         scenarios = matrix["install_scenarios"]
-        covered = {mid for row in scenarios for mid in row["mods"]}
+        covered = set()
+        for row in scenarios:
+            covered.update(package_closure(row["mods"]))
         self.assertEqual(expected, covered)
         self.assertTrue(all(row["mods"] for row in scenarios))
         all_content = next(row for row in scenarios if row["id"] == "all-content")
-        self.assertEqual(expected, set(all_content["mods"]))
+        self.assertEqual(expected, package_closure(all_content["mods"]))
 
     def test_release_asset_prefers_graphical_windows_x64(self):
         assets = [
