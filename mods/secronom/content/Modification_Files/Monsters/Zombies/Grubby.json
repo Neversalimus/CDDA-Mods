@@ -5,7 +5,7 @@
   "name": {
     "str": "grubby zombie"
   },
-  "description": "A bloated creature seeping pus covered larvae and emitting gut wrenching stenches wobbles around. \"Defiled\" would be a compliment to this grotesque almost-human monstrosity that fumbles with each step, almost falling to its own weight.",
+  "description": "A bloated creature seeping pus covered larvae and emitting gut wrenching stenches wobbles around.  \"Defiled\" would be a compliment to this grotesque almost-human monstrosity that fumbles with each step, almost falling to its own weight.",
   "default_faction": "zombie",
   "species": [
     "ZOMBIE",
@@ -110,7 +110,7 @@
   "name": {
     "str": "slimy zombie"
   },
-  "description": "Fortified by blobs and worms infused inside its skinless body, this zombie can barely walk on its feet. With slimy liquid dripping from its holes, the parasites can \"swim\" faster through it.",
+  "description": "Fortified by blobs and worms infused inside its skinless body, this zombie can barely walk on its feet.  With slimy liquid dripping from its holes, the parasites can \"swim\" faster through it.",
   "default_faction": "zombie",
   "species": [
     "ZOMBIE",
@@ -217,7 +217,7 @@
   "name": {
     "str": "glut"
   },
-  "description": "A swollen degenerate corpse, severely infested by worms that has taken all over of its body, causing it to bloat excessively. These bloated portions are volatile, and its sudden explosion can cause widespread explosions.",
+  "description": "A swollen degenerate corpse, severely infested by worms that has taken all over of its body, causing it to bloat excessively.  These bloated portions are volatile, and its sudden explosion can cause widespread explosions.",
   "default_faction": "zombie",
   "species": [
     "ZOMBIE",
