@@ -303,6 +303,7 @@ def run_release(game_root: Path, target: str, out: Path, timeout: int) -> dict:
         )
     exe = find_game_exe(game_root)
     _, rows = build_suites(target)
+    out = out.resolve()
     out.mkdir(parents=True, exist_ok=True)
 
     with tempfile.TemporaryDirectory(prefix="cdda-mods-deep-release-") as temp:
@@ -315,15 +316,21 @@ def run_release(game_root: Path, target: str, out: Path, timeout: int) -> dict:
         if (game_root / "gfx").is_dir():
             shutil.copytree(game_root / "gfx", data / "gfx")
 
-        def check(name: str, game_ids: list[str]) -> dict:
-            user = out / name / "user"
+        def check(
+            name: str,
+            game_ids: list[str],
+            datadir: Path | None,
+        ) -> dict:
+            user = (out / name / "user").resolve()
             user.mkdir(parents=True, exist_ok=True)
             args = [
                 str(exe),
                 "--basepath",
                 str(game_root) + "/",
-                "--datadir",
-                str(data) + "/",
+            ]
+            if datadir is not None:
+                args += ["--datadir", str(datadir.resolve()) + "/"]
+            args += [
                 "--userdir",
                 str(user) + "/",
                 "--seed",
@@ -332,37 +339,55 @@ def run_release(game_root: Path, target: str, out: Path, timeout: int) -> dict:
                 *game_ids,
             ]
             result = run_process(args, game_root, out / name, timeout)
+            debug_files = list(user.rglob("debug.log"))
             debug = "\n".join(
                 p.read_text(encoding="utf-8", errors="replace")
-                for p in user.rglob("debug.log")
+                for p in debug_files
             )
+            (out / name / "debug.log").write_text(debug, encoding="utf-8")
             extra = [line for line in debug.splitlines() if ERROR_RE.search(line)]
             result["errors"] = sorted(set(result["errors"] + extra))
+            result["debug_logs"] = [str(p) for p in debug_files]
             return result
 
-        # Prove the exact official release is healthy before introducing any
-        # repository payload. A broken vanilla baseline must never be blamed on a mod.
-        baseline = check("baseline-dda", ["dda"])
+        # First validate the pristine official release with its own native data tree.
+        # Then validate the isolated copy used to stage repository payloads. This
+        # distinguishes an upstream/binary problem from a harness staging problem.
+        baseline = check("baseline-dda-native", ["dda"], None)
+        staged_baseline = None
         results = []
         if baseline["exit_code"] == 0 and not baseline["errors"]:
+            staged_baseline = check("baseline-dda-staged", ["dda"], data)
+        if (
+            baseline["exit_code"] == 0
+            and not baseline["errors"]
+            and staged_baseline is not None
+            and staged_baseline["exit_code"] == 0
+            and not staged_baseline["errors"]
+        ):
             copy_json_mods(target, data / "mods")
             for row in rows:
-                result = check(row["name"], row["game_mod_ids"])
+                result = check(row["name"], row["game_mod_ids"], data)
                 results.append({**row, "result": result})
 
         report = {
-            "schema": 2,
+            "schema": 3,
             "kind": "release-binary",
             "target": target,
             "commit": target_info["commit"],
             "baseline": baseline,
+            "staged_baseline": staged_baseline,
             "suites": results,
         }
         suite.write(out / "report.json", report)
 
     failures = []
     if baseline["exit_code"] or baseline["errors"]:
-        failures.append("baseline-dda")
+        failures.append("baseline-dda-native")
+    if staged_baseline is not None and (
+        staged_baseline["exit_code"] or staged_baseline["errors"]
+    ):
+        failures.append("baseline-dda-staged")
     failures.extend(
         row["name"]
         for row in results
@@ -393,6 +418,7 @@ def run_installed(
             "Installed CDDA binary does not match catalog target commit"
         )
     exe = find_game_exe(game_root)
+    out = out.resolve()
     user = out / "user"
     user.mkdir(parents=True, exist_ok=True)
     ids = ["dda"] + [
@@ -519,6 +545,7 @@ def run_source(
         {mid for row in rows for mid in row["components"]}
     )
     stage_source(cdda_root, target, selected_components)
+    out = out.resolve()
     out.mkdir(parents=True, exist_ok=True)
 
     runs = []
