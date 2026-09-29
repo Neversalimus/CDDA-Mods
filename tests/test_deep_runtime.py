@@ -1,5 +1,7 @@
 import sys
+import tempfile
 import unittest
+import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -39,12 +41,12 @@ class DeepRuntimePlanTests(unittest.TestCase):
             ["[force_load_game]"],
         )
         self.assertIn(
-            "~[slow] ~[.]",
+            "~[slow] ~[.],starting_items",
             deep.source_specs("full", combined=False),
         )
         exhaustive = deep.source_specs("exhaustive", combined=True)
-        self.assertIn("[slow] ~crafting_skill_gain", exhaustive)
-        self.assertIn("crafting_skill_gain", exhaustive)
+        self.assertIn("~[slow] ~[.],starting_items", exhaustive)
+        self.assertIn("[slow] ~starting_items", exhaustive)
 
     def test_release_asset_prefers_graphical_windows_x64(self):
         assets = [
@@ -58,6 +60,27 @@ class DeepRuntimePlanTests(unittest.TestCase):
             chosen["name"],
             "cdda-windows-with-graphics-x64-foo.zip",
         )
+
+    def test_release_asset_rejects_symbol_archive(self):
+        assets = [
+            {"name": "cdda-windows-with-graphics-x64-symbols.zip"},
+            {"name": "cdda-windows-with-graphics-x64-real.zip"},
+        ]
+        chosen = fetch.choose_asset(assets)
+        self.assertEqual(
+            chosen["name"],
+            "cdda-windows-with-graphics-x64-real.zip",
+        )
+
+    def test_release_zip_blocks_path_traversal(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            archive = root / "bad.zip"
+            with zipfile.ZipFile(archive, "w") as bundle:
+                bundle.writestr("../escape.txt", "no")
+            with self.assertRaises(ValueError):
+                fetch.extract_zip_safe(archive, root / "out")
+            self.assertFalse((root / "escape.txt").exists())
 
 
 if __name__ == "__main__":
