@@ -1,5 +1,22 @@
 # Handoff — 2026-09-29
 
+## AXIOM-7 exact-engine lifecycle gate
+
+Active task branch: `mod/axiom_7/deep-lifecycle`. Base: `main` commit `06620dc4dbd02f72dd227c59d2be9e3f85e43299`. Exact target remains `experimental-2026-09-23-0546` / `e262adb299a7613b4aedc5f12c08fe0413c56a84`.
+
+Implemented:
+- repository-owned `tools/runtime_probes/axiom7_lifecycle_test.cpp`;
+- source-build injects that file only into the temporary exact CDDA checkout before compiling `tests/cata_test`;
+- `deep_cdda_runtime.py` adds `[axiom7_lifecycle]` only to `component-axiom_7`;
+- the probe covers representative AXIOM surface/basement/roof generation, Lena/Rhea/Nadia, AXIOM sentry/turret spawn points, dormant KX-91, the full update-mapgen KX vehicle swap chain, clearance mission end-effects/cards, and security alarm EOC behavior;
+- normal Python tests cover probe wiring so ordinary CI detects accidental removal.
+
+Validation rule: do not promote AXIOM beyond `static` until an actual deep workflow run on the exact game commit succeeds. The probe is designed to produce stronger evidence, not to predeclare it.
+
+---
+
+# Handoff — 2026-09-29
+
 ## AXIOM-7 0.8.2.8 Integrity
 
 Active task branch: `mod/axiom_7/integrity-0.8.2.8`. Pull request: #9. Base at task start: `main` commit `30590a14654f2b8061c07b9d1ccf51c6262396d8`. Exact game target remains `experimental-2026-09-23-0546` / `e262adb299a7613b4aedc5f12c08fe0413c56a84`.
