@@ -224,8 +224,27 @@ class DeepRuntimePlanTests(unittest.TestCase):
             "12:00 ERROR : x/translation.cpp:280 [deserialize] (json-error)\n"
         )
         self.assertEqual(len(style), 1)
+        self.assertEqual(style[0], "text_style_check_reader.cpp:63")
         self.assertEqual(len(fatal), 1)
         self.assertIn("translation.cpp:280", fatal[0])
+
+    def test_text_style_annotation_is_stable_across_timestamps(self):
+        template = (
+            "{time} ERROR : src/text_style_check_reader.cpp:63 [operator ()] (json-error)\n"
+            "::error file=data/mods/demo/file.json,line=7,col=19::"
+            "insufficient spaces at this location.%0A2 required, but only 1 found.\n"
+        )
+        first, fatal = deep.classify_debug_errors(template.format(time="12:00"))
+        second, _ = deep.classify_debug_errors(template.format(time="12:01"))
+        self.assertFalse(fatal)
+        self.assertEqual(first, second)
+        self.assertEqual(
+            first,
+            [
+                "data/mods/demo/file.json:7:19: "
+                "insufficient spaces at this location."
+            ],
+        )
 
     def test_release_asset_prefers_graphical_windows_x64(self):
         assets = [
