@@ -435,10 +435,19 @@ def probe_check_mods_interactions(
 
         if CHECK_MODS_INTERACTION_PROBE_TOKEN in combined:
             status = "broken"
+            failure_mode = "sentinel-loaded"
+        elif result["exit_code"] == 124:
+            # A tiny synthetic graph must not hang. Treat timeout as an
+            # unusable validator capability and conservatively defer only
+            # interaction-bearing dependency graphs to exact-source cata_test.
+            status = "broken"
+            failure_mode = "timeout"
         elif result["exit_code"] == 0 and not result["errors"]:
             status = "supported"
+            failure_mode = None
         else:
             status = "inconclusive"
+            failure_mode = "unexpected-result"
 
         report = {
             "schema": 1,
@@ -446,6 +455,7 @@ def probe_check_mods_interactions(
             "status": status,
             "supported": status == "supported",
             "probe_token": CHECK_MODS_INTERACTION_PROBE_TOKEN,
+            "failure_mode": failure_mode,
             "result": result,
         }
         suite.write(out / "report.json", report)
@@ -919,7 +929,14 @@ def normalize_cata_test_result(result: dict, log_dir: Path) -> dict:
         )
     )
     catch_passed = bool(
-        re.search(r"(?mi)^\s*test cases:\s*\d+\s*\|\s*\d+\s+passed\s*$", stdout)
+        re.search(
+            r"(?mi)^\s*All tests passed\s*\([^\n]*\btest cases?\)\s*$",
+            stdout,
+        )
+        or re.search(
+            r"(?mi)^\s*test cases:\s*\d+\s*\|\s*\d+\s+passed\s*$",
+            stdout,
+        )
         or re.search(
             r"(?mi)^\s*test cases:\s*\d+\s*\|\s*\d+\s+passed\s*\|",
             stdout,
