@@ -13,6 +13,7 @@
 #include "map.h"
 #include "map_helpers.h"
 #include "map_helpers_tests.h"
+#include "map_scale_constants.h"
 #include "mapbuffer.h"
 #include "mapgen_helpers.h"
 #include "math_parser_diag_value.h"
@@ -230,9 +231,11 @@ TEST_CASE( "axiom7_kx91_vehicle_swap_lifecycle", "[axiom7_lifecycle][kx91][mapge
     const tripoint_abs_omt deck = axiom_origin + tripoint( 1, 2, 1 );
 
     MAPBUFFER.clear_outside_reality_bubble();
-    smallmap initial;
-    initial.generate( deck, calendar::turn, true, true );
-    CHECK( map_has_vehicle( *initial.cast_to_map(), vproto_id( "axiom_kx91_dormant" ) ) );
+    {
+        smallmap initial;
+        initial.generate( deck, calendar::turn, true, true );
+        CHECK( map_has_vehicle( *initial.cast_to_map(), vproto_id( "axiom_kx91_dormant" ) ) );
+    }
 
     const std::vector<std::pair<const char *, const char *>> stages = {
         { "AXIOM_KX91_SWAP_POWERED", "axiom_kx91_powered" },
