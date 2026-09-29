@@ -102,6 +102,29 @@ class DeepRuntimePlanTests(unittest.TestCase):
             game_ids.index("aftershock_prime_mom_compat"),
         )
 
+    def test_release_check_uses_only_requested_root_mod(self):
+        mods, rows = deep.build_suites(TARGET)
+        row = next(
+            item
+            for item in rows
+            if item["name"] == "component-aftershock_prime_mom"
+        )
+        self.assertEqual(
+            row["check_mod_ids"],
+            ["aftershock_prime_mom_compat"],
+        )
+        self.assertIn("mindovermatter", row["game_mod_ids"])
+
+    def test_text_style_errors_are_advisory_but_loader_errors_are_fatal(self):
+        style, fatal = deep.classify_debug_errors(
+            "12:00 ERROR : x/text_style_check_reader.cpp:63 [operator ()] (json-error)\n"
+            "12:00 ERROR : (error message will follow backtrace)\n"
+            "12:00 ERROR : x/translation.cpp:280 [deserialize] (json-error)\n"
+        )
+        self.assertEqual(len(style), 1)
+        self.assertEqual(len(fatal), 1)
+        self.assertIn("translation.cpp:280", fatal[0])
+
     def test_release_asset_prefers_graphical_windows_x64(self):
         assets = [
             {"name": "cdda-linux-terminal-only-x64-foo.tar.gz"},
