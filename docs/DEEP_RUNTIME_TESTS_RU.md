@@ -23,10 +23,24 @@ Workflow `.github/workflows/deep-runtime.yml` работает в два сло�
 - проверяются repository profiles;
 - проверяется общий стек всех JSON-модов;
 - stdout/stderr/debug.log сохраняются как artifact;
-- отчёт содержит SHA содержимого каждого tested payload.
+- отчёт содержит SHA содержимого каждого tested payload;
+- после loader-матрицы те же официальные файлы CDDA используются для отдельной
+  installation lifecycle matrix через **релизный Install-Mods.ps1**, а не через
+  тестовую копию логики установщика.
+
+Для каждого installation-сценария создаётся чистая копия официальной CDDA и
+проверяется цепочка: vanilla baseline → clean install → проверка реально
+установленного payload настоящим exe → повторная установка того же релиза
+(idempotency) → Update через installed.json → rollback → проверка очистки
+receipt/файлов → reinstall после rollback → повторная проверка движком.
+
+Матрица покрывает каждый installable JSON-мод отдельно, Secronom+ вместе с
+зависимостью, транспортный стек, Secronom+ + Prime, общий JSON-стек и полный
+content-стек вместе с UndeadPeople tileset.
 
 То есть старый успешный отчёт не может автоматически сертифицировать изменённый
-мод.
+мод, а успешный loader-check сам по себе больше не считается проверкой
+установщика.
 
 ### 2. Exact source + cata_test
 
