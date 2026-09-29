@@ -87,6 +87,7 @@ try{
     $plain=Join-Path $idata 'mods/plain_mod';[IO.Directory]::CreateDirectory($plain)|Out-Null
     Write-Json (Join-Path $plain 'modinfo.json') @{type='MOD_INFO';id='plain_mod';dependencies=@()}
     Check (@(Get-CheckModsInteractionHazards $idata @('plain_mod')).Count -eq 0) 'Plain dependency graph remains eligible for native validator'
+    Check ($null -ne (Get-Command Test-CheckModsInteractionCapability -ErrorAction SilentlyContinue)) 'Per-build interaction capability probe is exported'
     # Duplicate mod IDs must not be silently selected.
     $dup=Join-Path $root 'duplicate';[IO.Directory]::CreateDirectory($dup)|Out-Null
     foreach($d in @('one','two')){[IO.Directory]::CreateDirectory((Join-Path $dup $d))|Out-Null;Copy-Item (Join-Path $payload 'modinfo.json') (Join-Path $dup "$d/modinfo.json")}
