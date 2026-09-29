@@ -2,7 +2,7 @@
 
 ## AXIOM-7 exact-engine lifecycle gate
 
-Active task branch: `mod/axiom_7/deep-lifecycle`. Base: `main` commit `06620dc4dbd02f72dd227c59d2be9e3f85e43299`. Exact target remains `experimental-2026-09-23-0546` / `e262adb299a7613b4aedc5f12c08fe0413c56a84`.
+Active task branch: `mod/axiom_7/deep-lifecycle`. Pull request: #10. Base was updated with `main` commit `47e851d36220ad33cfac9233b68b82096efbbc8a` before review. Exact target remains `experimental-2026-09-23-0546` / `e262adb299a7613b4aedc5f12c08fe0413c56a84`.
 
 Implemented:
 - repository-owned `tools/runtime_probes/axiom7_lifecycle_test.cpp`;
@@ -11,7 +11,7 @@ Implemented:
 - the probe covers representative AXIOM surface/basement/roof generation, Lena/Rhea/Nadia, AXIOM sentry/turret spawn points, dormant KX-91, the full update-mapgen KX vehicle swap chain, clearance mission end-effects/cards, and security alarm EOC behavior;
 - normal Python tests cover probe wiring so ordinary CI detects accidental removal.
 
-Validation rule: do not promote AXIOM beyond `static` until an actual deep workflow run on the exact game commit succeeds. The probe is designed to produce stronger evidence, not to predeclare it.
+Normal PR CI run `36596427480` passed all jobs and 26 Python tests, including the two lifecycle probe wiring tests. Validation rule: do not promote AXIOM beyond `static` until an actual deep workflow run on the exact game commit succeeds. The probe is designed to produce stronger evidence, not to predeclare it.
 
 ---
 
