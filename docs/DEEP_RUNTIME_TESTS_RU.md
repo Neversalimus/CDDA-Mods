@@ -20,12 +20,15 @@ Workflow `.github/workflows/deep-runtime.yml` работает в три сло�
   ошибка мода;
 - каждый JSON-мод без interaction-bearing dependency graph запускается отдельно через настоящий `--check-mods`;
 - зависимости автоматически добавляются из manifest;
-- для графов с `mod_interactions` (например Mind Over Matter) официальный
-  `--check-mods` на pinned 0546 считается upstream-invalid: его
-  `check_mod_data()` использует общий рекурсивный loader и ошибочно читает
-  conditional interaction-файлы как обычные данные. Такие проверки явно
-  помечаются `deferred_to=exact-source-cata_test`, а runtime authority
-  переносится на exact-source слой, который использует нормальный world loader;
+- перед такими проверками запускается synthetic capability probe именно на
+  текущем бинарнике: временный dependency mod содержит заведомо неактивный
+  `mod_interactions` sentinel. Если `--check-mods` ошибочно читает sentinel,
+  build автоматически помечается как `broken`; если игнорирует его как нормальный
+  world loader — как `supported`. Поэтому workaround не привязан навсегда к 0546;
+- только при capability=`broken` графы с `mod_interactions` (например Mind Over
+  Matter) получают `deferred_to=exact-source-cata_test`. На будущей версии CDDA,
+  где validator исправлен, те же графы автоматически снова проходят обычный
+  официальный `--check-mods`;
 - проверяются repository profiles;
 - проверяется общий стек всех JSON-модов;
 - stdout/stderr/debug.log сохраняются как artifact;
@@ -56,11 +59,13 @@ receipt, но и фактическое отсутствие откатанны�
 
 Логи каждого шага и сводный `matrix-summary.json` сохраняются как artifact.
 
-Для пакета, чей dependency graph содержит `mod_interactions`, installer не
-запускает заведомо некорректный `--check-mods` этой версии CDDA и пишет
-предупреждение о defer. При этом SHA/ZIP verification, staging, фактическая
-установка, repeat/update, receipts и rollback продолжают проверяться полностью.
-Сам runtime такого графа обязан пройти exact-source `cata_test`; defer не
+Installer сначала тем же принципом probing определяет возможность exact
+game binary. Если validator поддерживает dependency `mod_interactions`, весь
+выбранный stack проверяется обычным `--check-mods`. Если probe доказывает старое
+сломанное поведение, defer применяется только к затронутым root-модам; остальные
+root-моды всё равно проходят native validator. SHA/ZIP verification, staging,
+фактическая установка, repeat/update, receipts и rollback не пропускаются.
+Runtime deferred-графа обязан пройти exact-source `cata_test`; сам defer не
 является runtime certification.
 
 ### 3. Exact source + cata_test
