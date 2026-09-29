@@ -58,6 +58,12 @@ jobs:
         mod: [advanced_world_settings, survivor_progression]
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Native jobs only need their own module, catalog binding and SDK prep tools.
+          sparse-checkout: |
+            catalog
+            tools
+            mods/${{ matrix.mod }}
       - name: Read exact external SDK commit
         id: sdk
         shell: pwsh
