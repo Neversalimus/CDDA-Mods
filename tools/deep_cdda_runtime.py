@@ -492,9 +492,15 @@ def find_cata_test(cdda_root: Path) -> Path:
     )
 
 
-def source_specs(depth: str, combined: bool) -> list[str]:
+def source_specs(
+    depth: str,
+    combined: bool,
+    suite_name: str | None = None,
+) -> list[str]:
     del combined  # retained for compatibility with existing callers/tests
     specs = ["[force_load_game]"]
+    if suite_name == "component-axiom_7":
+        specs.append("[axiom7_lifecycle]")
     if depth in ("full", "exhaustive"):
         # Match CDDA's own CI partition and explicitly include starting_items,
         # which exercises character/profession construction under loaded mod data.
@@ -552,7 +558,9 @@ def run_source(
     for row in rows:
         combined = row["name"] == "combined-all-json"
         mod_arg = ",".join(row["game_mod_ids"])
-        for index, spec in enumerate(source_specs(depth, combined)):
+        for index, spec in enumerate(
+            source_specs(depth, combined, row["name"])
+        ):
             safe_spec = (
                 re.sub(r"[^A-Za-z0-9_.-]+", "_", spec).strip("_")
                 or "spec"

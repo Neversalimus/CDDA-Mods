@@ -74,6 +74,33 @@ target, сверяет фактический commit, один раз собир
 `full` — нормальный глубокий режим. `exhaustive` оставлен для редких
 релизных/аудитных проходов.
 
+
+### AXIOM-7 lifecycle probe
+
+Для suite `component-axiom_7` exact-source слой дополнительно запускает
+`[axiom7_lifecycle]`. Это repository-owned Catch2 test, который перед сборкой
+временно копируется в `external/cdda/tests` и компилируется в тот же самый
+`cata_test` точного commit игры. Исходники CDDA в репозитории модов при этом
+не форкаются и не публикуются.
+
+Probe проверяет через реальные runtime API CDDA:
+
+- controlled generation representative OMT surface / basement / roof AXIOM;
+- появление Lena Orlov, Rhea Mercer и Nadia Karpenko в соответствующих OMT;
+- mapgen spawn points patrol sentry и AXIOM turret;
+- исходный `axiom_kx91_dormant` на flight deck;
+- последовательные реальные `update_mapgen` swaps KX-91:
+  powered -> avionics -> weapons-ready -> operational AXIOM -> operational player;
+- реальные end-effects трёх clearance missions и выдачу соответствующих cards;
+- активацию `EOC_AXIOM_SECURITY_ALARM` на живом patrol robot и переход
+  security state/anger.
+
+Этот probe запускается только для `component-axiom_7`, поэтому профили и общий
+JSON stack не повторяют его многократно. Успех probe является gameplay/runtime
+evidence, но сам по себе не заменяет Windows release-binary baseline, installer
+matrix и ручную UX-проверку диалогов/полёта KX-91.
+
+
 ## Почему это не мешает разработке
 
 Deep workflow **не имеет** триггеров `push` и `pull_request`.
