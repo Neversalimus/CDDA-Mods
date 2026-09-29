@@ -297,6 +297,73 @@ def run_release(game_root: Path, target: str, out: Path, timeout: int) -> dict:
     return report
 
 
+def run_installed(
+    game_root: Path,
+    target: str,
+    game_mod_ids: list[str],
+    out: Path,
+    timeout: int,
+) -> dict:
+    """Validate mods that are already installed into a real game tree."""
+    _, targets = suite.validate()
+    if target not in targets:
+        raise ValueError(f"Unknown target: {target}")
+    target_info = targets[target]
+    game_root = game_root.resolve()
+    if exact_commit(game_root) != target_info["commit"]:
+        raise ValueError(
+            "Installed CDDA binary does not match catalog target commit"
+        )
+    exe = find_game_exe(game_root)
+    user = out / "user"
+    user.mkdir(parents=True, exist_ok=True)
+    ids = ["dda"] + [
+        mid for mid in game_mod_ids if mid and mid != "dda"
+    ]
+    args = [
+        str(exe),
+        "--basepath",
+        str(game_root) + "/",
+        "--datadir",
+        str(game_root / "data") + "/",
+        "--userdir",
+        str(user) + "/",
+        "--seed",
+        "CDDA_MODS_INSTALL_MATRIX",
+        "--check-mods",
+        *ids,
+    ]
+    result = run_process(args, game_root, out, timeout)
+    debug = "\n".join(
+        p.read_text(encoding="utf-8", errors="replace")
+        for p in user.rglob("debug.log")
+    )
+    result["errors"] = sorted(
+        set(
+            result["errors"]
+            + [
+                line
+                for line in debug.splitlines()
+                if ERROR_RE.search(line)
+            ]
+        )
+    )
+    report = {
+        "schema": 1,
+        "kind": "installed-game-check",
+        "target": target,
+        "commit": target_info["commit"],
+        "mods": ids,
+        "result": result,
+    }
+    suite.write(out / "report.json", report)
+    if result["exit_code"] or result["errors"]:
+        raise RuntimeError(
+            "Installed-game validation failed for: " + ", ".join(ids)
+        )
+    return report
+
+
 def stage_source(cdda_root: Path, target: str) -> None:
     data_mods = cdda_root / "data" / "mods"
     if not data_mods.is_dir():
@@ -419,6 +486,13 @@ def main() -> None:
     release.add_argument("--out", required=True)
     release.add_argument("--timeout", type=int, default=600)
 
+    installed = sub.add_parser("run-installed")
+    installed.add_argument("--game-root", required=True)
+    installed.add_argument("--target", required=True)
+    installed.add_argument("--mods", required=True)
+    installed.add_argument("--out", required=True)
+    installed.add_argument("--timeout", type=int, default=600)
+
     source = sub.add_parser("run-source")
     source.add_argument("--cdda-root", required=True)
     source.add_argument("--target", required=True)
@@ -440,6 +514,14 @@ def main() -> None:
         run_release(
             Path(args.game_root),
             args.target,
+            Path(args.out),
+            args.timeout,
+        )
+    elif args.command == "run-installed":
+        run_installed(
+            Path(args.game_root),
+            args.target,
+            [mid.strip() for mid in args.mods.split(",") if mid.strip()],
             Path(args.out),
             args.timeout,
         )
