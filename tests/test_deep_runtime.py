@@ -115,6 +115,42 @@ class DeepRuntimePlanTests(unittest.TestCase):
         )
         self.assertIn("mindovermatter", row["game_mod_ids"])
 
+    def test_check_mods_interaction_graph_is_deferred_to_world_loader(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            data = Path(tmp)
+            root = data / "mods" / "root"
+            dep = data / "mods" / "dependency"
+            root.mkdir(parents=True)
+            dep.mkdir(parents=True)
+            (root / "modinfo.json").write_text(
+                '{"type":"MOD_INFO","id":"root_mod","dependencies":["dep_mod"]}',
+                encoding="utf-8",
+            )
+            (dep / "modinfo.json").write_text(
+                '{"type":"MOD_INFO","id":"dep_mod","dependencies":[]}',
+                encoding="utf-8",
+            )
+            interactions = dep / "mod_interactions" / "other_mod"
+            interactions.mkdir(parents=True)
+            (interactions / "override.json").write_text("[]", encoding="utf-8")
+            self.assertEqual(
+                deep.check_mods_interaction_hazards(data, "root_mod"),
+                ["dep_mod"],
+            )
+
+    def test_check_mods_plain_graph_is_not_deferred(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            data = Path(tmp)
+            root = data / "mods" / "plain"
+            root.mkdir(parents=True)
+            (root / "modinfo.json").write_text(
+                '{"type":"MOD_INFO","id":"plain_mod","dependencies":[]}',
+                encoding="utf-8",
+            )
+            self.assertEqual(
+                deep.check_mods_interaction_hazards(data, "plain_mod"),
+                [],
+            )
     def test_text_style_errors_are_advisory_but_loader_errors_are_fatal(self):
         style, fatal = deep.classify_debug_errors(
             "12:00 ERROR : x/text_style_check_reader.cpp:63 [operator ()] (json-error)\n"
