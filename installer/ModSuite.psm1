@@ -243,17 +243,21 @@ function Test-CheckModsInteractionCapability([string]$Exe,[string]$GameRoot,[str
         Write-Json (Join-Path $root 'modinfo.json') @{type='MOD_INFO';id='cdda_mods_probe_interaction_root';name='CDDA-Mods validator capability root';authors=@('CDDA-Mods CI');description='Temporary capability probe.';category='content';dependencies=@('dda','cdda_mods_probe_interaction_dep')}
         $hidden=Join-Path $dep 'mod_interactions/cdda_mods_probe_never_loaded'
         [IO.Directory]::CreateDirectory($hidden) | Out-Null
-        Write-Json (Join-Path $hidden 'sentinel.json') @{type=$token;id='cdda_mods_probe_sentinel'}
+        Write-Json (Join-Path $hidden 'sentinel.json') @{
+            type='snippet'
+            category='cdda_mods_probe_interaction'
+            text=($token+'. single-space sentinel')
+        }
         $probe=Invoke-GameCheck $Exe $GameRoot $DataRoot $Work @('cdda_mods_probe_interaction_root') ([Math]::Min($TimeoutSeconds,120))
         $evidence=(@($probe.errors) -join "`n")
         foreach($f in @(Get-ChildItem -LiteralPath $Work -File -Recurse -ErrorAction SilentlyContinue)){
             if($f.Name -in @('stdout.log','stderr.log','debug.log')){try{$evidence+="`n"+(Get-Content $f.FullName -Raw)}catch{}}
         }
-        if($probe.exit_code -eq 0 -and @($probe.errors).Count -eq 0){
-            return $true
-        }
         if($evidence -match [regex]::Escape($token)){
             return $false
+        }
+        if($probe.exit_code -eq 0 -and @($probe.errors).Count -eq 0){
+            return $true
         }
         throw "Validator capability probe was inconclusive; report: $Work"
     }finally{
