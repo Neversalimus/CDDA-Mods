@@ -6,7 +6,7 @@ NCMM остаётся отдельным проектом.
 
 | Компонент | Текущая перенесённая версия |
 |---|---|
-| AXIOM-7 | 0.8.2.7 |
+| AXIOM-7 | 0.8.2.8 |
 | Blazemod Revival | 0.5.5 |
 | Secronom / Secronom+ | 1.5.1 / 0.3.4, восстановленные исходники |
 | Aftershock Prime + MoM compatibility | Hotfix14a, installer 1.1.1 |
