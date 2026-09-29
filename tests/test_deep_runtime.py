@@ -115,7 +115,7 @@ class DeepRuntimePlanTests(unittest.TestCase):
         )
         self.assertIn("mindovermatter", row["game_mod_ids"])
 
-    def test_check_mods_interaction_graph_is_deferred_to_world_loader(self):
+    def test_check_mods_interaction_graph_is_identified_for_capability_gate(self):
         with tempfile.TemporaryDirectory() as tmp:
             data = Path(tmp)
             root = data / "mods" / "root"
@@ -138,7 +138,7 @@ class DeepRuntimePlanTests(unittest.TestCase):
                 ["dep_mod"],
             )
 
-    def test_check_mods_plain_graph_is_not_deferred(self):
+    def test_check_mods_plain_graph_has_no_interaction_hazard(self):
         with tempfile.TemporaryDirectory() as tmp:
             data = Path(tmp)
             root = data / "mods" / "plain"
@@ -151,6 +151,29 @@ class DeepRuntimePlanTests(unittest.TestCase):
                 deep.check_mods_interaction_hazards(data, "plain_mod"),
                 [],
             )
+    def test_check_mods_capability_probe_is_self_contained(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            data = Path(tmp)
+            paths = deep._write_check_mods_interaction_probe(data)
+            self.assertEqual(len(paths), 2)
+            root = data / "mods" / "__cdda_mods_probe_interaction_root"
+            dep = data / "mods" / "__cdda_mods_probe_interaction_dep"
+            root_info = deep.suite.read(root / "modinfo.json")
+            self.assertIn(
+                deep.CHECK_MODS_INTERACTION_PROBE_DEP,
+                root_info["dependencies"],
+            )
+            sentinel = (
+                dep
+                / "mod_interactions"
+                / "cdda_mods_probe_never_loaded"
+                / "sentinel.json"
+            )
+            self.assertEqual(
+                deep.suite.read(sentinel)["type"],
+                deep.CHECK_MODS_INTERACTION_PROBE_TOKEN,
+            )
+
     def test_text_style_errors_are_advisory_but_loader_errors_are_fatal(self):
         style, fatal = deep.classify_debug_errors(
             "12:00 ERROR : x/text_style_check_reader.cpp:63 [operator ()] (json-error)\n"
