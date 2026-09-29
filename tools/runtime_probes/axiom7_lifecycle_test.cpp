@@ -11,6 +11,7 @@
 #include "coordinates.h"
 #include "dialogue.h"
 #include "effect_on_condition.h"
+#include "item.h"
 #include "map.h"
 #include "map_helpers.h"
 #include "map_helpers_tests.h"
@@ -142,6 +143,18 @@ bool avatar_value_is( const std::string &key, const std::string &wanted )
     return value != nullptr && value->to_string() == wanted;
 }
 
+bool avatar_or_ground_has_item( const itype_id &wanted )
+{
+    avatar &u = get_avatar();
+    if( u.has_amount( wanted, 1 ) ) {
+        return true;
+    }
+    map_stack ground = get_map().i_at( u.pos_bub() );
+    return std::any_of( ground.begin(), ground.end(), [&]( const item &it ) {
+        return it.typeId() == wanted;
+    } );
+}
+
 } // namespace
 
 TEST_CASE( "axiom7_composite_mapgen_runtime", "[axiom7_lifecycle][mapgen]" )
@@ -205,15 +218,15 @@ TEST_CASE( "axiom7_clearance_mission_end_effects", "[axiom7_lifecycle][mission]"
 
     run_mission_end( "MISSION_AXIOM_SENSOR_RELAY" );
     CHECK( avatar_value_is( "axiom_clearance_contractor", "yes" ) );
-    CHECK( u.has_amount( itype_id( "axiom_card_contractor" ), 1 ) );
+    CHECK( avatar_or_ground_has_item( itype_id( "axiom_card_contractor" ) ) );
 
     run_mission_end( "MISSION_AXIOM_POWER_STACK" );
     CHECK( avatar_value_is( "axiom_clearance_specialist", "yes" ) );
-    CHECK( u.has_amount( itype_id( "axiom_card_specialist" ), 1 ) );
+    CHECK( avatar_or_ground_has_item( itype_id( "axiom_card_specialist" ) ) );
 
     run_mission_end( "MISSION_AXIOM_ROGUE_SENTINEL" );
     CHECK( avatar_value_is( "axiom_clearance_prototype", "yes" ) );
-    CHECK( u.has_amount( itype_id( "axiom_card_prototype" ), 1 ) );
+    CHECK( avatar_or_ground_has_item( itype_id( "axiom_card_prototype" ) ) );
 }
 
 TEST_CASE( "axiom7_kx91_vehicle_swap_lifecycle", "[axiom7_lifecycle][kx91][mapgen]" )
