@@ -16,7 +16,7 @@ Still required before a stronger compatibility claim: run the exact-game real-CD
 
 ---
 
-The private Neversalimus/CDDA-Mods repository is populated; initial import 14bafb0, CI setup d4c2ac5. Read AGENTS.md and STATUS.md, then refresh remote HEAD and latest Actions before editing. The connector currently lacks private-repository access; owner authorized browser uploads. Never overwrite another chat's changes.
+The private Neversalimus/CDDA-Mods repository is populated; initial import 14bafb0, CI setup d4c2ac5. Read AGENTS.md and STATUS.md, then refresh remote HEAD and latest Actions before editing. Repository access can differ between chats, so verify it instead of assuming an old access state. Never overwrite another chat's changes.
 
 This update imports module-only Survivor 0.9.15 cumulative v8.7.3, archives 0.9.10, and fixes PS 5.1 root-array handling during duplicate mod detection. Provenance is in catalog/provenance.json. SDK recipe is header-only and hash-bound; external NCMM host remains excluded. SOURCE_SHA256.json describes the initial import, not later git commits.
 
