@@ -90,6 +90,7 @@ def main() -> int:
     ap.add_argument("--cdda-root", required=True)
     ap.add_argument("--matrix", required=True)
     ap.add_argument("--suite", default="all")
+    ap.add_argument("--target", default="")
     args = ap.parse_args()
 
     cdda = Path(args.cdda_root).resolve()
@@ -97,7 +98,8 @@ def main() -> int:
     if not (cdda / "data" / "mods").is_dir():
         raise ValueError(f"not a CDDA source checkout: {cdda}")
 
-    target, requested = requested_from_matrix(matrix_path, args.suite)
+    matrix_target, requested = requested_from_matrix(matrix_path, args.suite)
+    target = args.target or matrix_target
     mods = manifests()
     chosen = dependency_closure(mods, requested)
     chosen = [mid for mid in chosen if mods[mid]["kind"] == "json"]
