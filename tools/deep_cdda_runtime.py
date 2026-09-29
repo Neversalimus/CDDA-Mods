@@ -374,8 +374,12 @@ def _write_check_mods_interaction_probe(data_root: Path) -> list[Path]:
     suite.write(
         hidden / "sentinel.json",
         {
-            "type": CHECK_MODS_INTERACTION_PROBE_TOKEN,
-            "id": "cdda_mods_probe_sentinel",
+            "type": "snippet",
+            "category": "cdda_mods_probe_interaction",
+            "text": (
+                CHECK_MODS_INTERACTION_PROBE_TOKEN
+                + ". single-space sentinel"
+            ),
         },
     )
     return [root, dep]
@@ -429,10 +433,10 @@ def probe_check_mods_interactions(
         result["errors"] = sorted(set(result["errors"] + fatal_debug))
         result["debug_logs"] = [str(p) for p in debug_files]
 
-        if result["exit_code"] == 0 and not result["errors"]:
-            status = "supported"
-        elif CHECK_MODS_INTERACTION_PROBE_TOKEN in combined:
+        if CHECK_MODS_INTERACTION_PROBE_TOKEN in combined:
             status = "broken"
+        elif result["exit_code"] == 0 and not result["errors"]:
+            status = "supported"
         else:
             status = "inconclusive"
 
@@ -887,6 +891,58 @@ def source_specs(
     return specs
 
 
+def normalize_cata_test_result(result: dict, log_dir: Path) -> dict:
+    """Keep real Catch failures fatal while downgrading pure text-style noise."""
+    result = dict(result)
+    raw_exit = result["exit_code"]
+    stdout_path = log_dir / "stdout.log"
+    stderr_path = log_dir / "stderr.log"
+    stdout = (
+        stdout_path.read_text(encoding="utf-8", errors="replace")
+        if stdout_path.is_file()
+        else ""
+    )
+    stderr = (
+        stderr_path.read_text(encoding="utf-8", errors="replace")
+        if stderr_path.is_file()
+        else ""
+    )
+    style_warnings, fatal_debug = classify_debug_errors(stderr)
+    result["raw_exit_code"] = raw_exit
+    result["style_warnings"] = style_warnings
+    result["errors"] = sorted(set(fatal_debug))
+
+    catch_failed = bool(
+        re.search(
+            r"(?mi)^\s*test cases:.*\|\s*\d+\s+failed\b",
+            stdout,
+        )
+    )
+    catch_passed = bool(
+        re.search(r"(?mi)^\s*test cases:\s*\d+\s*\|\s*\d+\s+passed\s*$", stdout)
+        or re.search(
+            r"(?mi)^\s*test cases:\s*\d+\s*\|\s*\d+\s+passed\s*\|",
+            stdout,
+        )
+    )
+
+    # cata_test returns 1 when initialization logged D_ERROR, including advisory
+    # text-style diagnostics. Normalize only when Catch itself demonstrably
+    # passed and there is no non-style diagnostic. Never mask timeouts/crashes.
+    if (
+        raw_exit == 1
+        and style_warnings
+        and not result["errors"]
+        and catch_passed
+        and not catch_failed
+    ):
+        result["exit_code"] = 0
+        result["style_only_exit"] = True
+    result["catch_failed"] = catch_failed
+    result["catch_passed"] = catch_passed
+    return result
+
+
 def run_source(
     cdda_root: Path,
     target: str,
@@ -954,6 +1010,7 @@ def run_source(
                 spec,
             ]
             result = run_process(args, cdda_root, log_dir, timeout)
+            result = normalize_cata_test_result(result, log_dir)
             runs.append(
                 {
                     "suite": row["name"],
