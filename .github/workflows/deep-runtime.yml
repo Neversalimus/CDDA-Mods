@@ -1,0 +1,176 @@
+name: Deep real-CDDA runtime
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Catalog target ID
+        required: true
+        default: experimental-2026-09-23-0546
+        type: string
+      depth:
+        description: Source-runtime depth
+        required: true
+        default: full
+        type: choice
+        options:
+          - load
+          - full
+          - exhaustive
+      release_binary:
+        description: Run official release-binary checks
+        required: true
+        default: true
+        type: boolean
+      source_runtime:
+        description: Build exact CDDA source and run cata_test
+        required: true
+        default: true
+        type: boolean
+  schedule:
+    # Scheduled runs are OFF unless repository variable CDDA_DEEP_TESTS_ENABLED=true.
+    - cron: '17 2 * * 0'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deep-real-cdda-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  DEEP_TARGET: ${{ github.event_name == 'workflow_dispatch' && inputs.target || 'experimental-2026-09-23-0546' }}
+  DEEP_DEPTH: ${{ github.event_name == 'workflow_dispatch' && inputs.depth || 'full' }}
+
+jobs:
+  release-binary:
+    name: Official release binary / loader matrix
+    if: >-
+      ${{
+        (github.event_name == 'workflow_dispatch' && inputs.release_binary) ||
+        (github.event_name == 'schedule' && vars.CDDA_DEEP_TESTS_ENABLED == 'true')
+      }}
+    runs-on: windows-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Static repository gate
+        run: python tools/modsuite.py validate
+
+      - name: Download exact official CDDA release
+        shell: pwsh
+        env:
+          GH_API_TOKEN: ${{ github.token }}
+        run: >
+          python tools/fetch_cdda_release.py
+          --target "$env:DEEP_TARGET"
+          --out build/cdda-release
+          --token "$env:GH_API_TOKEN"
+
+      - name: Run baseline, every JSON component, profiles and combined stack
+        shell: pwsh
+        run: |
+          $gameRoot=(Get-Content build/cdda-release/game-root.txt -Raw).Trim()
+          python tools/deep_cdda_runtime.py run-release `
+            --game-root "$gameRoot" `
+            --target "$env:DEEP_TARGET" `
+            --out build/deep-release `
+            --timeout 900
+          if($LASTEXITCODE){exit $LASTEXITCODE}
+
+      - name: Upload binary-runtime evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deep-release-${{ env.DEEP_TARGET }}
+          path: |
+            build/deep-release/**
+            build/cdda-release/release.json
+          if-no-files-found: warn
+          retention-days: 30
+
+  source-runtime:
+    name: Exact source / native cata_test runtime
+    if: >-
+      ${{
+        (github.event_name == 'workflow_dispatch' && inputs.source_runtime) ||
+        (github.event_name == 'schedule' && vars.CDDA_DEEP_TESTS_ENABLED == 'true')
+      }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Resolve exact catalog commit
+        id: target
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          target=os.environ["DEEP_TARGET"]
+          data=json.loads((Path("catalog/targets")/(target+".json")).read_text(encoding="utf-8"))
+          with open(os.environ["GITHUB_OUTPUT"],"a",encoding="utf-8") as f:
+              f.write("commit="+data["commit"]+"\n")
+              f.write("tag="+data["tag"]+"\n")
+          PY
+
+      - name: Checkout exact CDDA source
+        uses: actions/checkout@v4
+        with:
+          repository: CleverRaven/Cataclysm-DDA
+          ref: ${{ steps.target.outputs.commit }}
+          path: external/cdda
+          fetch-depth: 1
+
+      - name: Install curses build dependencies
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential libncursesw5-dev ccache gettext parallel
+          ccache --max-size=5G
+          ccache --zero-stats
+
+      - name: Cache compiler output
+        uses: actions/cache@v4
+        with:
+          path: ~/.ccache
+          key: cdda-cata-test-${{ runner.os }}-${{ steps.target.outputs.commit }}
+          restore-keys: |
+            cdda-cata-test-${{ runner.os }}-
+
+      - name: Build CDDA's own test executable
+        working-directory: external/cdda
+        shell: bash
+        run: |
+          make -j2 RELEASE=1 LOCALIZE=0 TILES=0 SOUND=0 ASTYLE=0 LINTJSON=0 CCACHE=1
+          test -x tests/cata_test || { echo "tests/cata_test was not built"; exit 1; }
+          ccache --show-stats
+
+      - name: Run CDDA tests with repository mods loaded
+        shell: bash
+        run: |
+          python tools/deep_cdda_runtime.py run-source \
+            --cdda-root external/cdda \
+            --target "$DEEP_TARGET" \
+            --out build/deep-source \
+            --depth "$DEEP_DEPTH" \
+            --timeout 7200
+
+      - name: Upload source-runtime evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deep-source-${{ env.DEEP_TARGET }}-${{ env.DEEP_DEPTH }}
+          path: build/deep-source/**
+          if-no-files-found: warn
+          retention-days: 30
