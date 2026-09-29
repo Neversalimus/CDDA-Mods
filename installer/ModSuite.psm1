@@ -239,16 +239,27 @@ function Test-StagedMods([string]$GameRoot,[object[]]$Plan,[string]$Work,[int]$T
     $stack=Join-Path $data 'mods/suite_validation_stack';[IO.Directory]::CreateDirectory($stack) | Out-Null
     Write-Json (Join-Path $stack 'modinfo.json') @(@{type='MOD_INFO';id='suite_validation_stack';name='Suite validation only';authors=@('Neversalimus');description='Temporary validation stack.';dependencies=@('dda')+$ids})
     # CDDA 0546 --check-mods uses the generic recursive loader for dependency
-    # packs.  That incorrectly consumes conditional mod_interactions and can
+    # packs. That incorrectly consumes conditional mod_interactions and can
     # make a valid mod redefine its own IDs (Mind Over Matter is one example).
     # Normal world loading and cata_test use the correct two-phase loader.
     $hazards=@(Get-CheckModsInteractionHazards $data @('suite_validation_stack'))
     if($hazards.Count){
-        Write-Warning ("Skipping broken upstream --check-mods path for interaction-bearing dependency graph: " + ($hazards -join ', ') + ". Exact-source cata_test remains the runtime authority.")
+        # Preserve every safe validator check in this plan. Only roots whose own
+        # dependency closure reaches interaction-bearing mods are deferred.
+        foreach($id in $ids){
+            $idHazards=@(Get-CheckModsInteractionHazards $data @([string]$id))
+            if($idHazards.Count){
+                Write-Warning ("Deferring broken upstream --check-mods path for $id via: " + ($idHazards -join ', ') + ". Exact-source cata_test remains the runtime authority.")
+                continue
+            }
+            $safe=($id -replace '[^A-Za-z0-9_.-]','_')
+            $individual=Invoke-GameCheck $exe $GameRoot $data (Join-Path $Work ('validation/safe-'+$safe)) @([string]$id) $TimeoutSeconds
+            if($individual.exit_code -ne 0 -or @($individual.errors).Count){throw "Selected mod validation failed for $id; report: $($individual.log)"}
+        }
         return
     }
-    # Check only the synthetic root. CDDA resolves its dependencies itself;
-    # passing dependencies as additional roots can re-check the same stack twice.
+    # No interaction-bearing dependency is present: validate the whole selected
+    # stack together through one synthetic dependency root.
     $result=Invoke-GameCheck $exe $GameRoot $data (Join-Path $Work 'validation/selected') @('suite_validation_stack') $TimeoutSeconds
     if($result.exit_code -ne 0 -or @($result.errors).Count){throw "Selected mod validation failed; report: $($result.log)"}
 }
