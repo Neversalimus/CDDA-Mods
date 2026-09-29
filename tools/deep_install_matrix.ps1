@@ -57,7 +57,8 @@ function Invoke-InstallerCase(
         '-GameRoot',$game,
         '-PackageRoot',$UsePackageRoot,
         '-Yes',
-        '-ValidationTimeout',([string]$ValidationTimeout)
+        '-ValidationTimeout',([string]$ValidationTimeout),
+        '-CheckModsInteractions',$script:checkModsInteractions
     )+$Extra
     $lines=@(& $ps51 @args 2>&1 | ForEach-Object {$_ | Out-String})
     $code=$LASTEXITCODE
