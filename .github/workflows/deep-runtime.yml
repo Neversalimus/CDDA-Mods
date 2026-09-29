@@ -184,6 +184,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           path: harness
+          # source_build only injects repository-owned exact-engine probes.
+          sparse-checkout: |
+            tools/runtime_probes
 
       - uses: actions/checkout@v4
         with:
