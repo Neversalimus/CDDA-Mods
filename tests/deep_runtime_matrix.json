@@ -15,6 +15,12 @@
       ]
     },
     {
+      "id": "secronom",
+      "mods": [
+        "secronom"
+      ]
+    },
+    {
       "id": "secronom-stack",
       "mods": [
         "secronom_plus"
@@ -24,6 +30,12 @@
       "id": "aftershock-prime",
       "mods": [
         "aftershock_prime"
+      ]
+    },
+    {
+      "id": "aftershock-prime-mom",
+      "mods": [
+        "aftershock_prime_mom"
       ]
     },
     {
@@ -53,6 +65,7 @@
         "blazemod",
         "secronom_plus",
         "aftershock_prime",
+        "aftershock_prime_mom",
         "tankmod"
       ]
     },
@@ -63,6 +76,7 @@
         "blazemod",
         "secronom_plus",
         "aftershock_prime",
+        "aftershock_prime_mom",
         "tankmod",
         "undeadpeople"
       ]
