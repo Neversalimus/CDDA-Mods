@@ -208,7 +208,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          bash ./build-scripts/requirements.sh
+          # requirements.sh only adds GitHub problem matchers for this Linux path.
+          # Because CDDA is checked out under external/cdda, those matcher paths are
+          # resolved by the runner against the parent workspace and become invalid.
           make -j2 RELEASE=1 LOCALIZE=0 TILES=0 SOUND=0 TESTS=1 ASTYLE=0 LINTJSON=0 CCACHE=1
           test -x tests/cata_test
           ./tests/cata_test "[force_load_game]" --user-dir=baseline-build-smoke
