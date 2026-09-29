@@ -79,8 +79,10 @@ python tools/modsuite.py build
 `.github/workflows/deep-runtime.yml` отделён от обычного CI и не запускается на
 `push`/`pull_request`. Он скачивает точный официальный Windows release CDDA и
 прогоняет vanilla baseline, каждый JSON-мод, профили и общий стек через настоящий
-`--check-mods`. Второй слой checkout'ит точный commit CDDA, собирает родной
-`tests/cata_test` и запускает его с нашими модами через `--mods`.
+`--check-mods`. На том же официальном билде отдельная lifecycle-матрица запускает
+релизный установщик: clean install, idempotent reinstall, receipt update, rollback
+и reinstall после rollback. Второй слой checkout'ит точный commit CDDA, собирает
+родной `tests/cata_test` и запускает его с нашими модами через `--mods`.
 
 Ручной запуск доступен всегда. Плановый недельный запуск выполняется только при
 repository variable `CDDA_DEEP_TESTS_ENABLED=true`; убрать/выключить variable
