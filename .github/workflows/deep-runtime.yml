@@ -78,7 +78,9 @@ jobs:
           --token "$env:GH_API_TOKEN"
 
       - name: Run baseline, every JSON component, profiles and combined stack
+        id: release_loader
         if: ${{ github.event_name == 'schedule' || inputs.release_binary }}
+        continue-on-error: true
         shell: pwsh
         run: |
           $gameRoot=(Get-Content build/cdda-release/game-root.txt -Raw).Trim()
@@ -125,6 +127,16 @@ jobs:
             build/cdda-release/release.json
           if-no-files-found: warn
           retention-days: 30
+
+      - name: Preserve release-loader failure after installer evidence
+        if: >-
+          ${{
+            always() &&
+            (github.event_name == 'schedule' || inputs.release_binary) &&
+            steps.release_loader.outcome == 'failure'
+          }}
+        shell: pwsh
+        run: throw 'Release loader matrix failed; installer lifecycle was still allowed to run so both evidence sets are preserved.'
 
   source_plan:
     name: Resolve exact source-runtime matrix
@@ -215,6 +227,13 @@ jobs:
           test -x tests/cata_test
           ./tests/cata_test "[force_load_game]" --user-dir=baseline-build-smoke
           ccache --show-stats || true
+
+      - name: Save compiler cache even after a failed build
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: ~/.cache/ccache
+          key: cdda-cata-test-${{ runner.os }}-${{ needs.source_plan.outputs.commit }}
 
       - uses: actions/upload-artifact@v4
         with:
