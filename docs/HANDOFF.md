@@ -1,3 +1,15 @@
+# Handoff — 2026-09-30
+
+## Safe CI observability / targeted style cleanup
+
+Branch: `infra/safe-observability-pass`. Base: `f83595d4a1b084c263645aa99aa660b912964d61`. Code validation point: `8a57afbd8c6ee4d6766b927421a86568dd26621b`. Exact CDDA target remains `experimental-2026-09-23-0546` / `e262adb299a7613b4aedc5f12c08fe0413c56a84`.
+
+Changes are deliberately non-invasive: `deep_cdda_runtime.py` records elapsed seconds and diagnostic environment/runtime hashes and normalizes text-style annotations into timestamp-free fingerprints; `deep_install_matrix.ps1` records per-case and total timing plus installer/catalog hashes; `deep_summary.py` and the final deep workflow job aggregate existing evidence into a compact report. The summary job and warning baseline are non-gating and do not alter PASS/FAIL authority.
+
+Targeted Secronom cleanup changed exactly 29 known text-style locations: 28 `...` strings to `…` and one trailing space. The 985 sentence-spacing warnings were not auto-fixed. Expected post-cleanup Secronom warning count is 985; dependent Secronom+ is expected at 1443, and combined/profile suites at 1795. These counts are derived from run 36637757803 and must be confirmed by the next exact-source deep run.
+
+Normal CI run `36644399331` passed all three jobs on code commit `8a57afbd8c6ee4d6766b927421a86568dd26621b`: verify/package + PS 5.1/7 + Python tests, Survivor native compile, and Advanced World Settings native compile. No deep run has yet executed this branch. Next step: merge only after the final branch CI remains green, then run/inspect the exact-game deep workflow and confirm the informational baseline rather than promoting compatibility from normal CI alone.
+
 # Handoff — 2026-09-29
 
 ## AXIOM-7 exact-engine lifecycle gate
