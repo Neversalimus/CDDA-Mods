@@ -68,13 +68,79 @@ def closure(mods: dict[str, dict], ids: list[str]) -> list[str]:
     return out
 
 
-def game_ids_for(mods: dict[str, dict], ids: list[str]) -> list[str]:
-    ordered = closure(mods, ids)
-    result = ["dda"]
-    for mid in ordered:
+def declared_game_dependencies(mod: dict, target: str) -> dict[str, list[str]]:
+    """Read MOD_INFO dependencies for every game mod ID owned by a component."""
+    variant = target_variant(mod, target)
+    modinfo = suite.read(
+        ROOT / "mods" / mod["id"] / variant["path"] / "modinfo.json"
+    )
+    rows = modinfo if isinstance(modinfo, list) else [modinfo]
+    wanted = set(mod["game_mod_ids"])
+    found: dict[str, list[str]] = {}
+    for row in rows:
+        if not isinstance(row, dict) or row.get("type") != "MOD_INFO":
+            continue
+        game_id = row.get("id")
+        if game_id in wanted:
+            found[game_id] = list(row.get("dependencies", []))
+    missing = wanted - set(found)
+    if missing:
+        raise ValueError(
+            f"{mod['id']}: MOD_INFO missing declared game ids: {sorted(missing)}"
+        )
+    return found
+
+
+def game_ids_for(
+    mods: dict[str, dict], ids: list[str], target: str
+) -> list[str]:
+    """Build dependency-complete game-mod order for check-mods/cata_test.
+
+    Repository manifests describe package dependencies. MOD_INFO can additionally
+    depend on game-shipped mods which are deliberately not packages in this repo,
+    e.g. Mind Over Matter. Those IDs still have to precede our compatibility mod
+    in the explicit runtime selection.
+    """
+    ordered_components = closure(mods, ids)
+    game_to_component = {
+        game_id: mid
+        for mid, mod in mods.items()
+        for game_id in mod["game_mod_ids"]
+    }
+    deps_by_game: dict[str, list[str]] = {}
+    for mid in ordered_components:
+        deps_by_game.update(declared_game_dependencies(mods[mid], target))
+
+    result: list[str] = []
+    visiting: set[str] = set()
+
+    def add_game(game_id: str) -> None:
+        if game_id in result:
+            return
+        if game_id in visiting:
+            raise ValueError(f"Game mod dependency cycle at {game_id}")
+        visiting.add(game_id)
+
+        owner = game_to_component.get(game_id)
+        if owner is not None and owner not in ordered_components:
+            for dep_mid in closure(mods, [owner]):
+                if dep_mid not in ordered_components:
+                    ordered_components.append(dep_mid)
+                    deps_by_game.update(
+                        declared_game_dependencies(mods[dep_mid], target)
+                    )
+
+        for dep in deps_by_game.get(game_id, []):
+            add_game(dep)
+
+        visiting.remove(game_id)
+        if game_id not in result:
+            result.append(game_id)
+
+    add_game("dda")
+    for mid in ordered_components:
         for game_id in mods[mid]["game_mod_ids"]:
-            if game_id not in result:
-                result.append(game_id)
+            add_game(game_id)
     return result
 
 
@@ -88,7 +154,7 @@ def build_suites(target: str) -> tuple[dict[str, dict], list[dict]]:
             {
                 "name": f"component-{mid}",
                 "components": ids,
-                "game_mod_ids": game_ids_for(mods, ids),
+                "game_mod_ids": game_ids_for(mods, ids, target),
             }
         )
 
@@ -101,7 +167,7 @@ def build_suites(target: str) -> tuple[dict[str, dict], list[dict]]:
         row = {
             "name": f"profile-{name}",
             "components": ids,
-            "game_mod_ids": game_ids_for(mods, ids),
+            "game_mod_ids": game_ids_for(mods, ids, target),
         }
         if not any(
             existing["game_mod_ids"] == row["game_mod_ids"] for existing in rows
@@ -112,7 +178,7 @@ def build_suites(target: str) -> tuple[dict[str, dict], list[dict]]:
     combined = {
         "name": "combined-all-json",
         "components": all_ids,
-        "game_mod_ids": game_ids_for(mods, all_ids),
+        "game_mod_ids": game_ids_for(mods, all_ids, target),
     }
     if not any(
         existing["game_mod_ids"] == combined["game_mod_ids"] for existing in rows
