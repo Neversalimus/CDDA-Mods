@@ -25,7 +25,7 @@
     "type": "MONSTER",
     "looks_like": "mon_secubot",
     "name": {
-      "str": "AXIOM patrol sentry"
+      "str": "AXIOM patrol sentry",\n      "str_pl": "AXIOM patrol sentries"
     },
     "description": "A compact tracked AXIOM-7 security UGV fitted with a rifle mount, sensor mast and hardened IFF package. It follows a fixed patrol while the site is green; once AXIOM security declares a hostile, its rules of engagement change immediately.",
     "default_faction": "axiom_security_bot",
