@@ -7,7 +7,7 @@
     "str": "lying body",
     "str_pl": "lying bodies"
   },
-  "description": "A walking swollen cocoon, seemingly made out skin. Silent moaning is heard from the inside",
+  "description": "A walking swollen cocoon, seemingly made out skin.  Silent moaning is heard from the inside",
   "default_faction": "zombie",
   "species": [
     "ZOMBIE",
@@ -191,7 +191,7 @@
   "name": {
     "str": "nightinwail"
   },
-  "description": "Misty black shadow that covers over a great distance. A shady winged creature is barely visible from beyond it.",
+  "description": "Misty black shadow that covers over a great distance.  A shady winged creature is barely visible from beyond it.",
   "default_faction": "zombie",
   "species": [
     "ZOMBIE",
@@ -275,7 +275,7 @@
   "name": {
     "str": "shadow"
   },
-  "description": "This is an animate shadow-looking thing. There's nothing to fear about its appearance, nothing at all.",
+  "description": "This is an animate shadow-looking thing.  There's nothing to fear about its appearance, nothing at all.",
   "default_faction": "zombie",
   "species": [
     "ZOMBIE"
