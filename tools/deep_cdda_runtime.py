@@ -129,17 +129,27 @@ def build_suites(target: str) -> tuple[dict[str, dict], list[dict]]:
     return mods, rows
 
 
-def copy_json_mods(target: str, destination_mods: Path) -> dict[str, dict]:
+def copy_json_mods(
+    target: str,
+    destination_mods: Path,
+    component_ids: list[str] | None = None,
+) -> dict[str, dict]:
     mods = json_components(target)
+    selected = (
+        closure(mods, component_ids)
+        if component_ids is not None
+        else sorted(mods)
+    )
     destination_mods.mkdir(parents=True, exist_ok=True)
-    for mid, mod in mods.items():
+    for mid in selected:
+        mod = mods[mid]
         variant = target_variant(mod, target)
         src = ROOT / "mods" / mid / variant["path"]
         dst = destination_mods / mod["folder"]
         if dst.exists():
             shutil.rmtree(dst)
         shutil.copytree(src, dst)
-    return mods
+    return {mid: mods[mid] for mid in selected}
 
 
 def find_game_exe(game: Path) -> Path:
@@ -238,7 +248,6 @@ def run_release(game_root: Path, target: str, out: Path, timeout: int) -> dict:
         )
         if (game_root / "gfx").is_dir():
             shutil.copytree(game_root / "gfx", data / "gfx")
-        copy_json_mods(target, data / "mods")
 
         def check(name: str, game_ids: list[str]) -> dict:
             user = out / name / "user"
@@ -265,9 +274,12 @@ def run_release(game_root: Path, target: str, out: Path, timeout: int) -> dict:
             result["errors"] = sorted(set(result["errors"] + extra))
             return result
 
+        # Prove the exact official release is healthy before introducing any
+        # repository payload. A broken vanilla baseline must never be blamed on a mod.
         baseline = check("baseline-dda", ["dda"])
         results = []
         if baseline["exit_code"] == 0 and not baseline["errors"]:
+            copy_json_mods(target, data / "mods")
             for row in rows:
                 result = check(row["name"], row["game_mod_ids"])
                 results.append({**row, "result": result})
@@ -362,11 +374,15 @@ def run_installed(
     return report
 
 
-def stage_source(cdda_root: Path, target: str) -> None:
+def stage_source(
+    cdda_root: Path,
+    target: str,
+    component_ids: list[str] | None = None,
+) -> None:
     data_mods = cdda_root / "data" / "mods"
     if not data_mods.is_dir():
         raise ValueError(f"Not a CDDA source checkout: {cdda_root}")
-    copy_json_mods(target, data_mods)
+    copy_json_mods(target, data_mods, component_ids)
 
 
 def find_cata_test(cdda_root: Path) -> Path:
@@ -385,13 +401,16 @@ def find_cata_test(cdda_root: Path) -> Path:
 
 
 def source_specs(depth: str, combined: bool) -> list[str]:
+    del combined  # retained for compatibility with existing callers/tests
     specs = ["[force_load_game]"]
     if depth in ("full", "exhaustive"):
-        specs.append("~[slow] ~[.]")
-    if depth == "exhaustive" and combined:
-        specs.extend(
-            ["[slow] ~crafting_skill_gain", "crafting_skill_gain"]
-        )
+        # Match CDDA's own CI partition and explicitly include starting_items,
+        # which exercises character/profession construction under loaded mod data.
+        specs.append("~[slow] ~[.],starting_items")
+    if depth == "exhaustive":
+        # Complementary slow partition: together with the line above this covers
+        # essentially the full non-hidden upstream runtime surface.
+        specs.append("[slow] ~starting_items")
     return specs
 
 
@@ -401,6 +420,7 @@ def run_source(
     out: Path,
     depth: str,
     timeout: int,
+    suite_name: str | None = None,
 ) -> dict:
     _, targets = suite.validate()
     if target not in targets:
@@ -423,9 +443,16 @@ def run_source(
             f"CDDA source commit mismatch: expected {target_info['commit']}, "
             f"got {actual_commit}"
         )
-    stage_source(cdda_root, target)
     test_bin = find_cata_test(cdda_root)
     _, rows = build_suites(target)
+    if suite_name is not None:
+        rows = [row for row in rows if row["name"] == suite_name]
+        if len(rows) != 1:
+            raise ValueError(f"Unknown source-runtime suite: {suite_name}")
+    selected_components = sorted(
+        {mid for row in rows for mid in row["components"]}
+    )
+    stage_source(cdda_root, target, selected_components)
     out.mkdir(parents=True, exist_ok=True)
 
     runs = []
@@ -468,6 +495,8 @@ def run_source(
         "depth": depth,
         "target": target,
         "commit": target_info["commit"],
+        "observed_source_commit": actual_commit,
+        "suite_filter": suite_name,
         "runs": runs,
     }
     suite.write(out / "report.json", report)
@@ -516,7 +545,12 @@ def main() -> None:
         choices=("load", "full", "exhaustive"),
         default="full",
     )
-    source.add_argument("--timeout", type=int, default=7200)
+    source.add_argument("--timeout", type=int, default=10800)
+    source.add_argument(
+        "--suite",
+        default=None,
+        help="Run only one suite name from the plan (used by CI matrix jobs)",
+    )
 
     args = parser.parse_args()
     if args.command == "plan":
@@ -546,6 +580,7 @@ def main() -> None:
             Path(args.out),
             args.depth,
             args.timeout,
+            args.suite,
         )
 
 
