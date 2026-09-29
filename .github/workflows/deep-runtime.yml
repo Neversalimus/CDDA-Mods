@@ -171,6 +171,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          path: harness
+
+      - uses: actions/checkout@v4
+        with:
           repository: CleverRaven/Cataclysm-DDA
           ref: ${{ needs.source_plan.outputs.commit }}
           path: external/cdda
@@ -192,6 +196,11 @@ jobs:
           key: cdda-cata-test-${{ runner.os }}-${{ needs.source_plan.outputs.commit }}
           restore-keys: |
             cdda-cata-test-${{ runner.os }}-
+
+      - name: Inject repository-owned exact-engine runtime probes
+        shell: bash
+        run: |
+          cp harness/tools/runtime_probes/axiom7_lifecycle_test.cpp             external/cdda/tests/axiom7_lifecycle_test.cpp
 
       - name: Build and smoke the real engine test executable
         working-directory: external/cdda
