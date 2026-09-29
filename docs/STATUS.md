@@ -1,4 +1,4 @@
-# Current status — 2026-09-27
+# Current status — 2026-09-29
 
 Source import is complete in private Neversalimus/CDDA-Mods. Latest source commit: `2d10f4708e0e3e0178999a1397a342ad73e48c52` (v8.7.3 refresh). NCMM remains external. The v0.1.0 PREVIEW publication workflow rebuilds and retests its exact release commit before creating an immutable tag and assets.
 
