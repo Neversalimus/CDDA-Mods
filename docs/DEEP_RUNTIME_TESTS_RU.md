@@ -80,9 +80,13 @@ Deep workflow **не имеет** триггеров `push` и `pull_request`.
 
 Ручной запуск всегда доступен через Actions -> **Deep real-CDDA runtime**.
 
-Плановый запуск раз в неделю включён по умолчанию. Это подходит текущему режиму,
-где моды меняются редко и можно позволить длинную проверку. Для перехода в
-интенсивную разработку достаточно создать repository variable:
+Плановый запуск раз в неделю включён по умолчанию. Для текущего режима, где моды
+меняются редко, schedule использует глубину `exhaustive`. Его можно перенастроить
+без правки workflow: repository variable `CDDA_DEEP_TESTS_DEPTH` принимает
+`load`, `full` или `exhaustive`, а `CDDA_DEEP_TESTS_TARGET` может указать
+другой catalog target.
+
+Для перехода в интенсивную разработку достаточно создать repository variable:
 
 `CDDA_DEEP_TESTS_ENABLED=false`
 
