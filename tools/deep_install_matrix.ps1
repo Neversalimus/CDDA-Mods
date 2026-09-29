@@ -115,8 +115,22 @@ function Assert-No-SelectedReceipt([string[]]$Ids,[string]$Label){
 }
 
 function Rollback-Transaction([string]$Label,[string]$Transaction,[string[]]$Ids){
+    $before=Read-State
+    $destinations=@()
+    if($null -ne $before){
+        $destinations=@(
+            $before.packages |
+                Where-Object {$Ids -contains $_.id} |
+                ForEach-Object {$_.destination}
+        )
+    }
     Invoke-InstallerCase ($Label+'-rollback') @('-Rollback',$Transaction) $true
     Assert-No-SelectedReceipt $Ids $Label
+    foreach($destination in $destinations){
+        if($destination -and (Test-Path -LiteralPath $destination)){
+            throw "$Label rollback left payload on disk: $destination"
+        }
+    }
 }
 
 $jsonPackages=@($catalog.packages | Where-Object {
