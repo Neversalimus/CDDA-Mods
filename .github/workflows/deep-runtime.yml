@@ -44,8 +44,8 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  DEEP_TARGET: ${{ github.event_name == 'workflow_dispatch' && inputs.target || 'experimental-2026-09-23-0546' }}
-  DEEP_DEPTH: ${{ github.event_name == 'workflow_dispatch' && inputs.depth || 'full' }}
+  DEEP_TARGET: ${{ github.event_name == 'workflow_dispatch' && inputs.target || vars.CDDA_DEEP_TESTS_TARGET || 'experimental-2026-09-23-0546' }}
+  DEEP_DEPTH: ${{ github.event_name == 'workflow_dispatch' && inputs.depth || vars.CDDA_DEEP_TESTS_DEPTH || 'exhaustive' }}
 
 jobs:
   release-binary:
