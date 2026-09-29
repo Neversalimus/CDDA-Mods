@@ -11,7 +11,7 @@
   "variants": [
     {
       "id": "baseline",
-      "version": "0.8.2.7",
+      "version": "0.8.2.8",
       "revision": 1,
       "path": "content",
       "targets": [
