@@ -15,6 +15,7 @@ Workflow `.github/workflows/deep-runtime.yml` работает в два сло�
 Проверяется:
 
 - SHA игры из `VERSION.txt` должен в точности совпасть с каталогом;
+- скачанный GitHub Release asset проверяется по опубликованному SHA-256 digest;
 - сначала проходит чистая `dda`, чтобы ошибка самой базы не засчиталась как
   ошибка мода;
 - каждый JSON-мод запускается отдельно через настоящий `--check-mods`;
@@ -30,8 +31,12 @@ Workflow `.github/workflows/deep-runtime.yml` работает в два сло�
 ### 2. Exact source + cata_test
 
 GitHub Actions отдельно делает checkout **точного commit CDDA**, указанного в
-target, собирает родной `tests/cata_test`, копирует наши JSON-моды в
-`data/mods` и запускает тесты CDDA с `--mods=...`.
+target, сверяет фактический `git rev-parse HEAD`, один раз собирает родной
+`tests/cata_test`, а затем раздаёт этот бинарник параллельной матрице. Каждый
+JSON-мод, профиль и общий стек запускаются в отдельном чистом checkout CDDA с
+`--mods=...`. Одновременно работают не более трёх тяжёлых runtime jobs, поэтому
+длинный тест одного мода не блокирует все остальные и не съедает общий 6-часовой
+лимит одного runner.
 
 Это важнее простого JSON parser gate: тестовый runtime CDDA загружает реальные
 регистры игры, зависимости, mapgen, EOC, предметы, рецепты, транспорт и прочие
@@ -40,9 +45,12 @@ target, собирает родной `tests/cata_test`, копирует наш
 Режимы:
 
 - `load` — только `[force_load_game]` для каждого мода/профиля/общего стека;
-- `full` — `force_load_game` + полный не-slow test pass для каждого набора;
-- `exhaustive` — всё из `full`, а на общем стеке дополнительно slow и
-  crafting_skill_gain группы.
+- `full` — `force_load_game` + основной upstream-проход
+  `~[slow] ~[.],starting_items` для **каждого** набора. Это включает широкий
+  engine regression surface и отдельно захватывает создание стартового персонажа;
+- `exhaustive` — всё из `full` + complementary slow-проход
+  `[slow] ~starting_items` для **каждого** набора, то есть практически весь
+  non-hidden test surface CDDA с соответствующим модом загруженным.
 
 `full` — нормальный глубокий режим. `exhaustive` оставлен для редких
 релизных/аудитных проходов.
@@ -61,7 +69,9 @@ Deep workflow **не имеет** триггеров `push` и `pull_request`.
 
 Чтобы перейти в интенсивный режим разработки, достаточно удалить эту variable
 или поставить другое значение. Никакие workflow-файлы менять или комментировать
-не нужно.
+не нужно. Для плановых прогонов дополнительно можно задать
+`CDDA_DEEP_TESTS_TARGET` и `CDDA_DEEP_TESTS_DEPTH`; без них используются
+текущий закреплённый target и режим `full`.
 
 ## Что сознательно не входит сюда
 
@@ -70,6 +80,10 @@ Deep workflow **не имеет** триггеров `push` и `pull_request`.
   Их compile/runtime contract тестируется отдельно вместе с NCMM.
 - tileset проходит структурную проверку в обычном CI; ванильный
   `--check-mods` не проверяет графический рендер tileset.
+- `cata_test` реально создаёт персонажей, карты/overmap/submap-состояния и
+  прогоняет engine save/load-пути в тех тестах CDDA, которые входят в выбранный
+  selector, но это всё ещё не то же самое, что интерактивно пройти UI создания
+  мира и несколько игровых дней;
 - успешный `--check-mods` или `cata_test` не заменяет ручной UX smoke-test
   миссий, диалогов и конкретных игровых сценариев. Но это уже гораздо глубже
   статической JSON-валидации и хорошо подходит для автоматического регрессионного
@@ -99,5 +113,6 @@ python tools/deep_cdda_runtime.py run-source \
   --cdda-root external/cdda \
   --target experimental-2026-09-23-0546 \
   --depth full \
+  --suite component-axiom_7 \
   --out build/deep-source
 ```
