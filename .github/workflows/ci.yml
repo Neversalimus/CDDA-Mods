@@ -5,6 +5,13 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+
+# Only the newest normal CI result for a branch/PR is actionable.
+# Cancelling superseded runs saves runner time without reducing coverage of HEAD.
+concurrency:
+  group: verify-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   verify:
     runs-on: windows-latest
@@ -27,9 +34,8 @@ jobs:
             $errors | ForEach-Object { Write-Error $_.Message }
             throw 'Deep installer harness parser validation failed.'
           }
-      - name: Catalog, game data syntax and payload checks
-        run: python tools/modsuite.py validate
-      - name: Build independent mod packages
+      - name: Build packages with catalog, syntax and payload validation
+        # modsuite.py build calls the same full validate() gate before packaging.
         run: python tools/modsuite.py build
       - name: Windows PowerShell 5.1 installer tests
         shell: powershell
@@ -43,6 +49,8 @@ jobs:
         with:
           name: CDDA-Mods-candidate
           path: dist/*
+          # dist already consists mainly of compressed ZIP packages.
+          compression-level: 0
   native:
     runs-on: windows-latest
     strategy:
@@ -63,6 +71,11 @@ jobs:
           repository: Neversalimus/NCMM
           ref: ${{ steps.sdk.outputs.sha }}
           path: external/ncmm
+          fetch-depth: 1
+          persist-credentials: false
+          # Native module CI consumes only the public SDK tree.
+          sparse-checkout: |
+            sdk
       - name: Prepare explicit API 1.7 build declarations
         run: python tools/prepare_survivor_sdk.py external/ncmm/sdk
       - name: Compile only the selected mod (no CDDA host build)
