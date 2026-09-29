@@ -169,10 +169,42 @@ class DeepRuntimePlanTests(unittest.TestCase):
                 / "cdda_mods_probe_never_loaded"
                 / "sentinel.json"
             )
-            self.assertEqual(
-                deep.suite.read(sentinel)["type"],
+            sentinel_doc = deep.suite.read(sentinel)
+            self.assertEqual(sentinel_doc["type"], "snippet")
+            self.assertIn(
                 deep.CHECK_MODS_INTERACTION_PROBE_TOKEN,
+                sentinel_doc["text"],
             )
+
+    def test_cata_test_style_only_exit_is_normalized_but_catch_failure_is_not(self):
+        style_line = (
+            "12:00 ERROR : src/text_style_check_reader.cpp:63 "
+            "[operator ()] (json-error)\n"
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            log_dir = Path(tmp)
+            (log_dir / "stderr.log").write_text(style_line, encoding="utf-8")
+            (log_dir / "stdout.log").write_text(
+                "test cases: 1 | 1 passed\nassertions: - none -\n",
+                encoding="utf-8",
+            )
+            result = deep.normalize_cata_test_result(
+                {"exit_code": 1, "errors": [style_line.strip()]},
+                log_dir,
+            )
+            self.assertEqual(result["exit_code"], 0)
+            self.assertTrue(result["style_only_exit"])
+
+            (log_dir / "stdout.log").write_text(
+                "test cases: 4 | 3 passed | 1 failed\n",
+                encoding="utf-8",
+            )
+            result = deep.normalize_cata_test_result(
+                {"exit_code": 1, "errors": [style_line.strip()]},
+                log_dir,
+            )
+            self.assertEqual(result["exit_code"], 1)
+            self.assertTrue(result["catch_failed"])
 
     def test_text_style_errors_are_advisory_but_loader_errors_are_fatal(self):
         style, fatal = deep.classify_debug_errors(
