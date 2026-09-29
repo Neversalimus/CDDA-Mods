@@ -66,6 +66,11 @@
         "________________________________________________________________________"
       ],
       "terrain": {
+        "1": "t_metal_floor_olight",
+        "2": "t_metal_floor_olight",
+        "3": "t_metal_floor_olight",
+        "4": "t_metal_floor_olight",
+        "5": "t_metal_floor_olight",
         "_": "t_open_air",
         ".": "t_flat_roof",
         "R": "t_railing",
@@ -78,21 +83,16 @@
         "f": "t_metal_floor_olight",
         "k": "t_metal_floor_olight",
         "+": "t_door_metal_c",
-        "1": "t_metal_floor_olight",
-        "2": "t_metal_floor_olight",
-        "3": "t_metal_floor_olight",
-        "4": "t_metal_floor_olight",
-        "5": "t_metal_floor_olight",
         "@": "t_axiom_reader_prototype"
       },
       "furniture": {
-        "f": "f_control_station",
-        "k": "f_locker",
         "1": "f_machinery_electronic",
         "2": "f_machinery_heavy",
         "3": "f_workbench",
         "4": "f_rack",
-        "5": "f_server"
+        "5": "f_server",
+        "f": "f_control_station",
+        "k": "f_locker"
       },
       "place_npcs": [
         {
@@ -153,19 +153,19 @@
             ],
             "patrol": [
               {
-                "x": 50,
+                "x": 2,
                 "y": 6
               },
               {
-                "x": 64,
+                "x": 16,
                 "y": 6
               },
               {
-                "x": 64,
+                "x": 16,
                 "y": 20
               },
               {
-                "x": 50,
+                "x": 2,
                 "y": 20
               }
             ]
@@ -187,20 +187,20 @@
             ],
             "patrol": [
               {
-                "x": 47,
-                "y": 35
+                "x": -1,
+                "y": 11
               },
               {
-                "x": 56,
-                "y": 35
+                "x": 8,
+                "y": 11
               },
               {
-                "x": 56,
-                "y": 43
+                "x": 8,
+                "y": 19
               },
               {
-                "x": 47,
-                "y": 43
+                "x": -1,
+                "y": 19
               }
             ]
           }
