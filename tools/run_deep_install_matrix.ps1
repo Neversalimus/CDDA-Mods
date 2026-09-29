@@ -15,8 +15,8 @@ $ErrorActionPreference='Stop'
 $RepositoryRoot=(Resolve-Path -LiteralPath $RepositoryRoot).Path
 $GameRoot=(Resolve-Path -LiteralPath $GameRoot).Path
 $PackageRoot=(Resolve-Path -LiteralPath $PackageRoot).Path
-if(-not[IO.Path]::IsPathRooted($MatrixFile)){$MatrixFile=Join-Path $RepositoryRoot $MatrixFile}
-if(-not[IO.Path]::IsPathRooted($Out)){$Out=Join-Path $RepositoryRoot $Out}
+if(-not [IO.Path]::IsPathRooted($MatrixFile)){$MatrixFile=Join-Path $RepositoryRoot $MatrixFile}
+if(-not [IO.Path]::IsPathRooted($Out)){$Out=Join-Path $RepositoryRoot $Out}
 [IO.Directory]::CreateDirectory($Out)|Out-Null
 
 Import-Module (Join-Path $RepositoryRoot 'installer/ModSuite.psm1') -Force
@@ -130,6 +130,14 @@ function Get-GameModIds([object[]]$Packages){
     return @($result.ToArray())
 }
 
+function Get-DefaultDestination([string]$Root,$Package){
+    switch([string]$Package.kind){
+        'json' { return Join-Path $Root ('data/mods/'+[string]$Package.folder) }
+        'tileset' { return Join-Path $Root ('gfx/'+[string]$Package.folder) }
+        default { throw "Deep content installation matrix does not accept package kind: $($Package.kind)" }
+    }
+}
+
 foreach($row in $scenarios){
     $scenarioId=[string]$row.id
     Assert-SafeName $scenarioId
@@ -147,7 +155,14 @@ foreach($row in $scenarios){
         $ids=@($row.mods|ForEach-Object {[string]$_})
         $packages=@(Resolve-Packages $catalog $ids $identity.commit -AllowUntested)
         if(-not $packages.Count){throw 'Scenario resolved to zero packages.'}
-        $gameIds=Get-GameModIds $packages
+        $gameIds=@(Get-GameModIds $packages)
+
+        foreach($pkg in $packages){
+            $expected=Get-DefaultDestination $scenarioRoot $pkg
+            if(Test-Path -LiteralPath $expected){
+                throw "Pristine official CDDA already contains selected destination: $expected"
+            }
+        }
 
         Invoke-ReleaseInstaller $scenarioRoot @('-Mods',($ids -join ','))
         Assert-InstalledPayloads $scenarioRoot $packages
@@ -179,6 +194,17 @@ foreach($row in $scenarios){
         if($transactions.Count -ne 1){throw "Expected one install transaction, found $($transactions.Count)."}
         Invoke-ReleaseInstaller $scenarioRoot @('-Rollback',[string]$transactions[0])
         $record.steps+='rollback'
+        if(Test-Path -LiteralPath $statePath -PathType Leaf){
+            $rolledState=Read-Json $statePath
+            $left=@($rolledState.packages|Where-Object {$packageIds -contains $_.id})
+            if($left.Count){throw 'Rollback left selected package records in installed.json.'}
+        }
+        foreach($pkg in $packages){
+            $expected=Get-DefaultDestination $scenarioRoot $pkg
+            if(Test-Path -LiteralPath $expected){
+                throw "Rollback left selected payload on disk: $($pkg.id) -> $expected"
+            }
+        }
 
         # Reinstall after rollback catches stale transaction/receipt/cache state.
         Invoke-ReleaseInstaller $scenarioRoot @('-Mods',($ids -join ','))
