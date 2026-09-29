@@ -144,6 +144,16 @@ def game_ids_for(
     return result
 
 
+def direct_game_ids(mods: dict[str, dict], ids: list[str]) -> list[str]:
+    """Return only game mod IDs directly owned by the selected components."""
+    result: list[str] = []
+    for mid in ids:
+        for game_id in mods[mid]["game_mod_ids"]:
+            if game_id not in result:
+                result.append(game_id)
+    return result
+
+
 def build_suites(target: str) -> tuple[dict[str, dict], list[dict]]:
     mods = json_components(target)
     rows: list[dict] = []
@@ -155,6 +165,7 @@ def build_suites(target: str) -> tuple[dict[str, dict], list[dict]]:
                 "name": f"component-{mid}",
                 "components": ids,
                 "game_mod_ids": game_ids_for(mods, ids, target),
+                "check_mod_ids": direct_game_ids(mods, [mid]),
             }
         )
 
@@ -168,6 +179,7 @@ def build_suites(target: str) -> tuple[dict[str, dict], list[dict]]:
             "name": f"profile-{name}",
             "components": ids,
             "game_mod_ids": game_ids_for(mods, ids, target),
+            "check_mod_ids": direct_game_ids(mods, selected),
         }
         if not any(
             existing["game_mod_ids"] == row["game_mod_ids"] for existing in rows
@@ -179,6 +191,7 @@ def build_suites(target: str) -> tuple[dict[str, dict], list[dict]]:
         "name": "combined-all-json",
         "components": all_ids,
         "game_mod_ids": game_ids_for(mods, all_ids, target),
+        "check_mod_ids": direct_game_ids(mods, sorted(mods)),
     }
     if not any(
         existing["game_mod_ids"] == combined["game_mod_ids"] for existing in rows
@@ -216,6 +229,31 @@ def copy_json_mods(
             shutil.rmtree(dst)
         shutil.copytree(src, dst)
     return {mid: mods[mid] for mid in selected}
+
+
+def clear_repository_json_mods(target: str, destination_mods: Path) -> None:
+    """Remove only this repository's staged JSON mod folders from a CDDA tree."""
+    for mod in json_components(target).values():
+        staged = destination_mods / mod["folder"]
+        if staged.exists():
+            shutil.rmtree(staged)
+
+
+def classify_debug_errors(debug: str) -> tuple[list[str], list[str]]:
+    """Split advisory CDDA text-style diagnostics from real loader errors."""
+    style: list[str] = []
+    fatal: list[str] = []
+    for line in debug.splitlines():
+        if "ERROR :" not in line:
+            continue
+        if "text_style_check_reader.cpp:63" in line:
+            style.append(line)
+            continue
+        if "(error message will follow backtrace)" in line:
+            # debugmsg emits this generic prelude before the source-bearing line.
+            continue
+        fatal.append(line)
+    return sorted(set(style)), sorted(set(fatal))
 
 
 def find_game_exe(game: Path) -> Path:
@@ -349,8 +387,16 @@ def run_release(game_root: Path, target: str, out: Path, timeout: int) -> dict:
                 for p in debug_files
             )
             (out / name / "debug.log").write_text(debug, encoding="utf-8")
-            extra = [line for line in debug.splitlines() if ERROR_RE.search(line)]
-            result["errors"] = sorted(set(result["errors"] + extra))
+            style_warnings, fatal_debug = classify_debug_errors(debug)
+            result["raw_exit_code"] = result["exit_code"]
+            result["style_warnings"] = style_warnings
+            result["errors"] = sorted(set(result["errors"] + fatal_debug))
+            # --check-mods returns 1 for any D_ERROR, including purely advisory
+            # cata-text-style diagnostics.  Preserve that raw code in evidence,
+            # but do not turn legacy prose formatting into a runtime failure.
+            if result["exit_code"] and style_warnings and not result["errors"]:
+                result["exit_code"] = 0
+                result["style_only_exit"] = True
             result["debug_logs"] = [str(p) for p in debug_files]
             return result
 
@@ -369,10 +415,47 @@ def run_release(game_root: Path, target: str, out: Path, timeout: int) -> dict:
             and staged_baseline["exit_code"] == 0
             and not staged_baseline["errors"]
         ):
-            copy_json_mods(target, data / "mods")
             for row in rows:
-                result = check(row["name"], row["game_mod_ids"], data)
-                results.append({**row, "result": result})
+                # Mod discovery scans every modinfo.json under data/mods.  Keep
+                # component checks isolated so an unrelated repository mod cannot
+                # poison another suite before its own content is even loaded.
+                clear_repository_json_mods(target, data / "mods")
+                copy_json_mods(target, data / "mods", row["components"])
+                checks = []
+                for game_id in row["check_mod_ids"]:
+                    result = check(
+                        f"{row['name']}/{game_id}",
+                        [game_id],
+                        data,
+                    )
+                    checks.append({"mod": game_id, "result": result})
+                errors = sorted(
+                    {
+                        error
+                        for item in checks
+                        for error in item["result"]["errors"]
+                    }
+                )
+                style_warnings = sorted(
+                    {
+                        warning
+                        for item in checks
+                        for warning in item["result"].get("style_warnings", [])
+                    }
+                )
+                aggregate = {
+                    "exit_code": 0
+                    if all(
+                        item["result"]["exit_code"] == 0
+                        and not item["result"]["errors"]
+                        for item in checks
+                    )
+                    else 1,
+                    "errors": errors,
+                    "style_warnings": style_warnings,
+                    "checks": checks,
+                }
+                results.append({**row, "result": aggregate})
 
         report = {
             "schema": 3,
@@ -423,52 +506,65 @@ def run_installed(
         )
     exe = find_game_exe(game_root)
     out = out.resolve()
-    user = out / "user"
-    user.mkdir(parents=True, exist_ok=True)
-    # See run_release(): --check-mods can terminate before CDDA creates
-    # config/, while the debug logger is opened earlier.
-    (user / "config").mkdir(parents=True, exist_ok=True)
-    ids = ["dda"] + [
-        mid for mid in game_mod_ids if mid and mid != "dda"
-    ]
-    args = [
-        str(exe),
-        "--basepath",
-        str(game_root) + "/",
-        "--userdir",
-        str(user) + "/",
-        "--seed",
-        "CDDA_MODS_INSTALL_MATRIX",
-        "--check-mods",
-        *ids,
-    ]
-    result = run_process(args, game_root, out, timeout)
-    debug = "\n".join(
-        p.read_text(encoding="utf-8", errors="replace")
-        for p in user.rglob("debug.log")
-    )
-    result["errors"] = sorted(
-        set(
-            result["errors"]
-            + [
-                line
-                for line in debug.splitlines()
-                if ERROR_RE.search(line)
-            ]
+    out.mkdir(parents=True, exist_ok=True)
+    ids = []
+    for mid in game_mod_ids:
+        if mid and mid != "dda" and mid not in ids:
+            ids.append(mid)
+    if not ids:
+        raise ValueError("No installed game mod IDs supplied")
+
+    checks = []
+    for mid in ids:
+        log_dir = out / mid
+        user = log_dir / "user"
+        user.mkdir(parents=True, exist_ok=True)
+        (user / "config").mkdir(parents=True, exist_ok=True)
+        args = [
+            str(exe),
+            "--basepath",
+            str(game_root) + "/",
+            "--userdir",
+            str(user) + "/",
+            "--seed",
+            "CDDA_MODS_INSTALL_MATRIX",
+            "--check-mods",
+            mid,
+        ]
+        result = run_process(args, game_root, log_dir, timeout)
+        debug_files = list(user.rglob("debug.log"))
+        debug = "\n".join(
+            p.read_text(encoding="utf-8", errors="replace")
+            for p in debug_files
         )
-    )
+        (log_dir / "debug.log").write_text(debug, encoding="utf-8")
+        style_warnings, fatal_debug = classify_debug_errors(debug)
+        result["raw_exit_code"] = result["exit_code"]
+        result["style_warnings"] = style_warnings
+        result["errors"] = sorted(set(result["errors"] + fatal_debug))
+        if result["exit_code"] and style_warnings and not result["errors"]:
+            result["exit_code"] = 0
+            result["style_only_exit"] = True
+        result["debug_logs"] = [str(p) for p in debug_files]
+        checks.append({"mod": mid, "result": result})
+
     report = {
-        "schema": 1,
+        "schema": 2,
         "kind": "installed-game-check",
         "target": target,
         "commit": target_info["commit"],
         "mods": ids,
-        "result": result,
+        "checks": checks,
     }
     suite.write(out / "report.json", report)
-    if result["exit_code"] or result["errors"]:
+    failed = [
+        item["mod"]
+        for item in checks
+        if item["result"]["exit_code"] or item["result"]["errors"]
+    ]
+    if failed:
         raise RuntimeError(
-            "Installed-game validation failed for: " + ", ".join(ids)
+            "Installed-game validation failed for: " + ", ".join(failed)
         )
     return report
 
