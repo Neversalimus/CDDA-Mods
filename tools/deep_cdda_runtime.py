@@ -409,6 +409,22 @@ def run_source(
         raise ValueError(f"Unknown target: {target}")
     target_info = targets[target]
     cdda_root = cdda_root.resolve()
+    try:
+        actual_commit = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"],
+            cwd=cdda_root,
+            text=True,
+            errors="replace",
+        ).strip().lower()
+    except (OSError, subprocess.SubprocessError) as exc:
+        raise ValueError(
+            "Cannot verify exact CDDA source commit"
+        ) from exc
+    if actual_commit != target_info["commit"].lower():
+        raise ValueError(
+            f"CDDA source commit mismatch: expected {target_info['commit']}, "
+            f"got {actual_commit}"
+        )
     stage_source(cdda_root, target)
     test_bin = find_cata_test(cdda_root)
     _, rows = build_suites(target)
