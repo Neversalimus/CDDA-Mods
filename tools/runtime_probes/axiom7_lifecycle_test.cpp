@@ -6,6 +6,7 @@
 
 #include "avatar.h"
 #include "calendar.h"
+#include "creature_tracker.h"
 #include "cata_catch.h"
 #include "coordinates.h"
 #include "dialogue.h"
@@ -33,14 +34,6 @@ namespace
 {
 
 static const tripoint_abs_omt axiom_origin( 80, 80, 0 );
-
-class axiom_probe_smallmap : public smallmap
-{
-    public:
-        const submap *probe_submap_at_grid( const tripoint_rel_sm &gridp ) const {
-            return get_submap_at_grid( gridp );
-        }
-};
 
 void reset_axiom_runtime()
 {
@@ -101,23 +94,12 @@ bool has_terrain( map &m, int z, const ter_str_id &wanted )
     return false;
 }
 
-bool has_spawn( const axiom_probe_smallmap &m, int z, const mtype_id &wanted )
+bool has_spawned_monster( const mtype_id &wanted )
 {
-    for( int x = 0; x < 2; ++x ) {
-        for( int y = 0; y < 2; ++y ) {
-            const submap *sm = m.probe_submap_at_grid( tripoint_rel_sm{ x, y, z } );
-            if( sm == nullptr ) {
-                continue;
-            }
-            if( std::any_of( sm->spawns.begin(), sm->spawns.end(),
-            [&]( const spawn_point & sp ) {
-            return sp.type == wanted;
-        } ) ) {
-                return true;
-            }
-        }
-    }
-    return false;
+    const auto &monsters = get_creature_tracker().get_monsters_list();
+    return std::any_of( monsters.begin(), monsters.end(), [&]( const auto &mon ) {
+        return mon && mon->type->id == wanted;
+    } );
 }
 
 bool omt_has_npc( const tripoint_abs_omt &pos, const npc_template_id &wanted )
@@ -169,13 +151,14 @@ TEST_CASE( "axiom7_composite_mapgen_runtime", "[axiom7_lifecycle][mapgen]" )
     SECTION( "surface central atrium generates with AXIOM entities" ) {
         const tripoint_abs_omt pos = axiom_origin + tripoint( 1, 1, 0 );
         MAPBUFFER.clear_outside_reality_bubble();
-        axiom_probe_smallmap tm;
+        smallmap tm;
         tm.generate( pos, calendar::turn, false, true );
         map &m = *tm.cast_to_map();
 
         CHECK( has_terrain( m, 0, ter_str_id( "t_linoleum_whitefloor_olight" ) ) );
-        CHECK( has_spawn( m, 0, mtype_id( "mon_axiom_patrol_sentry" ) ) );
-        CHECK( has_spawn( m, 0, mtype_id( "mon_axiom_security_turret" ) ) );
+        m.spawn_monsters( true );
+        CHECK( has_spawned_monster( mtype_id( "mon_axiom_patrol_sentry" ) ) );
+        CHECK( has_spawned_monster( mtype_id( "mon_axiom_security_turret" ) ) );
         CHECK( omt_has_npc( pos, npc_template_id( "axiom_7_liaison" ) ) );
 
         tm.delete_unmerged_submaps();
@@ -197,7 +180,7 @@ TEST_CASE( "axiom7_composite_mapgen_runtime", "[axiom7_lifecycle][mapgen]" )
     SECTION( "roof flight deck and support annex generate" ) {
         const tripoint_abs_omt deck = axiom_origin + tripoint( 1, 2, 1 );
         MAPBUFFER.clear_outside_reality_bubble();
-        axiom_probe_smallmap deck_map;
+        smallmap deck_map;
         deck_map.generate( deck, calendar::turn, false, true );
         map &m = *deck_map.cast_to_map();
 
@@ -207,7 +190,7 @@ TEST_CASE( "axiom7_composite_mapgen_runtime", "[axiom7_lifecycle][mapgen]" )
 
         const tripoint_abs_omt support = axiom_origin + tripoint( 2, 2, 1 );
         MAPBUFFER.clear_outside_reality_bubble();
-        axiom_probe_smallmap support_map;
+        smallmap support_map;
         support_map.generate( support, calendar::turn, false, true );
         CHECK( omt_has_npc( support, npc_template_id( "axiom_7_flight_tech" ) ) );
         support_map.delete_unmerged_submaps();
