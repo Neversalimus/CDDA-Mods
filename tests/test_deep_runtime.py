@@ -217,6 +217,20 @@ class DeepRuntimePlanTests(unittest.TestCase):
             self.assertEqual(result["exit_code"], 1)
             self.assertTrue(result["catch_failed"])
 
+    def test_run_process_records_elapsed_time_without_changing_exit_code(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            result = deep.run_process(
+                [sys.executable, "-c", "pass"],
+                root,
+                root / "logs",
+                30,
+            )
+            self.assertEqual(result["exit_code"], 0)
+            self.assertGreaterEqual(result["duration_seconds"], 0)
+            self.assertTrue((root / "logs" / "stdout.log").is_file())
+            self.assertTrue((root / "logs" / "stderr.log").is_file())
+
     def test_text_style_errors_are_advisory_but_loader_errors_are_fatal(self):
         style, fatal = deep.classify_debug_errors(
             "12:00 ERROR : x/text_style_check_reader.cpp:63 [operator ()] (json-error)\n"
