@@ -48,6 +48,21 @@ class DeepRuntimePlanTests(unittest.TestCase):
         self.assertIn("~[slow] ~[.],starting_items", exhaustive)
         self.assertIn("[slow] ~starting_items", exhaustive)
 
+    def test_external_game_dependencies_are_explicit_for_runtime(self):
+        mods = deep.json_components(TARGET)
+        game_ids = deep.game_ids_for(
+            mods, ["aftershock_prime_mom"], TARGET
+        )
+        self.assertIn("mindovermatter", game_ids)
+        self.assertLess(
+            game_ids.index("mindovermatter"),
+            game_ids.index("aftershock_prime_mom_compat"),
+        )
+        self.assertLess(
+            game_ids.index("aftershock_prime"),
+            game_ids.index("aftershock_prime_mom_compat"),
+        )
+
     def test_release_asset_prefers_graphical_windows_x64(self):
         assets = [
             {"name": "cdda-linux-terminal-only-x64-foo.tar.gz"},
