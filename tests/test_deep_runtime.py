@@ -50,6 +50,14 @@ class DeepRuntimePlanTests(unittest.TestCase):
         self.assertIn("[slow] ~starting_items", exhaustive)
 
 
+    def test_external_game_dependencies_are_explicit_for_cata_test(self):
+        mods = deep.json_components(TARGET)
+        game_ids = deep.game_ids_for(mods, ["aftershock_prime_mom"], TARGET)
+        self.assertIn("mindovermatter", game_ids)
+        self.assertLess(game_ids.index("mindovermatter"), game_ids.index("aftershock_prime_mom_compat"))
+        self.assertLess(game_ids.index("aftershock_prime"), game_ids.index("aftershock_prime_mom_compat"))
+
+
     def test_install_lifecycle_matrix_covers_every_installable_content_component(self):
         matrix = json.loads(
             (ROOT / "tests" / "deep_runtime_matrix.json").read_text(encoding="utf-8")
