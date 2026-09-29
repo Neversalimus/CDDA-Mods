@@ -6,11 +6,11 @@
     "authors": [
       "Neversalimus"
     ],
-    "description": "AXIOM-7 v0.8.2.7: full runtime audit pass for cdda_experimental_2026_09_23_0546. Fixes the final stale KX mission-item tile reference and upgrades the universal installer with the game's native --check-mods C++ loader gate plus safer out-of-mods transactional staging/rollback.",
+    "description": "AXIOM-7 v0.8.2.8: integrity pass for cdda_experimental_2026_09_23_0546. Corrects composite-map patrol coordinates on the surface and flight deck and adds semantic regression coverage for AXIOM mapgen, access control, KX-91 restoration/custody, mission wiring, and security EOCs. Runtime validation remains separate.",
     "category": "content",
     "dependencies": [
       "dda"
     ],
-    "version": "0.8.2.7"
+    "version": "0.8.2.8"
   }
 ]
