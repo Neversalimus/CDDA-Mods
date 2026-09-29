@@ -394,7 +394,7 @@ def run_release(game_root: Path, target: str, out: Path, timeout: int) -> dict:
             # --check-mods returns 1 for any D_ERROR, including purely advisory
             # cata-text-style diagnostics.  Preserve that raw code in evidence,
             # but do not turn legacy prose formatting into a runtime failure.
-            if result["exit_code"] and style_warnings and not result["errors"]:
+            if result["exit_code"] == 1 and style_warnings and not result["errors"]:
                 result["exit_code"] = 0
                 result["style_only_exit"] = True
             result["debug_logs"] = [str(p) for p in debug_files]
@@ -542,7 +542,7 @@ def run_installed(
         result["raw_exit_code"] = result["exit_code"]
         result["style_warnings"] = style_warnings
         result["errors"] = sorted(set(result["errors"] + fatal_debug))
-        if result["exit_code"] and style_warnings and not result["errors"]:
+        if result["exit_code"] == 1 and style_warnings and not result["errors"]:
             result["exit_code"] = 0
             result["style_only_exit"] = True
         result["debug_logs"] = [str(p) for p in debug_files]
