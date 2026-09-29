@@ -294,7 +294,24 @@ function Test-StagedMods([string]$GameRoot,[object[]]$Plan,[string]$Work,[int]$T
         Copy-Item -LiteralPath $entry.staged -Destination (Join-Safe (Join-Path $data 'mods') $entry.package.folder) -Recurse
     }
     $ids=@($json | ForEach-Object {$_.package.game_mod_ids})
-    # A synthetic dependency-only mod tests the selected stack together, not just separately.
+    # A single selected game root should be checked directly. Wrapping one root
+    # in a synthetic dependency mod changes the validator path without adding
+    # any coexistence coverage, and older --check-mods builds can behave
+    # differently for that artificial graph.
+    if($ids.Count -eq 1){
+        $id=[string]$ids[0]
+        $idHazards=@(Get-CheckModsInteractionHazards $data @($id))
+        if($idHazards.Count -and -not $interactionSupported){
+            Write-Warning ("Deferring broken upstream --check-mods path for $id via: " + ($idHazards -join ', ') + ". Exact-source cata_test remains the runtime authority.")
+            return
+        }
+        $direct=Invoke-GameCheck $exe $GameRoot $data (Join-Path $Work 'validation/selected') @($id) $TimeoutSeconds
+        if($direct.exit_code -ne 0 -or @($direct.errors).Count){throw "Selected mod validation failed for $id; report: $($direct.log)"}
+        return
+    }
+
+    # Multiple selected roots still need a synthetic dependency-only mod so the
+    # validator exercises their coexistence as one stack.
     $stack=Join-Path $data 'mods/suite_validation_stack';[IO.Directory]::CreateDirectory($stack) | Out-Null
     Write-Json (Join-Path $stack 'modinfo.json') @(@{type='MOD_INFO';id='suite_validation_stack';name='Suite validation only';authors=@('Neversalimus');description='Temporary validation stack.';dependencies=@('dda')+$ids})
     # Capability is detected from the exact binary instead of hard-coding a
