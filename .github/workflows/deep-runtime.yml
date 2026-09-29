@@ -100,12 +100,20 @@ jobs:
         shell: powershell
         run: |
           $gameRoot=(Get-Content build/cdda-release/game-root.txt -Raw).Trim()
+          $checkModsInteractions='auto'
+          $releaseReport='build/deep-release/report.json'
+          if(Test-Path -LiteralPath $releaseReport){
+            $release=Get-Content $releaseReport -Raw -Encoding UTF8 | ConvertFrom-Json
+            $observed=[string]$release.check_mods_interaction_capability.status
+            if($observed -in @('supported','broken')){$checkModsInteractions=$observed}
+          }
           ./tools/deep_install_matrix.ps1 `
             -GameRoot "$gameRoot" `
             -PackageRoot "$pwd/dist" `
             -Target "$env:DEEP_TARGET" `
             -Out "$pwd/build/deep-install-matrix" `
-            -ValidationTimeout 900
+            -ValidationTimeout 900 `
+            -CheckModsInteractions $checkModsInteractions
           if($LASTEXITCODE){exit $LASTEXITCODE}
 
       - name: Upload installer-lifecycle evidence
