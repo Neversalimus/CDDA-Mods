@@ -72,7 +72,7 @@
     "id": "mon_zombie_revenant_allure",
     "type": "MONSTER",
     "name": { "str": "alluring revenant" },
-    "description": "Concealed beneath a thick, eerie fog, a slim, humanoid figure stands firm. Mischievous, its claws drip with peculiar black goo.",
+    "description": "Concealed beneath a thick, eerie fog, a slim, humanoid figure stands firm.  Mischievous, its claws drip with peculiar black goo.",
     "default_faction": "zombie",
     "species": [ "ZOMBIE", "SECROZED_2", "HUMAN" ],
     "volume": "62500 ml",

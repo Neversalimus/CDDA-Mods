@@ -278,7 +278,7 @@
   "name": {
     "str": "SS grenade"
   },
-  "description": "A round, metallic grenade. It's about to explode.",
+  "description": "A round, metallic grenade.  It's about to explode.",
   "weight": "240 g",
   "volume": "500 ml",
   "melee_damage": {

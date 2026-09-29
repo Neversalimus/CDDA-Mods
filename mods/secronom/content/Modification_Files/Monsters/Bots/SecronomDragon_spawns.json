@@ -5,7 +5,7 @@
   "name": {
     "str": "reinforcer"
   },
-  "description": "A large, disk shaped hovering bot deployed by the cyber-dragon. Carries and deploys various combat drones and robots into the field.",
+  "description": "A large, disk shaped hovering bot deployed by the cyber-dragon.  Carries and deploys various combat drones and robots into the field.",
   "default_faction": "defense_bot",
   "species": [
     "ROBOT"
@@ -84,7 +84,7 @@
   "name": {
     "str": "shocker"
   },
-  "description": "A gyrocoptic ball, enveloped in electrical discharges. Deadly sawblades rotate beneath its metallic body.",
+  "description": "A gyrocoptic ball, enveloped in electrical discharges.  Deadly sawblades rotate beneath its metallic body.",
   "default_faction": "bot",
   "species": [
     "ROBOT"
@@ -165,7 +165,7 @@
   "name": {
     "str": "walker"
   },
-  "description": "A four legged, riot suppressing bot with an automated MP5 mounted as its head. Its feet are tipped with tazers for close combat and/or subduing targets.",
+  "description": "A four legged, riot suppressing bot with an automated MP5 mounted as its head.  Its feet are tipped with tazers for close combat and/or subduing targets.",
   "default_faction": "bot",
   "species": [
     "ROBOT"
@@ -267,7 +267,7 @@
   "name": {
     "str": "launcher"
   },
-  "description": "An automated missile deploying helidrone. It launches homing missiles from its hatch, activating them upon release.",
+  "description": "An automated missile deploying helidrone.  It launches homing missiles from its hatch, activating them upon release.",
   "default_faction": "bot",
   "species": [
     "ROBOT"

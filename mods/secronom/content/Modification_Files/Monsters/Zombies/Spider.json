@@ -152,7 +152,7 @@
     "id": "mon_zombie_arachnia",
     "type": "MONSTER",
     "name": { "str": "arachnia" },
-    "description": "Several protrusion of calcified materials cover this 8-legged abomination, as its visage have become more sinister, revealing a set of long, dagger-like mandibles along with several eyes poking around its necrotic skin. Apart from its terrifying features, its movements seem to have become more fluent.",
+    "description": "Several protrusion of calcified materials cover this 8-legged abomination, as its visage have become more sinister, revealing a set of long, dagger-like mandibles along with several eyes poking around its necrotic skin.  Apart from its terrifying features, its movements seem to have become more fluent.",
     "default_faction": "zombie",
     "species": [ "ZOMBIE", "SECROZED_3", "HUMAN" ],
     "volume": "62500 ml",

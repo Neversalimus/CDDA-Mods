@@ -189,7 +189,7 @@
     "id": "mon_zombie_charger_vanguard",
     "type": "MONSTER",
     "name": { "str": "vanguard" },
-    "description": "A corpse, heavily altered into a huge mass of distorted flesh, yet still retains the humanoid form. Rotten wounds lay open in its entire body, as its predominant arm has overgrown excessively from prolonged mutation.",
+    "description": "A corpse, heavily altered into a huge mass of distorted flesh, yet still retains the humanoid form.  Rotten wounds lay open in its entire body, as its predominant arm has overgrown excessively from prolonged mutation.",
     "default_faction": "zombie",
     "species": [ "ZOMBIE", "SECROZED_3", "HUMAN" ],
     "volume": "875000 ml",

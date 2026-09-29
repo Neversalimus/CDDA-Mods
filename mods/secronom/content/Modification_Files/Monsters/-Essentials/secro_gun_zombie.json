@@ -88,7 +88,7 @@
   "name": {
     "str": "perimeter shield"
   },
-  "description": "It sends a highly damaging current to whoever gets close to the entity equipped with this. May shock the user too.",
+  "description": "It sends a highly damaging current to whoever gets close to the entity equipped with this.  May shock the user too.",
   "weight": "10000 g",
   "volume": "2500 ml",
   "price": "1 USD",
@@ -220,7 +220,7 @@
   "name": {
     "str_sp": "shapeshifter's shadows"
   },
-  "description": "An internal something-something that splits thick, errant shadows. This is much less efficient.",
+  "description": "An internal something-something that splits thick, errant shadows.  This is much less efficient.",
   "flags": [
     "NEVER_JAMS"
   ],
@@ -426,7 +426,7 @@
   "name": {
     "str": "snatcher zombie's mouth"
   },
-  "description": "Sends off a long-ranged tongue with precise accuracy, stopping the target's movement. Takes a long time to replenish before firing a new one.",
+  "description": "Sends off a long-ranged tongue with precise accuracy, stopping the target's movement.  Takes a long time to replenish before firing a new one.",
   "flags": [
     "NEVER_JAMS"
   ],
@@ -454,7 +454,7 @@
   "name": {
     "str": "pellucid zombie's mouth"
   },
-  "description": "An acid-dribbing mouth of a pellucid zombie. Spits concentrated acid.",
+  "description": "An acid-dribbing mouth of a pellucid zombie.  Spits concentrated acid.",
   "flags": [
     "NEVER_JAMS"
   ],
@@ -483,7 +483,7 @@
   "name": {
     "str": "writhing horror's tentacle"
   },
-  "description": "Tentacles covering the writhing horror. Will reach out to its targets.",
+  "description": "Tentacles covering the writhing horror.  Will reach out to its targets.",
   "flags": [
     "NEVER_JAMS"
   ],
@@ -523,7 +523,7 @@
   "name": {
     "str": "sinister maw's mouth"
   },
-  "description": "Sinister maw's mouth. It spews out fleshy webbings.",
+  "description": "Sinister maw's mouth.  It spews out fleshy webbings.",
   "flags": [
     "NEVER_JAMS"
   ],
@@ -564,7 +564,7 @@
   "name": {
     "str": "corrupted devourer's mouth"
   },
-  "description": "Mouths of corrupted devourer. Spit corrupted acid.",
+  "description": "Mouths of corrupted devourer.  Spit corrupted acid.",
   "flags": [
     "NEVER_JAMS"
   ],
@@ -600,7 +600,7 @@
   "name": {
     "str_sp": "flesilisk's bone needles (shower)"
   },
-  "description": "Bone needles that forms around the flesilisk's in-between scales. This one showers it upclose.",
+  "description": "Bone needles that forms around the flesilisk's in-between scales.  This one showers it upclose.",
   "flags": [
     "NEVER_JAMS"
   ],
@@ -638,7 +638,7 @@
   "name": {
     "str": "equinox' hole"
   },
-  "description": "Equinox' gaping hole. Necrotic skin shoots out of it.",
+  "description": "Equinox' gaping hole.  Necrotic skin shoots out of it.",
   "flags": [
     "NEVER_JAMS"
   ],
@@ -674,7 +674,7 @@
   "name": {
     "str": "wraith's swollen arm"
   },
-  "description": "This is the swollen proportion of the wraith. Shoots tentacles.",
+  "description": "This is the swollen proportion of the wraith.  Shoots tentacles.",
   "flags": [
     "NEVER_JAMS"
   ],

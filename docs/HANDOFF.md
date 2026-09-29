@@ -1,5 +1,19 @@
 # Handoff — 2026-09-30
 
+## Secronom complete text-style cleanup
+
+Branch: `mod/secronom/text-style-cleanup`. Base: `9d68265099d294ea96d5bd4312e81a18559522f4`. Code validation point: `8a4394b3918ba5fc8a73ea0882f951302b7ebf2b`. Exact CDDA target remains `experimental-2026-09-23-0546` / `e262adb299a7613b4aedc5f12c08fe0413c56a84`.
+
+The remaining 985 Secronom warnings from deep run `36637757803` were classified: every remaining diagnostic was `insufficient spaces at this location. 2 required, but only 1 found.` The implementation followed the exact engine rule from `text_style_check.h`. Files whose punctuation candidates matched warning counts one-for-one were changed only under an explicit count invariant; ambiguous files were changed only on checker-reported lines, again requiring exact per-line counts. Three final non-period cases were fixed directly from checker coordinates, including one `! ` sentence boundary.
+
+Total change is exactly 985 inserted spaces. No gameplay data or structure was intentionally altered. The previous 29-location ellipsis/trailing-space cleanup is already in main and is not part of this 985 count.
+
+Baseline expectations after this branch: `component-secronom = 0`, `component-secronom_plus = 458`, `profile-all-content = 810`, `combined-all-json = 810`. Their hashes were derived from archived deep artifacts by subtracting the complete 1014-warning pre-cleanup Secronom set, rather than guessed from counts.
+
+Normal CI run `36646308606` passed all three jobs. Next: run PR CI, merge only if clean, then execute a fresh opt-in deep runtime on the merged commit to confirm Secronom reaches zero style warnings and dependent fingerprints match the new informational baseline.
+
+# Handoff — 2026-09-30
+
 ## Safe CI observability / targeted style cleanup
 
 Branch: `infra/safe-observability-pass`. Base: `f83595d4a1b084c263645aa99aa660b912964d61`. Code validation point: `8a57afbd8c6ee4d6766b927421a86568dd26621b`. Exact CDDA target remains `experimental-2026-09-23-0546` / `e262adb299a7613b4aedc5f12c08fe0413c56a84`.

@@ -7,7 +7,7 @@
   "name": {
     "str": "vector"
   },
-  "description": "A briskly, nearly 10-feet tall light blue-ish plant with luminating broad leaves and errant stripes in its stem and branches, twitching wildly as it moves. Feeble yet pleasant to the sight, dust particles enshroud the creature that twinkles like a starry night sky.",
+  "description": "A briskly, nearly 10-feet tall light blue-ish plant with luminating broad leaves and errant stripes in its stem and branches, twitching wildly as it moves.  Feeble yet pleasant to the sight, dust particles enshroud the creature that twinkles like a starry night sky.",
   "default_faction": "vector",
   "species": [
     "UNKNOWN"
@@ -287,7 +287,7 @@
     "str": "vector bloom"
   },
   "looks_like": "mon_fungal_blossom",
-  "description": "A vector with unique floral blooms by the end of its branches. Undulates occasionally, it sends a finer dust into the surroundings.",
+  "description": "A vector with unique floral blooms by the end of its branches.  Undulates occasionally, it sends a finer dust into the surroundings.",
   "default_faction": "vector",
   "species": [
     "UNKNOWN"
@@ -368,7 +368,7 @@
   "name": {
     "str": "vector stinger"
   },
-  "description": "Long thorns cover this vector's bark. A thinner with lesser foliage, like a dead bush, but much quicker and seeps in blue-ish thick saps.",
+  "description": "Long thorns cover this vector's bark.  A thinner with lesser foliage, like a dead bush, but much quicker and seeps in blue-ish thick saps.",
   "default_faction": "vector",
   "species": [
     "UNKNOWN"
@@ -441,7 +441,7 @@
   "name": {
     "str": "vector tree"
   },
-  "description": "An elderly vector, much higher and larger than a regular oak tree. Nearly immobile, strands of dense vines cover its thick bark.",
+  "description": "An elderly vector, much higher and larger than a regular oak tree.  Nearly immobile, strands of dense vines cover its thick bark.",
   "default_faction": "vector",
   "species": [
     "UNKNOWN"

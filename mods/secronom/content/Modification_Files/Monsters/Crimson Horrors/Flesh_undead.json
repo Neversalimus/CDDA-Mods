@@ -3,7 +3,7 @@
     "id": "mon_sflesh_zombie_turret",
     "type": "MONSTER",
     "name": { "str": "flesh heap" },
-    "description": "An enormous outgrowth of flesh with numerous putrid corpses unified in its edges. Dribbling blood seeps from the mouth of the zombies.",
+    "description": "An enormous outgrowth of flesh with numerous putrid corpses unified in its edges.  Dribbling blood seeps from the mouth of the zombies.",
     "default_faction": "secro_flesh",
     "species": [ "SFLESH", "ABERRATION", "ZOMBIE" ],
     "diff": 2,

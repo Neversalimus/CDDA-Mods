@@ -4,7 +4,7 @@
   "source_depth": "load",
   "evidence_run": 36637757803,
   "mode": "informational",
-  "note": "Expected warning fingerprints derived from deep run 36637757803 after removing only the 29 targeted Secronom ellipsis/trailing-space diagnostics. This baseline is informational and does not alter CI verdicts.",
+  "note": "Expected warning fingerprints after the full checker-driven Secronom text-style cleanup. Secronom spacing/ellipsis/trailing-space diagnostics are expected at zero; dependent suite fingerprints are derived from deep run 36637757803 with the complete Secronom warning set removed. This baseline is informational and does not alter CI verdicts.",
   "suites": {
     "component-aftershock_prime": {
       "count": 0,
@@ -23,24 +23,24 @@
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "component-secronom": {
-      "count": 985,
-      "sha256": "e2b42365141526bb35a6ca10ec915f4611538936a5397c8e92b0f341cb22598e"
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "component-secronom_plus": {
-      "count": 1443,
-      "sha256": "c2c97b93560afcb2a9e30daedf9fe04728a13ac8ab16976a6ad7dbb5e2b56c11"
+      "count": 458,
+      "sha256": "7fa04170a3a5e1a71c57306c456bcddb963a38c1f340c78c43fba5be32f3b1e6"
     },
     "component-tankmod": {
       "count": 0,
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "profile-all-content": {
-      "count": 1795,
-      "sha256": "bafddf1e034b878d7e9209982513b4a0137235bfa8e3d6b8aa7e39ce43e45747"
+      "count": 810,
+      "sha256": "dfbc4f8102782c1c232bbc3bcdad013626d8fcfc9fd60d986c3d6508e5b63d41"
     },
     "combined-all-json": {
-      "count": 1795,
-      "sha256": "bafddf1e034b878d7e9209982513b4a0137235bfa8e3d6b8aa7e39ce43e45747"
+      "count": 810,
+      "sha256": "dfbc4f8102782c1c232bbc3bcdad013626d8fcfc9fd60d986c3d6508e5b63d41"
     }
   }
 }

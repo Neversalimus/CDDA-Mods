@@ -60,7 +60,7 @@
     "id": "mon_zombie_leptiosa",
     "type": "MONSTER",
     "name": { "str": "lepotitsa" },
-    "description": "A corpse of swollen ichor, as its whole body is embraced in necrotic tissue. Aside from its huge hump lying on its back, its skin is full of fleshy holes, each emits a subtle gas.",
+    "description": "A corpse of swollen ichor, as its whole body is embraced in necrotic tissue.  Aside from its huge hump lying on its back, its skin is full of fleshy holes, each emits a subtle gas.",
     "default_faction": "zombie",
     "species": [ "ZOMBIE", "SECROZED_3", "HUMAN" ],
     "volume": "62500 ml",

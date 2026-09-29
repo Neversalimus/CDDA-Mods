@@ -1,5 +1,13 @@
 # Current status — 2026-09-30
 
+Secronom full text-style cleanup is validated on branch `mod/secronom/text-style-cleanup` at code commit `8a4394b3918ba5fc8a73ea0882f951302b7ebf2b`. Normal CI run `36646308606` passed repository/package validation, Windows PowerShell 5.1 and PowerShell 7 installer tests, Python tests, Survivor native build, and Advanced World Settings native build.
+
+The cleanup resolves the remaining 985 exact-source `text_style_check_reader` spacing diagnostics from deep run `36637757803`. Changes are text-style only: exactly one ASCII space was inserted at each checker-reported sentence-boundary location. The earlier 28 ellipsis replacements and one trailing-space removal remain unchanged. No IDs, mechanics, spawn data, effects, balance values, or JSON structure changed.
+
+The informational deep baseline now expects Secronom itself at 0 style warnings. Dependent expected fingerprints were recomputed from archived exact-source evidence by removing the complete Secronom warning set: Secronom+ 458 warnings, profile-all-content 810, combined-all-json 810. A fresh deep run is still required to confirm these fingerprints against the exact CDDA runtime before treating the warning cleanup as runtime-certified.
+
+# Current status — 2026-09-30
+
 Safe observability pass is validated on branch `infra/safe-observability-pass` at code commit `8a57afbd8c6ee4d6766b927421a86568dd26621b`. Normal CI run 36644399331 passed repository/package validation, Windows PowerShell 5.1 and PowerShell 7 installer tests, Python tests, Survivor native build, and Advanced World Settings native build.
 
 The pass does not change runtime verdict rules. It adds per-process and installer-case timing evidence, diagnostic environment/runtime hashes, a read-only final deep summary, and an informational text-style warning baseline. The final summary job is explicitly non-gating; release/source/installer jobs remain authoritative. Source style diagnostics are normalized without timestamps so warning fingerprints are comparable across runs.

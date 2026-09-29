@@ -226,7 +226,7 @@
   "name": {
     "str_sp": "Hecate II"
   },
-  "description": "A large and heavy anti-material sniper rifle. Its large size, recoil, and noise is offset by its damage and range.",
+  "description": "A large and heavy anti-material sniper rifle.  Its large size, recoil, and noise is offset by its damage and range.",
   "weight": "13807 g",
   "volume": "4 L",
   "price": "7909 USD",
@@ -278,7 +278,7 @@
   "name": {
     "str": "Hecate II muzzle brake"
   },
-  "description": "A box-shaped muzzle brake distinct to Hecate II sniper rifle. It greatly reduces perceived recoil, but increases both bulk and generated noise.",
+  "description": "A box-shaped muzzle brake distinct to Hecate II sniper rifle.  It greatly reduces perceived recoil, but increases both bulk and generated noise.",
   "weight": "420 g",
   "volume": "250 ml",
   "price": "840 USD",
@@ -350,7 +350,7 @@
   "name": {
     "str": "KAC ChainSAW"
   },
-  "description": "The KAC ChainSAW is a light weight machine gun designed to be fired from the hip. It is named before the chainsaw, as if the user is actually wielding an actual chainsaw.",
+  "description": "The KAC ChainSAW is a light weight machine gun designed to be fired from the hip.  It is named before the chainsaw, as if the user is actually wielding an actual chainsaw.",
   "weight": "4586 g",
   "//": "IDK if they're joking with this -_-.",
   "volume": "2500 ml",
@@ -479,7 +479,7 @@
   "name": {
     "str_sp": "Walther 2000"
   },
-  "description": "A semi-automatic bullpup sniper rifle. The usage of .300 winchester magnum made it particularly accurate in extreme distances. Its rarity in the market was crazed by gun nuts as collectibles.",
+  "description": "A semi-automatic bullpup sniper rifle.  The usage of .300 winchester magnum made it particularly accurate in extreme distances.  Its rarity in the market was crazed by gun nuts as collectibles.",
   "weight": "6962 g",
   "volume": "2500 ml",
   "price": "18290 USD",
@@ -569,7 +569,7 @@
   "name": {
     "str": "XM556"
   },
-  "description": "The XM556 Microgun is a light-weight machine gun designed to be fired from the hip. It uses a large sum of UPS to function, if so, its electrically-driven gatling system barrages a vast amount of projectile at a glance.",
+  "description": "The XM556 Microgun is a light-weight machine gun designed to be fired from the hip.  It uses a large sum of UPS to function, if so, its electrically-driven gatling system barrages a vast amount of projectile at a glance.",
   "weight": "6240 g",
   "volume": "2500 ml",
   "price": "21440 USD",
@@ -626,7 +626,7 @@
   "name": {
     "str": "XM8"
   },
-  "description": "A lightweight assault rifle, with shared similarities to the G36 rifle. It is known accurate and modifiable, but requires sustained attention to prevent malfunctions.",
+  "description": "A lightweight assault rifle, with shared similarities to the G36 rifle.  It is known accurate and modifiable, but requires sustained attention to prevent malfunctions.",
   "weight": "3560 g",
   "volume": "1750 ml",
   "price": "1970 USD",
@@ -690,7 +690,7 @@
     "str": "ZX-1 Sniper Rifle"
   },
   "skill": "rifle",
-  "description": "Anti-material sniper rifle, designed for anti-personnel against armored terrorist. capable of piercing even the most thickest metal of armor, this weapon will surely put zombies down to bits, although it requires the user to reload the bullet one by one as it doesn't have magazine system like others.",
+  "description": "Anti-material sniper rifle, designed for anti-personnel against armored terrorist.  capable of piercing even the most thickest metal of armor, this weapon will surely put zombies down to bits, although it requires the user to reload the bullet one by one as it doesn't have magazine system like others.",
   "weight": "4550 g",
   "volume": "2000 ml",
   "price": "4550 USD",
@@ -741,7 +741,7 @@
     "str": "LMI Laser Rifle"
   },
   "skill": "rifle",
-  "description": "Sleek, futuristic laser rifle, the LMI stands for Living Matter Incinerator, and as the name suggest, capable of delivering superheated laser energy towards zombies and humans. the only warning this weapon has is to not aim it at your eyes.",
+  "description": "Sleek, futuristic laser rifle, the LMI stands for Living Matter Incinerator, and as the name suggest, capable of delivering superheated laser energy towards zombies and humans.  the only warning this weapon has is to not aim it at your eyes.",
   "weight": "3800 g",
   "volume": "1750 ml",
   "price": "3950 USD",

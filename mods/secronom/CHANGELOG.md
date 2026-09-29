@@ -1,5 +1,13 @@
 # Secronom Revival
 
+## 1.5.1 complete text-style cleanup
+
+Resolved the remaining 985 exact-source text-style diagnostics reported by CDDA's
+`text_style_check_reader`. Each fix follows the engine's own punctuation rule:
+sentence-ending punctuation now has the expected spacing only at checker-reported
+locations. No IDs, mechanics, spawn data, effects, balance values, or JSON
+structure changed.
+
 ## 1.5.1 text-style cleanup
 
 Normalized only diagnostics identified by the exact-source text-style checker:

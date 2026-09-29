@@ -29,7 +29,7 @@
   "name": {
     "str": "secronom dragon"
   },
-  "description": "An inactive cyber dragon, caged in an indestructible tube filled with greenish liquid. Its chainlocked mouth growls, whilst constant beeping noise underneath it is barely heard.",
+  "description": "An inactive cyber dragon, caged in an indestructible tube filled with greenish liquid.  Its chainlocked mouth growls, whilst constant beeping noise underneath it is barely heard.",
   "default_faction": "bot",
   "species": [
     "SECRODRAG"
