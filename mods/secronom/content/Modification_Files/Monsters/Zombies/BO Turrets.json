@@ -5,7 +5,7 @@
   "name": {
     "str": "flesh heap"
   },
-  "description": "A heap of conglomerated flesh, with several tube-like orifices scattered around its surface. Its body seeps with blood acid.",
+  "description": "A heap of conglomerated flesh, with several tube-like orifices scattered around its surface.  Its body seeps with blood acid.",
   "default_faction": "secro_flesh3",
   "species": [
     "SFLESH",
@@ -67,7 +67,7 @@
     "str": "flesh heap (blade)",
     "str_pl": "flesh heaps (blade)"
   },
-  "description": "A heap of conglomerated flesh infused with blade core. Its body is filled with hundreds of bone outgrowths, and new ones keep on growing. And growing.",
+  "description": "A heap of conglomerated flesh infused with blade core.  Its body is filled with hundreds of bone outgrowths, and new ones keep on growing.  And growing.",
   "default_faction": "secro_flesh3",
   "species": [
     "SFLESH",
@@ -131,7 +131,7 @@
     "str": "flesh heap (tendril)",
     "str_pl": "flesh heaps (tendril)"
   },
-  "description": "A heap of conglomerated flesh infused with tendril core. Several tendril outgrowths writhe incessantly around its surface, varying in density scales.",
+  "description": "A heap of conglomerated flesh infused with tendril core.  Several tendril outgrowths writhe incessantly around its surface, varying in density scales.",
   "default_faction": "secro_flesh3",
   "species": [
     "SFLESH",
@@ -193,7 +193,7 @@
     "str": "flesh heap (mouthswell)",
     "str_pl": "flesh heaps (mouthswell)"
   },
-  "description": "A heap of conglomerated flesh infused with mouthswell core. Jawed mouths form a choir of shrieks and screeches as it blankly skims through its surroundings.",
+  "description": "A heap of conglomerated flesh infused with mouthswell core.  Jawed mouths form a choir of shrieks and screeches as it blankly skims through its surroundings.",
   "default_faction": "secro_flesh3",
   "species": [
     "SFLESH",
@@ -255,7 +255,7 @@
     "str": "flesh heap (unifier)",
     "str_pl": "flesh heaps (unifier)"
   },
-  "description": "A heap of conglomerated flesh infused with unifier core. Its swollen portions throb in a constant beat, accompanied by numerous wriggly tentacles.",
+  "description": "A heap of conglomerated flesh infused with unifier core.  Its swollen portions throb in a constant beat, accompanied by numerous wriggly tentacles.",
   "default_faction": "secro_flesh3",
   "species": [
     "SFLESH",
@@ -318,7 +318,7 @@
   "name": {
     "str": "ravager flesh heap"
   },
-  "description": "A heap of conglomerated flesh infused with several cores. This hybrid turret takes advantage on the tendril's relentless assaults and the blade's formation of sharp bone outgrowths.",
+  "description": "A heap of conglomerated flesh infused with several cores.  This hybrid turret takes advantage on the tendril's relentless assaults and the blade's formation of sharp bone outgrowths.",
   "default_faction": "secro_flesh3",
   "species": [
     "SFLESH",
