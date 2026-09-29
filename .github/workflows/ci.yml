@@ -13,6 +13,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Deep harness syntax checks
+        shell: powershell
+        run: |
+          $tokens=$null;$errors=$null
+          [Management.Automation.Language.Parser]::ParseFile((Resolve-Path 'tools/run_deep_install_matrix.ps1'),[ref]$tokens,[ref]$errors)|Out-Null
+          if($errors.Count){$errors|ForEach-Object{Write-Error $_.Message};throw 'Deep installer harness parser validation failed.'}
       - name: Catalog, game data syntax and payload checks
         run: python tools/modsuite.py validate
       - name: Build independent mod packages
