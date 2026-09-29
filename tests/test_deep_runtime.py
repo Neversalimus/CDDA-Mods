@@ -196,6 +196,17 @@ class DeepRuntimePlanTests(unittest.TestCase):
             self.assertTrue(result["style_only_exit"])
 
             (log_dir / "stdout.log").write_text(
+                "All tests passed (125 assertions in 4 test cases)\n",
+                encoding="utf-8",
+            )
+            result = deep.normalize_cata_test_result(
+                {"exit_code": 1, "errors": [style_line.strip()]},
+                log_dir,
+            )
+            self.assertEqual(result["exit_code"], 0)
+            self.assertTrue(result["catch_passed"])
+
+            (log_dir / "stdout.log").write_text(
                 "test cases: 4 | 3 passed | 1 failed\n",
                 encoding="utf-8",
             )
