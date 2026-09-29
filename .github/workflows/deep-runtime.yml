@@ -27,6 +27,11 @@ on:
         required: true
         default: true
         type: boolean
+      installation_matrix:
+        description: Run shipped installer lifecycle matrix on real CDDA
+        required: true
+        default: true
+        type: boolean
   schedule:
     # Scheduled runs are OFF unless repository variable CDDA_DEEP_TESTS_ENABLED=true.
     - cron: '17 2 * * 0'
@@ -47,11 +52,11 @@ jobs:
     name: Official release binary / loader matrix
     if: >-
       ${{
-        (github.event_name == 'workflow_dispatch' && inputs.release_binary) ||
+        (github.event_name == 'workflow_dispatch' && (inputs.release_binary || inputs.installation_matrix)) ||
         (github.event_name == 'schedule' && vars.CDDA_DEEP_TESTS_ENABLED == 'true')
       }}
     runs-on: windows-latest
-    timeout-minutes: 120
+    timeout-minutes: 240
     steps:
       - uses: actions/checkout@v4
 
@@ -82,6 +87,32 @@ jobs:
             --out build/deep-release `
             --timeout 900
           if($LASTEXITCODE){exit $LASTEXITCODE}
+
+      - name: Build the exact shipped installer candidate
+        if: ${{ github.event_name == 'schedule' || inputs.installation_matrix }}
+        run: python tools/modsuite.py build --out dist
+
+      - name: Run clean install / repeat / update / rollback / failure matrix
+        if: ${{ github.event_name == 'schedule' || inputs.installation_matrix }}
+        shell: powershell
+        run: |
+          $gameRoot=(Get-Content build/cdda-release/game-root.txt -Raw).Trim()
+          ./tools/deep_install_matrix.ps1 `
+            -GameRoot "$gameRoot" `
+            -PackageRoot "$pwd/dist" `
+            -Target "$env:DEEP_TARGET" `
+            -Out "$pwd/build/deep-install-matrix" `
+            -ValidationTimeout 900
+          if($LASTEXITCODE){exit $LASTEXITCODE}
+
+      - name: Upload installer-lifecycle evidence
+        if: always() && (github.event_name == 'schedule' || inputs.installation_matrix)
+        uses: actions/upload-artifact@v4
+        with:
+          name: deep-install-matrix-${{ env.DEEP_TARGET }}
+          path: build/deep-install-matrix/**
+          if-no-files-found: warn
+          retention-days: 30
 
       - name: Upload binary-runtime evidence
         if: always()
