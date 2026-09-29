@@ -27,7 +27,28 @@ Workflow `.github/workflows/deep-runtime.yml` работает в два сло�
 То есть старый успешный отчёт не может автоматически сертифицировать изменённый
 мод.
 
-### 2. Exact source + cata_test
+### 2. Installation / lifecycle matrix на настоящей игре
+
+На той же официальной Windows-сборке строится реальный `dist` и запускается именно
+тот `Install-Mods.ps1`, который получает пользователь. Это не mock файловой системы.
+
+Для каждого JSON-мода выполняется последовательность:
+
+`clean state -> install -> native --check-mods -> repeat install -> --check-mods -> update -> --check-mods -> rollback`
+
+Отдельно выполняются общий JSON-стек и профиль `all-content`, включая установку и
+rollback тайлсета. После установки проверяется уже **live `data/mods` игры**, а не
+копия исходников из репозитория.
+
+Негативная матрица дополнительно требует корректного отказа при:
+
+- повреждённом ZIP пакета;
+- двух живых копиях одного mod ID;
+- незавершённой предыдущей транзакции.
+
+Логи каждого шага и сводный `matrix-summary.json` сохраняются как artifact.
+
+### 3. Exact source + cata_test
 
 GitHub Actions отдельно делает checkout **точного commit CDDA**, указанного в
 target, собирает родной `tests/cata_test`, копирует наши JSON-моды в
