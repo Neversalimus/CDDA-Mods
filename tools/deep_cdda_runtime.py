@@ -285,13 +285,11 @@ def game_mod_index(data_root: Path) -> dict[str, dict]:
 
 
 def check_mods_interaction_hazards(data_root: Path, root_id: str) -> list[str]:
-    """Return dependency mods that make CDDA 0546 --check-mods invalid.
+    """Return interaction-bearing mods reachable from one game-mod root.
 
-    The pinned engine's game::check_mod_data() loads dependencies with the
-    generic recursive loader, unlike normal world loading.  That loader does
-    not exclude mod_interactions, so mods such as Mind Over Matter load their
-    conditional interaction overrides unconditionally and can redefine their
-    own IDs.  Those graphs must be validated by the real world/cata_test path.
+    Older CDDA --check-mods implementations can load dependency mod_interactions
+    through the generic recursive loader.  Capability probing decides whether
+    those graphs must be deferred; this function only identifies the exposure.
     """
     index = game_mod_index(data_root)
     seen: set[str] = set()
@@ -326,6 +324,156 @@ def deferred_check_mods_result(game_id: str, hazards: list[str]) -> dict:
         "root_mod": game_id,
         "interaction_mods": hazards,
     }
+
+CHECK_MODS_INTERACTION_PROBE_TOKEN = (
+    "CDDA_MODS_CHECK_MODS_INTERACTION_PROBE_SENTINEL"
+)
+CHECK_MODS_INTERACTION_PROBE_DEP = "cdda_mods_probe_interaction_dep"
+CHECK_MODS_INTERACTION_PROBE_ROOT = "cdda_mods_probe_interaction_root"
+
+
+def _write_check_mods_interaction_probe(data_root: Path) -> list[Path]:
+    mods_root = data_root / "mods"
+    mods_root.mkdir(parents=True, exist_ok=True)
+    dep = mods_root / "__cdda_mods_probe_interaction_dep"
+    root = mods_root / "__cdda_mods_probe_interaction_root"
+    for path in (dep, root):
+        if path.exists():
+            raise RuntimeError(
+                f"Refusing to overwrite validator capability probe path: {path}"
+            )
+
+    dep.mkdir(parents=True)
+    root.mkdir(parents=True)
+    suite.write(
+        dep / "modinfo.json",
+        {
+            "type": "MOD_INFO",
+            "id": CHECK_MODS_INTERACTION_PROBE_DEP,
+            "name": "CDDA-Mods validator capability dependency",
+            "authors": ["CDDA-Mods CI"],
+            "description": "Temporary capability probe.",
+            "category": "content",
+            "dependencies": ["dda"],
+        },
+    )
+    suite.write(
+        root / "modinfo.json",
+        {
+            "type": "MOD_INFO",
+            "id": CHECK_MODS_INTERACTION_PROBE_ROOT,
+            "name": "CDDA-Mods validator capability root",
+            "authors": ["CDDA-Mods CI"],
+            "description": "Temporary capability probe.",
+            "category": "content",
+            "dependencies": ["dda", CHECK_MODS_INTERACTION_PROBE_DEP],
+        },
+    )
+    hidden = dep / "mod_interactions" / "cdda_mods_probe_never_loaded"
+    hidden.mkdir(parents=True)
+    suite.write(
+        hidden / "sentinel.json",
+        {
+            "type": CHECK_MODS_INTERACTION_PROBE_TOKEN,
+            "id": "cdda_mods_probe_sentinel",
+        },
+    )
+    return [root, dep]
+
+
+def probe_check_mods_interactions(
+    exe: Path,
+    game_root: Path,
+    data_root: Path,
+    out: Path,
+    timeout: int = 120,
+) -> dict:
+    """Detect whether this exact binary handles dependency mod_interactions safely."""
+    out = out.resolve()
+    out.mkdir(parents=True, exist_ok=True)
+    user = out / "user"
+    user.mkdir(parents=True, exist_ok=True)
+    (user / "config").mkdir(parents=True, exist_ok=True)
+    created: list[Path] = []
+    try:
+        created = _write_check_mods_interaction_probe(data_root)
+        args = [
+            str(exe),
+            "--basepath",
+            str(game_root.resolve()) + "/",
+            "--datadir",
+            str(data_root.resolve()) + "/",
+            "--userdir",
+            str(user) + "/",
+            "--seed",
+            "CDDA_MODS_VALIDATOR_CAPABILITY",
+            "--check-mods",
+            CHECK_MODS_INTERACTION_PROBE_ROOT,
+        ]
+        result = run_process(args, game_root, out, timeout)
+        debug_files = list(user.rglob("debug.log"))
+        debug = "\n".join(
+            p.read_text(encoding="utf-8", errors="replace")
+            for p in debug_files
+        )
+        (out / "debug.log").write_text(debug, encoding="utf-8")
+        stdout = (out / "stdout.log").read_text(
+            encoding="utf-8", errors="replace"
+        )
+        stderr = (out / "stderr.log").read_text(
+            encoding="utf-8", errors="replace"
+        )
+        combined = stdout + "\n" + stderr + "\n" + debug
+        style_warnings, fatal_debug = classify_debug_errors(debug)
+        result["style_warnings"] = style_warnings
+        result["errors"] = sorted(set(result["errors"] + fatal_debug))
+        result["debug_logs"] = [str(p) for p in debug_files]
+
+        if result["exit_code"] == 0 and not result["errors"]:
+            status = "supported"
+        elif CHECK_MODS_INTERACTION_PROBE_TOKEN in combined:
+            status = "broken"
+        else:
+            status = "inconclusive"
+
+        report = {
+            "schema": 1,
+            "kind": "check-mods-interaction-capability",
+            "status": status,
+            "supported": status == "supported",
+            "probe_token": CHECK_MODS_INTERACTION_PROBE_TOKEN,
+            "result": result,
+        }
+        suite.write(out / "report.json", report)
+        return report
+    finally:
+        for path in created:
+            if path.exists():
+                shutil.rmtree(path)
+
+
+def probe_check_mods_for_game(
+    game_root: Path,
+    target: str,
+    out: Path,
+    timeout: int,
+) -> dict:
+    _, targets = suite.validate()
+    if target not in targets:
+        raise ValueError(f"Unknown target: {target}")
+    game_root = game_root.resolve()
+    if exact_commit(game_root) != targets[target]["commit"]:
+        raise ValueError(
+            "Installed CDDA binary does not match catalog target commit"
+        )
+    return probe_check_mods_interactions(
+        find_game_exe(game_root),
+        game_root,
+        game_root / "data",
+        out,
+        timeout,
+    )
+
 
 def find_game_exe(game: Path) -> Path:
     candidates = (
@@ -476,6 +624,7 @@ def run_release(game_root: Path, target: str, out: Path, timeout: int) -> dict:
         # distinguishes an upstream/binary problem from a harness staging problem.
         baseline = check("baseline-dda-native", ["dda"], None)
         staged_baseline = None
+        capability = None
         results = []
         if baseline["exit_code"] == 0 and not baseline["errors"]:
             staged_baseline = check("baseline-dda-staged", ["dda"], data)
@@ -486,6 +635,13 @@ def run_release(game_root: Path, target: str, out: Path, timeout: int) -> dict:
             and staged_baseline["exit_code"] == 0
             and not staged_baseline["errors"]
         ):
+            capability = probe_check_mods_interactions(
+                exe,
+                game_root,
+                data,
+                out / "capability-check-mods-interactions",
+                min(timeout, 120),
+            )
             for row in rows:
                 # Mod discovery scans every modinfo.json under data/mods.  Keep
                 # component checks isolated so an unrelated repository mod cannot
@@ -495,7 +651,11 @@ def run_release(game_root: Path, target: str, out: Path, timeout: int) -> dict:
                 checks = []
                 for game_id in row["check_mod_ids"]:
                     hazards = check_mods_interaction_hazards(data, game_id)
-                    if hazards:
+                    if (
+                        hazards
+                        and capability is not None
+                        and capability["status"] == "broken"
+                    ):
                         result = deferred_check_mods_result(game_id, hazards)
                     else:
                         result = check(
@@ -544,11 +704,14 @@ def run_release(game_root: Path, target: str, out: Path, timeout: int) -> dict:
             "commit": target_info["commit"],
             "baseline": baseline,
             "staged_baseline": staged_baseline,
+            "check_mods_interaction_capability": capability,
             "suites": results,
         }
         suite.write(out / "report.json", report)
 
     failures = []
+    if capability is not None and capability["status"] == "inconclusive":
+        failures.append("capability-check-mods-interactions")
     if baseline["exit_code"] or baseline["errors"]:
         failures.append("baseline-dda-native")
     if staged_baseline is not None and (
@@ -573,6 +736,7 @@ def run_installed(
     game_mod_ids: list[str],
     out: Path,
     timeout: int,
+    check_mods_interactions: str = "auto",
 ) -> dict:
     """Validate mods that are already installed into a real game tree."""
     _, targets = suite.validate()
@@ -594,10 +758,31 @@ def run_installed(
     if not ids:
         raise ValueError("No installed game mod IDs supplied")
 
+    if check_mods_interactions == "auto":
+        capability = probe_check_mods_interactions(
+            exe,
+            game_root,
+            game_root / "data",
+            out / "capability-check-mods-interactions",
+            min(timeout, 120),
+        )
+        if capability["status"] == "inconclusive":
+            raise RuntimeError(
+                "Could not determine --check-mods mod_interactions capability"
+            )
+    else:
+        capability = {
+            "schema": 1,
+            "kind": "check-mods-interaction-capability",
+            "status": check_mods_interactions,
+            "supported": check_mods_interactions == "supported",
+            "source": "caller",
+        }
+
     checks = []
     for mid in ids:
         hazards = check_mods_interaction_hazards(game_root / "data", mid)
-        if hazards:
+        if hazards and capability["status"] == "broken":
             checks.append(
                 {"mod": mid, "result": deferred_check_mods_result(mid, hazards)}
             )
@@ -640,6 +825,7 @@ def run_installed(
         "target": target,
         "commit": target_info["commit"],
         "mods": ids,
+        "check_mods_interaction_capability": capability,
         "checks": checks,
     }
     suite.write(out / "report.json", report)
@@ -825,6 +1011,17 @@ def main() -> None:
     installed.add_argument("--mods", required=True)
     installed.add_argument("--out", required=True)
     installed.add_argument("--timeout", type=int, default=600)
+    installed.add_argument(
+        "--check-mods-interactions",
+        choices=("auto", "supported", "broken"),
+        default="auto",
+    )
+
+    capability = sub.add_parser("probe-check-mods")
+    capability.add_argument("--game-root", required=True)
+    capability.add_argument("--target", required=True)
+    capability.add_argument("--out", required=True)
+    capability.add_argument("--timeout", type=int, default=120)
 
     source = sub.add_parser("run-source")
     source.add_argument("--cdda-root", required=True)
@@ -862,7 +1059,20 @@ def main() -> None:
             [mid.strip() for mid in args.mods.split(",") if mid.strip()],
             Path(args.out),
             args.timeout,
+            args.check_mods_interactions,
         )
+    elif args.command == "probe-check-mods":
+        report = probe_check_mods_for_game(
+            Path(args.game_root),
+            args.target,
+            Path(args.out),
+            args.timeout,
+        )
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        if report["status"] == "inconclusive":
+            raise RuntimeError(
+                "Could not determine --check-mods mod_interactions capability"
+            )
     elif args.command == "run-source":
         run_source(
             Path(args.cdda_root),
