@@ -20,19 +20,21 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Deep PowerShell harness syntax
+      - name: PowerShell syntax gates
         shell: powershell
         run: |
-          $tokens=$null
-          $errors=$null
-          [Management.Automation.Language.Parser]::ParseFile(
-            (Resolve-Path 'tools/deep_install_matrix.ps1'),
-            [ref]$tokens,
-            [ref]$errors
-          ) | Out-Null
-          if($errors.Count){
-            $errors | ForEach-Object { Write-Error $_.Message }
-            throw 'Deep installer harness parser validation failed.'
+          foreach($file in @('tools/deep_install_matrix.ps1','installer/ModSuite.psm1')){
+            $tokens=$null
+            $errors=$null
+            [Management.Automation.Language.Parser]::ParseFile(
+              (Resolve-Path $file),
+              [ref]$tokens,
+              [ref]$errors
+            ) | Out-Null
+            if($errors.Count){
+              $errors | ForEach-Object { Write-Error ($file + ': ' + $_.Message) }
+              throw ('PowerShell parser validation failed: ' + $file)
+            }
           }
       - name: Build packages with catalog, syntax and payload validation
         # modsuite.py build calls the same full validate() gate before packaging.
