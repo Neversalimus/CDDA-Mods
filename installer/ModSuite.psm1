@@ -176,17 +176,22 @@ function Invoke-GameCheck([string]$Exe,[string]$GameRoot,[string]$DataRoot,[stri
         $logs=$out+"`n"+$err
         foreach($f in @(Get-ChildItem -LiteralPath $UserRoot -Filter debug.log -Recurse -File)){$logs+="`n"+(Get-Content $f.FullName -Raw)}
         $lines=@($logs -split "`r?`n")
-        # Match only the source-bearing ERROR record itself.  CDDA text-style
-        # diagnostics are multi-line: the following "Json error: ..." detail
-        # does not repeat text_style_check_reader.cpp and must inherit the
-        # classification of the preceding ERROR record rather than becoming
-        # a false fatal on its own.
+        # Only source-bearing ERROR records decide severity. CDDA text-style
+        # diagnostics are multi-line; their following "Json error: ..." detail
+        # must inherit the style classification instead of becoming a false fatal.
         $errorRecords=@($lines | Where-Object {$_ -match '(^|\s)ERROR\s*:'})
         $style=@($errorRecords | Where-Object {$_ -match 'text_style_check_reader\.cpp:63'})
         $bad=@(
             $errorRecords | Where-Object {
                 ($_ -notmatch 'text_style_check_reader\.cpp:63') -and
-                ($_ -notmatch '^\s*(\(continued from above\)\s+)?ERROR\s*:\s*\(error message will follow backtrace\)\s*        $rawExit=$proc.ExitCode
+                ($_ -notmatch '^\s*(\(continued from above\)\s+)?ERROR\s*:\s*\(error message will follow backtrace\)\s*$')
+            }
+        )
+        $bad+=@($lines | Where-Object {
+            ($_ -match 'Error loading|Unknown mod:|Missing dependencies:|Fatal:') -and
+            ($_ -notmatch '(^|\s)ERROR\s*:')
+        })
+        $rawExit=$proc.ExitCode
         $exit=$rawExit
         # CDDA also returns 1 for advisory cata-text-style diagnostics.
         if($exit -eq 1 -and $style.Count -gt 0 -and $bad.Count -eq 0){$exit=0}
