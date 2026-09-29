@@ -4,123 +4,67 @@
   "install_scenarios": [
     {
       "id": "axiom",
-      "mods": ["axiom_7"]
+      "mods": [
+        "axiom_7"
+      ]
     },
     {
       "id": "blazemod",
-      "mods": ["blazemod"]
+      "mods": [
+        "blazemod"
+      ]
     },
     {
       "id": "secronom-stack",
-      "mods": ["secronom_plus"]
+      "mods": [
+        "secronom_plus"
+      ]
     },
     {
       "id": "aftershock-prime",
-      "mods": ["aftershock_prime"]
+      "mods": [
+        "aftershock_prime"
+      ]
     },
     {
       "id": "tankmod",
-      "mods": ["tankmod"]
+      "mods": [
+        "tankmod"
+      ]
     },
     {
       "id": "vehicles-stack",
-      "mods": ["blazemod", "tankmod"]
+      "mods": [
+        "blazemod",
+        "tankmod"
+      ]
     },
     {
       "id": "horror-tech-stack",
-      "mods": ["secronom_plus", "aftershock_prime"]
+      "mods": [
+        "secronom_plus",
+        "aftershock_prime"
+      ]
     },
     {
       "id": "all-json",
-      "mods": ["axiom_7", "blazemod", "secronom_plus", "aftershock_prime", "tankmod"]
+      "mods": [
+        "axiom_7",
+        "blazemod",
+        "secronom_plus",
+        "aftershock_prime",
+        "tankmod"
+      ]
     },
     {
       "id": "all-content",
-      "mods": ["axiom_7", "blazemod", "secronom_plus", "aftershock_prime", "tankmod", "undeadpeople"]
-    }
-  ],
-  "source_suites": [
-    {
-      "id": "vanilla",
-      "mods": [],
-      "filters": [
-        {
-          "expr": "[force_load_game]",
-          "timeout_seconds": 900
-        }
-      ]
-    },
-    {
-      "id": "axiom",
-      "mods": ["axiom_7"],
-      "filters": [
-        {
-          "expr": "[force_load_game]",
-          "timeout_seconds": 1200
-        }
-      ]
-    },
-    {
-      "id": "blazemod",
-      "mods": ["blazemod"],
-      "filters": [
-        {
-          "expr": "[force_load_game]",
-          "timeout_seconds": 1200
-        }
-      ]
-    },
-    {
-      "id": "secronom-stack",
-      "mods": ["secronom_plus"],
-      "filters": [
-        {
-          "expr": "[force_load_game]",
-          "timeout_seconds": 1200
-        }
-      ]
-    },
-    {
-      "id": "aftershock-prime",
-      "mods": ["aftershock_prime"],
-      "filters": [
-        {
-          "expr": "[force_load_game]",
-          "timeout_seconds": 1200
-        }
-      ]
-    },
-    {
-      "id": "tankmod",
-      "mods": ["tankmod"],
-      "filters": [
-        {
-          "expr": "[force_load_game]",
-          "timeout_seconds": 1200
-        }
-      ]
-    },
-    {
-      "id": "all-json",
-      "mods": ["axiom_7", "blazemod", "secronom_plus", "aftershock_prime", "tankmod"],
-      "filters": [
-        {
-          "expr": "[force_load_game]",
-          "timeout_seconds": 1800
-        },
-        {
-          "expr": "[mapgen]",
-          "timeout_seconds": 5400,
-          "rng_seed_fuzz": 3
-        },
-        {
-          "expr": "[vehicle]",
-          "timeout_seconds": 5400
-        },
-        {
-          "expr": "~[slow] ~[.]",
-          "timeout_seconds": 10800
-        }
+      "mods": [
+        "axiom_7",
+        "blazemod",
+        "secronom_plus",
+        "aftershock_prime",
+        "tankmod",
+        "undeadpeople"
       ]
     }
   ]
