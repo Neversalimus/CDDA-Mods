@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import shutil
@@ -64,15 +65,31 @@ def choose_asset(assets: list[dict]) -> dict:
     return candidates[0][2]
 
 
-def download(url: str, path: Path, token: str | None):
+def download(url: str, path: Path, token: str | None) -> str:
     headers = {"User-Agent": "CDDA-Mods-deep-runtime"}
     if token:
         headers["Authorization"] = f"Bearer {token}"
     request = urllib.request.Request(url, headers=headers)
-    with urllib.request.urlopen(request, timeout=120) as src, path.open(
-        "wb"
-    ) as dst:
-        shutil.copyfileobj(src, dst)
+    digest = hashlib.sha256()
+    with urllib.request.urlopen(request, timeout=120) as src, path.open("wb") as dst:
+        while True:
+            chunk = src.read(1024 * 1024)
+            if not chunk:
+                break
+            digest.update(chunk)
+            dst.write(chunk)
+    return digest.hexdigest()
+
+
+def extract_zip_safe(archive: Path, destination: Path) -> None:
+    destination.mkdir(parents=True, exist_ok=True)
+    root = destination.resolve()
+    with zipfile.ZipFile(archive) as bundle:
+        for info in bundle.infolist():
+            target = (destination / info.filename).resolve()
+            if not target.is_relative_to(root):
+                raise ValueError(f"Unsafe release archive path: {info.filename}")
+        bundle.extractall(destination)
 
 
 def find_root(out: Path) -> Path:
@@ -128,12 +145,18 @@ def main():
     out.mkdir(parents=True)
 
     release = request_json(API + target["tag"], args.token)
+    if release.get("tag_name") != target["tag"]:
+        raise ValueError("GitHub release tag does not match catalog target")
     asset = choose_asset(release["assets"])
     archive = out / asset["name"]
-    download(asset["browser_download_url"], archive, args.token)
+    observed_sha256 = download(asset["browser_download_url"], archive, args.token)
+    published_digest = (asset.get("digest") or "").removeprefix("sha256:")
+    if published_digest and observed_sha256 != published_digest.lower():
+        raise ValueError(
+            f"Release asset SHA-256 mismatch: {observed_sha256} != {published_digest}"
+        )
 
-    with zipfile.ZipFile(archive) as bundle:
-        bundle.extractall(out / "game")
+    extract_zip_safe(archive, out / "game")
     archive.unlink()
 
     root = find_root(out / "game")
@@ -149,6 +172,9 @@ def main():
                 "tag": target["tag"],
                 "commit": target["commit"],
                 "asset": asset["name"],
+                "asset_sha256": observed_sha256,
+                "published_asset_digest": asset.get("digest"),
+                "release_id": release.get("id"),
                 "game_root": str(root),
             },
             indent=2,
