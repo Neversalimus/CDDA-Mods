@@ -1783,7 +1783,7 @@
   "name": {
     "str_sp": "necros"
   },
-  "description": "A mutated lump of necrotic flesh, horribly twisted into a spindy creature. Its limbs are tipped with a neurotoxic substance that reacts for almost instantly upon contact with the air. ",
+  "description": "A mutated lump of necrotic flesh, horribly twisted into a spindy creature. Its limbs are tipped with a neurotoxic substance that reacts for almost instantly upon contact with the air.",
   "default_faction": "zombie",
   "bodytype": "spider",
   "diff": 5,

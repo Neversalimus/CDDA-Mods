@@ -11,13 +11,17 @@ Reports are content-hash bound so old evidence cannot silently certify changed p
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import platform
 import re
 import shutil
 import subprocess
 import sys
 import tempfile
+import time
 from pathlib import Path
+from urllib.parse import unquote
 
 import modsuite as suite
 
@@ -25,6 +29,10 @@ ROOT = Path(__file__).resolve().parents[1]
 ERROR_RE = re.compile(
     r"\(json-error\)|ERROR\s*:|Error loading|Unknown mod:|Missing dependencies:|Fatal:|timed out",
     re.I,
+)
+ANSI_RE = re.compile(r"\x1b\[[0-9;]*m")
+STYLE_ANNOTATION_RE = re.compile(
+    r"::error file=([^,]+),line=(\d+),col=(\d+)::(.*)"
 )
 
 
@@ -240,19 +248,41 @@ def clear_repository_json_mods(target: str, destination_mods: Path) -> None:
 
 
 def classify_debug_errors(debug: str) -> tuple[list[str], list[str]]:
-    """Split advisory CDDA text-style diagnostics from real loader errors."""
+    """Split advisory CDDA text-style diagnostics from real loader errors.
+
+    Prefer the stable GitHub annotation emitted immediately after a text-style
+    header. Timestamps in the header are intentionally discarded so warning
+    fingerprints remain comparable across otherwise identical runs.
+    """
     style: list[str] = []
     fatal: list[str] = []
-    for line in debug.splitlines():
+    lines = debug.splitlines()
+    index = 0
+    while index < len(lines):
+        line = lines[index]
         if "ERROR :" not in line:
+            index += 1
             continue
         if "text_style_check_reader.cpp:63" in line:
-            style.append(line)
+            normalized = None
+            if index + 1 < len(lines):
+                annotation = ANSI_RE.sub("", lines[index + 1]).strip()
+                match = STYLE_ANNOTATION_RE.search(annotation)
+                if match:
+                    message = unquote(match.group(4)).splitlines()[0].strip()
+                    normalized = (
+                        f"{match.group(1)}:{match.group(2)}:{match.group(3)}: "
+                        f"{message}"
+                    )
+            style.append(normalized or "text_style_check_reader.cpp:63")
+            index += 1
             continue
         if "(error message will follow backtrace)" in line:
             # debugmsg emits this generic prelude before the source-bearing line.
+            index += 1
             continue
         fatal.append(line)
+        index += 1
     return sorted(set(style)), sorted(set(fatal))
 
 
@@ -522,8 +552,57 @@ def exact_commit(game: Path) -> str:
     return match.group(1).lower()
 
 
+def file_sha256(path: Path) -> str | None:
+    try:
+        return hashlib.sha256(path.read_bytes()).hexdigest()
+    except OSError:
+        return None
+
+
+def git_head(path: Path) -> str | None:
+    try:
+        return subprocess.check_output(
+            ["git", "rev-parse", "HEAD"],
+            cwd=path,
+            text=True,
+            errors="replace",
+        ).strip().lower()
+    except (OSError, subprocess.SubprocessError):
+        return None
+
+
+def write_environment(
+    out: Path,
+    target: str,
+    target_commit: str,
+    runtime: Path | None = None,
+    observed_commit: str | None = None,
+) -> None:
+    """Write diagnostic-only runtime identity without affecting validation logic."""
+    data = {
+        "schema": 1,
+        "kind": "deep-runtime-environment",
+        "target": target,
+        "target_commit": target_commit,
+        "observed_commit": observed_commit,
+        "harness_commit": git_head(ROOT),
+        "python": platform.python_version(),
+        "platform": platform.platform(),
+    }
+    if runtime is not None:
+        data["runtime"] = {
+            "name": runtime.name,
+            "sha256": file_sha256(runtime),
+        }
+    try:
+        suite.write(out / "environment.json", data)
+    except OSError as exc:
+        print(f"warning: could not write environment manifest: {exc}", file=sys.stderr)
+
+
 def run_process(args: list[str], cwd: Path, log_dir: Path, timeout: int) -> dict:
     log_dir.mkdir(parents=True, exist_ok=True)
+    started = time.perf_counter()
     try:
         proc = subprocess.run(
             args,
@@ -549,10 +628,12 @@ def run_process(args: list[str], cwd: Path, log_dir: Path, timeout: int) -> dict
             else (exc.stderr or "")
         )
         stderr += "\nTimed out.\n"
+    duration = round(time.perf_counter() - started, 3)
     (log_dir / "stdout.log").write_text(stdout, encoding="utf-8")
     (log_dir / "stderr.log").write_text(stderr, encoding="utf-8")
     return {
         "exit_code": code,
+        "duration_seconds": duration,
         "errors": [
             line
             for line in (stdout + "\n" + stderr).splitlines()
@@ -576,6 +657,13 @@ def run_release(game_root: Path, target: str, out: Path, timeout: int) -> dict:
     _, rows = build_suites(target)
     out = out.resolve()
     out.mkdir(parents=True, exist_ok=True)
+    write_environment(
+        out,
+        target,
+        target_info["commit"],
+        runtime=exe,
+        observed_commit=exact_commit(game_root),
+    )
 
     with tempfile.TemporaryDirectory(prefix="cdda-mods-deep-release-") as temp:
         data = Path(temp) / "data"
@@ -765,6 +853,13 @@ def run_installed(
     exe = find_game_exe(game_root)
     out = out.resolve()
     out.mkdir(parents=True, exist_ok=True)
+    write_environment(
+        out,
+        target,
+        target_info["commit"],
+        runtime=exe,
+        observed_commit=exact_commit(game_root),
+    )
     ids = []
     for mid in game_mod_ids:
         if mid and mid != "dda" and mid not in ids:
@@ -1001,6 +1096,13 @@ def run_source(
     stage_source(cdda_root, target, selected_components)
     out = out.resolve()
     out.mkdir(parents=True, exist_ok=True)
+    write_environment(
+        out,
+        target,
+        target_info["commit"],
+        runtime=test_bin,
+        observed_commit=actual_commit,
+    )
 
     runs = []
     for row in rows:

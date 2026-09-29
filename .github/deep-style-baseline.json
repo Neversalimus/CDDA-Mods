@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "target": "experimental-2026-09-23-0546",
+  "source_depth": "load",
+  "evidence_run": 36637757803,
+  "mode": "informational",
+  "note": "Expected warning fingerprints derived from deep run 36637757803 after removing only the 29 targeted Secronom ellipsis/trailing-space diagnostics. This baseline is informational and does not alter CI verdicts.",
+  "suites": {
+    "component-aftershock_prime": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "component-aftershock_prime_mom": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "component-axiom_7": {
+      "count": 352,
+      "sha256": "bbcbfd1a8005f54c615bc5bf51b017edbc2fdbdcca8caff8b507e7aa9ed47ea6"
+    },
+    "component-blazemod": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "component-secronom": {
+      "count": 985,
+      "sha256": "e2b42365141526bb35a6ca10ec915f4611538936a5397c8e92b0f341cb22598e"
+    },
+    "component-secronom_plus": {
+      "count": 1443,
+      "sha256": "c2c97b93560afcb2a9e30daedf9fe04728a13ac8ab16976a6ad7dbb5e2b56c11"
+    },
+    "component-tankmod": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "profile-all-content": {
+      "count": 1795,
+      "sha256": "bafddf1e034b878d7e9209982513b4a0137235bfa8e3d6b8aa7e39ce43e45747"
+    },
+    "combined-all-json": {
+      "count": 1795,
+      "sha256": "bafddf1e034b878d7e9209982513b4a0137235bfa8e3d6b8aa7e39ce43e45747"
+    }
+  }
+}

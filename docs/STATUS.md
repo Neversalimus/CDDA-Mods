@@ -1,3 +1,13 @@
+# Current status — 2026-09-30
+
+Safe observability pass is validated on branch `infra/safe-observability-pass` at code commit `8a57afbd8c6ee4d6766b927421a86568dd26621b`. Normal CI run 36644399331 passed repository/package validation, Windows PowerShell 5.1 and PowerShell 7 installer tests, Python tests, Survivor native build, and Advanced World Settings native build.
+
+The pass does not change runtime verdict rules. It adds per-process and installer-case timing evidence, diagnostic environment/runtime hashes, a read-only final deep summary, and an informational text-style warning baseline. The final summary job is explicitly non-gating; release/source/installer jobs remain authoritative. Source style diagnostics are normalized without timestamps so warning fingerprints are comparable across runs.
+
+Secronom 1.5.1 received a targeted text-only cleanup of exactly 29 previously observed diagnostics: 28 three-dot ellipses were replaced with the preferred ellipsis character and one trailing space was removed. The remaining 985 Secronom sentence-spacing diagnostics were intentionally left unchanged pending a separate reviewed cleanup. No IDs, mechanics, spawn data, effects, or balance values were changed.
+
+The warning baseline is derived from exact-source deep run 36637757803 and adjusted only for those 29 targeted diagnostics. It is informational and cannot turn a runtime failure into a pass. A fresh deep run is still required to confirm the new compact summary and post-cleanup warning fingerprints on the exact game.
+
 # Current status — 2026-09-29
 
 Source import is complete in private Neversalimus/CDDA-Mods. NCMM remains external. The v0.1.0 PREVIEW publication workflow rebuilds and retests its exact release commit before creating an immutable tag and assets.
