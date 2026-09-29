@@ -4,7 +4,7 @@
   "source_depth": "load",
   "evidence_run": 36637757803,
   "mode": "informational",
-  "note": "Stable warning fingerprints after the targeted Secronom ellipsis/trailing-space cleanup. This baseline does not alter CI verdicts.",
+  "note": "Expected warning fingerprints derived from deep run 36637757803 after removing only the 29 targeted Secronom ellipsis/trailing-space diagnostics. This baseline is informational and does not alter CI verdicts.",
   "suites": {
     "component-aftershock_prime": {
       "count": 0,
