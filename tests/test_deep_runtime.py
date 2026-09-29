@@ -48,6 +48,45 @@ class DeepRuntimePlanTests(unittest.TestCase):
         self.assertIn("~[slow] ~[.],starting_items", exhaustive)
         self.assertIn("[slow] ~starting_items", exhaustive)
 
+
+    def test_axiom_component_gets_exact_engine_lifecycle_probe(self):
+        self.assertEqual(
+            deep.source_specs(
+                "load",
+                combined=False,
+                suite_name="component-axiom_7",
+            ),
+            ["[force_load_game]", "[axiom7_lifecycle]"],
+        )
+        self.assertNotIn(
+            "[axiom7_lifecycle]",
+            deep.source_specs(
+                "full",
+                combined=True,
+                suite_name="combined-all-json",
+            ),
+        )
+
+    def test_axiom_runtime_probe_is_wired_into_source_build(self):
+        probe = (
+            ROOT / "tools" / "runtime_probes" / "axiom7_lifecycle_test.cpp"
+        ).read_text(encoding="utf-8")
+        workflow = (
+            ROOT / ".github" / "workflows" / "deep-runtime.yml"
+        ).read_text(encoding="utf-8")
+        for required in (
+            "[axiom7_lifecycle]",
+            "MISSION_AXIOM_SENSOR_RELAY",
+            "AXIOM_KX91_SWAP_OPERATIONAL_PLAYER",
+            "EOC_AXIOM_SECURITY_ALARM",
+            "axiom_kx91_dormant",
+        ):
+            self.assertIn(required, probe)
+        self.assertIn(
+            "tools/runtime_probes/axiom7_lifecycle_test.cpp",
+            workflow,
+        )
+
     def test_external_game_dependencies_are_explicit_for_runtime(self):
         mods = deep.json_components(TARGET)
         game_ids = deep.game_ids_for(
