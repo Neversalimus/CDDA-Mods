@@ -6,7 +6,7 @@
   "name": {
     "str": "eye sprout"
   },
-  "description": "An eyeball reemerging back and forth from the ground, occasionally peeking at the vicinity. You might want to poke it.",
+  "description": "An eyeball reemerging back and forth from the ground, occasionally peeking at the vicinity.  You might want to poke it.",
   "default_faction": "secro_flesh",
   "bodytype": "blob",
   "species": [
@@ -59,7 +59,7 @@
   "name": {
     "str": "flesh tendril"
   },
-  "description": "A thick strand of vein sprouting from the ground. It is tipped with a barbed lasher.",
+  "description": "A thick strand of vein sprouting from the ground.  It is tipped with a barbed lasher.",
   "default_faction": "secro_flesh",
   "bodytype": "snake",
   "species": [
@@ -281,7 +281,7 @@
   "name": {
     "str": "flesh sack"
   },
-  "description": "A large, bulbous pus sticking firmly to nearby terrains. Distinct to its vented mouth, it throbs at a constant rate as if it's about to hatch…",
+  "description": "A large, bulbous pus sticking firmly to nearby terrains.  Distinct to its vented mouth, it throbs at a constant rate as if it's about to hatch…",
   "default_faction": "secro_flesh",
   "bodytype": "blob",
   "species": [
@@ -408,7 +408,7 @@
   "name": {
     "str": "veinstalk"
   },
-  "description": "A large, fleshy tendril sprouting from the ground. Tipped with a predominant eye, it sways and occasionally twitches into a particular direction.",
+  "description": "A large, fleshy tendril sprouting from the ground.  Tipped with a predominant eye, it sways and occasionally twitches into a particular direction.",
   "default_faction": "secro_flesh2",
   "species": [
     "SFLESH",
