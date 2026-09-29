@@ -27,6 +27,25 @@ $targetInfo=@($catalog.targets | Where-Object {$_.id -eq $Target})
 if($targetInfo.Count -ne 1){throw "Target not found or ambiguous: $Target"}
 
 $script:results=New-Object 'System.Collections.Generic.List[object]'
+$matrixTimer=[Diagnostics.Stopwatch]::StartNew()
+
+try{
+    $repoCommit=(& git -C $repo rev-parse HEAD 2>$null | Select-Object -First 1)
+    $catalogHash=(Get-FileHash -Algorithm SHA256 -LiteralPath (Join-Path $packages 'catalog.json')).Hash.ToLowerInvariant()
+    $installerHash=(Get-FileHash -Algorithm SHA256 -LiteralPath $installer).Hash.ToLowerInvariant()
+    $environment=[pscustomobject]@{
+        schema=1
+        kind='deep-install-environment'
+        target=$Target
+        harness_commit=if($repoCommit){[string]$repoCommit}else{$null}
+        powershell=$PSVersionTable.PSVersion.ToString()
+        catalog_sha256=$catalogHash
+        installer_sha256=$installerHash
+    }
+    $environment | ConvertTo-Json -Depth 8 | Set-Content (Join-Path $outRoot 'environment.json') -Encoding UTF8
+}catch{
+    Write-Warning ("Could not write installer environment manifest: " + $_.Exception.Message)
+}
 
 # Probe the exact game binary once for the whole lifecycle matrix unless the
 # caller already has a capability result from the release-loader pass.
@@ -65,8 +84,10 @@ function Invoke-InstallerCase(
         '-ValidationTimeout',([string]$ValidationTimeout),
         '-CheckModsInteractions',$script:checkModsInteractions
     )+$Extra
+    $caseTimer=[Diagnostics.Stopwatch]::StartNew()
     $lines=@(& $ps51 @args 2>&1 | ForEach-Object {$_ | Out-String})
     $code=$LASTEXITCODE
+    $caseTimer.Stop()
     [IO.File]::WriteAllText($log,($lines -join ''),(New-Object Text.UTF8Encoding($false)))
     $ok=if($ExpectSuccess){$code -eq 0}else{$code -ne 0}
     $script:results.Add([pscustomobject]@{
@@ -74,6 +95,7 @@ function Invoke-InstallerCase(
         expected_success=$ExpectSuccess
         exit_code=$code
         passed=$ok
+        duration_seconds=[Math]::Round($caseTimer.Elapsed.TotalSeconds,3)
         log=$log
     })
     if(-not $ok){
@@ -253,12 +275,14 @@ try{
 }
 
 $failed=@($script:results | Where-Object {-not $_.passed})
+$matrixTimer.Stop()
 $summary=[pscustomobject]@{
     schema=1
     target=$Target
     game_root=$game
     json_components=$jsonIds
     check_mods_interaction_capability=$script:checkModsInteractions
+    duration_seconds=[Math]::Round($matrixTimer.Elapsed.TotalSeconds,3)
     cases=@($script:results)
     passed=($failed.Count -eq 0)
 }
