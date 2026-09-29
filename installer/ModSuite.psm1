@@ -189,6 +189,37 @@ function Invoke-GameCheck([string]$Exe,[string]$GameRoot,[string]$DataRoot,[stri
         return [pscustomobject]@{exit_code=$exit;raw_exit_code=$rawExit;errors=$bad;style_warnings=$style;log=$UserRoot}
     }finally{$proc.Dispose()}
 }
+function Get-CheckModsInteractionHazards([string]$DataRoot,[string[]]$RootIds){
+    $modsRoot=Join-Path $DataRoot 'mods'
+    if(-not(Test-Path -LiteralPath $modsRoot -PathType Container)){return @()}
+    $index=@{}
+    foreach($file in @(Get-ChildItem -LiteralPath $modsRoot -Filter modinfo.json -Recurse -File -ErrorAction SilentlyContinue)){
+        try{$doc=Read-Json $file.FullName}catch{continue}
+        foreach($row in @($doc)){
+            if($null -eq $row -or [string]$row.type -ne 'MOD_INFO' -or -not $row.id){continue}
+            $deps=@()
+            if($row.PSObject.Properties['dependencies']){$deps=@($row.dependencies | ForEach-Object {[string]$_})}
+            $index[[string]$row.id]=[pscustomobject]@{root=$file.Directory.FullName;dependencies=$deps}
+        }
+    }
+    $seen=@{}
+    $stack=New-Object 'System.Collections.Generic.Stack[string]'
+    foreach($id in @($RootIds)){if($id){$stack.Push([string]$id)}}
+    $hazards=New-Object 'System.Collections.Generic.List[string]'
+    while($stack.Count -gt 0){
+        $id=$stack.Pop()
+        if($seen.ContainsKey($id)){continue}
+        $seen[$id]=$true
+        if(-not $index.ContainsKey($id)){continue}
+        $meta=$index[$id]
+        $interactions=Join-Path $meta.root 'mod_interactions'
+        if((Test-Path -LiteralPath $interactions -PathType Container) -and @(Get-ChildItem -LiteralPath $interactions -Filter '*.json' -Recurse -File -ErrorAction SilentlyContinue).Count){
+            if(-not $hazards.Contains($id)){$hazards.Add($id)}
+        }
+        foreach($dep in @($meta.dependencies)){if($dep){$stack.Push([string]$dep)}}
+    }
+    return @($hazards | Sort-Object -Unique)
+}
 function Test-StagedMods([string]$GameRoot,[object[]]$Plan,[string]$Work,[int]$TimeoutSeconds=240){
     $json=@($Plan | Where-Object {$_.package.kind -eq 'json'});if(-not $json.Count){return}
     $exe=@('cataclysm-tiles.vanilla.exe','cataclysm-tiles.exe','cataclysm.exe','cataclysm') | ForEach-Object {Join-Path $GameRoot $_} | Where-Object {Test-Path -LiteralPath $_} | Select-Object -First 1
@@ -207,6 +238,15 @@ function Test-StagedMods([string]$GameRoot,[object[]]$Plan,[string]$Work,[int]$T
     # A synthetic dependency-only mod tests the selected stack together, not just separately.
     $stack=Join-Path $data 'mods/suite_validation_stack';[IO.Directory]::CreateDirectory($stack) | Out-Null
     Write-Json (Join-Path $stack 'modinfo.json') @(@{type='MOD_INFO';id='suite_validation_stack';name='Suite validation only';authors=@('Neversalimus');description='Temporary validation stack.';dependencies=@('dda')+$ids})
+    # CDDA 0546 --check-mods uses the generic recursive loader for dependency
+    # packs.  That incorrectly consumes conditional mod_interactions and can
+    # make a valid mod redefine its own IDs (Mind Over Matter is one example).
+    # Normal world loading and cata_test use the correct two-phase loader.
+    $hazards=@(Get-CheckModsInteractionHazards $data @('suite_validation_stack'))
+    if($hazards.Count){
+        Write-Warning ("Skipping broken upstream --check-mods path for interaction-bearing dependency graph: " + ($hazards -join ', ') + ". Exact-source cata_test remains the runtime authority.")
+        return
+    }
     # Check only the synthetic root. CDDA resolves its dependencies itself;
     # passing dependencies as additional roots can re-check the same stack twice.
     $result=Invoke-GameCheck $exe $GameRoot $data (Join-Path $Work 'validation/selected') @('suite_validation_stack') $TimeoutSeconds
