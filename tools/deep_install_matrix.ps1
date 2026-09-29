@@ -27,6 +27,16 @@ if($targetInfo.Count -ne 1){throw "Target not found or ambiguous: $Target"}
 
 $script:results=New-Object 'System.Collections.Generic.List[object]'
 
+# Probe the exact game binary once for the whole lifecycle matrix. Live checks
+# reuse this result instead of re-running the engine capability probe each time.
+$capabilityOut=Join-Path $outRoot 'validator-capability'
+& python (Join-Path $repo 'tools/deep_cdda_runtime.py') probe-check-mods --game-root $game --target $Target --out $capabilityOut --timeout ([Math]::Min($ValidationTimeout,120))
+if($LASTEXITCODE -ne 0){throw 'Could not determine validator mod_interactions capability'}
+$validatorCapability=Get-Content (Join-Path $capabilityOut 'report.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+$script:checkModsInteractions=[string]$validatorCapability.status
+if($script:checkModsInteractions -notin @('supported','broken')){throw "Unexpected validator capability: $script:checkModsInteractions"}
+Write-Host "Exact game validator capability: dependency mod_interactions = $script:checkModsInteractions"
+
 function Safe-Label([string]$Name){
     return ($Name -replace '[^A-Za-z0-9_.-]','_')
 }
@@ -96,7 +106,7 @@ function Invoke-LiveCheck([string]$Label){
     $ids=@(Installed-GameIds)
     if(-not $ids.Count){throw "No installed JSON game IDs for live check: $Label"}
     $dest=Join-Path $outRoot ((Safe-Label $Label)+'-live')
-    & python (Join-Path $repo 'tools/deep_cdda_runtime.py') run-installed --game-root $game --target $Target --mods ($ids -join ',') --out $dest --timeout $ValidationTimeout
+    & python (Join-Path $repo 'tools/deep_cdda_runtime.py') run-installed --game-root $game --target $Target --mods ($ids -join ',') --out $dest --timeout $ValidationTimeout --check-mods-interactions $script:checkModsInteractions
     if($LASTEXITCODE -ne 0){throw "Live game check failed: $Label"}
 }
 
@@ -242,6 +252,7 @@ $summary=[pscustomobject]@{
     target=$Target
     game_root=$game
     json_components=$jsonIds
+    check_mods_interaction_capability=$script:checkModsInteractions
     cases=@($script:results)
     passed=($failed.Count -eq 0)
 }
