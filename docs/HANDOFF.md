@@ -1,4 +1,20 @@
-# Handoff — 2026-09-27
+# Handoff — 2026-09-29
+
+## AXIOM-7 0.8.2.8 Integrity
+
+Active task branch: `mod/axiom_7/integrity-0.8.2.8`. Pull request: #9. Base at task start: `main` commit `30590a14654f2b8061c07b9d1ccf51c6262396d8`. Exact game target remains `experimental-2026-09-23-0546` / `e262adb299a7613b4aedc5f12c08fe0413c56a84`.
+
+Implemented:
+- fixed two surface patrol waypoints that resolved onto walls;
+- fixed two rooftop patrol routes that incorrectly used 72x48 composite coordinates instead of CDDA patrol coordinates relative to the monster's local 24x24 OMT;
+- added `tests/test_axiom7_integrity.py` covering composite dimensions, spawn bounds, patrol resolution, cardreader/lock proximity, stair alignment, KX-91 footprints and all six vehicle swaps, KX state transitions, mission-offer wiring, and security EOC coverage;
+- bumped AXIOM to 0.8.2.8 without changing existing IDs or save variables.
+
+Validation: PR #9 workflow run `36592142302` passed all normal CI jobs: verify, package build, PowerShell 5.1/7 installer tests, Python tests including the AXIOM integrity suite, Survivor native build, and AWS native build. AXIOM is marked `static`, not `load-tested` or `runtime-tested`.
+
+Still required before a stronger compatibility claim: run the exact-game real-CDDA/deep gate for 0546, generate/load AXIOM in a fresh world, exercise clearance and KX-91 restoration/custody in gameplay, and specifically verify NPC/turret/patrol IFF after aircraft interaction. Do not promote beyond `static` from this handoff alone.
+
+---
 
 The private Neversalimus/CDDA-Mods repository is populated; initial import 14bafb0, CI setup d4c2ac5. Read AGENTS.md and STATUS.md, then refresh remote HEAD and latest Actions before editing. The connector currently lacks private-repository access; owner authorized browser uploads. Never overwrite another chat's changes.
 
