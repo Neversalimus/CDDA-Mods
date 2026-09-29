@@ -15,6 +15,7 @@
   {
     "result": "sinew",
     "type": "recipe",
+    "charges": 10,
     "activity_level": "LIGHT_EXERCISE",
     "category": "CC_OTHER",
     "subcategory": "CSC_OTHER_MATERIALS",
