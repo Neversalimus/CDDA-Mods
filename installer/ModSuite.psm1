@@ -160,6 +160,9 @@ function Test-PayloadEqual([string]$Path,$Files){
 }
 function Invoke-GameCheck([string]$Exe,[string]$GameRoot,[string]$DataRoot,[string]$UserRoot,[string[]]$ModIds,[int]$TimeoutSeconds=240){
     [IO.Directory]::CreateDirectory($UserRoot) | Out-Null
+    # CDDA opens config/debug.log before its later essential-directory setup.
+    # --check-mods may exit before that setup path, so preserve early diagnostics.
+    [IO.Directory]::CreateDirectory((Join-Path $UserRoot 'config')) | Out-Null
     $psi=New-Object Diagnostics.ProcessStartInfo;$psi.FileName=$Exe;$psi.WorkingDirectory=$GameRoot;$psi.UseShellExecute=$false;$psi.CreateNoWindow=$true
     $psi.RedirectStandardOutput=$true;$psi.RedirectStandardError=$true
     foreach($p in @($GameRoot,$DataRoot,$UserRoot)){if($p.Contains('"')){throw 'Quotes in game paths are not supported'}}
@@ -172,8 +175,18 @@ function Invoke-GameCheck([string]$Exe,[string]$GameRoot,[string]$DataRoot,[stri
         [IO.File]::WriteAllText((Join-Path $UserRoot 'stdout.log'),$out);[IO.File]::WriteAllText((Join-Path $UserRoot 'stderr.log'),$err)
         $logs=$out+"`n"+$err
         foreach($f in @(Get-ChildItem -LiteralPath $UserRoot -Filter debug.log -Recurse -File)){$logs+="`n"+(Get-Content $f.FullName -Raw)}
-        $bad=@($logs -split "`n" | Where-Object {$_ -match '\(json-error\)|ERROR\s*:|Error loading|Unknown mod:|Missing dependencies:|Fatal:'})
-        return [pscustomobject]@{exit_code=$proc.ExitCode;errors=$bad;log=$UserRoot}
+        $lines=@($logs -split "`r?`n")
+        $style=@($lines | Where-Object {$_ -match 'text_style_check_reader\.cpp:63'})
+        $bad=@($lines | Where-Object {
+            ($_ -match '\(json-error\)|ERROR\s*:|Error loading|Unknown mod:|Missing dependencies:|Fatal:') -and
+            ($_ -notmatch 'text_style_check_reader\.cpp:63') -and
+            ($_ -notmatch '^\s*(\(continued from above\)\s+)?ERROR\s*:\s*\(error message will follow backtrace\)\s*$')
+        })
+        $rawExit=$proc.ExitCode
+        $exit=$rawExit
+        # CDDA also returns 1 for advisory cata-text-style diagnostics.
+        if($exit -eq 1 -and $style.Count -gt 0 -and $bad.Count -eq 0){$exit=0}
+        return [pscustomobject]@{exit_code=$exit;raw_exit_code=$rawExit;errors=$bad;style_warnings=$style;log=$UserRoot}
     }finally{$proc.Dispose()}
 }
 function Test-StagedMods([string]$GameRoot,[object[]]$Plan,[string]$Work,[int]$TimeoutSeconds=240){
@@ -194,7 +207,9 @@ function Test-StagedMods([string]$GameRoot,[object[]]$Plan,[string]$Work,[int]$T
     # A synthetic dependency-only mod tests the selected stack together, not just separately.
     $stack=Join-Path $data 'mods/suite_validation_stack';[IO.Directory]::CreateDirectory($stack) | Out-Null
     Write-Json (Join-Path $stack 'modinfo.json') @(@{type='MOD_INFO';id='suite_validation_stack';name='Suite validation only';authors=@('Neversalimus');description='Temporary validation stack.';dependencies=@('dda')+$ids})
-    $result=Invoke-GameCheck $exe $GameRoot $data (Join-Path $Work 'validation/selected') ($ids+@('suite_validation_stack')) $TimeoutSeconds
+    # Check only the synthetic root. CDDA resolves its dependencies itself;
+    # passing dependencies as additional roots can re-check the same stack twice.
+    $result=Invoke-GameCheck $exe $GameRoot $data (Join-Path $Work 'validation/selected') @('suite_validation_stack') $TimeoutSeconds
     if($result.exit_code -ne 0 -or @($result.errors).Count){throw "Selected mod validation failed; report: $($result.log)"}
 }
 function Restore-Transaction([string]$Transaction,[switch]$Automatic){
