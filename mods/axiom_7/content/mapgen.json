@@ -95,6 +95,14 @@
         "________________________________________________________________________"
       ],
       "terrain": {
+        "1": "t_linoleum_whitefloor_olight",
+        "2": "t_linoleum_whitefloor_olight",
+        "3": "t_linoleum_whitefloor_olight",
+        "4": "t_linoleum_whitefloor_olight",
+        "5": "t_linoleum_whitefloor_olight",
+        "6": "t_linoleum_whitefloor_olight",
+        "7": "t_linoleum_whitefloor_olight",
+        "8": "t_linoleum_whitefloor_olight",
         "_": "t_grass",
         ".": "t_pavement",
         ",": "t_pavement_y",
@@ -119,19 +127,19 @@
         "m": "t_linoleum_whitefloor_olight",
         "n": "t_nanofab",
         "o": "t_nanofab_body",
-        "1": "t_linoleum_whitefloor_olight",
-        "2": "t_linoleum_whitefloor_olight",
-        "3": "t_linoleum_whitefloor_olight",
-        "4": "t_linoleum_whitefloor_olight",
-        "5": "t_linoleum_whitefloor_olight",
-        "6": "t_linoleum_whitefloor_olight",
-        "7": "t_linoleum_whitefloor_olight",
-        "8": "t_linoleum_whitefloor_olight",
         "<": "t_stairs_up",
         "!": "t_axiom_reader_contractor",
         "v": "t_stairs_down"
       },
       "furniture": {
+        "1": "f_displaycase",
+        "2": "f_displaycase",
+        "3": "f_displaycase",
+        "4": "f_displaycase",
+        "5": "f_machinery_electronic",
+        "6": "f_machinery_electronic",
+        "7": "f_machinery_electronic",
+        "8": "f_machinery_electronic",
         "a": "f_counter",
         "b": "f_rack",
         "c": "f_server",
@@ -142,15 +150,7 @@
         "i": "f_chair",
         "j": "f_indoor_plant",
         "k": "f_locker",
-        "m": "f_workbench",
-        "1": "f_displaycase",
-        "2": "f_displaycase",
-        "3": "f_displaycase",
-        "4": "f_displaycase",
-        "5": "f_machinery_electronic",
-        "6": "f_machinery_electronic",
-        "7": "f_machinery_electronic",
-        "8": "f_machinery_electronic"
+        "m": "f_workbench"
       },
       "place_npcs": [
         {
@@ -327,11 +327,11 @@
                 "y": 5
               },
               {
-                "x": 20,
+                "x": 19,
                 "y": 5
               },
               {
-                "x": 20,
+                "x": 19,
                 "y": 20
               },
               {
@@ -366,11 +366,11 @@
               },
               {
                 "x": 20,
-                "y": 18
+                "y": 17
               },
               {
                 "x": 3,
-                "y": 18
+                "y": 17
               }
             ]
           }
