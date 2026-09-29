@@ -39,12 +39,12 @@ class DeepRuntimePlanTests(unittest.TestCase):
             ["[force_load_game]"],
         )
         self.assertIn(
-            "~[slow] ~[.]",
+            "~[slow] ~[.],starting_items",
             deep.source_specs("full", combined=False),
         )
         exhaustive = deep.source_specs("exhaustive", combined=True)
-        self.assertIn("[slow] ~crafting_skill_gain", exhaustive)
-        self.assertIn("crafting_skill_gain", exhaustive)
+        self.assertIn("~[slow] ~[.],starting_items", exhaustive)
+        self.assertIn("[slow] ~starting_items", exhaustive)
 
     def test_release_asset_prefers_graphical_windows_x64(self):
         assets = [
