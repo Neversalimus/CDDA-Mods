@@ -12,7 +12,8 @@ param(
     [switch]$PlanOnly,
     [switch]$Yes,
     [string]$Rollback='',
-    [int]$ValidationTimeout=240
+    [int]$ValidationTimeout=240,
+    [ValidateSet('auto','supported','broken')][string]$CheckModsInteractions='auto'
 )
 $ErrorActionPreference='Stop'
 Import-Module (Join-Path $PSScriptRoot 'ModSuite.psm1') -Force
@@ -120,7 +121,7 @@ try{
     $changed=@($plan | Where-Object {-not $_.unchanged})
     if(-not $changed.Count){Write-Host 'Selected files already match this release.' -ForegroundColor Green;exit 0}
     Write-Host 'Validating in an isolated copy of game data. Saves are not used.'
-    Test-StagedMods $GameRoot $plan $work $ValidationTimeout
+    Test-StagedMods $GameRoot $plan $work $ValidationTimeout $CheckModsInteractions
     Install-Plan $changed $work $stateFile
     $records=@{}
     if(Test-Path $stateFile){foreach($p in @((Read-Json $stateFile).packages)){$records[$p.id]=$p}}
