@@ -110,6 +110,13 @@ def scan_matrix(path: Path, doc: dict, rows: list[dict]):
     if "_parse_error" in doc:
         add_row(rows, "summary", str(path), "WARN", note=doc["_parse_error"])
         return
+    add_row(
+        rows,
+        "installer",
+        "matrix-total",
+        "PASS" if doc.get("passed") else "FAIL",
+        {"duration_seconds": doc.get("duration_seconds")},
+    )
     for case in doc.get("cases", []):
         add_row(
             rows,
