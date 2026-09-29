@@ -1,3 +1,4 @@
+import json
 import sys
 import tempfile
 import unittest
@@ -47,6 +48,33 @@ class DeepRuntimePlanTests(unittest.TestCase):
         exhaustive = deep.source_specs("exhaustive", combined=True)
         self.assertIn("~[slow] ~[.],starting_items", exhaustive)
         self.assertIn("[slow] ~starting_items", exhaustive)
+
+
+    def test_install_lifecycle_matrix_covers_every_installable_content_component(self):
+        matrix = json.loads(
+            (ROOT / "tests" / "deep_runtime_matrix.json").read_text(encoding="utf-8")
+        )
+        manifests = [
+            json.loads(p.read_text(encoding="utf-8"))
+            for p in sorted((ROOT / "mods").glob("*/manifest.json"))
+        ]
+        expected = {
+            m["id"]
+            for m in manifests
+            if m["kind"] in {"json", "tileset"}
+            and any(
+                TARGET in v.get("targets", [])
+                and v.get("available", True)
+                and v.get("validation") != "blocked"
+                for v in m["variants"]
+            )
+        }
+        scenarios = matrix["install_scenarios"]
+        covered = {mid for row in scenarios for mid in row["mods"]}
+        self.assertEqual(expected, covered)
+        self.assertTrue(all(row["mods"] for row in scenarios))
+        all_content = next(row for row in scenarios if row["id"] == "all-content")
+        self.assertEqual(expected, set(all_content["mods"]))
 
     def test_release_asset_prefers_graphical_windows_x64(self):
         assets = [
