@@ -73,6 +73,20 @@ try{
     $game=Join-Path $root 'game';[IO.Directory]::CreateDirectory((Join-Path $game 'data/json')) | Out-Null
     [IO.File]::WriteAllText((Join-Path $game 'cataclysm.exe'),'fixture')
     Check (Test-GameRoot $game) 'Single executable game detection works under strict mode'
+    # CDDA 0546 --check-mods cannot safely validate dependency graphs containing mod_interactions.
+    $idata=Join-Path $root 'interaction-data'
+    $iroot=Join-Path $idata 'mods/root_mod'
+    $idep=Join-Path $idata 'mods/dep_mod'
+    [IO.Directory]::CreateDirectory($iroot)|Out-Null
+    [IO.Directory]::CreateDirectory((Join-Path $idep 'mod_interactions/other_mod'))|Out-Null
+    Write-Json (Join-Path $iroot 'modinfo.json') @{type='MOD_INFO';id='root_mod';dependencies=@('dep_mod')}
+    Write-Json (Join-Path $idep 'modinfo.json') @{type='MOD_INFO';id='dep_mod';dependencies=@()}
+    Write-Json (Join-Path $idep 'mod_interactions/other_mod/override.json') @()
+    $hazards=@(Get-CheckModsInteractionHazards $idata @('root_mod'))
+    Check ($hazards.Count -eq 1 -and $hazards[0] -eq 'dep_mod') 'Interaction-bearing dependency graph defers broken check-mods path'
+    $plain=Join-Path $idata 'mods/plain_mod';[IO.Directory]::CreateDirectory($plain)|Out-Null
+    Write-Json (Join-Path $plain 'modinfo.json') @{type='MOD_INFO';id='plain_mod';dependencies=@()}
+    Check (@(Get-CheckModsInteractionHazards $idata @('plain_mod')).Count -eq 0) 'Plain dependency graph remains eligible for native validator'
     # Duplicate mod IDs must not be silently selected.
     $dup=Join-Path $root 'duplicate';[IO.Directory]::CreateDirectory($dup)|Out-Null
     foreach($d in @('one','two')){[IO.Directory]::CreateDirectory((Join-Path $dup $d))|Out-Null;Copy-Item (Join-Path $payload 'modinfo.json') (Join-Path $dup "$d/modinfo.json")}
