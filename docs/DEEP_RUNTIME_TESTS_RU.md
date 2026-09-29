@@ -18,8 +18,14 @@ Workflow `.github/workflows/deep-runtime.yml` работает в три сло�
 - скачанный официальный ZIP проверяется по опубликованному GitHub SHA-256 digest;
 - сначала проходит чистая `dda`, чтобы ошибка самой базы не засчиталась как
   ошибка мода;
-- каждый JSON-мод запускается отдельно через настоящий `--check-mods`;
+- каждый JSON-мод без interaction-bearing dependency graph запускается отдельно через настоящий `--check-mods`;
 - зависимости автоматически добавляются из manifest;
+- для графов с `mod_interactions` (например Mind Over Matter) официальный
+  `--check-mods` на pinned 0546 считается upstream-invalid: его
+  `check_mod_data()` использует общий рекурсивный loader и ошибочно читает
+  conditional interaction-файлы как обычные данные. Такие проверки явно
+  помечаются `deferred_to=exact-source-cata_test`, а runtime authority
+  переносится на exact-source слой, который использует нормальный world loader;
 - проверяются repository profiles;
 - проверяется общий стек всех JSON-модов;
 - stdout/stderr/debug.log сохраняются как artifact;
@@ -35,7 +41,7 @@ Workflow `.github/workflows/deep-runtime.yml` работает в три сло�
 
 Для каждого JSON-мода выполняется последовательность:
 
-`clean state -> install -> native --check-mods -> repeat install -> --check-mods -> update -> --check-mods -> rollback`
+`clean state -> install -> native validator (или documented cata_test defer) -> repeat install -> validator -> update -> validator -> rollback`
 
 Отдельно выполняются общий JSON-стек и профиль `all-content`, включая установку и
 rollback тайлсета. После установки проверяется уже **live `data/mods` игры**, а не
@@ -49,6 +55,13 @@ receipt, но и фактическое отсутствие откатанны�
 - незавершённой предыдущей транзакции.
 
 Логи каждого шага и сводный `matrix-summary.json` сохраняются как artifact.
+
+Для пакета, чей dependency graph содержит `mod_interactions`, installer не
+запускает заведомо некорректный `--check-mods` этой версии CDDA и пишет
+предупреждение о defer. При этом SHA/ZIP verification, staging, фактическая
+установка, repeat/update, receipts и rollback продолжают проверяться полностью.
+Сам runtime такого графа обязан пройти exact-source `cata_test`; defer не
+является runtime certification.
 
 ### 3. Exact source + cata_test
 
