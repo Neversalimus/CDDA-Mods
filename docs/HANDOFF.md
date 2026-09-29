@@ -10,7 +10,7 @@ Implemented:
 - added `tests/test_axiom7_integrity.py` covering composite dimensions, spawn bounds, patrol resolution, cardreader/lock proximity, stair alignment, KX-91 footprints and all six vehicle swaps, KX state transitions, mission-offer wiring, and security EOC coverage;
 - bumped AXIOM to 0.8.2.8 without changing existing IDs or save variables.
 
-Validation: PR #9 workflow run `36592142302` passed all normal CI jobs: verify, package build, PowerShell 5.1/7 installer tests, Python tests including the AXIOM integrity suite, Survivor native build, and AWS native build. AXIOM is marked `static`, not `load-tested` or `runtime-tested`.
+Validation: PR #9 workflow run `36592734678` passed all normal CI jobs: verify, package build, PowerShell 5.1/7 installer tests, Python tests (24 total, including all 13 AXIOM integrity tests), Survivor native build, and AWS native build. AXIOM is marked `static`, not `load-tested` or `runtime-tested`.
 
 Still required before a stronger compatibility claim: run the exact-game real-CDDA/deep gate for 0546, generate/load AXIOM in a fresh world, exercise clearance and KX-91 restoration/custody in gameplay, and specifically verify NPC/turret/patrol IFF after aircraft interaction. Do not promote beyond `static` from this handoff alone.
 
