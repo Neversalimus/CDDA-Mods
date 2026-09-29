@@ -154,7 +154,7 @@
   "name": {
     "str": "nautilus torpedo"
   },
-  "description": "A squidling, or some sort of maggot but with tentacles. Tiny, feeble and short-lived, it seeks a lively host on its ways to attach to.",
+  "description": "A squidling, or some sort of maggot but with tentacles.  Tiny, feeble and short-lived, it seeks a lively host on its ways to attach to.",
   "default_faction": "zombie",
   "species": [
     "ZOMBIE"
@@ -250,7 +250,7 @@
   "name": {
     "str": "jolt"
   },
-  "description": "A pale corpse, obscure to its appearance. Flowing through its body is an immensive electric current, covering its vicinity in deadly thunderstorm.",
+  "description": "A pale corpse, obscure to its appearance.  Flowing through its body is an immensive electric current, covering its vicinity in deadly thunderstorm.",
   "species": [
     "ZOMBIE",
     "SECROZED_2"
@@ -511,7 +511,7 @@
   "name": {
     "str_sp": "psyrus"
   },
-  "description": "A large, wickedly vile corpse, with writhing tendrils under its foul mouth. Veins glow brighter as its raging desire for flesh sets it ablazed.",
+  "description": "A large, wickedly vile corpse, with writhing tendrils under its foul mouth.  Veins glow brighter as its raging desire for flesh sets it ablazed.",
   "default_faction": "zombie",
   "bodytype": "human",
   "species": [
@@ -678,7 +678,7 @@
   "name": {
     "str": "nocturne"
   },
-  "description": "A vicious corpse concealed in otherworldly shadows. You can only distinguish a set of razor-sharp nails glowing faintly through it.",
+  "description": "A vicious corpse concealed in otherworldly shadows.  You can only distinguish a set of razor-sharp nails glowing faintly through it.",
   "default_faction": "zombie",
   "bodytype": "human",
   "species": [
@@ -762,7 +762,7 @@
   "name": {
     "str_sp": "nix"
   },
-  "description": "A hollow corpse, suffering from severe deterioration of flesh that made it appear completely skeletal. Its ghastly visage is uncomfortable to the sight, and being near it is the worst than most.",
+  "description": "A hollow corpse, suffering from severe deterioration of flesh that made it appear completely skeletal.  Its ghastly visage is uncomfortable to the sight, and being near it is the worst than most.",
   "default_faction": "zombie",
   "bodytype": "human",
   "species": [
@@ -838,7 +838,7 @@
   "name": {
     "str": "fleshmonger"
   },
-  "description": "A gigantic mound of putrid flesh, with assortments of limbs and writhing tendrils reemerging back and forth. Dark, oozing pus constantly erupts from its swollen body.",
+  "description": "A gigantic mound of putrid flesh, with assortments of limbs and writhing tendrils reemerging back and forth.  Dark, oozing pus constantly erupts from its swollen body.",
   "default_faction": "zombie",
   "bodytype": "migo",
   "species": [
@@ -985,7 +985,7 @@
   "name": {
     "str": "gorepit"
   },
-  "description": "An eerie pit composed mostly of decaying flesh, revealing thousands of bones and other organic materials aligned in its wall. Thick, sinewy webbing supports a central bulbous orb that beats at a steady rate.",
+  "description": "An eerie pit composed mostly of decaying flesh, revealing thousands of bones and other organic materials aligned in its wall.  Thick, sinewy webbing supports a central bulbous orb that beats at a steady rate.",
   "default_faction": "zombie",
   "species": [
     "ZOMBIE",
@@ -1125,7 +1125,7 @@
   "name": {
     "str": "giant tendril"
   },
-  "description": "A stout, meandering tendril, consisting of flesh and bones. Its vein glows in sync with the orb.",
+  "description": "A stout, meandering tendril, consisting of flesh and bones.  Its vein glows in sync with the orb.",
   "default_faction": "zombie",
   "species": [
     "ZOMBIE"
@@ -1197,7 +1197,7 @@
   "name": {
     "str": "massive tendril"
   },
-  "description": "A huge tendril, with a darker hue and almost double the size of a regular variant. Unlike others, this one emerged from the depths of the gorepit.",
+  "description": "A huge tendril, with a darker hue and almost double the size of a regular variant.  Unlike others, this one emerged from the depths of the gorepit.",
   "default_faction": "zombie",
   "species": [
     "ZOMBIE"
@@ -1270,7 +1270,7 @@
   "name": {
     "str": "corrupted devourer"
   },
-  "description": "A colossal, humanoid corpse, distinct to its seemingly volatile torsal lump and a headless top. a set of arm biters with swollen eyes united into them.",
+  "description": "A colossal, humanoid corpse, distinct to its seemingly volatile torsal lump and a headless top.  a set of arm biters with swollen eyes united into them.",
   "default_faction": "zombie",
   "bodytype": "human",
   "species": [
@@ -1391,7 +1391,7 @@
   "name": {
     "str": "flesilisk"
   },
-  "description": "A massive conglomeration of gangrenous flesh, forming a snake-like abomination. Its entire body is covered in bony spikes layered with scales of similar material.",
+  "description": "A massive conglomeration of gangrenous flesh, forming a snake-like abomination.  Its entire body is covered in bony spikes layered with scales of similar material.",
   "default_faction": "zombie",
   "bodytype": "snake",
   "species": [
@@ -1596,7 +1596,7 @@
   "name": {
     "str": "akin"
   },
-  "description": "A grotesquely baneful corpse, resonating pure dread in the air as it eagerly sways along its path. Visceral tendrils slither freely in its vicinity, acting as guides in sensing unfortunate hosts.",
+  "description": "A grotesquely baneful corpse, resonating pure dread in the air as it eagerly sways along its path.  Visceral tendrils slither freely in its vicinity, acting as guides in sensing unfortunate hosts.",
   "default_faction": "zombie",
   "bodytype": "human",
   "species": [
@@ -1675,7 +1675,7 @@
   "name": {
     "str_sp": "equinox"
   },
-  "description": "An overwhelming mass of flesh resembling a brain, constantly emitting vaporized poison gas originating from its protruding shroom-like outgrowths. Large, hollow gaps reveal nothing but shady gloom.",
+  "description": "An overwhelming mass of flesh resembling a brain, constantly emitting vaporized poison gas originating from its protruding shroom-like outgrowths.  Large, hollow gaps reveal nothing but shady gloom.",
   "default_faction": "zombie",
   "species": [
     "ZOMBIE",
@@ -1783,7 +1783,7 @@
   "name": {
     "str_sp": "necros"
   },
-  "description": "A mutated lump of necrotic flesh, horribly twisted into a spindy creature. Its limbs are tipped with a neurotoxic substance that reacts for almost instantly upon contact with the air.",
+  "description": "A mutated lump of necrotic flesh, horribly twisted into a spindy creature.  Its limbs are tipped with a neurotoxic substance that reacts for almost instantly upon contact with the air.",
   "default_faction": "zombie",
   "bodytype": "spider",
   "diff": 5,
@@ -1853,7 +1853,7 @@
   "name": {
     "str": "necros impaler"
   },
-  "description": "A mutated lump of necrotic flesh, horribly twisted into a spindy creature. A long, thick strand of contorted tissue protrudes from a gap you can only tell is its mouth. By the end of its lasher secretes a concentrated toxin.",
+  "description": "A mutated lump of necrotic flesh, horribly twisted into a spindy creature.  A long, thick strand of contorted tissue protrudes from a gap you can only tell is its mouth.  By the end of its lasher secretes a concentrated toxin.",
   "default_faction": "zombie",
   "bodytype": "spider",
   "diff": 10,
@@ -1921,7 +1921,7 @@
   "name": {
     "str": "necros slicer"
   },
-  "description": "A mutated lump of necrotic flesh, horribly twisted into a spindy creature. Its forelimbs form a pair of scythed blades, and its extra appendages writhe without a pause as they drip neurotoxins from its tip.",
+  "description": "A mutated lump of necrotic flesh, horribly twisted into a spindy creature.  Its forelimbs form a pair of scythed blades, and its extra appendages writhe without a pause as they drip neurotoxins from its tip.",
   "default_faction": "zombie",
   "bodytype": "spider",
   "diff": 10,
@@ -2009,7 +2009,7 @@
   "name": {
     "str": "necros pollutant"
   },
-  "description": "A mutated lump of necrotic flesh, horribly twisted into a spindy creature. Larger in its size, its excessive production of toxin has become its source in emitting a condensed fog, yet a cause to its unstable body.",
+  "description": "A mutated lump of necrotic flesh, horribly twisted into a spindy creature.  Larger in its size, its excessive production of toxin has become its source in emitting a condensed fog, yet a cause to its unstable body.",
   "default_faction": "zombie",
   "bodytype": "spider",
   "diff": 20,
@@ -2153,7 +2153,7 @@
   "name": {
     "str": "resolute zombie"
   },
-  "description": "While in the verge of death, life has sprung again to bring wrath relentlessly. A skinless, brutal zombie constantly growing visible to its masculine body slowly gaining mass. Obscure to the limit of its growth, onee must execute this impending disaster.",
+  "description": "While in the verge of death, life has sprung again to bring wrath relentlessly.  A skinless, brutal zombie constantly growing visible to its masculine body slowly gaining mass.  Obscure to the limit of its growth, onee must execute this impending disaster.",
   "default_faction": "zombie",
   "bodytype": "human",
   "species": [
@@ -2274,7 +2274,7 @@
   "name": {
     "str": "stray zombie"
   },
-  "description": "A zombie, nothing more special about it. Yet it is just a normal day walker, it is considered a lone wolf, shuffling its way into nothingness. Vines are visible under its dress, but it doesn't seem to benefit nor bother the zed.",
+  "description": "A zombie, nothing more special about it. Yet it is just a normal day walker, it is considered a lone wolf, shuffling its way into nothingness.  Vines are visible under its dress, but it doesn't seem to benefit nor bother the zed.",
   "default_faction": "zombie",
   "species": [
     "ZOMBIE",
@@ -2337,7 +2337,7 @@
   "name": {
     "str": "stray zombie"
   },
-  "description": "Heaps of vibrant vines and stems cover this stray's body, holding its rotten flesh in place. Nearly immobile, it is a peculiar sight to behold for one's curious mind.",
+  "description": "Heaps of vibrant vines and stems cover this stray's body, holding its rotten flesh in place.  Nearly immobile, it is a peculiar sight to behold for one's curious mind.",
   "default_faction": "zombie",
   "species": [
     "ZOMBIE",
@@ -2405,7 +2405,7 @@
   "name": {
     "str": "stray zombie"
   },
-  "description": "Bound to the nature's grace, this stray has become one with the plant. Skin hardened like a bark, vines guides the undead's clumsy movements, but in search for flesh, the stray manipulates.",
+  "description": "Bound to the nature's grace, this stray has become one with the plant.  Skin hardened like a bark, vines guides the undead's clumsy movements, but in search for flesh, the stray manipulates.",
   "default_faction": "zombie",
   "species": [
     "ZOMBIE",
@@ -2489,7 +2489,7 @@
   "name": {
     "str": "stray zombie"
   },
-  "description": "In its age, leaves, vines, everything, has grown larger and tougher. A stray, ascendant of nature, has cultivated some beautiful, yet strange blooming flowers.",
+  "description": "In its age, leaves, vines, everything, has grown larger and tougher.  A stray, ascendant of nature, has cultivated some beautiful, yet strange blooming flowers.",
   "default_faction": "zombie",
   "species": [
     "ZOMBIE",
@@ -2573,7 +2573,7 @@
   "name": {
     "str": "stray zombie"
   },
-  "description": "In every step it takes, befalls seducing spores from its coveted flowers. This almighty stray of nature, has succesfully ascended into a frightful vine beast.",
+  "description": "In every step it takes, befalls seducing spores from its coveted flowers.  This almighty stray of nature, has succesfully ascended into a frightful vine beast.",
   "default_faction": "zombie",
   "species": [
     "ZOMBIE",
@@ -2712,7 +2712,7 @@
   "name": {
     "str": "stray zombie"
   },
-  "description": "A zombie, nothing more special about it. Yet it is just a normal day walker, it is considered a lone wolf, shuffling its way into nothingness. A green-ish vein by its arm faintly glows.",
+  "description": "A zombie, nothing more special about it. Yet it is just a normal day walker, it is considered a lone wolf, shuffling its way into nothingness.  A green-ish vein by its arm faintly glows.",
   "default_faction": "zombie",
   "species": [
     "ZOMBIE",
@@ -2923,7 +2923,7 @@
   "name": {
     "str": "stray zombie"
   },
-  "description": "An acidic stray, now manipulates its own fluid to its will. Reeks in acid trail, it is determined to spread the corrosion along its aimless wandering.",
+  "description": "An acidic stray, now manipulates its own fluid to its will.  Reeks in acid trail, it is determined to spread the corrosion along its aimless wandering.",
   "default_faction": "zombie",
   "species": [
     "ZOMBIE",
@@ -3095,7 +3095,7 @@
   "name": {
     "str": "fleshknot"
   },
-  "description": "A giant amalgamation of flesh is cemented firmly into the floor and ceiling, preceded by the horrid miasma of putrid stenches emanating from the growth. The majority of the flesh binds into a central, knot-like growth that rhythmically pumps and undulates; similar to that of the heart of a horribly mutated creature.",
+  "description": "A giant amalgamation of flesh is cemented firmly into the floor and ceiling, preceded by the horrid miasma of putrid stenches emanating from the growth.  The majority of the flesh binds into a central, knot-like growth that rhythmically pumps and undulates; similar to that of the heart of a horribly mutated creature.",
   "default_faction": "zombie",
   "volume": "1800 L",
   "weight": "465000 g",
@@ -3227,7 +3227,7 @@
   "name": {
     "str": "fleshknot"
   },
-  "description": "A giant amalgamation of flesh is cemented firmly into the floor and ceiling, preceded by the horrid miasma of putrid stenches emanating from the growth. The majority of the flesh binds into a central, knot-like growth that rhythmically pumps and undulates; similar to that of the heart of a horribly mutated creature.",
+  "description": "A giant amalgamation of flesh is cemented firmly into the floor and ceiling, preceded by the horrid miasma of putrid stenches emanating from the growth.  The majority of the flesh binds into a central, knot-like growth that rhythmically pumps and undulates; similar to that of the heart of a horribly mutated creature.",
   "default_faction": "zombie",
   "volume": "1800 L",
   "weight": "465000 g",
@@ -3359,7 +3359,7 @@
   "name": {
     "str": "fleshknot"
   },
-  "description": "A giant amalgamation of flesh is cemented firmly into the floor and ceiling, preceded by the horrid miasma of putrid stenches emanating from the growth. The majority of the flesh binds into a central, knot-like growth that rhythmically pumps and undulates; similar to that of the heart of a horribly mutated creature.",
+  "description": "A giant amalgamation of flesh is cemented firmly into the floor and ceiling, preceded by the horrid miasma of putrid stenches emanating from the growth.  The majority of the flesh binds into a central, knot-like growth that rhythmically pumps and undulates; similar to that of the heart of a horribly mutated creature.",
   "default_faction": "zombie",
   "volume": "1800 L",
   "weight": "465000 g",
@@ -3491,7 +3491,7 @@
   "name": {
     "str": "goreknot"
   },
-  "description": "A giant amalgamation of flesh is cemented firmly into the floor and ceiling, preceded by the horrid miasma of putrid stenches emanating from the growth. A somewhat humanoid figure is molded in the center of this abomination accompanied by large, membranous tentacles.",
+  "description": "A giant amalgamation of flesh is cemented firmly into the floor and ceiling, preceded by the horrid miasma of putrid stenches emanating from the growth.  A somewhat humanoid figure is molded in the center of this abomination accompanied by large, membranous tentacles.",
   "default_faction": "zombie",
   "volume": "2000 L",
   "weight": "498000 g",
