@@ -1,0 +1,236 @@
+#requires -Version 5.1
+[CmdletBinding()]
+param(
+    [Parameter(Mandatory=$true)][string]$GameRoot,
+    [Parameter(Mandatory=$true)][string]$PackageRoot,
+    [Parameter(Mandatory=$true)][string]$Target,
+    [Parameter(Mandatory=$true)][string]$Out,
+    [int]$ValidationTimeout=900
+)
+
+$ErrorActionPreference='Stop'
+Set-StrictMode -Version Latest
+
+$repo=(Resolve-Path (Join-Path $PSScriptRoot '..')).Path
+$game=(Resolve-Path -LiteralPath $GameRoot).Path
+$packages=(Resolve-Path -LiteralPath $PackageRoot).Path
+$outRoot=[IO.Path]::GetFullPath($Out)
+[IO.Directory]::CreateDirectory($outRoot) | Out-Null
+$installer=Join-Path $packages 'Install-Mods.ps1'
+if(-not(Test-Path -LiteralPath $installer)){throw "Shipped installer missing: $installer"}
+$ps51=Join-Path $env:SystemRoot 'System32/WindowsPowerShell/v1.0/powershell.exe'
+if(-not(Test-Path -LiteralPath $ps51)){throw 'Windows PowerShell 5.1 not found'}
+
+$catalog=Get-Content (Join-Path $packages 'catalog.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+$targetInfo=@($catalog.targets | Where-Object {$_.id -eq $Target})
+if($targetInfo.Count -ne 1){throw "Target not found or ambiguous: $Target"}
+
+$script:results=New-Object 'System.Collections.Generic.List[object]'
+
+function Safe-Label([string]$Name){
+    return ($Name -replace '[^A-Za-z0-9_.-]','_')
+}
+
+function Invoke-InstallerCase(
+    [string]$Label,
+    [string[]]$Extra,
+    [bool]$ExpectSuccess=$true,
+    [string]$UsePackageRoot=$packages
+){
+    $safe=Safe-Label $Label
+    $dir=Join-Path $outRoot $safe
+    [IO.Directory]::CreateDirectory($dir) | Out-Null
+    $log=Join-Path $dir 'installer.log'
+    $args=@(
+        '-NoProfile','-ExecutionPolicy','Bypass',
+        '-File',$installer,
+        '-GameRoot',$game,
+        '-PackageRoot',$UsePackageRoot,
+        '-Yes',
+        '-ValidationTimeout',([string]$ValidationTimeout)
+    )+$Extra
+    $lines=@(& $ps51 @args 2>&1 | ForEach-Object {$_ | Out-String})
+    $code=$LASTEXITCODE
+    [IO.File]::WriteAllText($log,($lines -join ''),(New-Object Text.UTF8Encoding($false)))
+    $ok=if($ExpectSuccess){$code -eq 0}else{$code -ne 0}
+    $script:results.Add([pscustomobject]@{
+        case=$Label
+        expected_success=$ExpectSuccess
+        exit_code=$code
+        passed=$ok
+        log=$log
+    })
+    if(-not $ok){
+        throw "Installer case '$Label' returned exit $code; expected success=$ExpectSuccess. See $log"
+    }
+}
+
+function Read-State {
+    $path=Join-Path $game '_CDDA-Mods/installed.json'
+    if(-not(Test-Path -LiteralPath $path)){return $null}
+    return Get-Content $path -Raw -Encoding UTF8 | ConvertFrom-Json
+}
+
+function Installed-Ids {
+    $state=Read-State
+    if($null -eq $state){return @()}
+    return @($state.packages | ForEach-Object {$_.id})
+}
+
+function Installed-GameIds {
+    $ids=@(Installed-Ids)
+    $gameIds=New-Object 'System.Collections.Generic.List[string]'
+    foreach($id in $ids){
+        $matches=@($catalog.packages | Where-Object {
+            $_.id -eq $id -and $_.targets -contains $Target
+        })
+        if($matches.Count -ne 1){throw "Installed package lookup ambiguous: $id"}
+        foreach($gid in @($matches[0].game_mod_ids)){
+            if($gid -and -not $gameIds.Contains([string]$gid)){$gameIds.Add([string]$gid)}
+        }
+    }
+    return @($gameIds)
+}
+
+function Invoke-LiveCheck([string]$Label){
+    $ids=@(Installed-GameIds)
+    if(-not $ids.Count){throw "No installed JSON game IDs for live check: $Label"}
+    $dest=Join-Path $outRoot ((Safe-Label $Label)+'-live')
+    & python (Join-Path $repo 'tools/deep_cdda_runtime.py') run-installed --game-root $game --target $Target --mods ($ids -join ',') --out $dest --timeout $ValidationTimeout
+    if($LASTEXITCODE -ne 0){throw "Live game check failed: $Label"}
+}
+
+function Current-Transaction([string]$Id){
+    $state=Read-State
+    if($null -eq $state){throw "No receipt after installing $Id"}
+    $record=@($state.packages | Where-Object {$_.id -eq $Id})
+    if($record.Count -ne 1){throw "Receipt missing/ambiguous for $Id"}
+    if(-not $record[0].transaction){throw "Receipt has no transaction for $Id"}
+    return [string]$record[0].transaction
+}
+
+function Assert-No-SelectedReceipt([string[]]$Ids,[string]$Label){
+    $remaining=@(Installed-Ids | Where-Object {$Ids -contains $_})
+    if($remaining.Count){throw "$Label left selected receipt(s): $($remaining -join ', ')"}
+}
+
+function Rollback-Transaction([string]$Label,[string]$Transaction,[string[]]$Ids){
+    Invoke-InstallerCase ($Label+'-rollback') @('-Rollback',$Transaction) $true
+    Assert-No-SelectedReceipt $Ids $Label
+}
+
+$jsonPackages=@($catalog.packages | Where-Object {
+    $_.kind -eq 'json' -and $_.archive -and $_.targets -contains $Target
+})
+if(-not $jsonPackages.Count){throw 'No JSON packages available for target'}
+$jsonIds=@($jsonPackages | ForEach-Object {$_.id} | Sort-Object -Unique)
+
+# Serialized on one clean official game tree. Every successful install is rolled back,
+# so the next scenario starts from the same real game state without mock filesystem logic.
+foreach($id in $jsonIds){
+    $before=@(Installed-Ids)
+    Invoke-InstallerCase ("individual-$id-install") @('-Mods',$id,'-AllowUntested') $true
+    Invoke-LiveCheck ("individual-$id")
+    $tx=Current-Transaction $id
+
+    Invoke-InstallerCase ("individual-$id-repeat") @('-Mods',$id,'-AllowUntested') $true
+    Invoke-LiveCheck ("individual-$id-repeat")
+
+    Invoke-InstallerCase ("individual-$id-update") @('-Update','-AllowUntested') $true
+    Invoke-LiveCheck ("individual-$id-update")
+
+    $afterInstall=@(Installed-Ids)
+    $added=@($afterInstall | Where-Object {$before -notcontains $_})
+    Rollback-Transaction ("individual-$id") $tx $added
+}
+
+# Cross-mod transaction and loader interaction.
+$beforeCombined=@(Installed-Ids)
+Invoke-InstallerCase 'combined-json-install' @('-Mods',($jsonIds -join ','),'-AllowUntested') $true
+Invoke-LiveCheck 'combined-json'
+$combinedTx=Current-Transaction $jsonIds[0]
+Invoke-InstallerCase 'combined-json-repeat' @('-Mods',($jsonIds -join ','),'-AllowUntested') $true
+Invoke-LiveCheck 'combined-json-repeat'
+$afterCombined=@(Installed-Ids)
+$combinedAdded=@($afterCombined | Where-Object {$beforeCombined -notcontains $_})
+Rollback-Transaction 'combined-json' $combinedTx $combinedAdded
+
+# Full content profile additionally exercises the real tileset destination/package path.
+$profileNames=@($catalog.profiles.PSObject.Properties.Name)
+if($profileNames -contains 'all-content'){
+    $beforeProfile=@(Installed-Ids)
+    Invoke-InstallerCase 'all-content-install' @('-Profile','all-content','-AllowUntested') $true
+    Invoke-LiveCheck 'all-content'
+    $profileState=Read-State
+    $tiles=@($profileState.packages | ForEach-Object {
+        $rid=$_.id
+        $pkg=@($catalog.packages | Where-Object {
+            $_.id -eq $rid -and $_.targets -contains $Target
+        })[0]
+        if($pkg.kind -eq 'tileset'){$_}
+    })
+    if(-not $tiles.Count){throw 'all-content profile did not install a tileset receipt'}
+    foreach($record in $tiles){
+        if(-not(Test-Path -LiteralPath $record.destination -PathType Container)){
+            throw "Tileset destination missing after real install: $($record.destination)"
+        }
+    }
+    $profileTx=Current-Transaction (@($profileState.packages)[0].id)
+    $afterProfile=@(Installed-Ids)
+    $profileAdded=@($afterProfile | Where-Object {$beforeProfile -notcontains $_})
+    Rollback-Transaction 'all-content' $profileTx $profileAdded
+}
+
+# Negative lifecycle cases on the same real CDDA installation.
+
+# Corrupt archive: must fail before live content changes.
+$probe=$jsonPackages | Select-Object -First 1
+$badRoot=Join-Path $outRoot 'corrupt-package-root'
+[IO.Directory]::CreateDirectory($badRoot) | Out-Null
+Copy-Item (Join-Path $packages 'catalog.json') (Join-Path $badRoot 'catalog.json')
+$badArchive=Join-Path $badRoot $probe.archive
+Copy-Item (Join-Path $packages $probe.archive) $badArchive
+[IO.File]::AppendAllText($badArchive,'CORRUPTED-BY-DEEP-CI')
+Invoke-InstallerCase 'reject-corrupt-package' @('-Mods',$probe.id,'-AllowUntested') $false $badRoot
+
+# Duplicate live IDs: installer must refuse ambiguity.
+$manifest=Get-Content (Join-Path $repo ('mods/'+$probe.id+'/manifest.json')) -Raw -Encoding UTF8 | ConvertFrom-Json
+$variant=@($manifest.variants | Where-Object {$_.targets -contains $Target})[0]
+$sourceMod=Join-Path $repo ('mods/'+$probe.id+'/'+$variant.path)
+$dupA=Join-Path $game 'data/mods/deep_ci_duplicate_a'
+$dupB=Join-Path $game 'data/mods/deep_ci_duplicate_b'
+try{
+    Copy-Item -LiteralPath $sourceMod -Destination $dupA -Recurse
+    Copy-Item -LiteralPath $sourceMod -Destination $dupB -Recurse
+    Invoke-InstallerCase 'reject-duplicate-mod-id' @('-Mods',$probe.id,'-AllowUntested') $false
+}finally{
+    Remove-Item -LiteralPath $dupA -Recurse -Force -ErrorAction SilentlyContinue
+    Remove-Item -LiteralPath $dupB -Recurse -Force -ErrorAction SilentlyContinue
+}
+
+# Pending transaction: new writes must stop until recovery.
+$pendingDir=Join-Path $game '_CDDA-Mods/transactions/deep-ci-interrupted'
+[IO.Directory]::CreateDirectory($pendingDir) | Out-Null
+[IO.File]::WriteAllText(
+    (Join-Path $pendingDir 'journal.json'),
+    '{"schema":1,"status":"pending","entries":[]}',
+    (New-Object Text.UTF8Encoding($false))
+)
+try{
+    Invoke-InstallerCase 'reject-pending-transaction' @('-Mods',$probe.id,'-AllowUntested') $false
+}finally{
+    Remove-Item -LiteralPath $pendingDir -Recurse -Force -ErrorAction SilentlyContinue
+}
+
+$failed=@($script:results | Where-Object {-not $_.passed})
+$summary=[pscustomobject]@{
+    schema=1
+    target=$Target
+    game_root=$game
+    json_components=$jsonIds
+    cases=@($script:results)
+    passed=($failed.Count -eq 0)
+}
+$summary | ConvertTo-Json -Depth 20 | Set-Content (Join-Path $outRoot 'matrix-summary.json') -Encoding UTF8
+if($failed.Count){throw "$($failed.Count) installer matrix case(s) failed"}
+Write-Host "Deep installer matrix passed: $($script:results.Count) cases."
