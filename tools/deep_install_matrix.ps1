@@ -37,6 +37,7 @@ try{
         schema=1
         kind='deep-install-environment'
         target=$Target
+        target_commit=[string]$targetInfo[0].commit
         harness_commit=if($repoCommit){[string]$repoCommit}else{$null}
         powershell=$PSVersionTable.PSVersion.ToString()
         catalog_sha256=$catalogHash
