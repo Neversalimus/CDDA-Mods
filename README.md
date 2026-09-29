@@ -74,6 +74,19 @@ python tools/modsuite.py build
 сборкой. Исторические версии не заменяются новой эксперименталкой. Кодовые моды
 собираются отдельно от NCMM host, на GitHub Actions, с закреплённым внешним SDK.
 
+## Глубокая проверка на реальной CDDA
+
+`.github/workflows/deep-runtime.yml` отделён от обычного CI и не запускается на
+`push`/`pull_request`. Он скачивает точный официальный Windows release CDDA и
+прогоняет vanilla baseline, каждый JSON-мод, профили и общий стек через настоящий
+`--check-mods`. Второй слой checkout'ит точный commit CDDA, собирает родной
+`tests/cata_test` и запускает его с нашими модами через `--mods`.
+
+Ручной запуск доступен всегда. Плановый недельный запуск выполняется только при
+repository variable `CDDA_DEEP_TESTS_ENABLED=true`; убрать/выключить variable
+достаточно, чтобы тяжёлые проверки полностью не мешали активной разработке.
+Подробности: [docs/DEEP_RUNTIME_TESTS_RU.md](docs/DEEP_RUNTIME_TESTS_RU.md).
+
 ## Структура
 
 - `mods/<id>/manifest.json` — версия, тип, зависимости, варианты и цели.
