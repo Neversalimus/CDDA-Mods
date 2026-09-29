@@ -113,6 +113,7 @@ def main() -> int:
     ap.add_argument("--matrix", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--suite", default="all")
+    ap.add_argument("--target", default="")
     args = ap.parse_args()
 
     cdda_root = Path(args.cdda_root).resolve()
@@ -132,7 +133,7 @@ def main() -> int:
         raise ValueError("cata_test executable not found")
 
     matrix = read_json(matrix_path)
-    target = matrix["target"]
+    target = args.target or matrix["target"]
     mods = stage.manifests()
     suites = matrix["source_suites"]
     if args.suite != "all":
