@@ -256,6 +256,77 @@ def classify_debug_errors(debug: str) -> tuple[list[str], list[str]]:
     return sorted(set(style)), sorted(set(fatal))
 
 
+def game_mod_index(data_root: Path) -> dict[str, dict]:
+    """Index game mods in one data tree for validator capability checks."""
+    result: dict[str, dict] = {}
+    mods_root = data_root / "mods"
+    if not mods_root.is_dir():
+        return result
+    for info in mods_root.rglob("modinfo.json"):
+        try:
+            doc = json.loads(info.read_text(encoding="utf-8-sig"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        rows = doc if isinstance(doc, list) else [doc]
+        for row in rows:
+            if not isinstance(row, dict) or row.get("type") != "MOD_INFO":
+                continue
+            game_id = row.get("id")
+            if not isinstance(game_id, str) or not game_id:
+                continue
+            result[game_id] = {
+                "root": info.parent,
+                "dependencies": [
+                    dep for dep in row.get("dependencies", [])
+                    if isinstance(dep, str) and dep
+                ],
+            }
+    return result
+
+
+def check_mods_interaction_hazards(data_root: Path, root_id: str) -> list[str]:
+    """Return dependency mods that make CDDA 0546 --check-mods invalid.
+
+    The pinned engine's game::check_mod_data() loads dependencies with the
+    generic recursive loader, unlike normal world loading.  That loader does
+    not exclude mod_interactions, so mods such as Mind Over Matter load their
+    conditional interaction overrides unconditionally and can redefine their
+    own IDs.  Those graphs must be validated by the real world/cata_test path.
+    """
+    index = game_mod_index(data_root)
+    seen: set[str] = set()
+    stack = [root_id]
+    hazards: list[str] = []
+    while stack:
+        game_id = stack.pop()
+        if game_id in seen:
+            continue
+        seen.add(game_id)
+        meta = index.get(game_id)
+        if meta is None:
+            continue
+        interactions = meta["root"] / "mod_interactions"
+        if interactions.is_dir() and any(interactions.rglob("*.json")):
+            hazards.append(game_id)
+        stack.extend(meta["dependencies"])
+    return sorted(set(hazards))
+
+
+def deferred_check_mods_result(game_id: str, hazards: list[str]) -> dict:
+    return {
+        "exit_code": 0,
+        "raw_exit_code": None,
+        "errors": [],
+        "style_warnings": [],
+        "debug_logs": [],
+        "command": None,
+        "deferred": True,
+        "deferred_to": "exact-source-cata_test",
+        "validator_limitation": "upstream-check-mods-mod_interactions",
+        "root_mod": game_id,
+        "interaction_mods": hazards,
+    }
+
 def find_game_exe(game: Path) -> Path:
     candidates = (
         "cataclysm-tiles.vanilla.exe",
@@ -423,11 +494,15 @@ def run_release(game_root: Path, target: str, out: Path, timeout: int) -> dict:
                 copy_json_mods(target, data / "mods", row["components"])
                 checks = []
                 for game_id in row["check_mod_ids"]:
-                    result = check(
-                        f"{row['name']}/{game_id}",
-                        [game_id],
-                        data,
-                    )
+                    hazards = check_mods_interaction_hazards(data, game_id)
+                    if hazards:
+                        result = deferred_check_mods_result(game_id, hazards)
+                    else:
+                        result = check(
+                            f"{row['name']}/{game_id}",
+                            [game_id],
+                            data,
+                        )
                     checks.append({"mod": game_id, "result": result})
                 errors = sorted(
                     {
@@ -453,6 +528,11 @@ def run_release(game_root: Path, target: str, out: Path, timeout: int) -> dict:
                     else 1,
                     "errors": errors,
                     "style_warnings": style_warnings,
+                    "deferred_checks": [
+                        item["mod"]
+                        for item in checks
+                        if item["result"].get("deferred")
+                    ],
                     "checks": checks,
                 }
                 results.append({**row, "result": aggregate})
@@ -516,6 +596,12 @@ def run_installed(
 
     checks = []
     for mid in ids:
+        hazards = check_mods_interaction_hazards(game_root / "data", mid)
+        if hazards:
+            checks.append(
+                {"mod": mid, "result": deferred_check_mods_result(mid, hazards)}
+            )
+            continue
         log_dir = out / mid
         user = log_dir / "user"
         user.mkdir(parents=True, exist_ok=True)
