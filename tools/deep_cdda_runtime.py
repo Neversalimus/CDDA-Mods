@@ -323,6 +323,10 @@ def run_release(game_root: Path, target: str, out: Path, timeout: int) -> dict:
         ) -> dict:
             user = (out / name / "user").resolve()
             user.mkdir(parents=True, exist_ok=True)
+            # CDDA opens config/debug.log before assure_essential_dirs_exist().
+            # --check-mods exits before that later directory creation path, so
+            # prepare config explicitly or Windows release diagnostics vanish.
+            (user / "config").mkdir(parents=True, exist_ok=True)
             args = [
                 str(exe),
                 "--basepath",
@@ -421,6 +425,9 @@ def run_installed(
     out = out.resolve()
     user = out / "user"
     user.mkdir(parents=True, exist_ok=True)
+    # See run_release(): --check-mods can terminate before CDDA creates
+    # config/, while the debug logger is opened earlier.
+    (user / "config").mkdir(parents=True, exist_ok=True)
     ids = ["dda"] + [
         mid for mid in game_mod_ids if mid and mid != "dda"
     ]
