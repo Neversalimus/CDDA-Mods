@@ -220,6 +220,38 @@ function Get-CheckModsInteractionHazards([string]$DataRoot,[string[]]$RootIds){
     }
     return @($hazards | Sort-Object -Unique)
 }
+function Test-CheckModsInteractionCapability([string]$Exe,[string]$GameRoot,[string]$DataRoot,[string]$Work,[int]$TimeoutSeconds=120){
+    $token='CDDA_MODS_CHECK_MODS_INTERACTION_PROBE_SENTINEL'
+    $modsRoot=Join-Path $DataRoot 'mods'
+    [IO.Directory]::CreateDirectory($modsRoot) | Out-Null
+    $dep=Join-Path $modsRoot '__cdda_mods_probe_interaction_dep'
+    $root=Join-Path $modsRoot '__cdda_mods_probe_interaction_root'
+    foreach($p in @($dep,$root)){if(Test-Path -LiteralPath $p){throw "Validator capability probe path already exists: $p"}}
+    try{
+        [IO.Directory]::CreateDirectory($dep) | Out-Null
+        [IO.Directory]::CreateDirectory($root) | Out-Null
+        Write-Json (Join-Path $dep 'modinfo.json') @{type='MOD_INFO';id='cdda_mods_probe_interaction_dep';name='CDDA-Mods validator capability dependency';authors=@('CDDA-Mods CI');description='Temporary capability probe.';category='content';dependencies=@('dda')}
+        Write-Json (Join-Path $root 'modinfo.json') @{type='MOD_INFO';id='cdda_mods_probe_interaction_root';name='CDDA-Mods validator capability root';authors=@('CDDA-Mods CI');description='Temporary capability probe.';category='content';dependencies=@('dda','cdda_mods_probe_interaction_dep')}
+        $hidden=Join-Path $dep 'mod_interactions/cdda_mods_probe_never_loaded'
+        [IO.Directory]::CreateDirectory($hidden) | Out-Null
+        Write-Json (Join-Path $hidden 'sentinel.json') @{type=$token;id='cdda_mods_probe_sentinel'}
+        $probe=Invoke-GameCheck $Exe $GameRoot $DataRoot $Work @('cdda_mods_probe_interaction_root') ([Math]::Min($TimeoutSeconds,120))
+        $evidence=(@($probe.errors) -join "`n")
+        foreach($f in @(Get-ChildItem -LiteralPath $Work -File -Recurse -ErrorAction SilentlyContinue)){
+            if($f.Name -in @('stdout.log','stderr.log','debug.log')){try{$evidence+="`n"+(Get-Content $f.FullName -Raw)}catch{}}
+        }
+        if($probe.exit_code -eq 0 -and @($probe.errors).Count -eq 0){
+            return $true
+        }
+        if($evidence -match [regex]::Escape($token)){
+            return $false
+        }
+        throw "Validator capability probe was inconclusive; report: $Work"
+    }finally{
+        Remove-Item -LiteralPath $root -Recurse -Force -ErrorAction SilentlyContinue
+        Remove-Item -LiteralPath $dep -Recurse -Force -ErrorAction SilentlyContinue
+    }
+}
 function Test-StagedMods([string]$GameRoot,[object[]]$Plan,[string]$Work,[int]$TimeoutSeconds=240){
     $json=@($Plan | Where-Object {$_.package.kind -eq 'json'});if(-not $json.Count){return}
     $exe=@('cataclysm-tiles.vanilla.exe','cataclysm-tiles.exe','cataclysm.exe','cataclysm') | ForEach-Object {Join-Path $GameRoot $_} | Where-Object {Test-Path -LiteralPath $_} | Select-Object -First 1
@@ -230,6 +262,8 @@ function Test-StagedMods([string]$GameRoot,[object[]]$Plan,[string]$Work,[int]$T
     $gfx=Join-Path $GameRoot 'gfx';if(Test-Path $gfx){Copy-Item -LiteralPath $gfx -Destination (Join-Path $data 'gfx') -Recurse -Force}
     $base=Invoke-GameCheck $exe $GameRoot $data (Join-Path $Work 'validation/baseline') @('dda') $TimeoutSeconds
     if($base.exit_code -ne 0 -or @($base.errors).Count){throw "Vanilla baseline validation failed; report: $($base.log)"}
+    $interactionSupported=Test-CheckModsInteractionCapability $exe $GameRoot $data (Join-Path $Work 'validation/capability-check-mods-interactions') $TimeoutSeconds
+    Write-Host ("Validator capability: dependency mod_interactions = " + $(if($interactionSupported){'supported'}else{'broken; exact-source defer required'}))
     foreach($entry in $json){
         foreach($old in @(Get-ModDirectories @((Join-Path $data 'mods')) $entry.package.game_mod_ids)){Remove-Item -LiteralPath $old -Recurse -Force}
         Copy-Item -LiteralPath $entry.staged -Destination (Join-Safe (Join-Path $data 'mods') $entry.package.folder) -Recurse
@@ -238,12 +272,11 @@ function Test-StagedMods([string]$GameRoot,[object[]]$Plan,[string]$Work,[int]$T
     # A synthetic dependency-only mod tests the selected stack together, not just separately.
     $stack=Join-Path $data 'mods/suite_validation_stack';[IO.Directory]::CreateDirectory($stack) | Out-Null
     Write-Json (Join-Path $stack 'modinfo.json') @(@{type='MOD_INFO';id='suite_validation_stack';name='Suite validation only';authors=@('Neversalimus');description='Temporary validation stack.';dependencies=@('dda')+$ids})
-    # CDDA 0546 --check-mods uses the generic recursive loader for dependency
-    # packs. That incorrectly consumes conditional mod_interactions and can
-    # make a valid mod redefine its own IDs (Mind Over Matter is one example).
-    # Normal world loading and cata_test use the correct two-phase loader.
+    # Capability is detected from the exact binary instead of hard-coding a
+    # CDDA version. Older --check-mods builds recursively consume dependency
+    # mod_interactions; fixed builds can validate the full graph normally.
     $hazards=@(Get-CheckModsInteractionHazards $data @('suite_validation_stack'))
-    if($hazards.Count){
+    if($hazards.Count -and -not $interactionSupported){
         # Preserve every safe validator check in this plan. Only roots whose own
         # dependency closure reaches interaction-bearing mods are deferred.
         foreach($id in $ids){
