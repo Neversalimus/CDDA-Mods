@@ -82,9 +82,9 @@ python tools/modsuite.py build
 `--check-mods`. Второй слой checkout'ит точный commit CDDA, собирает родной
 `tests/cata_test` и запускает его с нашими модами через `--mods`.
 
-Ручной запуск доступен всегда. Плановый недельный запуск выполняется только при
-repository variable `CDDA_DEEP_TESTS_ENABLED=true`; убрать/выключить variable
-достаточно, чтобы тяжёлые проверки полностью не мешали активной разработке.
+Ручной запуск доступен всегда. Плановый недельный запуск включён по умолчанию;
+repository variable `CDDA_DEEP_TESTS_ENABLED=false` одним переключателем отключает
+его на время активной разработки. Push/PR от этого workflow всё равно не блокируются.
 Подробности: [docs/DEEP_RUNTIME_TESTS_RU.md](docs/DEEP_RUNTIME_TESTS_RU.md).
 
 ## Структура

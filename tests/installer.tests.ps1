@@ -7,6 +7,14 @@ function Check($ok,[string]$label){if(-not $ok){throw "FAIL: $label"};$script:pa
 function Reject([scriptblock]$code,[string]$label){$failed=$false;try{& $code | Out-Null}catch{$failed=$true;Write-Host ('EXPECTED ERROR: '+$_.Exception.Message)};Check $failed $label}
 function FileHash($path){(Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant()}
 try{
+    $tokens=$null;$parseErrors=$null
+    [System.Management.Automation.Language.Parser]::ParseFile(
+        (Join-Path $PSScriptRoot '../tools/deep_install_matrix.ps1'),
+        [ref]$tokens,
+        [ref]$parseErrors
+    ) | Out-Null
+    Check (@($parseErrors).Count -eq 0) 'Deep installer matrix parses under current PowerShell'
+
     foreach($name in @('../evil','/absolute','C:/evil','a\b','a/../b','NUL.txt','a/file.','a//b')){Reject {Join-Safe $root $name} "Path blocked: $name"}
     $safe=Join-Safe $root 'normal/data.json';Check ($safe.StartsWith($root)) 'Normal path accepted'
     $catalog=Read-Json (Join-Path $PSScriptRoot '../dist/catalog.json')

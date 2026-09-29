@@ -35,9 +35,10 @@ Before handoff:
 - For game compatibility run tools/verify_game.py on the exact binary, examine
   baseline + individual + combined logs. Syntax checks are not runtime checks.
 - Deep real-CDDA CI is intentionally opt-in: `.github/workflows/deep-runtime.yml`
-  has no push/PR trigger. Use it for compatibility/release gates; scheduled runs
-  require repository variable `CDDA_DEEP_TESTS_ENABLED=true`. Do not make this
-  workflow a required per-commit check during active development.
+  has no push/PR trigger. Use it for compatibility/release gates; weekly scheduled
+  runs are enabled unless repository variable `CDDA_DEEP_TESTS_ENABLED=false`.
+  Set that kill switch during active development and never make this workflow a
+  required per-commit check.
 - Only `record-validation` can promote verified content to load-tested. A gameplay
   smoke test/save migration is additional evidence, never implied by --check-mods.
 - Update docs/STATUS.md, the selected mod changelog, target status and handoff.
