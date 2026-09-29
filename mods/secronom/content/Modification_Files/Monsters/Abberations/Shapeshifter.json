@@ -6,7 +6,7 @@
   "name": {
     "str": "shapeshifter"
   },
-  "description": "An inhumane creature, shrouded in disorienting atmosphere. Its appearance is a complete mystery, neither its true nature.",
+  "description": "An inhumane creature, shrouded in disorienting atmosphere.  Its appearance is a complete mystery, neither its true nature.",
   "default_faction": "shifter",
   "species": [
     "ABERRATION",
@@ -121,7 +121,7 @@
   "name": {
     "str": "shapeshifter"
   },
-  "description": "An inhumane creature, shrouded in disorienting atmosphere. Its appearance is a complete mystery, neither its true nature.",
+  "description": "An inhumane creature, shrouded in disorienting atmosphere.  Its appearance is a complete mystery, neither its true nature.",
   "default_faction": "shifter",
   "species": [
     "ABERRATION"
@@ -226,7 +226,7 @@
   "name": {
     "str": "zombie"
   },
-  "description": "A human body, swaying as it moves, an unstoppable rage visible in its oily black eyes. Within a closer look, its visage blurs occasionally.",
+  "description": "A human body, swaying as it moves, an unstoppable rage visible in its oily black eyes.  Within a closer look, its visage blurs occasionally.",
   "copy-from": "mon_zombie",
   "looks_like": "mon_zombie",
   "death_function": {
@@ -244,7 +244,7 @@
   "name": {
     "str": "decayed zombie"
   },
-  "description": "A once-dead human corpse. Its discolored swollen flesh is riddled with festering wounds and open sores. Within a closer look, its visage blurs occasionally.",
+  "description": "A once-dead human corpse.  Its discolored swollen flesh is riddled with festering wounds and open sores.  Within a closer look, its visage blurs occasionally.",
   "copy-from": "mon_zombie_rot",
   "looks_like": "mon_zombie_rot",
   "death_function": {
