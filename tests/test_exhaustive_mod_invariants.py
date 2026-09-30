@@ -484,6 +484,55 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
         self.assertIn("[string]$o.'copy-from' -eq $id", builder)
         self.assertIn("[string]$_.'copy-from' -eq $id", builder)
 
+    def test_blazemod_exact_density_volume_repairs_are_stable(self):
+        root = ROOT / "mods" / "blazemod" / "content"
+        objects = {
+            obj["id"]: obj
+            for _, obj in objects_under(root)
+            if isinstance(obj.get("id"), str)
+        }
+        expected = {
+            "bfeedfuel": "400 ml", "bfeed": "1250 ml",
+            "canbomb": "550 ml", "canbomb2": "11250 ml",
+            "canbombfire": "550 ml", "canbombfire2": "1 L",
+            "canbombfrag": "700 ml", "h_projectile": "8 L",
+            "harpoon": "17500 ml", "hbolt_boom": "2750 ml",
+            "hbolt_boom2": "2750 ml", "hbolt_fire": "2750 ml",
+            "hbolt_fire2": "5 L", "hbolt_frag": "3500 ml",
+            "hbolt_metal": "2750 ml", "hbolt_nuke": "8 L",
+            "hbolt_wood": "10 L", "pebble_mk3": "600 ml",
+            "pebble_mk4": "600 ml", "ripdisk": "4 L",
+            "slauncher": "4250 ml", "biter": "17 L",
+            "clutter": "6 L", "freezie": "20 L", "fuzzle": "21 L",
+            "horror": "23 L", "inkie": "14500 ml", "meltie": "14500 ml",
+            "razorqueen": "23 L", "sharp": "14500 ml",
+            "gelrazor": "14 L", "sparkie": "13500 ml",
+            "stickie": "11 L", "torchie": "15500 ml", "voideater": "16500 ml",
+            "diamondnova": "6 L", "vortexrifle": "2750 ml",
+            "gray_tank": "18 L", "oozle_tank": "15500 ml",
+            "bitergrow": "11500 ml", "cluttergrow": "5500 ml",
+            "freeziegrow": "14500 ml", "frostie": "6 L",
+            "frostiegrow": "3500 ml", "fuzzlegrow": "17 L",
+            "gloople": "6500 ml", "gloople_act": "8500 ml",
+            "glooplegrow": "3500 ml", "glowiegrow": "3500 ml",
+            "gray": "18 L", "gray_act": "18500 ml",
+            "horrorgrow": "19 L", "inkiegrow": "11500 ml",
+            "meltiegrow": "11500 ml", "oozle_act": "15500 ml",
+            "oozlegrow": "12 L", "queengrow": "24 L",
+            "razorqueengrow": "17 L", "sharpgrow": "10500 ml",
+            "sicklegrow": "11500 ml", "sparkiegrow": "10500 ml",
+            "stickiegrow": "8 L", "torchiegrow": "11500 ml",
+            "voideatergrow": "11500 ml", "solar_array": "21 L",
+            "solar_array_v2": "26 L", "frostie_hull": "6 L",
+            "frostie_wheel": "6 L", "gloople_wheel": "28 L",
+            "gray_wheel": "50 L", "grinder": "107 L", "oozle_wheel": "47 L",
+        }
+        self.assertEqual(len(expected), 72)
+        for item_id, volume in expected.items():
+            with self.subTest(item=item_id):
+                self.assertIn(item_id, objects)
+                self.assertEqual(objects[item_id].get("volume"), volume)
+
     def test_blazemod_exhaustive_vehicle_metadata_is_current(self):
         root = ROOT / "mods" / "blazemod" / "content"
         flagged_ids = {
