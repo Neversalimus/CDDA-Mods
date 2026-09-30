@@ -1,5 +1,13 @@
 # AXIOM-7
 
+## 0.8.2.8-r2 — Exhaustive invariant cleanup
+
+- Raised the three AXIOM access-card volumes from 5 ml to 6 ml so their 6 g plastic mass no longer exceeds CDDA's material-density invariant.
+- Removed legacy `to_hit` fields from the three access cards.
+- Removed one-way hostility toward `fungus` and `triffid` from the AXIOM security monster faction; zombie, aquatic-zombie and nether hostility remains.
+- Added regression tests for these exact exhaustive-test findings.
+- No IDs, mission state, access flags, spawn data, combat stats, or save variables changed.
+
 ## 0.8.2.8 — Integrity
 
 - Corrected two surface patrol routes whose waypoints resolved onto blocked terrain.
