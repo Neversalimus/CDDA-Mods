@@ -1043,12 +1043,17 @@ def parse_inherited_debt_failures(stdout: str) -> dict:
             else:
                 observed["unknown_failures"].append(location + ":missing-item-id")
         elif location == "mutation_test.cpp:614":
-            mutation = re.search(
-                r"Given: mutation of ID ([^ ]+) is valid and removable",
-                around,
-            )
-            if mutation:
-                observed["mutation_ids"].append(mutation.group(1))
+            mutation_id = None
+            for previous in reversed(lines[max(0, index - 20) : index]):
+                mutation = re.search(
+                    r"Given: mutation of ID ([^ ]+) is valid and removable",
+                    previous,
+                )
+                if mutation:
+                    mutation_id = mutation.group(1)
+                    break
+            if mutation_id:
+                observed["mutation_ids"].append(mutation_id)
             else:
                 observed["unknown_failures"].append(
                     location + ":missing-mutation-id"
