@@ -55,7 +55,7 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
         objects = {
             obj["id"]: obj
             for _, obj in objects_under(root)
-            if obj.get("id")
+            if isinstance(obj.get("id"), str)
         }
         self.assertEqual(objects["corpse_saddler_used"].get("volume"), "43 L")
         self.assertEqual(objects["secro_fweaverfood"].get("volume"), "750 ml")
