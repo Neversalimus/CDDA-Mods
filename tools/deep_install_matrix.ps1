@@ -80,7 +80,7 @@ function Preserve-InstallerDiagnostics([string]$Text,[string]$CaseDir){
     if(Test-Path -LiteralPath $validation -PathType Container){
         foreach($file in @(Get-ChildItem -LiteralPath $validation -Recurse -File -ErrorAction SilentlyContinue)){
             if($file.Name -notin @('stdout.log','stderr.log','debug.log')){continue}
-            $relative=$file.FullName.Substring($validation.Length).TrimStart([char]'\\',[char]'/')
+            $relative=$file.FullName.Substring($validation.Length).TrimStart([char[]]@([IO.Path]::DirectorySeparatorChar,[IO.Path]::AltDirectorySeparatorChar))
             $target=Join-Path $destination ('validation/'+$relative)
             [IO.Directory]::CreateDirectory((Split-Path $target -Parent)) | Out-Null
             Copy-Item -LiteralPath $file.FullName -Destination $target -Force
