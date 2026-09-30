@@ -60,19 +60,19 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
         self.assertEqual(objects["corpse_saddler_used"].get("volume"), "43 L")
         self.assertEqual(objects["secro_fweaverfood"].get("volume"), "750 ml")
 
-        expected = {
-            "kacc": {"DEFAULT": 50},
-            "xm556": {"DEFAULT": 80},
-            "xm8": {"DEFAULT": 1, "AUTO": 5},
+        expected_magazines = {
+            "kacc": "belt223",
+            "xm556": "belt223",
+            "xm8": "stanag30",
         }
-        for gun_id, modes in expected.items():
+        for gun_id, default_magazine in expected_magazines.items():
             with self.subTest(gun=gun_id):
                 gun = objects[gun_id]
-                self.assertEqual(gun["pocket_data"][0].get("id"), "ammo")
-                reqs = gun.get("firing_requirements", {})
-                self.assertEqual(set(reqs), set(modes))
-                for mode, qty in modes.items():
-                    self.assertEqual(reqs[mode], [{"pocket": "ammo", "qty": qty}])
+                pocket = gun["pocket_data"][0]
+                self.assertEqual(pocket.get("id"), "ammo")
+                self.assertEqual(pocket.get("default_magazine"), default_magazine)
+                self.assertNotIn("firing_requirements", gun)
+        self.assertEqual(objects["xm556"].get("energy_drain"), "120 kJ")
 
     def test_secronom_grenade_effects_use_current_flag_schema(self):
         path = (
@@ -91,6 +91,9 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
                 self.assertNotIn("CUSTOM_EXPLOSION", obj.get("effects", []))
                 self.assertNotIn("NEVER_MISFIRES", obj.get("effects", []))
                 self.assertIn("CUSTOM_EXPLOSION", obj.get("flags", []))
+                self.assertIn("NO_MANUAL_ACTIVATION", obj.get("flags", []))
+                self.assertEqual(obj.get("use_action", {}).get("type"), "explosion")
+                self.assertNotIn("target", obj.get("use_action", {}))
 
     def test_secronom_extends_vanilla_factions_instead_of_replacing_them(self):
         factions = {
@@ -131,6 +134,7 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
             "zombie_weaver",
             factions["zombie"]["extend"]["hate"],
         )
+        self.assertIn("cult", factions["zombie_weaver"].get("hate", []))
         self.assertIn(
             "saddler",
             factions["bot"]["extend"]["neutral"],
@@ -148,6 +152,50 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
             factions["secro_flesh2"]["friendly"],
         )
         self.assertNotIn("by_mood", factions["secro_flesh2"])
+
+    def test_secronom_plus_wip_and_density_migrations(self):
+        root = ROOT / "mods" / "secronom_plus" / "content"
+
+        ammo = {
+            obj["id"]: obj
+            for obj in read_json(
+                root / "Modification Files" / "Items" / "secro_ammo_mags.json"
+            )
+            if isinstance(obj.get("id"), str)
+        }
+        self.assertEqual(ammo["secro_flesh"].get("stack_size"), 1)
+        self.assertEqual(ammo["secro_flesh_large"].get("stack_size"), 1)
+        self.assertNotIn("NEVER_MISFIRES", ammo["secro_flesh"].get("effects", []))
+
+        materials = {
+            obj["id"]: obj
+            for obj in read_json(
+                root / "Modification Files" / "Items" / "-Essentials"
+                / "secro_mat.json"
+            )
+            if isinstance(obj.get("id"), str)
+        }
+        self.assertEqual(materials["secro_flesh_fuel"].get("density"), 1.2)
+        self.assertEqual(materials["secro_flesh_reinforced"].get("density"), 3.52)
+
+        dna = read_json(
+            root / "Modification Files" / "Items" / "secro_dna_cc.json"
+        )
+        cores = [obj for obj in dna if obj.get("category") == "secro_ccore"]
+        self.assertGreaterEqual(len(cores), 6)
+        for core in cores:
+            with self.subTest(core=core.get("id")):
+                self.assertEqual(core.get("material"), ["secro_flesh_reinforced"])
+
+        mutation = read_json(
+            root / "Modification Files" / "Others" / "secro_mutation.json"
+        )
+        category = next(
+            obj for obj in mutation
+            if obj.get("type") == "mutation_category"
+            and obj.get("id") == "SECRONOM_EX"
+        )
+        self.assertTrue(category.get("wip"))
 
     def test_tankmod_exhaustive_legacy_fields_are_removed(self):
         root = ROOT / "mods" / "tankmod" / "content"
