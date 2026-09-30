@@ -263,6 +263,30 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
         self.assertIn("rampant_machine", factions["reavers"]["hate"])
         self.assertIn("rampant_machine", factions["bio_machine"]["hate"])
 
+    def test_aftershock_prime_uses_current_acid_and_faction_semantics(self):
+        bioparts = read_json(
+            ROOT / "mods" / "aftershock_prime" / "content" / "items"
+            / "bioparts.json"
+        )
+        blaster = next(obj for obj in bioparts if obj.get("id") == "vibrating_blaster")
+        self.assertEqual(blaster.get("ammo_effects"), ["ACIDBOMB"])
+
+        factions = {
+            obj["name"]: obj
+            for obj in read_json(
+                ROOT / "mods" / "aftershock_prime" / "content" / "monsters"
+                / "monster_faction.json"
+            )
+            if obj.get("type") == "MONSTER_FACTION"
+        }
+        self.assertIn("herbivore_domestic", factions["hevel"].get("neutral", []))
+        self.assertIn("cop_bot", factions["alien_predator"].get("neutral", []))
+        self.assertIn("defense_bot", factions["alien_predator"].get("neutral", []))
+        self.assertNotIn("cop_bot", factions["alien_predator"].get("by_mood", []))
+        self.assertNotIn("defense_bot", factions["alien_predator"].get("by_mood", []))
+        self.assertIn("reavers", factions["robofac"]["extend"]["neutral"])
+        self.assertIn("reavers", factions["robofac_spy"]["extend"]["neutral"])
+
     def test_aftershock_prime_restores_semantic_mutation_overlays(self):
         overlay_path = (
             ROOT / "mods" / "aftershock_prime" / "content" / "mutations"
