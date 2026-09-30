@@ -215,6 +215,51 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
         self.assertIn("rampant_machine", factions["reavers"]["hate"])
         self.assertIn("rampant_machine", factions["bio_machine"]["hate"])
 
+    def test_aftershock_prime_restores_semantic_mutation_overlays(self):
+        overlay_path = (
+            ROOT / "mods" / "aftershock_prime" / "content" / "mutations"
+            / "prime_vanilla_mutation_extensions.json"
+        )
+        objects = read_json(overlay_path)
+        overlays = [
+            obj for obj in objects
+            if obj.get("type") == "mutation"
+            and obj.get("copy-from") == obj.get("id")
+        ]
+        self.assertEqual(len(overlays), 46)
+        overlay_ids = {obj["id"] for obj in overlays}
+        for trait_id in (
+            "THICKSKIN", "LIGHTFUR", "HUGE_OK", "LEG_TENTACLES",
+            "WINGS_STUB", "DISRESISTANT", "DISIMMUNE", "INFRESIST",
+        ):
+            with self.subTest(trait=trait_id):
+                self.assertIn(trait_id, overlay_ids)
+
+        dummy = next(
+            obj for obj in objects
+            if obj.get("id") == "HUMAN_AFTERSHOCK_PRIME"
+        )
+        self.assertTrue(dummy.get("dummy"))
+        self.assertFalse(dummy.get("player_display"))
+        self.assertEqual(dummy.get("category"), ["HUMAN"])
+        expected_cancels = {
+            "AFS_THROWING_STRENGTH", "AFS_STRONG", "AFS_GOOD_HEAD",
+            "AFS_WAR_BUILD", "AFS_COMBAT_DRUG_PRODUCTION",
+            "AFS_FAST_BLOOD_PRODUCTION", "AFS_REDUNDANT_ORGANS",
+            "MIGO_RAD_ADAPTION", "MIGO_THRESH_RAD_FLUSH", "MIGO_BREATHE",
+            "HAULER", "TRUMPET", "AFS_NIGHTVISION", "AFS_UNCARING",
+            "AFS_QUICK", "AFS_INFIMMUNE",
+        }
+        self.assertEqual(set(dummy.get("cancels", [])), expected_cancels)
+
+    def test_aftershock_builder_preserves_self_mutation_overlays(self):
+        builder = (
+            ROOT / "tools" / "recovery" / "Aftershock.ps1"
+        ).read_text(encoding="utf-8")
+        self.assertIn("kept_semantic_overlay", builder)
+        self.assertIn("[string]$o.'copy-from' -eq $id", builder)
+        self.assertIn("[string]$_.'copy-from' -eq $id", builder)
+
     def test_blazemod_exhaustive_vehicle_metadata_is_current(self):
         root = ROOT / "mods" / "blazemod" / "content"
         flagged_ids = {
