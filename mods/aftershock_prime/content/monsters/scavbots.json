@@ -9,12 +9,35 @@
     "speed": 0,
     "aggression": 0,
     "morale": 20,
-    "fear_triggers": [ "HURT" ],
+    "fear_triggers": [
+      "HURT"
+    ],
     "revert_to_itype": "bot_utilibot_beehive",
-    "biosignature": { "biosig_item": "honeycomb", "biosig_timer": 3600 },
-    "//": [ "emit_bee_field" ],
-    "special_attacks": [ [ "PARROT", 10 ] ],
-    "death_drops": { "groups": [ [ "broken_robots", 1 ], [ "beehive", 1 ] ] }
+    "biosignature": {
+      "biosig_item": "honeycomb",
+      "biosig_timer": 3600
+    },
+    "//": [
+      "emit_bee_field"
+    ],
+    "special_attacks": [
+      [
+        "PARROT",
+        10
+      ]
+    ],
+    "death_drops": {
+      "groups": [
+        [
+          "broken_robots",
+          1
+        ],
+        [
+          "beehive",
+          1
+        ]
+      ]
+    }
   },
   {
     "id": "mon_light_hack",
@@ -30,8 +53,18 @@
     "morale": 50,
     "dodge": 8,
     "revert_to_itype": "bot_light_hack",
-    "extend": { "flags": [ "STUMBLES", "HARDTOSHOOT" ] },
-    "armor": { "bash": 8, "cut": 10, "bullet": 15 }
+    "extend": {
+      "flags": [
+        "STUMBLES",
+        "HARDTOSHOOT"
+      ]
+    },
+    "armor": {
+      "bash": 8,
+      "cut": 10,
+      "bullet": 15
+    },
+    "broken_itype": "broken_manhack"
   },
   {
     "id": "mon_scavbot_needle",
@@ -43,7 +76,9 @@
     "weight": "10500 g",
     "hp": 40,
     "speed": 80,
-    "material": [ "steel" ],
+    "material": [
+      "steel"
+    ],
     "symbol": "x",
     "color": "red_green",
     "aggression": 50,
@@ -54,8 +89,15 @@
     "dodge": 2,
     "vision_day": 35,
     "diff": 10,
-    "melee_damage": [ { "damage_type": "electric", "amount": 3 } ],
-    "starting_ammo": { "3x35dart": 100 },
+    "melee_damage": [
+      {
+        "damage_type": "electric",
+        "amount": 3
+      }
+    ],
+    "starting_ammo": {
+      "3x35dart": 100
+    },
     "special_attacks": [
       {
         "type": "gun",
@@ -63,10 +105,35 @@
         "cooldown": 2,
         "gun_type": "wasp_gun",
         "ammo_type": "3x35dart",
-        "fake_skills": [ [ "gun", 3 ], [ "rifle", 3 ] ],
+        "fake_skills": [
+          [
+            "gun",
+            3
+          ],
+          [
+            "rifle",
+            3
+          ]
+        ],
         "fake_dex": 10,
         "no_ammo_sound": "click!",
-        "ranges": [ [ 0, 4, "BURST" ], [ 4, 8, "AUTO" ], [ 9, 16, "DEFAULT" ] ],
+        "ranges": [
+          [
+            0,
+            4,
+            "BURST"
+          ],
+          [
+            4,
+            8,
+            "AUTO"
+          ],
+          [
+            9,
+            16,
+            "DEFAULT"
+          ]
+        ],
         "require_targeting_player": true,
         "require_targeting_npc": true,
         "require_targeting_monster": true,
@@ -77,8 +144,16 @@
         "targeting_volume": 10
       }
     ],
-    "extend": { "flags": [ "DROPS_AMMO" ] },
-    "armor": { "bash": 8, "cut": 10, "bullet": 15 }
+    "extend": {
+      "flags": [
+        "DROPS_AMMO"
+      ]
+    },
+    "armor": {
+      "bash": 8,
+      "cut": 10,
+      "bullet": 15
+    }
   },
   {
     "id": "mon_eyebot_heater",
@@ -89,9 +164,25 @@
     "luminance": 8,
     "description": "A salvaged eyebot repurposed into a floating space heater.  It emits a constant jet of warm air to heat an enclosed space.",
     "revert_to_itype": "bot_eyebot_heater",
-    "fear_triggers": [ "HURT" ],
-    "emit_fields": [ { "emit_id": "emit_hot_air2_stream", "delay": "1 s" } ],
-    "extend": { "flags": [ "PET_WONT_FOLLOW", "WARM" ] },
-    "armor": { "bash": 8, "cut": 10, "bullet": 15 }
+    "fear_triggers": [
+      "HURT"
+    ],
+    "emit_fields": [
+      {
+        "emit_id": "emit_hot_air2_stream",
+        "delay": "1 s"
+      }
+    ],
+    "extend": {
+      "flags": [
+        "PET_WONT_FOLLOW",
+        "WARM"
+      ]
+    },
+    "armor": {
+      "bash": 8,
+      "cut": 10,
+      "bullet": 15
+    }
   }
 ]
