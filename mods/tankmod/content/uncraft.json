@@ -1,144 +1,479 @@
 [
   {
-    "result": "105mm_heat",
-    "type": "uncraft",
-    "activity_level": "LIGHT_EXERCISE",
-    "skill_used": "fabrication",
-    "difficulty": 6,
-    "time": "10 m",
-    "qualities": [ { "id": "SCREW", "level": 1 }, { "id": "SAW_M", "level": 1 } ],
-    "components": [
-      [ [ "copper", 2000 ] ],
-      [ [ "chem_compositionb", 1000 ] ],
-      [ [ "gunpowder_artillery", 6000 ] ],
-      [ [ "impact_fuze", 1 ] ],
-      [ [ "scrap", 6 ] ],
-      [ [ "105mm_casing", 1 ] ],
-      [ [ "electric_primer_120mm", 1 ] ]
+  "result": "105mm_heat",
+  "type": "uncraft",
+  "activity_level": "LIGHT_EXERCISE",
+  "skill_used": "fabrication",
+  "difficulty": 6,
+  "time": "10 m",
+  "qualities": [
+    {
+      "id": "SCREW",
+      "level": 1
+    },
+    {
+      "id": "SAW_M",
+      "level": 1
+    }
+  ],
+  "components": [
+    [
+      [
+        "copper",
+        2000
+      ]
     ],
-    "charges": 1
-  },
+    [
+      [
+        "chem_compositionb",
+        1000
+      ]
+    ],
+    [
+      [
+        "gunpowder_artillery",
+        6000
+      ]
+    ],
+    [
+      [
+        "impact_fuze",
+        1
+      ]
+    ],
+    [
+      [
+        "scrap",
+        20
+      ]
+    ],
+    [
+      [
+        "105mm_casing",
+        1
+      ]
+    ],
+    [
+      [
+        "electric_primer_120mm",
+        1
+      ]
+    ],
+    [
+      [
+        "steel_lump",
+        7
+      ]
+    ]
+  ],
+  "charges": 1
+},
   {
-    "result": "105mm_ap",
-    "type": "uncraft",
-    "activity_level": "LIGHT_EXERCISE",
-    "skill_used": "fabrication",
-    "difficulty": 6,
-    "time": "10 m",
-    "qualities": [ { "id": "SCREW", "level": 1 }, { "id": "SAW_M", "level": 1 } ],
-    "components": [
-      [ [ "gunpowder_artillery", 6000 ] ],
-      [ [ "scrap", 20 ] ],
-      [ [ "105mm_casing", 1 ] ],
-      [ [ "electric_primer_120mm", 1 ] ]
+  "result": "105mm_ap",
+  "type": "uncraft",
+  "activity_level": "LIGHT_EXERCISE",
+  "skill_used": "fabrication",
+  "difficulty": 6,
+  "time": "10 m",
+  "qualities": [
+    {
+      "id": "SCREW",
+      "level": 1
+    },
+    {
+      "id": "SAW_M",
+      "level": 1
+    }
+  ],
+  "components": [
+    [
+      [
+        "gunpowder_artillery",
+        6000
+      ]
     ],
-    "charges": 1
-  },
+    [
+      [
+        "scrap",
+        33
+      ]
+    ],
+    [
+      [
+        "105mm_casing",
+        1
+      ]
+    ],
+    [
+      [
+        "electric_primer_120mm",
+        1
+      ]
+    ],
+    [
+      [
+        "steel_lump",
+        15
+      ]
+    ]
+  ],
+  "charges": 1
+},
   {
-    "result": "120mm_usable_heat",
-    "type": "uncraft",
-    "activity_level": "LIGHT_EXERCISE",
-    "skill_used": "fabrication",
-    "difficulty": 6,
-    "time": "10 m",
-    "qualities": [ { "id": "SCREW", "level": 1 }, { "id": "SAW_M", "level": 1 } ],
-    "components": [
-      [ [ "copper", 2500 ] ],
-      [ [ "chem_compositionb", 2000 ] ],
-      [ [ "gunpowder_artillery", 8000 ] ],
-      [ [ "impact_fuze", 1 ] ],
-      [ [ "scrap", 8 ] ],
-      [ [ "120mm_case_base", 1 ] ],
-      [ [ "electric_primer_120mm", 1 ] ]
+  "result": "120mm_usable_heat",
+  "type": "uncraft",
+  "activity_level": "LIGHT_EXERCISE",
+  "skill_used": "fabrication",
+  "difficulty": 6,
+  "time": "10 m",
+  "qualities": [
+    {
+      "id": "SCREW",
+      "level": 1
+    },
+    {
+      "id": "SAW_M",
+      "level": 1
+    }
+  ],
+  "components": [
+    [
+      [
+        "copper",
+        2500
+      ]
     ],
-    "charges": 1
-  },
+    [
+      [
+        "chem_compositionb",
+        2000
+      ]
+    ],
+    [
+      [
+        "gunpowder_artillery",
+        8000
+      ]
+    ],
+    [
+      [
+        "impact_fuze",
+        1
+      ]
+    ],
+    [
+      [
+        "scrap",
+        21
+      ]
+    ],
+    [
+      [
+        "120mm_case_base",
+        1
+      ]
+    ],
+    [
+      [
+        "electric_primer_120mm",
+        1
+      ]
+    ],
+    [
+      [
+        "steel_lump",
+        4
+      ]
+    ]
+  ],
+  "charges": 1
+},
   {
-    "result": "120mm_usable_ap",
-    "type": "uncraft",
-    "activity_level": "LIGHT_EXERCISE",
-    "skill_used": "fabrication",
-    "difficulty": 6,
-    "time": "10 m",
-    "qualities": [ { "id": "SCREW", "level": 1 }, { "id": "SAW_M", "level": 1 } ],
-    "//": "Realistically you'd get a fair bit of depleted uranium, and probably get horribly toxic oxides everywhere, but...",
-    "components": [
-      [ [ "gunpowder_artillery", 8000 ] ],
-      [ [ "scrap", 24 ] ],
-      [ [ "120mm_case_base", 1 ] ],
-      [ [ "electric_primer_120mm", 1 ] ]
+  "result": "120mm_usable_ap",
+  "type": "uncraft",
+  "activity_level": "LIGHT_EXERCISE",
+  "skill_used": "fabrication",
+  "difficulty": 6,
+  "time": "10 m",
+  "qualities": [
+    {
+      "id": "SCREW",
+      "level": 1
+    },
+    {
+      "id": "SAW_M",
+      "level": 1
+    }
+  ],
+  "//": "Realistically you'd get a fair bit of depleted uranium, and probably get horribly toxic oxides everywhere, but...",
+  "components": [
+    [
+      [
+        "gunpowder_artillery",
+        8000
+      ]
     ],
-    "charges": 1
-  },
+    [
+      [
+        "scrap",
+        37
+      ]
+    ],
+    [
+      [
+        "120mm_case_base",
+        1
+      ]
+    ],
+    [
+      [
+        "electric_primer_120mm",
+        1
+      ]
+    ],
+    [
+      [
+        "steel_lump",
+        22
+      ]
+    ]
+  ],
+  "charges": 1
+},
   {
-    "result": "155mm_heat",
-    "type": "uncraft",
-    "activity_level": "LIGHT_EXERCISE",
-    "skill_used": "fabrication",
-    "difficulty": 5,
-    "time": "10 m",
-    "qualities": [ { "id": "SAW_M", "level": 1 } ],
-    "components": [
-      [ [ "copper", 4500 ] ],
-      [ [ "chem_compositionb", 6000 ] ],
-      [ [ "gunpowder_artillery", 12000 ] ],
-      [ [ "impact_fuze", 1 ] ],
-      [ [ "scrap", 12 ] ],
-      [ [ "primer_155mm", 1 ] ]
+  "result": "155mm_heat",
+  "type": "uncraft",
+  "activity_level": "LIGHT_EXERCISE",
+  "skill_used": "fabrication",
+  "difficulty": 5,
+  "time": "10 m",
+  "qualities": [
+    {
+      "id": "SAW_M",
+      "level": 1
+    }
+  ],
+  "components": [
+    [
+      [
+        "copper",
+        4500
+      ]
     ],
-    "charges": 1
-  },
+    [
+      [
+        "chem_compositionb",
+        6000
+      ]
+    ],
+    [
+      [
+        "gunpowder_artillery",
+        12000
+      ]
+    ],
+    [
+      [
+        "impact_fuze",
+        1
+      ]
+    ],
+    [
+      [
+        "scrap",
+        26
+      ]
+    ],
+    [
+      [
+        "primer_155mm",
+        1
+      ]
+    ],
+    [
+      [
+        "steel_lump",
+        27
+      ]
+    ]
+  ],
+  "charges": 1
+},
   {
-    "result": "155mm_frag",
-    "type": "uncraft",
-    "activity_level": "LIGHT_EXERCISE",
-    "skill_used": "fabrication",
-    "difficulty": 5,
-    "time": "10 m",
-    "qualities": [ { "id": "SAW_M", "level": 1 } ],
-    "components": [
-      [ [ "chem_compositionb", 8000 ] ],
-      [ [ "gunpowder_artillery", 12000 ] ],
-      [ [ "impact_fuze", 1 ] ],
-      [ [ "scrap", 24 ] ],
-      [ [ "primer_155mm", 1 ] ]
+  "result": "155mm_frag",
+  "type": "uncraft",
+  "activity_level": "LIGHT_EXERCISE",
+  "skill_used": "fabrication",
+  "difficulty": 5,
+  "time": "10 m",
+  "qualities": [
+    {
+      "id": "SAW_M",
+      "level": 1
+    }
+  ],
+  "components": [
+    [
+      [
+        "chem_compositionb",
+        8000
+      ]
     ],
-    "charges": 1
-  },
+    [
+      [
+        "gunpowder_artillery",
+        12000
+      ]
+    ],
+    [
+      [
+        "impact_fuze",
+        1
+      ]
+    ],
+    [
+      [
+        "scrap",
+        30
+      ]
+    ],
+    [
+      [
+        "primer_155mm",
+        1
+      ]
+    ],
+    [
+      [
+        "steel_lump",
+        29
+      ]
+    ]
+  ],
+  "charges": 1
+},
   {
-    "result": "25mm_hei",
-    "type": "uncraft",
-    "activity_level": "LIGHT_EXERCISE",
-    "skill_used": "fabrication",
-    "difficulty": 6,
-    "time": "3 m",
-    "qualities": [ { "id": "SCREW", "level": 1 }, { "id": "SAW_M", "level": 1 }, { "id": "PULL", "level": 1 } ],
-    "components": [
-      [ [ "25mm_casing", 1 ] ],
-      [ [ "chem_compositionb", 35 ] ],
-      [ [ "incendiary", 20 ] ],
-      [ [ "gunpowder_rifle", 80 ] ],
-      [ [ "impact_fuze", 1 ] ],
-      [ [ "lgrifle_primer", 1 ] ]
+  "result": "25mm_hei",
+  "type": "uncraft",
+  "activity_level": "LIGHT_EXERCISE",
+  "skill_used": "fabrication",
+  "difficulty": 6,
+  "time": "3 m",
+  "qualities": [
+    {
+      "id": "SCREW",
+      "level": 1
+    },
+    {
+      "id": "SAW_M",
+      "level": 1
+    },
+    {
+      "id": "PULL",
+      "level": 1
+    }
+  ],
+  "components": [
+    [
+      [
+        "25mm_casing",
+        1
+      ]
     ],
-    "charges": 1
-  },
+    [
+      [
+        "chem_compositionb",
+        35
+      ]
+    ],
+    [
+      [
+        "incendiary",
+        20
+      ]
+    ],
+    [
+      [
+        "gunpowder_rifle",
+        80
+      ]
+    ],
+    [
+      [
+        "impact_fuze",
+        1
+      ]
+    ],
+    [
+      [
+        "lgrifle_primer",
+        1
+      ]
+    ],
+    [
+      [
+        "scrap",
+        6
+      ]
+    ]
+  ],
+  "charges": 1
+},
   {
-    "result": "25mm_apds",
-    "type": "uncraft",
-    "activity_level": "LIGHT_EXERCISE",
-    "skill_used": "fabrication",
-    "difficulty": 6,
-    "time": "3 m",
-    "qualities": [ { "id": "SCREW", "level": 1 }, { "id": "SAW_M", "level": 1 }, { "id": "PULL", "level": 1 } ],
-    "components": [
-      [ [ "25mm_casing", 1 ] ],
-      [ [ "scrap", 4 ] ],
-      [ [ "gunpowder_rifle", 80 ] ],
-      [ [ "lgrifle_primer", 1 ] ]
+  "result": "25mm_apds",
+  "type": "uncraft",
+  "activity_level": "LIGHT_EXERCISE",
+  "skill_used": "fabrication",
+  "difficulty": 6,
+  "time": "3 m",
+  "qualities": [
+    {
+      "id": "SCREW",
+      "level": 1
+    },
+    {
+      "id": "SAW_M",
+      "level": 1
+    },
+    {
+      "id": "PULL",
+      "level": 1
+    }
+  ],
+  "components": [
+    [
+      [
+        "25mm_casing",
+        1
+      ]
     ],
-    "charges": 1
-  },
+    [
+      [
+        "scrap",
+        3
+      ]
+    ],
+    [
+      [
+        "gunpowder_rifle",
+        80
+      ]
+    ],
+    [
+      [
+        "lgrifle_primer",
+        1
+      ]
+    ],
+    [
+      [
+        "steel_chunk",
+        1
+      ]
+    ]
+  ],
+  "charges": 1
+},
   {
     "result": "broken_uafv_xm246e1",
     "type": "uncraft",
