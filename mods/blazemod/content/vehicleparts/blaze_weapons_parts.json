@@ -27,20 +27,7 @@
       "repair": { "skills": [ [ "mechanics", 3 ] ], "time": "25 m", "using": [ [ "welding_standard", 5 ] ] }
     }
   },
-  {
-    "id": "m4_carbine",
-    "copy-from": "turret",
-    "type": "vehicle_part",
-    "name": { "str": "mounted m4 turret" },
-    "item": "modular_m4_carbine",
-    "breaks_into": [ { "item": "modular_m4_carbine", "prob": 50 } ],
-    "requirements": {
-      "install": { "skills": [ [ "mechanics", 3 ] ], "time": "60 m", "using": [ [ "vehicle_wrench_2", 1 ] ] },
-      "removal": { "skills": [ [ "mechanics", 1 ] ], "time": "45 m", "using": [ [ "vehicle_wrench_2", 1 ] ] },
-      "repair": { "skills": [ [ "mechanics", 2 ] ], "time": "25 m", "using": [ [ "welding_standard", 5 ] ] }
-    }
-  },
-  {
+    {
     "id": "mounted_ak47",
     "copy-from": "turret",
     "type": "vehicle_part",
@@ -107,20 +94,7 @@
       "repair": { "skills": [ [ "mechanics", 4 ] ], "time": "25 m", "using": [ [ "welding_standard", 5 ] ] }
     }
   },
-  {
-    "id": "mounted_ar15",
-    "copy-from": "turret",
-    "type": "vehicle_part",
-    "name": { "str": "AR-15 turret" },
-    "item": "modular_ar15",
-    "breaks_into": [ { "item": "modular_ar15", "prob": 50 } ],
-    "requirements": {
-      "install": { "skills": [ [ "mechanics", 3 ] ], "time": "60 m", "using": [ [ "vehicle_wrench_2", 1 ] ] },
-      "removal": { "skills": [ [ "mechanics", 1 ] ], "time": "45 m", "using": [ [ "vehicle_wrench_2", 1 ] ] },
-      "repair": { "skills": [ [ "mechanics", 2 ] ], "time": "25 m", "using": [ [ "welding_standard", 5 ] ] }
-    }
-  },
-  {
+    {
     "id": "mounted_railturret",
     "copy-from": "turret",
     "type": "vehicle_part",
@@ -331,20 +305,7 @@
       "repair": { "skills": [ [ "mechanics", 2 ] ], "time": "25 m", "using": [ [ "welding_standard", 5 ] ] }
     }
   },
-  {
-    "id": "mounted_hk_ump45",
-    "copy-from": "turret",
-    "type": "vehicle_part",
-    "name": { "str": "H&K UMP45 turret" },
-    "item": "modular_ump",
-    "breaks_into": [ { "item": "modular_ump", "prob": 50 } ],
-    "requirements": {
-      "install": { "skills": [ [ "mechanics", 3 ] ], "time": "60 m", "using": [ [ "vehicle_wrench_2", 1 ] ] },
-      "removal": { "skills": [ [ "mechanics", 1 ] ], "time": "45 m", "using": [ [ "vehicle_wrench_2", 1 ] ] },
-      "repair": { "skills": [ [ "mechanics", 2 ] ], "time": "25 m", "using": [ [ "welding_standard", 5 ] ] }
-    }
-  },
-  {
+    {
     "id": "mounted_ksg",
     "copy-from": "turret",
     "type": "vehicle_part",
