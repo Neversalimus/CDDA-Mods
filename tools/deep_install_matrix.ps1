@@ -67,7 +67,38 @@ function Safe-Label([string]$Name){
 }
 
 function Preserve-InstallerDiagnostics([string]$Text,[string]$CaseDir){
-    $matches=[regex]::Matches($Text,'(?im)^Diagnostics:\s*(.+?)\s*    [string]$Label,
+    $matches=[regex]::Matches($Text,'(?im)^Diagnostics:\s*(.+?)\s*$')
+    if(-not $matches.Count){return $null}
+    $source=$matches[$matches.Count-1].Groups[1].Value.Trim()
+    if(-not(Test-Path -LiteralPath $source -PathType Container)){
+        Write-Warning "Installer diagnostics path was reported but is missing: $source"
+        return $null
+    }
+    $destination=Join-Path $CaseDir 'transaction-diagnostics'
+    [IO.Directory]::CreateDirectory($destination) | Out-Null
+    $validation=Join-Path $source 'validation'
+    if(Test-Path -LiteralPath $validation -PathType Container){
+        foreach($file in @(Get-ChildItem -LiteralPath $validation -Recurse -File -ErrorAction SilentlyContinue)){
+            if($file.Name -notin @('stdout.log','stderr.log','debug.log')){continue}
+            $relative=$file.FullName.Substring($validation.Length).TrimStart([char]'\\',[char]'/')
+            $target=Join-Path $destination ('validation/'+$relative)
+            [IO.Directory]::CreateDirectory((Split-Path $target -Parent)) | Out-Null
+            Copy-Item -LiteralPath $file.FullName -Destination $target -Force
+        }
+    }
+    $journal=Join-Path $source 'journal.json'
+    if(Test-Path -LiteralPath $journal -PathType Leaf){
+        Copy-Item -LiteralPath $journal -Destination (Join-Path $destination 'journal.json') -Force
+    }
+    if(@(Get-ChildItem -LiteralPath $destination -Recurse -File -ErrorAction SilentlyContinue).Count){
+        return $destination
+    }
+    Remove-Item -LiteralPath $destination -Recurse -Force -ErrorAction SilentlyContinue
+    return $null
+}
+
+function Invoke-InstallerCase(
+    [string]$Label,
     [string[]]$Extra,
     [bool]$ExpectSuccess=$true,
     [string]$UsePackageRoot=$packages
@@ -110,7 +141,6 @@ function Preserve-InstallerDiagnostics([string]$Text,[string]$CaseDir){
         throw "Installer case '$Label' returned exit $code; expected success=$ExpectSuccess. See $log"
     }
 }
-
 function Read-State {
     $path=Join-Path $game '_CDDA-Mods/installed.json'
     if(-not(Test-Path -LiteralPath $path)){return $null}
