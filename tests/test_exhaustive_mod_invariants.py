@@ -489,7 +489,8 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
         objects = {
             obj["id"]: obj
             for _, obj in objects_under(root)
-            if isinstance(obj.get("id"), str)
+            if obj.get("type") == "ITEM"
+            and isinstance(obj.get("id"), str)
         }
         expected = {
             "bfeedfuel": "400 ml", "bfeed": "1250 ml",
