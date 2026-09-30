@@ -112,6 +112,15 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
         firmware = item_objects["firmware_overpressure"]
         self.assertEqual(firmware.get("longest_side"), "25 mm")
 
+        for card_id in (
+            "crashing_ship_locker_card", "crashing_ship_armory_card",
+            "crashing_ship_exobay_card", "tskbem_master_keycard",
+            "enforcer_master_keycard", "mercurial_master_keycard",
+        ):
+            with self.subTest(card=card_id):
+                self.assertEqual(item_objects[card_id].get("weight"), "6 g")
+                self.assertEqual(item_objects[card_id].get("volume"), "6 ml")
+
         monsters = {
             obj["id"]: obj
             for _, obj in objects
