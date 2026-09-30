@@ -276,6 +276,23 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
         self.assertEqual(item_objects["electric_primer_120mm"].get("weight"), "45 g")
         self.assertEqual(item_objects["primer_155mm"].get("weight"), "51 g")
 
+        expected_volumes = {
+            "25mm_hei": "3300 ml",
+            "25mm_apds": "3300 ml",
+            "25mm_autocannon_sawn": "12 L",
+            "tank_gun_manual": "400 L",
+            "tank_gun_auto": "425 L",
+            "tank_gun_crude": "125 L",
+            "tank_gun_manual_105mm": "190 L",
+            "tank_gun_crude_105mm": "95 L",
+            "howitzer_gun": "550 L",
+            "howitzer_gun_crude": "190 L",
+            "tank_gun_auto_monster": "425 L",
+        }
+        for item_id, volume in expected_volumes.items():
+            with self.subTest(item=item_id):
+                self.assertEqual(item_objects[item_id].get("volume"), volume)
+
         for part_id in ("tread1", "tread2", "tread3"):
             with self.subTest(part=part_id):
                 part = next(
