@@ -1,5 +1,10 @@
 # Secronom+ Revival
 
+## 0.3.4-r4
+
+- Removed the obsolete `NEVER_MISFIRES` token from bone-needle ammo effects. Current CDDA has no ammo effect by that ID; `NOGIB` and `NON_FOULING` remain valid and unchanged.
+- This fixes the exact-runtime initialization error without changing projectile damage, dispersion, count, material or valid ammo effects.
+
 ## 0.3.4-r3
 
 - Encode artificial flesh density as 1.6 to match authored equipment without altering item mass or capacity.
