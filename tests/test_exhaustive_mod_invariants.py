@@ -271,6 +271,11 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
             with self.subTest(item=item_id):
                 self.assertIn(item_id, item_objects)
                 self.assertNotIn("to_hit", item_objects[item_id])
+        self.assertEqual(item_objects["broken_uafv_xm246e1"].get("weight"), "4500 kg")
+        self.assertEqual(item_objects["broken_uafv_xm246e1"].get("volume"), "1000 L")
+        self.assertEqual(item_objects["electric_primer_120mm"].get("weight"), "45 g")
+        self.assertEqual(item_objects["primer_155mm"].get("weight"), "51 g")
+
         for part_id in ("tread1", "tread2", "tread3"):
             with self.subTest(part=part_id):
                 part = next(
