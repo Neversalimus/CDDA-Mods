@@ -32,7 +32,7 @@
     "name": "flesh wall",
     "sym": "┌",
     "color": "red",
-    "flags": [ "NO_ROTATE" ],
+    "flags": [ "NO_ROTATE", "SHOULD_NOT_SPAWN" ],
     "see_cost": "high",
     "land_use_code": "secro_flesh_biome"
   },
@@ -42,7 +42,7 @@
     "name": "flesh wall",
     "sym": "─",
     "color": "red",
-    "flags": [ "NO_ROTATE" ],
+    "flags": [ "NO_ROTATE", "SHOULD_NOT_SPAWN" ],
     "see_cost": "high",
     "land_use_code": "secro_flesh_biome"
   },
@@ -52,7 +52,7 @@
     "name": "flesh wall",
     "sym": "┈",
     "color": "red",
-    "flags": [ "NO_ROTATE" ],
+    "flags": [ "NO_ROTATE", "SHOULD_NOT_SPAWN" ],
     "see_cost": "high",
     "land_use_code": "secro_flesh_biome"
   },
@@ -62,7 +62,7 @@
     "name": "flesh wall",
     "sym": "─",
     "color": "red",
-    "flags": [ "NO_ROTATE" ],
+    "flags": [ "NO_ROTATE", "SHOULD_NOT_SPAWN" ],
     "see_cost": "high",
     "land_use_code": "secro_flesh_biome"
   },
@@ -72,7 +72,7 @@
     "name": "flesh wall",
     "sym": "┐",
     "color": "red",
-    "flags": [ "NO_ROTATE" ],
+    "flags": [ "NO_ROTATE", "SHOULD_NOT_SPAWN" ],
     "see_cost": "high",
     "land_use_code": "secro_flesh_biome"
   },
@@ -82,7 +82,7 @@
     "name": "flesh wall",
     "sym": "│",
     "color": "red",
-    "flags": [ "NO_ROTATE" ],
+    "flags": [ "NO_ROTATE", "SHOULD_NOT_SPAWN" ],
     "see_cost": "high",
     "land_use_code": "secro_flesh_biome"
   },
@@ -92,7 +92,7 @@
     "name": "flesh wall",
     "sym": "┊",
     "color": "red",
-    "flags": [ "NO_ROTATE" ],
+    "flags": [ "NO_ROTATE", "SHOULD_NOT_SPAWN" ],
     "see_cost": "high",
     "land_use_code": "secro_flesh_biome"
   },
@@ -102,7 +102,7 @@
     "name": "flesh wall",
     "sym": "│",
     "color": "red",
-    "flags": [ "NO_ROTATE" ],
+    "flags": [ "NO_ROTATE", "SHOULD_NOT_SPAWN" ],
     "see_cost": "high",
     "land_use_code": "secro_flesh_biome"
   },
@@ -112,7 +112,7 @@
     "name": "flesh wall",
     "sym": "┘",
     "color": "red",
-    "flags": [ "NO_ROTATE" ],
+    "flags": [ "NO_ROTATE", "SHOULD_NOT_SPAWN" ],
     "see_cost": "high",
     "land_use_code": "secro_flesh_biome"
   },
@@ -122,7 +122,7 @@
     "name": "flesh wall",
     "sym": "─",
     "color": "red",
-    "flags": [ "NO_ROTATE" ],
+    "flags": [ "NO_ROTATE", "SHOULD_NOT_SPAWN" ],
     "see_cost": "high",
     "land_use_code": "secro_flesh_biome"
   },
@@ -132,7 +132,7 @@
     "name": "flesh wall",
     "sym": "┈",
     "color": "red",
-    "flags": [ "NO_ROTATE" ],
+    "flags": [ "NO_ROTATE", "SHOULD_NOT_SPAWN" ],
     "see_cost": "high",
     "land_use_code": "secro_flesh_biome"
   },
@@ -142,7 +142,7 @@
     "name": "flesh wall",
     "sym": "─",
     "color": "red",
-    "flags": [ "NO_ROTATE" ],
+    "flags": [ "NO_ROTATE", "SHOULD_NOT_SPAWN" ],
     "see_cost": "high",
     "land_use_code": "secro_flesh_biome"
   },
@@ -152,7 +152,7 @@
     "name": "flesh wall",
     "sym": "└",
     "color": "red",
-    "flags": [ "NO_ROTATE" ],
+    "flags": [ "NO_ROTATE", "SHOULD_NOT_SPAWN" ],
     "see_cost": "high",
     "land_use_code": "secro_flesh_biome"
   },
@@ -162,7 +162,7 @@
     "name": "flesh wall",
     "sym": "│",
     "color": "red",
-    "flags": [ "NO_ROTATE" ],
+    "flags": [ "NO_ROTATE", "SHOULD_NOT_SPAWN" ],
     "see_cost": "high",
     "land_use_code": "secro_flesh_biome"
   },
@@ -172,7 +172,7 @@
     "name": "flesh wall",
     "sym": "┊",
     "color": "red",
-    "flags": [ "NO_ROTATE" ],
+    "flags": [ "NO_ROTATE", "SHOULD_NOT_SPAWN" ],
     "see_cost": "high",
     "land_use_code": "secro_flesh_biome"
   },
@@ -182,13 +182,14 @@
     "name": "flesh wall",
     "sym": "│",
     "color": "red",
-    "flags": [ "NO_ROTATE" ],
+    "flags": [ "NO_ROTATE", "SHOULD_NOT_SPAWN" ],
     "see_cost": "high",
     "land_use_code": "secro_flesh_biome"
   },
   {
     "type": "overmap_terrain",
     "id": "mini_fleshresearchlab",
+    "flags": [ "SHOULD_NOT_SPAWN" ],
     "name": "secronom research lab",
     "sym": "L",
     "color": "light_red",
@@ -197,6 +198,7 @@
   {
     "type": "overmap_terrain",
     "id": "mini_fleshresearchlab_lab",
+    "flags": [ "SHOULD_NOT_SPAWN" ],
     "name": "secronom research lab basement",
     "sym": "L",
     "color": "light_red",
@@ -205,6 +207,7 @@
   {
     "type": "overmap_terrain",
     "id": "SecroFleshLab_entry",
+    "flags": [ "SHOULD_NOT_SPAWN" ],
     "name": "flesh research lab",
     "sym": "L",
     "color": "red",
@@ -213,6 +216,7 @@
   {
     "type": "overmap_terrain",
     "id": "SecroFleshLab_b1",
+    "flags": [ "SHOULD_NOT_SPAWN" ],
     "name": "flesh research lab",
     "sym": "L",
     "color": "red",
@@ -221,6 +225,7 @@
   {
     "type": "overmap_terrain",
     "id": "SecroFleshLab_b2",
+    "flags": [ "SHOULD_NOT_SPAWN" ],
     "name": "flesh research lab",
     "sym": "L",
     "color": "red",

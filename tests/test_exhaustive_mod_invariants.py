@@ -158,6 +158,163 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
         )
         self.assertNotIn("by_mood", factions["secro_flesh2"])
 
+    def test_secronom_disabled_worldgen_is_explicitly_non_spawning(self):
+        base_root = ROOT / "mods" / "secronom" / "content"
+        base_terrains = {
+            obj["id"]: obj
+            for obj in read_json(
+                base_root / "Modification_Files" / "Maps" / "-Essentials"
+                / "overmap_terrains.json"
+            )
+            if obj.get("type") == "overmap_terrain" and obj.get("id")
+        }
+        base_specials = {
+            obj["id"]: obj
+            for obj in read_json(
+                base_root / "Modification_Files" / "Maps" / "-Essentials"
+                / "overmap_specials.json"
+            )
+            if obj.get("type") == "overmap_special" and obj.get("id")
+        }
+        disabled_base = {
+            "flesh_cavern_boss",
+            "flesh_cavern_bot",
+            "flesh_cavern_entrance",
+            "flesh_forest_1",
+            "flesh_forest_2",
+            "flesh_forest_3",
+            "flesh_forest_4",
+            "flesh_forest_5",
+            "flesh_forest_6",
+            "flesh_forest_7",
+            "flesh_forest_8",
+            "flesh_forest_9",
+            "flesh_forest_boss_1",
+            "flesh_forest_boss_2",
+            "flesh_forest_boss_3",
+            "flesh_forest_boss_4",
+            "flesh_forest_boss_5",
+            "flesh_forest_boss_6",
+            "flesh_forest_boss_7",
+            "flesh_forest_boss_8",
+            "flesh_forest_boss_9",
+            "flesh_forest_bot1_1",
+            "flesh_forest_bot1_2",
+            "flesh_forest_bot1_3",
+            "flesh_forest_bot1_4",
+            "flesh_forest_bot1_5",
+            "flesh_forest_bot1_6",
+            "flesh_forest_bot1_7",
+            "flesh_forest_bot1_8",
+            "flesh_forest_bot1_9",
+            "flesh_forest_bot2_1",
+            "flesh_forest_bot2_2",
+            "flesh_forest_bot2_3",
+            "flesh_forest_bot2_4",
+            "flesh_forest_bot2_5",
+            "flesh_forest_bot2_6",
+            "flesh_forest_bot2_7",
+            "flesh_forest_bot2_8",
+            "flesh_forest_bot2_9",
+            "flesh_forest_bot3_1",
+            "flesh_forest_bot3_2",
+            "flesh_forest_bot3_3",
+            "flesh_forest_bot3_4",
+            "flesh_forest_bot3_5",
+            "flesh_forest_bot3_6",
+            "flesh_forest_bot3_7",
+            "flesh_forest_bot3_8",
+            "flesh_forest_bot3_9",
+            "flesh_forest_far",
+            "flesh_forest_mid",
+            "flesh_forest_near",
+            "flesh_forest_vfar",
+            "flesh_forest_vfaraway",
+            "flesh_island_vfaraway_curve",
+            "flesh_island_vfaraway_straight",
+            "flesh_island_vfaraway_vortex",
+            "s_house_flesh",
+            "s_park_flesh",
+            "s_shop_flesh",
+            "secro_basement_flesh",
+            "secro_flesh_city_core",
+            "secro_flesh_city_core_up",
+            "secro_flesh_city_core_upper",
+            "secro_flesh_city_core_uppest",
+            "secro_flesh_city_core_uppest_roof",
+            "secro_flesh_city_edge",
+            "secro_house_flesh",
+            "secro_rd_4d_flesh",
+            "secro_rd_connect_flesh",
+            "secro_rd_curve_ld_flesh",
+            "secro_rd_curve_lu_flesh",
+            "secro_rd_curve_rd_flesh",
+            "secro_rd_curve_ru_flesh",
+            "secro_rd_hori_end_flesh",
+            "secro_rd_leftright_flesh",
+            "secro_rd_leftright_sidewalk_flesh",
+            "secro_rd_tee_lrd_flesh",
+            "secro_rd_tee_lru_flesh",
+            "secro_rd_tee_lud_flesh",
+            "secro_rd_tee_rud_flesh",
+            "secro_rd_updown_flesh",
+            "secro_rd_updown_sidewalk_flesh",
+            "secro_rd_verti_end_flesh",
+        }
+        self.assertEqual(len(disabled_base), 83)
+        for terrain_id in disabled_base:
+            with self.subTest(base_terrain=terrain_id):
+                self.assertIn("SHOULD_NOT_SPAWN", base_terrains[terrain_id].get("flags", []))
+        for special_id in ("Flesh Forest", "Flesh Island", "Flesh Cave", "Flesh City 1", "Flesh City 2"):
+            with self.subTest(base_special=special_id):
+                self.assertEqual(base_specials[special_id].get("occurrences"), [0, 0])
+
+        plus_root = ROOT / "mods" / "secronom_plus" / "content"
+        plus_terrains = {
+            obj["id"]: obj
+            for obj in read_json(
+                plus_root / "Modification Files" / "Maps" / "-Essentials" / "omt.json"
+            )
+            if obj.get("type") == "overmap_terrain" and obj.get("id")
+        }
+        plus_specials = {
+            obj["id"]: obj
+            for obj in read_json(
+                plus_root / "Modification Files" / "Maps" / "-Essentials" / "oms.json"
+            )
+            if obj.get("type") == "overmap_special" and obj.get("id")
+        }
+        disabled_plus = {
+            "SecroFleshLab_b1",
+            "SecroFleshLab_b2",
+            "SecroFleshLab_entry",
+            "mini_fleshresearchlab",
+            "mini_fleshresearchlab_lab",
+            "secro_fleshcamp_start_wall_dd",
+            "secro_fleshcamp_start_wall_ddl",
+            "secro_fleshcamp_start_wall_ddll",
+            "secro_fleshcamp_start_wall_dll",
+            "secro_fleshcamp_start_wall_ll",
+            "secro_fleshcamp_start_wall_llu",
+            "secro_fleshcamp_start_wall_lluu",
+            "secro_fleshcamp_start_wall_luu",
+            "secro_fleshcamp_start_wall_rdd",
+            "secro_fleshcamp_start_wall_rr",
+            "secro_fleshcamp_start_wall_rrd",
+            "secro_fleshcamp_start_wall_rrdd",
+            "secro_fleshcamp_start_wall_urr",
+            "secro_fleshcamp_start_wall_uu",
+            "secro_fleshcamp_start_wall_uur",
+            "secro_fleshcamp_start_wall_uurr",
+        }
+        self.assertEqual(len(disabled_plus), 21)
+        for terrain_id in disabled_plus:
+            with self.subTest(plus_terrain=terrain_id):
+                self.assertIn("SHOULD_NOT_SPAWN", plus_terrains[terrain_id].get("flags", []))
+        for special_id in ("Mini Secronom Research Lab", "Secronom Flesh Research Lab"):
+            with self.subTest(plus_special=special_id):
+                self.assertEqual(plus_specials[special_id].get("occurrences"), [0, 0])
+
     def test_secronom_plus_wip_and_density_migrations(self):
         root = ROOT / "mods" / "secronom_plus" / "content"
 
