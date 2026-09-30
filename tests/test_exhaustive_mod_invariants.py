@@ -87,6 +87,49 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
                 )
                 self.assertIn("movement", part.get("categories", []))
 
+    def test_aftershock_prime_safe_exhaustive_fixes(self):
+        root = ROOT / "mods" / "aftershock_prime" / "content"
+        objects = list(objects_under(root))
+        item_objects = {
+            obj["id"]: obj
+            for _, obj in objects
+            if obj.get("type") == "ITEM" and obj.get("id")
+        }
+        legacy_to_hit = {
+            "broken_afs_eyebot", "broken_shock_mine", "broken_zenit",
+            "broken_afs_copbot", "broken_afs_riotbot", "afs_gene_disp",
+            "afs_gene_template", "afs_reactor_unstable",
+            "enforcer_master_keycard", "mercurial_master_keycard",
+            "bot_laserturret_interior", "afs_bot_eyebot", "afs_bot_copbot",
+            "afs_bot_riotbot", "afs_mil_ship_plate", "minireactor",
+            "afs_antitank_railgun", "afs_mine_shocker",
+        }
+        for item_id in legacy_to_hit:
+            with self.subTest(item=item_id):
+                self.assertIn(item_id, item_objects)
+                self.assertNotIn("to_hit", item_objects[item_id])
+
+        firmware = item_objects["firmware_overpressure"]
+        self.assertEqual(firmware.get("longest_side"), "25 mm")
+
+        monsters = {
+            obj["id"]: obj
+            for _, obj in objects
+            if obj.get("type") == "MONSTER"
+        }
+        self.assertEqual(
+            monsters["mon_uica_irradiant"].get("broken_itype"),
+            "broken_wraitheon_irradiant",
+        )
+        self.assertEqual(
+            monsters["mon_uica_tankbot"].get("broken_itype"),
+            "broken_tankbot",
+        )
+        self.assertEqual(
+            monsters["mon_light_hack"].get("broken_itype"),
+            "broken_manhack",
+        )
+
     def test_blazemod_exhaustive_vehicle_metadata_is_current(self):
         root = ROOT / "mods" / "blazemod" / "content"
         flagged_ids = {
