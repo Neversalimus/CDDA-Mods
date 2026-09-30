@@ -287,6 +287,14 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
         self.assertEqual(item_objects["electric_primer_120mm"].get("weight"), "45 g")
         self.assertEqual(item_objects["primer_155mm"].get("weight"), "51 g")
 
+        ammo_effects = read_json(root / "ammo_effects.json")
+        custom_explosion = [
+            obj for obj in ammo_effects
+            if obj.get("type") == "ammo_effect"
+            and obj.get("id") == "CUSTOM_EXPLOSION"
+        ]
+        self.assertEqual(len(custom_explosion), 1)
+
         expected_volumes = {
             "25mm_hei": "3300 ml",
             "25mm_apds": "3300 ml",
