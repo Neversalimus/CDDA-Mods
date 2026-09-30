@@ -27,13 +27,13 @@
     "type": "MONSTER_FACTION",
     "name": "alien_predator",
     "neutral": [
-      "bot"
+      "bot",
+      "cop_bot",
+      "defense_bot"
     ],
     "by_mood": [
       "WraitheonRobotics",
-      "alien_predator",
-      "cop_bot",
-      "defense_bot"
+      "alien_predator"
     ]
   },
   {
@@ -246,7 +246,8 @@
     "name": "hevel",
     "base_faction": "herbivore",
     "neutral": [
-      "herbivore"
+      "herbivore",
+      "herbivore_domestic"
     ]
   },
   {
@@ -311,6 +312,26 @@
     "copy-from": "player",
     "extend": {
       "hate": [
+        "reavers"
+      ]
+    }
+  },
+  {
+    "type": "MONSTER_FACTION",
+    "name": "robofac",
+    "copy-from": "robofac",
+    "extend": {
+      "neutral": [
+        "reavers"
+      ]
+    }
+  },
+  {
+    "type": "MONSTER_FACTION",
+    "name": "robofac_spy",
+    "copy-from": "robofac_spy",
+    "extend": {
+      "neutral": [
         "reavers"
       ]
     }
