@@ -2247,7 +2247,8 @@
       "FRIEND_ATTACKED",
       "FRIEND_DIED",
       "HURT"
-    ]
+    ],
+    "broken_itype": "broken_wraitheon_irradiant"
   },
   {
     "id": "mon_uica_tankbot",
@@ -2263,7 +2264,8 @@
       "FRIEND_ATTACKED",
       "FRIEND_DIED",
       "HURT"
-    ]
+    ],
+    "broken_itype": "broken_tankbot"
   },
   {
     "id": "mon_uica_imaginifer",
