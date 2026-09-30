@@ -50,6 +50,57 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
                 self.assertEqual(monsters[monster_id].get("broken_itype"), broken_id)
                 self.assertIn(broken_id, item_ids)
 
+    def test_secronom_extends_vanilla_factions_instead_of_replacing_them(self):
+        factions = {
+            obj["name"]: obj
+            for obj in read_json(
+                ROOT / "mods" / "secronom" / "content"
+                / "Modification_Files" / "Monsters" / "-Essentials"
+                / "secro_faction.json"
+            )
+            if obj.get("type") == "MONSTER_FACTION"
+        }
+        for name in (
+            "human", "animal", "insect", "bot", "zombie",
+            "blob", "nether", "plant", "science", "small_animal",
+        ):
+            with self.subTest(faction=name):
+                self.assertEqual(factions[name].get("copy-from"), name)
+
+        self.assertIn(
+            "fleshweaver",
+            factions["human"]["extend"]["friendly"],
+        )
+        self.assertIn(
+            "secro_defense_bot",
+            factions["human"]["extend"]["friendly"],
+        )
+        self.assertIn(
+            "secro_defense_bot",
+            factions["animal"]["extend"]["neutral"],
+        )
+        self.assertIn(
+            "fleshweaver",
+            factions["zombie"]["extend"]["neutral"],
+        )
+        self.assertIn(
+            "saddler",
+            factions["bot"]["extend"]["neutral"],
+        )
+        self.assertIn(
+            "carrion2",
+            factions["carrion"]["friendly"],
+        )
+        self.assertIn(
+            "carrion",
+            factions["carrion2"]["friendly"],
+        )
+        self.assertIn(
+            "secro_flesh",
+            factions["secro_flesh2"]["friendly"],
+        )
+        self.assertNotIn("by_mood", factions["secro_flesh2"])
+
     def test_tankmod_exhaustive_legacy_fields_are_removed(self):
         root = ROOT / "mods" / "tankmod" / "content"
         item_objects = {
