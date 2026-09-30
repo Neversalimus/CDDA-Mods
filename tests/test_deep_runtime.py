@@ -40,13 +40,22 @@ class DeepRuntimePlanTests(unittest.TestCase):
             deep.source_specs("load", combined=False),
             ["[force_load_game]"],
         )
+        full = deep.source_specs("full", combined=False)
         self.assertIn(
-            "~[slow] ~[.],starting_items",
-            deep.source_specs("full", combined=False),
+            "~[slow] ~[.] ~[axiom7_lifecycle],"
+            "starting_items ~[axiom7_lifecycle]",
+            full,
         )
         exhaustive = deep.source_specs("exhaustive", combined=True)
-        self.assertIn("~[slow] ~[.],starting_items", exhaustive)
-        self.assertIn("[slow] ~starting_items", exhaustive)
+        self.assertIn(
+            "~[slow] ~[.] ~[axiom7_lifecycle],"
+            "starting_items ~[axiom7_lifecycle]",
+            exhaustive,
+        )
+        self.assertIn(
+            "[slow] ~starting_items ~[axiom7_lifecycle]",
+            exhaustive,
+        )
 
 
     def test_axiom_component_gets_exact_engine_lifecycle_probe(self):
@@ -58,14 +67,32 @@ class DeepRuntimePlanTests(unittest.TestCase):
             ),
             ["[force_load_game]", "[axiom7_lifecycle]"],
         )
-        self.assertNotIn(
-            "[axiom7_lifecycle]",
-            deep.source_specs(
-                "full",
-                combined=True,
-                suite_name="combined-all-json",
-            ),
+        combined = deep.source_specs(
+            "full",
+            combined=True,
+            suite_name="combined-all-json",
         )
+        self.assertNotIn("[axiom7_lifecycle]", combined)
+        self.assertTrue(
+            all("~[axiom7_lifecycle]" in spec for spec in combined[1:])
+        )
+
+    def test_generic_exhaustive_partitions_exclude_repository_probes(self):
+        for suite_name in (
+            "component-aftershock_prime",
+            "component-aftershock_prime_mom",
+            "component-secronom",
+            "combined-all-json",
+        ):
+            specs = deep.source_specs(
+                "exhaustive",
+                combined=suite_name == "combined-all-json",
+                suite_name=suite_name,
+            )
+            self.assertNotIn("[axiom7_lifecycle]", specs)
+            self.assertTrue(
+                all("~[axiom7_lifecycle]" in spec for spec in specs[1:])
+            )
 
     def test_axiom_runtime_probe_is_wired_into_source_build(self):
         probe = (
