@@ -5,6 +5,7 @@
 - Corrected the broken Mini-Tank UAFV wreck from 45,000 kg / 900 L to 4,500 kg / 1,000 L.  The new mass is within 5% of its exact-source salvage component mass (4,732.212 kg) and satisfies the steel/plastic density invariant.
 - Aligned the reversible electric tank primer and artillery primer masses with their exact recipe component masses: 45 g and 51 g.
 - No ammunition damage, penetration, weapon stats, crafting components or salvage quantities changed.
+- Normalized legacy volume semantics for the two 25 mm ammo stacks and nine heavy-gun items so exact runtime density no longer exceeds their material limits.  Mass, damage, penetration, recoil and magazine capacity remain unchanged.
 
 ## 2026.9.23.4-r2 — Exhaustive schema cleanup
 
