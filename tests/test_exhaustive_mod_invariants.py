@@ -62,11 +62,13 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
         }
         for name in (
             "human", "animal", "insect", "bot", "zombie",
-            "blob", "nether", "plant", "science", "small_animal",
+            "nether", "plant", "science", "small_animal",
         ):
             with self.subTest(faction=name):
                 self.assertEqual(factions[name].get("copy-from"), name)
 
+        self.assertNotIn("blob", factions)
+        self.assertNotIn("blob", factions["fleshweaver"].get("neutral", []))
         self.assertIn(
             "fleshweaver",
             factions["human"]["extend"]["friendly"],
