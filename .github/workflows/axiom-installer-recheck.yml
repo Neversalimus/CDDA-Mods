@@ -1,0 +1,95 @@
+name: Temporary AXIOM installer recheck
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/axiom-installer-recheck.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  installer:
+    name: AXIOM exact release install
+    runs-on: windows-latest
+    timeout-minutes: 90
+    env:
+      DEEP_TARGET: experimental-2026-09-23-0546
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate and build shipped installer candidate
+        run: |
+          python tools/modsuite.py validate
+          python tools/modsuite.py build --out dist
+
+      - name: Download exact official CDDA release
+        shell: pwsh
+        env:
+          GH_API_TOKEN: ${{ github.token }}
+        run: >
+          python tools/fetch_cdda_release.py
+          --target "$env:DEEP_TARGET"
+          --out build/cdda-release
+          --token "$env:GH_API_TOKEN"
+
+      - name: Probe exact validator capability
+        shell: pwsh
+        run: |
+          $gameRoot=(Get-Content build/cdda-release/game-root.txt -Raw).Trim()
+          python tools/deep_cdda_runtime.py probe-check-mods `
+            --game-root "$gameRoot" `
+            --target "$env:DEEP_TARGET" `
+            --out build/validator-capability `
+            --timeout 120
+          if($LASTEXITCODE){exit $LASTEXITCODE}
+
+      - name: Install AXIOM through shipped installer
+        shell: pwsh
+        run: |
+          $gameRoot=(Get-Content build/cdda-release/game-root.txt -Raw).Trim()
+          $capability=(Get-Content build/validator-capability/report.json -Raw | ConvertFrom-Json).status
+          & powershell.exe -NoProfile -ExecutionPolicy Bypass `
+            -File dist/Install-Mods.ps1 `
+            -GameRoot "$gameRoot" `
+            -PackageRoot "$pwd/dist" `
+            -Yes `
+            -ValidationTimeout 900 `
+            -CheckModsInteractions "$capability" `
+            -Mods axiom_7 `
+            -AllowUntested
+          if($LASTEXITCODE){exit $LASTEXITCODE}
+
+      - name: Live-check installed AXIOM
+        shell: pwsh
+        run: |
+          $gameRoot=(Get-Content build/cdda-release/game-root.txt -Raw).Trim()
+          $capability=(Get-Content build/validator-capability/report.json -Raw | ConvertFrom-Json).status
+          python tools/deep_cdda_runtime.py run-installed `
+            --game-root "$gameRoot" `
+            --target "$env:DEEP_TARGET" `
+            --mods axiom_7 `
+            --out build/axiom-installed `
+            --timeout 900 `
+            --check-mods-interactions "$capability"
+          if($LASTEXITCODE){exit $LASTEXITCODE}
+
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: axiom-installer-recheck
+          path: |
+            build/validator-capability/**
+            build/axiom-installed/**
+            build/cdda-release/game/_CDDA-Mods/transactions/**/validation/**/stdout.log
+            build/cdda-release/game/_CDDA-Mods/transactions/**/validation/**/stderr.log
+            build/cdda-release/game/_CDDA-Mods/transactions/**/validation/**/debug.log
+            build/cdda-release/game/_CDDA-Mods/transactions/**/journal.json
+          if-no-files-found: warn
+          retention-days: 7
