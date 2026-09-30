@@ -1,5 +1,11 @@
 # Aftershock Prime
 
+## 0.1.14a-r4 — Calorie sanity and inherited WIP metadata
+
+- Preserved the authored calories of nutriment and Spite Soda while raising their physical mass to remain below the engine's maximum plausible calorie density; nutriment volume is now 50 ml.
+- Marked the inherited short COMBAT_BRUTE pre-threshold tree as `wip`. In this pinned engine revision, `wip` is consumed only by mutation tests and does not alter mutation gameplay or availability.
+- No mutation points, combat bonuses, calories, addiction effects or post-threshold traits changed.
+
 ## 0.1.14a-r3 — Mutation tree restoration
 
 - Restored 46 pinned upstream self-copy mutation overlays that the generic collision pruner incorrectly treated as disposable duplicates.
