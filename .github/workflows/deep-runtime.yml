@@ -121,7 +121,12 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: deep-install-matrix-${{ env.DEEP_TARGET }}
-          path: build/deep-install-matrix/**
+          path: |
+            build/deep-install-matrix/**
+            build/cdda-release/game/_CDDA-Mods/transactions/**/validation/**/stdout.log
+            build/cdda-release/game/_CDDA-Mods/transactions/**/validation/**/stderr.log
+            build/cdda-release/game/_CDDA-Mods/transactions/**/validation/**/debug.log
+            build/cdda-release/game/_CDDA-Mods/transactions/**/journal.json
           if-no-files-found: warn
           retention-days: 30
 
