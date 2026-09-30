@@ -545,6 +545,24 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
         self.assertIn("[string]$o.'copy-from' -eq $id", builder)
         self.assertIn("[string]$_.'copy-from' -eq $id", builder)
 
+    def test_blazemod_blob_turrets_use_registered_ammo_effects(self):
+        guns = {
+            obj["id"]: obj
+            for obj in read_json(
+                ROOT / "mods" / "blazemod" / "content" / "items"
+                / "guns" / "blob_turret.json"
+            )
+            if obj.get("id") in {"inkie", "meltie", "spouterqueen"}
+        }
+        self.assertEqual(set(guns), {"inkie", "meltie", "spouterqueen"})
+        self.assertNotIn("CUSTOM_EXPLOSION", guns["inkie"].get("ammo_effects", []))
+        self.assertNotIn(
+            "CUSTOM_EXPLOSION",
+            guns["spouterqueen"].get("ammo_effects", []),
+        )
+        self.assertIn("ACIDBOMB", guns["meltie"].get("ammo_effects", []))
+        self.assertNotIn("ACID_BOMB", guns["meltie"].get("ammo_effects", []))
+
     def test_blazemod_exact_density_volume_repairs_are_stable(self):
         root = ROOT / "mods" / "blazemod" / "content"
         objects = {
