@@ -34,9 +34,10 @@
   },
   "recovery_chance": 89,
   "effects": [
-    "NEVER_MISFIRES",
     "COOKOFF",
-    "ACT_ON_RANGED_HIT",
+    "ACT_ON_RANGED_HIT"
+  ],
+  "flags": [
     "CUSTOM_EXPLOSION"
   ],
   "explode_in_fire": true,
@@ -109,9 +110,10 @@
   },
   "recovery_chance": 89,
   "effects": [
-    "NEVER_MISFIRES",
     "COOKOFF",
-    "ACT_ON_RANGED_HIT",
+    "ACT_ON_RANGED_HIT"
+  ],
+  "flags": [
     "CUSTOM_EXPLOSION"
   ],
   "explode_in_fire": true,
@@ -184,9 +186,10 @@
   },
   "recovery_chance": 89,
   "effects": [
-    "NEVER_MISFIRES",
     "COOKOFF",
-    "ACT_ON_RANGED_HIT",
+    "ACT_ON_RANGED_HIT"
+  ],
+  "flags": [
     "CUSTOM_EXPLOSION"
   ],
   "explode_in_fire": true,
