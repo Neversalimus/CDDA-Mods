@@ -304,6 +304,31 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
             with self.subTest(item=item_id):
                 self.assertEqual(item_objects[item_id].get("volume"), volume)
 
+        uncraft = {
+            obj["result"]: obj
+            for obj in read_json(root / "uncraft.json")
+            if obj.get("type") == "uncraft" and obj.get("result")
+        }
+        expected_salvage = {
+            "25mm_hei": {"scrap": 6},
+            "25mm_apds": {"scrap": 3, "steel_chunk": 1},
+            "105mm_heat": {"scrap": 20, "steel_lump": 7},
+            "105mm_ap": {"scrap": 33, "steel_lump": 15},
+            "120mm_usable_heat": {"scrap": 21, "steel_lump": 4},
+            "120mm_usable_ap": {"scrap": 37, "steel_lump": 22},
+            "155mm_heat": {"scrap": 26, "steel_lump": 27},
+            "155mm_frag": {"scrap": 30, "steel_lump": 29},
+        }
+        for ammo_id, expected in expected_salvage.items():
+            with self.subTest(uncraft=ammo_id):
+                actual = {}
+                for group in uncraft[ammo_id].get("components", []):
+                    for component in group:
+                        if component[0] in ("scrap", "steel_chunk", "steel_lump", "uranium"):
+                            actual[component[0]] = component[1]
+                self.assertEqual(actual, expected)
+                self.assertNotIn("uranium", actual)
+
         for part_id in ("tread1", "tread2", "tread3"):
             with self.subTest(part=part_id):
                 part = next(
