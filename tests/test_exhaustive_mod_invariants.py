@@ -50,6 +50,30 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
                 self.assertEqual(monsters[monster_id].get("broken_itype"), broken_id)
                 self.assertIn(broken_id, item_ids)
 
+    def test_secronom_current_density_and_multimag_turret_metadata(self):
+        root = ROOT / "mods" / "secronom" / "content"
+        objects = {
+            obj["id"]: obj
+            for _, obj in objects_under(root)
+            if obj.get("id")
+        }
+        self.assertEqual(objects["corpse_saddler_used"].get("volume"), "43 L")
+        self.assertEqual(objects["secro_fweaverfood"].get("volume"), "750 ml")
+
+        expected = {
+            "kacc": {"DEFAULT": 50},
+            "xm556": {"DEFAULT": 80},
+            "xm8": {"DEFAULT": 1, "AUTO": 5},
+        }
+        for gun_id, modes in expected.items():
+            with self.subTest(gun=gun_id):
+                gun = objects[gun_id]
+                self.assertEqual(gun["pocket_data"][0].get("id"), "ammo")
+                reqs = gun.get("firing_requirements", {})
+                self.assertEqual(set(reqs), set(modes))
+                for mode, qty in modes.items():
+                    self.assertEqual(reqs[mode], [{"pocket": "ammo", "qty": qty}])
+
     def test_secronom_extends_vanilla_factions_instead_of_replacing_them(self):
         factions = {
             obj["name"]: obj
@@ -297,6 +321,15 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
         for part_id, part in vehicle_parts.items():
             with self.subTest(part=part_id):
                 self.assertTrue(part.get("categories"), part_id)
+
+        all_vehicle_part_ids = {
+            obj["id"]
+            for _, obj in objects_under(root)
+            if obj.get("type") == "vehicle_part" and obj.get("id")
+        }
+        for obsolete_part in ("m4_carbine", "mounted_ar15", "mounted_hk_ump45"):
+            with self.subTest(obsolete_turret=obsolete_part):
+                self.assertNotIn(obsolete_part, all_vehicle_part_ids)
 
         for door_id in (
             "gloopledoor", "gloopledoor_opaque",
