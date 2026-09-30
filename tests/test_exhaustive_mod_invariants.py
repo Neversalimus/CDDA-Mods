@@ -243,6 +243,17 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
         )
         self.assertTrue(category.get("wip"))
 
+    def test_secronom_plus_uses_only_current_ammo_effects(self):
+        ammo = read_json(
+            ROOT / "mods" / "secronom_plus" / "content"
+            / "Modification Files" / "Items" / "secro_ammo_mags.json"
+        )
+        bone = next(obj for obj in ammo if obj.get("id") == "secro_flesh_boneneedle")
+        effects = bone.get("effects", [])
+        self.assertIn("NOGIB", effects)
+        self.assertIn("NON_FOULING", effects)
+        self.assertNotIn("NEVER_MISFIRES", effects)
+
     def test_tankmod_exhaustive_legacy_fields_are_removed(self):
         root = ROOT / "mods" / "tankmod" / "content"
         item_objects = {
