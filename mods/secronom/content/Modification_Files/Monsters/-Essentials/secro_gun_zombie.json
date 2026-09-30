@@ -33,11 +33,11 @@
   "durability": 10,
   "loudness": 10,
   "ammo_effects": [
-    "PSEUDO",
     "LASER",
     "INCENDIARY"
   ],
   "flags": [
+    "PSEUDO",
     "NEVER_JAMS"
   ]
 },
@@ -72,10 +72,10 @@
   "durability": 10,
   "reload": 500,
   "ammo_effects": [
-    "PSEUDO",
     "EXPLOSIVE"
   ],
   "flags": [
+    "PSEUDO",
     "NEVER_JAMS"
   ]
 },
@@ -110,13 +110,13 @@
   "durability": 10,
   "reload": 100,
   "ammo_effects": [
-    "PSEUDO",
     "LIGHTNING",
     "BEANBAG",
     "WIDE"
   ],
   "//": "Will stun its primary target.",
   "flags": [
+    "PSEUDO",
     "NEVER_JAMS"
   ]
 },
@@ -132,10 +132,10 @@
   },
   "description": "Bulb of the squirtler.",
   "flags": [
+    "PSEUDO",
     "NEVER_JAMS"
   ],
   "ammo_effects": [
-    "PSEUDO",
     "NO_DAMAGE_SCALING",
     "DRAW_AS_LINE"
   ],
@@ -177,11 +177,10 @@
   },
   "description": "An internal something-something that splits thick, errant shadows.",
   "flags": [
+    "PSEUDO",
     "NEVER_JAMS"
   ],
   "ammo_effects": [
-    "PSEUDO",
-    "NEVER_MISFIRES",
     "SECRO_SHIFTERFOG_EXPLODE"
   ],
   "skill": "rifle",
@@ -222,11 +221,10 @@
   },
   "description": "An internal something-something that splits thick, errant shadows.  This is much less efficient.",
   "flags": [
+    "PSEUDO",
     "NEVER_JAMS"
   ],
   "ammo_effects": [
-    "PSEUDO",
-    "NEVER_MISFIRES",
     "SECRO_SHIFTERFOG_SMALL_EXPLODE"
   ],
   "skill": "rifle",
@@ -262,11 +260,10 @@
   },
   "description": "A cluster of tentacles sent by fleshknot to snare targets.",
   "flags": [
+    "PSEUDO",
     "NEVER_JAMS"
   ],
   "ammo_effects": [
-    "PSEUDO",
-    "NEVER_MISFIRES",
     "NO_PENETRATE_OBSTACLES",
     "SECRO_FLESHKNOT_TENT_BIG"
   ],
@@ -304,11 +301,10 @@
   },
   "description": "A single tentacle thrust performed by the fleshknot.",
   "flags": [
+    "PSEUDO",
     "NEVER_JAMS"
   ],
   "ammo_effects": [
-    "PSEUDO",
-    "NEVER_MISFIRES",
     "NO_PENETRATE_OBSTACLES",
     "SECRO_FLESHKNOT_TENT"
   ],
@@ -346,11 +342,10 @@
   },
   "description": "Spits globs of tainted goo infested with parasites.",
   "flags": [
+    "PSEUDO",
     "NEVER_JAMS"
   ],
   "ammo_effects": [
-    "PSEUDO",
-    "NEVER_MISFIRES",
     "NO_PENETRATE_OBSTACLES",
     "SECRO_GRUBBYZED_SPIT"
   ],
@@ -387,11 +382,10 @@
   },
   "description": "Spits larger globs of tainted goo infested with parasites.",
   "flags": [
+    "PSEUDO",
     "NEVER_JAMS"
   ],
   "ammo_effects": [
-    "PSEUDO",
-    "NEVER_MISFIRES",
     "NO_PENETRATE_OBSTACLES",
     "SECRO_GRUBBYZED_SPIT_BIG"
   ],
@@ -428,11 +422,10 @@
   },
   "description": "Sends off a long-ranged tongue with precise accuracy, stopping the target's movement.  Takes a long time to replenish before firing a new one.",
   "flags": [
+    "PSEUDO",
     "NEVER_JAMS"
   ],
   "ammo_effects": [
-    "PSEUDO",
-    "NEVER_MISFIRES",
     "SECRO_SNATCHER"
   ],
   "skill": "rifle",
@@ -456,11 +449,10 @@
   },
   "description": "An acid-dribbing mouth of a pellucid zombie.  Spits concentrated acid.",
   "flags": [
+    "PSEUDO",
     "NEVER_JAMS"
   ],
   "ammo_effects": [
-    "PSEUDO",
-    "NEVER_MISFIRES",
     "NO_PENETRATE_OBSTACLES",
     "SECRO_PELLUCID_SPIT"
   ],
@@ -485,11 +477,10 @@
   },
   "description": "Tentacles covering the writhing horror.  Will reach out to its targets.",
   "flags": [
+    "PSEUDO",
     "NEVER_JAMS"
   ],
   "ammo_effects": [
-    "PSEUDO",
-    "NEVER_MISFIRES",
     "NO_PENETRATE_OBSTACLES"
   ],
   "skill": "rifle",
@@ -525,11 +516,10 @@
   },
   "description": "Sinister maw's mouth.  It spews out fleshy webbings.",
   "flags": [
+    "PSEUDO",
     "NEVER_JAMS"
   ],
   "ammo_effects": [
-    "PSEUDO",
-    "NEVER_MISFIRES",
     "NO_PENETRATE_OBSTACLES",
     "SECRO_MAWYFLESH"
   ],
@@ -566,11 +556,10 @@
   },
   "description": "Mouths of corrupted devourer.  Spit corrupted acid.",
   "flags": [
+    "PSEUDO",
     "NEVER_JAMS"
   ],
   "ammo_effects": [
-    "PSEUDO",
-    "NEVER_MISFIRES",
     "NO_PENETRATE_OBSTACLES",
     "SECRO_CORDEV"
   ],
@@ -602,11 +591,10 @@
   },
   "description": "Bone needles that forms around the flesilisk's in-between scales.  This one showers it upclose.",
   "flags": [
+    "PSEUDO",
     "NEVER_JAMS"
   ],
   "ammo_effects": [
-    "PSEUDO",
-    "NEVER_MISFIRES",
     "NO_PENETRATE_OBSTACLES",
     "DRAW_AS_LINE",
     "NO_DAMAGE_SCALING"
@@ -640,11 +628,10 @@
   },
   "description": "Equinox' gaping hole.  Necrotic skin shoots out of it.",
   "flags": [
+    "PSEUDO",
     "NEVER_JAMS"
   ],
   "ammo_effects": [
-    "PSEUDO",
-    "NEVER_MISFIRES",
     "NO_PENETRATE_OBSTACLES",
     "SECRO_EQUINOX"
   ],
@@ -676,11 +663,10 @@
   },
   "description": "This is the swollen proportion of the wraith.  Shoots tentacles.",
   "flags": [
+    "PSEUDO",
     "NEVER_JAMS"
   ],
   "ammo_effects": [
-    "PSEUDO",
-    "NEVER_MISFIRES",
     "NO_PENETRATE_OBSTACLES",
     "DRAW_AS_LINE"
   ],
