@@ -190,6 +190,31 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
             "broken_manhack",
         )
 
+    def test_aftershock_prime_extends_core_monster_factions(self):
+        factions = {
+            obj["name"]: obj
+            for obj in read_json(
+                ROOT / "mods" / "aftershock_prime" / "content"
+                / "monsters" / "monster_faction.json"
+            )
+            if obj.get("type") == "MONSTER_FACTION"
+        }
+        for name in ("zombie", "herbivore", "human", "wolf", "bot", "player"):
+            with self.subTest(faction=name):
+                self.assertEqual(factions[name].get("copy-from"), name)
+
+        self.assertNotIn("neutral", factions["zombie"])
+        self.assertIn("moxie", factions["zombie"]["extend"]["neutral"])
+        self.assertIn("reavers", factions["zombie"]["extend"]["hate"])
+        self.assertNotIn("neutral", factions["human"])
+        self.assertIn("bio_machine", factions["human"]["extend"]["neutral"])
+        self.assertIn("reavers", factions["human"]["extend"]["by_mood"])
+        self.assertIn("reavers", factions["player"]["extend"]["hate"])
+        self.assertIn("alien_predator", factions["bot"]["extend"]["neutral"])
+        self.assertIn("WraitheonRobotics", factions["reavers"]["hate"])
+        self.assertIn("rampant_machine", factions["reavers"]["hate"])
+        self.assertIn("rampant_machine", factions["bio_machine"]["hate"])
+
     def test_blazemod_exhaustive_vehicle_metadata_is_current(self):
         root = ROOT / "mods" / "blazemod" / "content"
         flagged_ids = {
