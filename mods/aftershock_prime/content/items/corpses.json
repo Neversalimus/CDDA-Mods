@@ -3,61 +3,99 @@
     "type": "ITEM",
     "id": "afs_corpse_old",
     "copy-from": "corpse",
-    "name": { "str": "mummified corpse" },
+    "name": {
+      "str": "mummified corpse"
+    },
     "description": "The corpse of a long-dead colonist.  Near perfectly preserved by the merciless cold.",
     "looks_like": "corpse_generic_human",
     "volume": "40 L",
     "weight": "52 kg",
-    "material": [ "hflesh" ]
+    "material": [
+      "hflesh"
+    ]
   },
   {
     "type": "ITEM",
     "id": "broken_afs_mon_sentinel_lx",
     "symbol": ",",
     "color": "green",
-    "name": { "str": "broken Sentinel-lx", "str_pl": "broken Sentinels-lx" },
+    "name": {
+      "str": "broken Sentinel-lx",
+      "str_pl": "broken Sentinels-lx"
+    },
     "category": "other",
     "description": "The irreparably broken remains of a Sentinel-lx.  Could be gutted for valuable parts.",
     "price": "300 USD",
     "price_postapoc": "10 USD",
-    "material": [ "steel", "plastic" ],
+    "material": [
+      "steel",
+      "plastic"
+    ],
     "weight": "140000 g",
     "volume": "62500 ml",
     "to_hit": -3,
-    "flags": [ "TRADER_AVOID" ],
-    "melee_damage": { "bash": 6, "cut": 6 }
+    "flags": [
+      "TRADER_AVOID"
+    ],
+    "melee_damage": {
+      "bash": 6,
+      "cut": 6
+    }
   },
   {
     "type": "ITEM",
     "id": "broken_bloodhound_drone",
     "symbol": ",",
     "color": "green",
-    "name": { "str": "broken bloodhound drone" },
+    "name": {
+      "str": "broken bloodhound drone"
+    },
     "category": "other",
     "description": "This bloodhound won't be chasing anyone anymore.  Could be gutted for parts.",
     "price": "10 USD",
-    "material": [ "steel", "plastic" ],
+    "material": [
+      "steel",
+      "plastic"
+    ],
     "weight": "31520 g",
     "volume": "15 L",
     "to_hit": -3,
-    "flags": [ "TRADER_AVOID", "NO_REPAIR" ],
-    "melee_damage": { "bash": 6, "cut": 6 }
+    "flags": [
+      "TRADER_AVOID",
+      "NO_REPAIR"
+    ],
+    "melee_damage": {
+      "bash": 6,
+      "cut": 6
+    }
   },
   {
     "type": "ITEM",
     "id": "broken_fumigator",
     "symbol": ",",
     "color": "green",
-    "name": { "str": "broken Croplord 2SPL", "str_pl": "broken Croplords 2SPL" },
+    "name": {
+      "str": "broken Croplord 2SPL",
+      "str_pl": "broken Croplords 2SPL"
+    },
     "category": "other",
     "description": "A broken Croplord, now wrecked and immobile.  Could be gutted for parts.",
     "price": "10 USD",
-    "material": [ "steel", "plastic" ],
+    "material": [
+      "steel",
+      "plastic"
+    ],
     "volume": "1750 ml",
     "weight": "1 kg",
     "to_hit": -3,
-    "flags": [ "TRADER_AVOID", "NO_REPAIR" ],
-    "melee_damage": { "bash": 6, "cut": 6 }
+    "flags": [
+      "TRADER_AVOID",
+      "NO_REPAIR"
+    ],
+    "melee_damage": {
+      "bash": 6,
+      "cut": 6
+    }
   },
   {
     "type": "ITEM",
@@ -65,15 +103,27 @@
     "symbol": ",",
     "color": "light_gray",
     "looks_like": "broken_cleanerbot",
-    "name": { "str": "broken Seneschal" },
+    "name": {
+      "str": "broken Seneschal"
+    },
     "category": "other",
     "description": "A broken Seneschal, now limp and unmoving.  Could be gutted for parts or crafted into a salvaged robot.",
-    "material": [ "steel", "plastic" ],
+    "material": [
+      "steel",
+      "plastic"
+    ],
     "weight": "140 kg",
     "volume": "62500 ml",
     "to_hit": -3,
-    "flags": [ "TRADER_AVOID", "LEAK_DAM", "RADIOACTIVE" ],
-    "melee_damage": { "bash": 6, "cut": 6 }
+    "flags": [
+      "TRADER_AVOID",
+      "LEAK_DAM",
+      "RADIOACTIVE"
+    ],
+    "melee_damage": {
+      "bash": 6,
+      "cut": 6
+    }
   },
   {
     "type": "ITEM",
@@ -86,7 +136,9 @@
     "id": "broken_laserturret_xray",
     "symbol": ",",
     "color": "green",
-    "name": { "str": "broken x-ray laser turret" },
+    "name": {
+      "str": "broken x-ray laser turret"
+    },
     "weight": "110 kg",
     "copy-from": "broken_turret"
   },
@@ -96,7 +148,9 @@
     "looks_like": "bot_rifleturret",
     "symbol": ",",
     "color": "green",
-    "name": { "str": "broken SOL XII laser turret" },
+    "name": {
+      "str": "broken SOL XII laser turret"
+    },
     "weight": "110 kg",
     "copy-from": "broken_turret"
   },
@@ -120,7 +174,10 @@
     "id": "broken_utilibot_butler",
     "copy-from": "broken_utilibot",
     "color": "dark_gray",
-    "name": { "str": "broken Famulus", "str_pl": "broken Famuli" },
+    "name": {
+      "str": "broken Famulus",
+      "str_pl": "broken Famuli"
+    },
     "description": "A broken Famulus, now silent and mangled.  If it wasn't for the obvious rivets and welding, it would look completely human.  Could be stripped down for parts."
   },
   {
@@ -178,63 +235,107 @@
     "id": "broken_tripod",
     "symbol": ",",
     "color": "green",
-    "name": { "str": "broken tripod" },
+    "name": {
+      "str": "broken tripod"
+    },
     "category": "other",
     "description": "A broken tripod.  Now that its legs lie broken and immobile, the world seems a little less threatening.  Could be gutted for parts.",
     "price": "10 USD",
-    "material": [ "steel", "plastic" ],
+    "material": [
+      "steel",
+      "plastic"
+    ],
     "weight": "430000 g",
     "volume": "187500 ml",
-    "flags": [ "TRADER_AVOID", "NO_REPAIR" ],
-    "melee_damage": { "bash": 10, "cut": 6 }
+    "flags": [
+      "TRADER_AVOID",
+      "NO_REPAIR"
+    ],
+    "melee_damage": {
+      "bash": 10,
+      "cut": 6
+    }
   },
   {
     "type": "ITEM",
     "id": "broken_scavbot_needle",
     "symbol": ",",
     "color": "green",
-    "name": { "str": "broken Scavbot Skorpion" },
+    "name": {
+      "str": "broken Scavbot Skorpion"
+    },
     "category": "other",
     "description": "A broken Scavbot Skorpion.  Now that its legs lie broken and immobile, the world seems a little less threatening.  Could be gutted for parts.",
     "price": "10 USD",
-    "material": [ "steel", "plastic" ],
+    "material": [
+      "steel",
+      "plastic"
+    ],
     "volume": "12500 ml",
     "weight": "10500 g",
-    "flags": [ "TRADER_AVOID", "NO_REPAIR" ],
-    "melee_damage": { "bash": 10, "cut": 6 }
+    "flags": [
+      "TRADER_AVOID",
+      "NO_REPAIR"
+    ],
+    "melee_damage": {
+      "bash": 10,
+      "cut": 6
+    }
   },
   {
     "type": "ITEM",
     "id": "broken_tankbot",
     "symbol": ",",
     "color": "green",
-    "name": { "str": "broken Regulator" },
+    "name": {
+      "str": "broken Regulator"
+    },
     "category": "other",
     "description": "A broken Regulator.  Still looks intimidating despite being permanently inoperative, possibly due to the sheer size and mass.  Could be gutted for parts.",
     "price": "10 USD",
-    "material": [ "steel", "plastic" ],
+    "material": [
+      "steel",
+      "plastic"
+    ],
     "weight": "1223850 g",
     "volume": "875 L",
     "to_hit": -3,
-    "flags": [ "TRADER_AVOID", "NO_REPAIR" ],
-    "melee_damage": { "bash": 20, "cut": 15 }
+    "flags": [
+      "TRADER_AVOID",
+      "NO_REPAIR"
+    ],
+    "melee_damage": {
+      "bash": 20,
+      "cut": 15
+    }
   },
   {
     "type": "ITEM",
     "id": "broken_chickenbot",
     "symbol": ",",
     "color": "green",
-    "name": { "str": "broken Pathfinder" },
+    "name": {
+      "str": "broken Pathfinder"
+    },
     "category": "other",
     "description": "A broken Pathfinder.  Still looks intimidating despite being permanently inoperative, possibly due to the sheer size and mass.  Could be gutted for parts.",
     "price": "10 USD",
-    "material": [ "steel", "plastic" ],
+    "material": [
+      "steel",
+      "plastic"
+    ],
     "weight": "1023850 g",
     "//": "Former volume: 1100 L. Adjusted to 1000L so it can actually be placed. TODO(?): Re-add old volume with some sort of flag",
     "volume": "1000 L",
     "to_hit": -3,
-    "flags": [ "TRADER_AVOID", "NO_REPAIR" ],
-    "melee_damage": { "bash": 20, "cut": 15 }
+    "flags": [
+      "TRADER_AVOID",
+      "NO_REPAIR"
+    ],
+    "melee_damage": {
+      "bash": 20,
+      "cut": 15
+    }
   },
   {
     "type": "ITEM",
@@ -271,12 +372,20 @@
     "description": "A broken advanced robot.  Its internal weapons have been removed.  Could be gutted for parts or crafted into a salvaged robot.",
     "price": "300 USD",
     "price_postapoc": "10 USD",
-    "material": [ "superalloy", "plastic" ],
+    "material": [
+      "superalloy",
+      "plastic"
+    ],
     "weight": "140 kg",
     "volume": "62500 ml",
     "to_hit": -3,
-    "flags": [ "TRADER_AVOID" ],
-    "melee_damage": { "bash": 6, "cut": 6 }
+    "flags": [
+      "TRADER_AVOID"
+    ],
+    "melee_damage": {
+      "bash": 6,
+      "cut": 6
+    }
   },
   {
     "type": "ITEM",
@@ -299,7 +408,9 @@
     "id": "broken_wraitheon_isohypsa",
     "copy-from": "broken_advbot_disarmed",
     "color": "magenta",
-    "name": { "str_sp": "broken Isohypsa" },
+    "name": {
+      "str_sp": "broken Isohypsa"
+    },
     "description": "The broken shell of an Isohypsa drone coordinator.  Most of its sensors and AI units are charred beyond any repair."
   },
   {
@@ -307,7 +418,9 @@
     "id": "broken_wraitheon_kaburaya",
     "copy-from": "broken_advbot_disarmed",
     "color": "magenta",
-    "name": { "str_sp": "broken Kabura-ya" },
+    "name": {
+      "str_sp": "broken Kabura-ya"
+    },
     "description": "A broken Kabura-ya drone.  Could be disassembled for a meager amount of parts."
   },
   {
@@ -329,12 +442,20 @@
     "description": "A broken defense robot.  Its internal weapons have been removed.  Could be gutted for parts or crafted into a salvaged robot.",
     "price": "300 USD",
     "price_postapoc": "10 USD",
-    "material": [ "steel", "plastic" ],
+    "material": [
+      "steel",
+      "plastic"
+    ],
     "weight": "140 kg",
     "volume": "62500 ml",
     "to_hit": -3,
-    "flags": [ "TRADER_AVOID" ],
-    "melee_damage": { "bash": 6, "cut": 6 }
+    "flags": [
+      "TRADER_AVOID"
+    ],
+    "melee_damage": {
+      "bash": 6,
+      "cut": 6
+    }
   },
   {
     "type": "ITEM",
@@ -347,12 +468,20 @@
     "description": "A broken defense robot.  Its internal weapons have been removed.  Could be gutted for parts or crafted into a salvaged robot.",
     "price": "300 USD",
     "price_postapoc": "10 USD",
-    "material": [ "steel", "plastic" ],
+    "material": [
+      "steel",
+      "plastic"
+    ],
     "weight": "140 kg",
     "volume": "62500 ml",
     "to_hit": -3,
-    "flags": [ "TRADER_AVOID" ],
-    "melee_damage": { "bash": 6, "cut": 6 }
+    "flags": [
+      "TRADER_AVOID"
+    ],
+    "melee_damage": {
+      "bash": 6,
+      "cut": 6
+    }
   },
   {
     "type": "ITEM",
@@ -365,112 +494,185 @@
     "description": "A broken surgical robot, now crumpled and inert.  Could be stripped down for parts.",
     "price": "300 USD",
     "price_postapoc": "10 USD",
-    "material": [ "steel", "plastic" ],
+    "material": [
+      "steel",
+      "plastic"
+    ],
     "weight": "140 kg",
     "volume": "62500 ml",
     "to_hit": -3,
-    "flags": [ "TRADER_AVOID" ],
-    "melee_damage": { "bash": 6, "cut": 6 }
+    "flags": [
+      "TRADER_AVOID"
+    ],
+    "melee_damage": {
+      "bash": 6,
+      "cut": 6
+    }
   },
   {
     "type": "ITEM",
     "id": "broken_afs_eyebot",
     "symbol": ",",
     "color": "green",
-    "name": { "str": "broken eyebot" },
+    "name": {
+      "str": "broken eyebot"
+    },
     "category": "other",
     "description": "A broken eyebot.  Much less threatening now that it won't be calling for backup.  Could be gutted for parts.",
     "price": "10 USD",
     "price_postapoc": "10 cent",
-    "material": [ "steel", "plastic" ],
+    "material": [
+      "steel",
+      "plastic"
+    ],
     "weight": "31520 g",
     "volume": "15 L",
-    "to_hit": -3,
-    "flags": [ "TRADER_AVOID", "NO_REPAIR" ],
-    "melee_damage": { "bash": 6, "cut": 6 }
+    "flags": [
+      "TRADER_AVOID",
+      "NO_REPAIR"
+    ],
+    "melee_damage": {
+      "bash": 6,
+      "cut": 6
+    }
   },
   {
     "type": "ITEM",
     "id": "broken_shock_mine",
     "symbol": ",",
     "color": "green",
-    "name": { "str": "spent shock-mine" },
+    "name": {
+      "str": "spent shock-mine"
+    },
     "category": "other",
     "description": "A spent shock-mine, inert and harmless.  Cannot be recharged, but some of its components could be recycled.",
     "price": "100 USD",
     "price_postapoc": "100 USD",
-    "material": [ "qt_steel", "plastic" ],
+    "material": [
+      "qt_steel",
+      "plastic"
+    ],
     "volume": "1 L",
     "weight": "1200 g",
-    "to_hit": -3,
-    "flags": [ "TRADER_AVOID", "NO_REPAIR" ],
-    "melee_damage": { "bash": 4, "cut": 1 }
+    "flags": [
+      "TRADER_AVOID",
+      "NO_REPAIR"
+    ],
+    "melee_damage": {
+      "bash": 4,
+      "cut": 1
+    }
   },
   {
     "type": "ITEM",
     "id": "broken_zenit",
     "symbol": ",",
     "color": "green",
-    "name": { "str": "broken Zenit" },
+    "name": {
+      "str": "broken Zenit"
+    },
     "category": "other",
     "description": "A broken Zenit security drone.  Could be disassembled for robotic components and heavy armor.",
     "price": "100 USD",
     "price_postapoc": "100 USD",
-    "material": [ "qt_steel", "vacuum_carbide" ],
+    "material": [
+      "qt_steel",
+      "vacuum_carbide"
+    ],
     "volume": "60 L",
     "weight": "120 kg",
-    "to_hit": -3,
-    "flags": [ "TRADER_AVOID", "NO_REPAIR", "RADIOACTIVE", "LEAK_DAM" ],
-    "melee_damage": { "bash": 4, "cut": 1 }
+    "flags": [
+      "TRADER_AVOID",
+      "NO_REPAIR",
+      "RADIOACTIVE",
+      "LEAK_DAM"
+    ],
+    "melee_damage": {
+      "bash": 4,
+      "cut": 1
+    }
   },
   {
     "type": "ITEM",
     "id": "broken_mech_horse",
-    "name": { "str": "broken STEED" },
+    "name": {
+      "str": "broken STEED"
+    },
     "description": "A broken STEED, it looks beyond repair.  At least the atomic core shielding should be intact.",
     "volume": "600 L",
     "weight": "800 kg",
     "price": "10 USD",
     "price_postapoc": "10 cent",
     "to_hit": -3,
-    "material": [ "qt_steel", "nanoprinted_alloy", "kevlar" ],
+    "material": [
+      "qt_steel",
+      "nanoprinted_alloy",
+      "kevlar"
+    ],
     "symbol": "H",
     "color": "light_gray",
-    "flags": [ "TRADER_AVOID", "NO_REPAIR", "LEAK_DAM", "RADIOACTIVE" ],
-    "melee_damage": { "bash": 7 }
+    "flags": [
+      "TRADER_AVOID",
+      "NO_REPAIR",
+      "LEAK_DAM",
+      "RADIOACTIVE"
+    ],
+    "melee_damage": {
+      "bash": 7
+    }
   },
   {
     "type": "ITEM",
     "id": "broken_afs_copbot",
     "symbol": ",",
     "color": "green",
-    "name": { "str": "broken police bot" },
+    "name": {
+      "str": "broken police bot"
+    },
     "category": "other",
     "description": "A broken police bot.  Much less threatening now that it's quiet and still.  Could be gutted for parts.",
     "price": "300 USD",
     "price_postapoc": "10 cent",
-    "material": [ "steel", "plastic" ],
+    "material": [
+      "steel",
+      "plastic"
+    ],
     "weight": "140000 g",
     "volume": "62500 ml",
-    "to_hit": -3,
-    "flags": [ "TRADER_AVOID", "NO_REPAIR" ],
-    "melee_damage": { "bash": 6, "cut": 6 }
+    "flags": [
+      "TRADER_AVOID",
+      "NO_REPAIR"
+    ],
+    "melee_damage": {
+      "bash": 6,
+      "cut": 6
+    }
   },
   {
     "type": "ITEM",
     "id": "broken_afs_riotbot",
     "symbol": ",",
     "color": "green",
-    "name": { "str": "broken riot control bot" },
+    "name": {
+      "str": "broken riot control bot"
+    },
     "category": "other",
     "description": "A broken riot control bot.  Much less threatening now that it's out of gas.  Could be gutted for parts.",
     "price": "300 USD",
     "price_postapoc": "10 cent",
-    "material": [ "steel", "plastic" ],
+    "material": [
+      "steel",
+      "plastic"
+    ],
     "weight": "140000 g",
     "volume": "62500 ml",
-    "to_hit": -3,
-    "flags": [ "TRADER_AVOID", "NO_REPAIR" ],
-    "melee_damage": { "bash": 6, "cut": 6 }
+    "flags": [
+      "TRADER_AVOID",
+      "NO_REPAIR"
+    ],
+    "melee_damage": {
+      "bash": 6,
+      "cut": 6
+    }
   }
 ]
