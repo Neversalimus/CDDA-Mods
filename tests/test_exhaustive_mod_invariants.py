@@ -50,7 +50,7 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
                 self.assertEqual(monsters[monster_id].get("broken_itype"), broken_id)
                 self.assertIn(broken_id, item_ids)
 
-    def test_secronom_current_density_and_multimag_turret_metadata(self):
+    def test_secronom_current_density_and_detachable_gun_metadata(self):
         root = ROOT / "mods" / "secronom" / "content"
         objects = {
             obj["id"]: obj
@@ -60,37 +60,24 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
         self.assertEqual(objects["corpse_saddler_used"].get("volume"), "43 L")
         self.assertEqual(objects["secro_fweaverfood"].get("volume"), "750 ml")
 
-        expected = {
-            "kacc": {
-                "default_magazine": "belt223",
-                "requirements": {"DEFAULT": [{"pocket": "ammo", "qty": 50}]},
-            },
-            "xm556": {
-                "default_magazine": "belt223",
-                "requirements": {"DEFAULT": [{"pocket": "ammo", "qty": 80}]},
-            },
-            "xm8": {
-                "default_magazine": "stanag30",
-                "requirements": {
-                    "DEFAULT": [{"pocket": "ammo", "qty": 1}],
-                    "AUTO": [{"pocket": "ammo", "qty": 5}],
-                },
-            },
+        expected_magazines = {
+            "kacc": "belt223",
+            "xm556": "belt223",
+            "xm8": "stanag30",
         }
-        for gun_id, expected_data in expected.items():
+        for gun_id, default_magazine in expected_magazines.items():
             with self.subTest(gun=gun_id):
                 gun = objects[gun_id]
                 pocket = gun["pocket_data"][0]
-                self.assertEqual(pocket.get("id"), "ammo")
+                self.assertIsNone(pocket.get("id"))
                 self.assertEqual(
                     pocket.get("default_magazine"),
-                    expected_data["default_magazine"],
+                    default_magazine,
                 )
-                self.assertEqual(
-                    gun.get("firing_requirements"),
-                    expected_data["requirements"],
-                )
+                self.assertNotIn("firing_requirements", gun)
+                self.assertIn("NO_TURRET", gun.get("flags", []))
         self.assertEqual(objects["xm556"].get("energy_drain"), "120 kJ")
+        self.assertIn("USE_UPS", objects["xm556"].get("flags", []))
 
     def test_secronom_grenade_effects_use_current_flag_schema(self):
         path = (
