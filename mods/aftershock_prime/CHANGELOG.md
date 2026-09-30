@@ -1,5 +1,12 @@
 # Aftershock Prime
 
+## 0.1.14a-r3 — Mutation tree restoration
+
+- Restored 46 pinned upstream self-copy mutation overlays that the generic collision pruner incorrectly treated as disposable duplicates.
+- Restored MIGO, MASTODON and COMBAT_BRUTE membership and inherited mutation links without duplicating vanilla trait bodies.
+- Added a hidden HUMAN baseline mutation that gives the current purifier system an explicit reverse path for 16 reversible Aftershock-only mutations.
+- Updated the recovery builder so future Prime rebuilds preserve semantic mutation overlays automatically instead of pruning them as ID collisions.
+
 ## 0.1.14a-r2 — Safe exhaustive invariant cleanup
 
 - Removed 18 legacy numeric `to_hit` fields from non-melee utility items, wrecks, mounted weapons and robot items identified by the exact-source test.
