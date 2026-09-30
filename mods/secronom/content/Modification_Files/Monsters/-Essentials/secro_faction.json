@@ -26,7 +26,6 @@
     "neutral": [
       "zombie",
       "zombie_aquatic",
-      "blob",
       "nether",
       "bot",
       "plant"
@@ -166,16 +165,6 @@
     "extend": {
       "neutral": [
         "insect",
-        "fleshweaver"
-      ]
-    }
-  },
-  {
-    "type": "MONSTER_FACTION",
-    "name": "blob",
-    "copy-from": "blob",
-    "extend": {
-      "neutral": [
         "fleshweaver"
       ]
     }
