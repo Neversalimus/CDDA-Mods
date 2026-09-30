@@ -66,36 +66,6 @@ function Safe-Label([string]$Name){
     return ($Name -replace '[^A-Za-z0-9_.-]','_')
 }
 
-function Preserve-InstallerDiagnostics([string]$Text,[string]$CaseDir){
-    $matches=[regex]::Matches($Text,'(?im)^Diagnostics:\s*(.+?)\s*$')
-    if(-not $matches.Count){return $null}
-    $source=$matches[$matches.Count-1].Groups[1].Value.Trim()
-    if(-not(Test-Path -LiteralPath $source -PathType Container)){
-        Write-Warning "Installer diagnostics path was reported but is missing: $source"
-        return $null
-    }
-    $destination=Join-Path $CaseDir 'transaction-diagnostics'
-    [IO.Directory]::CreateDirectory($destination) | Out-Null
-    $validation=Join-Path $source 'validation'
-    if(Test-Path -LiteralPath $validation -PathType Container){
-        foreach($file in @(Get-ChildItem -LiteralPath $validation -Recurse -File -ErrorAction SilentlyContinue)){
-            if($file.Name -notin @('stdout.log','stderr.log','debug.log')){continue}
-            $relative=$file.FullName.Substring($validation.Length).TrimStart([char[]]@([IO.Path]::DirectorySeparatorChar,[IO.Path]::AltDirectorySeparatorChar))
-            $target=Join-Path $destination ('validation/'+$relative)
-            [IO.Directory]::CreateDirectory((Split-Path $target -Parent)) | Out-Null
-            Copy-Item -LiteralPath $file.FullName -Destination $target -Force
-        }
-    }
-    $journal=Join-Path $source 'journal.json'
-    if(Test-Path -LiteralPath $journal -PathType Leaf){
-        Copy-Item -LiteralPath $journal -Destination (Join-Path $destination 'journal.json') -Force
-    }
-    if(@(Get-ChildItem -LiteralPath $destination -Recurse -File -ErrorAction SilentlyContinue).Count){
-        return $destination
-    }
-    Remove-Item -LiteralPath $destination -Recurse -Force -ErrorAction SilentlyContinue
-    return $null
-}
 function Invoke-InstallerCase(
     [string]$Label,
     [string[]]$Extra,
@@ -119,13 +89,7 @@ function Invoke-InstallerCase(
     $lines=@(& $ps51 @args 2>&1 | ForEach-Object {$_ | Out-String})
     $code=$LASTEXITCODE
     $caseTimer.Stop()
-    $text=($lines -join '')
-    [IO.File]::WriteAllText($log,$text,(New-Object Text.UTF8Encoding($false)))
-    $diagnostics=$null
-    if($code -ne 0){
-        try{$diagnostics=Preserve-InstallerDiagnostics $text $dir}
-        catch{Write-Warning ("Could not preserve installer diagnostics for $($Label): " + $_.Exception.Message)}
-    }
+    [IO.File]::WriteAllText($log,($lines -join ''),(New-Object Text.UTF8Encoding($false)))
     $ok=if($ExpectSuccess){$code -eq 0}else{$code -ne 0}
     $script:results.Add([pscustomobject]@{
         case=$Label
@@ -134,7 +98,6 @@ function Invoke-InstallerCase(
         passed=$ok
         duration_seconds=[Math]::Round($caseTimer.Elapsed.TotalSeconds,3)
         log=$log
-        diagnostics=$diagnostics
     })
     if(-not $ok){
         throw "Installer case '$Label' returned exit $code; expected success=$ExpectSuccess. See $log"
