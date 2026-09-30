@@ -8,7 +8,7 @@
     },
     "description": "A headless dead body of a person.  Its wound looks deep and hollow…",
     "looks_like": "corpse_generic_human",
-    "volume": "33 L",
+    "volume": "43 L",
     "weight": "47 kg",
     "material": [
       "hflesh"
