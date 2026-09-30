@@ -85,11 +85,19 @@ def scan_report(path: Path, doc: dict, rows: list[dict], source_warnings: dict[s
             debt = result.get("inherited_debt") or {}
             note = ""
             if debt:
-                note = (
-                    "strict inherited upstream debt: "
-                    f"{len(debt.get('density_ids', []))} density, "
-                    f"{len(debt.get('uncraft_ids', []))} uncraft"
-                )
+                parts = [
+                    f"{len(debt.get('density_ids', []))} density",
+                    f"{len(debt.get('uncraft_ids', []))} uncraft",
+                ]
+                if debt.get("mutation_ids"):
+                    parts.append(
+                        f"{len(debt.get('mutation_ids', []))} mutation"
+                    )
+                if debt.get("overmap_missing_count") is not None:
+                    parts.append(
+                        f"{debt.get('overmap_missing_count')} overmap missing"
+                    )
+                note = "strict inherited upstream debt: " + ", ".join(parts)
             add_row(
                 rows,
                 "source",

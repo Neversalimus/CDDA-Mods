@@ -1008,32 +1008,77 @@ INHERITED_DEBT_BASELINE = ROOT / ".github" / "deep-inherited-debt.json"
 
 
 def parse_inherited_debt_failures(stdout: str) -> dict:
-    """Extract the two upstream-debt failure classes from Catch output."""
+    """Extract pinned upstream-debt failure classes from Catch output."""
     lines = stdout.splitlines()
-    observed = {"density_ids": [], "uncraft_ids": [], "unknown_failures": []}
+    observed = {
+        "density_ids": [],
+        "uncraft_ids": [],
+        "mutation_ids": [],
+        "overmap_failed": False,
+        "overmap_missing_ids": [],
+        "overmap_missing_count": None,
+        "unknown_failures": [],
+    }
     failure_re = re.compile(r"\.\./tests/([^:]+):(\d+):\s+FAILED:")
     for index, line in enumerate(lines):
         match = failure_re.search(line)
         if not match:
             continue
         location = f"{match.group(1)}:{match.group(2)}"
-        block = "\n".join(lines[index : index + 20])
+        forward = "\n".join(lines[index : index + 20])
+        around = "\n".join(lines[max(0, index - 20) : index + 20])
         if location == "item_test.cpp:1037":
-            item = re.search(r'target\.typeId\(\).*?string_id\( "([^"]+)" \)', block)
+            item = re.search(
+                r'target\.typeId\(\).*?string_id\( "([^"]+)" \)',
+                forward,
+            )
             if item:
                 observed["density_ids"].append(item.group(1))
             else:
                 observed["unknown_failures"].append(location + ":missing-item-id")
         elif location == "item_test.cpp:1375":
-            item = re.search(r"Item ([^ ]+) weight", block)
+            item = re.search(r"Item ([^ ]+) weight", forward)
             if item:
                 observed["uncraft_ids"].append(item.group(1))
             else:
                 observed["unknown_failures"].append(location + ":missing-item-id")
+        elif location == "mutation_test.cpp:614":
+            mutation = re.search(
+                r"Given: mutation of ID ([^ ]+) is valid and removable",
+                around,
+            )
+            if mutation:
+                observed["mutation_ids"].append(mutation.group(1))
+            else:
+                observed["unknown_failures"].append(
+                    location + ":missing-mutation-id"
+                )
+        elif location == "overmap_test.cpp:798":
+            observed["overmap_failed"] = True
         else:
             observed["unknown_failures"].append(location)
-    return observed
 
+    if observed["overmap_failed"]:
+        count = re.search(r"num_missing\s*:=\s*(\d+)", stdout)
+        missing = re.search(
+            r'missing_oter_type_ids\s*:=\s*"(.*?)"',
+            stdout,
+            re.S,
+        )
+        if count and missing:
+            raw = re.sub(r"\s+", " ", missing.group(1))
+            raw = raw.replace(", and ", ", ").replace(" and ", ", ")
+            observed["overmap_missing_count"] = int(count.group(1))
+            observed["overmap_missing_ids"] = [
+                item.strip()
+                for item in raw.split(",")
+                if item.strip()
+            ]
+        else:
+            observed["unknown_failures"].append(
+                "overmap_test.cpp:798:missing-coverage-details"
+            )
+    return observed
 
 def inherited_debt_expectation(
     target: str,
@@ -1048,11 +1093,15 @@ def inherited_debt_expectation(
         or str(baseline.get("commit", "")).lower() != commit.lower()
     ):
         return None
-    for debt_id, debt in (baseline.get("debts") or {}).items():
-        if debt.get("component") in components:
-            return debt_id, debt
-    return None
-
+    matches = [
+        (int(debt.get("priority", 0)), debt_id, debt)
+        for debt_id, debt in (baseline.get("debts") or {}).items()
+        if debt.get("component") in components
+    ]
+    if not matches:
+        return None
+    _, debt_id, debt = max(matches, key=lambda item: item[0])
+    return debt_id, debt
 
 def normalize_inherited_debt_result(
     result: dict,
@@ -1061,9 +1110,13 @@ def normalize_inherited_debt_result(
     commit: str,
     components: list[str],
 ) -> dict:
-    """Accept only an exact, pinned copy of documented upstream test debt."""
+    """Accept only pinned, component-specific copies of documented upstream debt."""
     result = dict(result)
-    if not result.get("exit_code") or result.get("errors") or not result.get("catch_failed"):
+    if (
+        not result.get("exit_code")
+        or result.get("errors")
+        or not result.get("catch_failed")
+    ):
         return result
     expected = inherited_debt_expectation(target, commit, components)
     if expected is None:
@@ -1075,22 +1128,73 @@ def normalize_inherited_debt_result(
     observed = parse_inherited_debt_failures(
         stdout_path.read_text(encoding="utf-8", errors="replace")
     )
-    expected_density = sorted(debt.get("density_ids") or [])
-    expected_uncraft = sorted(debt.get("uncraft_ids") or [])
-    observed_density = sorted(observed["density_ids"])
-    observed_uncraft = sorted(observed["uncraft_ids"])
+
+    allow_partial = bool(debt.get("allow_partial_classes"))
+
+    def exact_class(observed_values: list[str], expected_values: list[str]) -> bool:
+        if allow_partial and not observed_values:
+            return True
+        return sorted(observed_values) == sorted(expected_values)
+
+    density_ok = exact_class(
+        observed["density_ids"],
+        list(debt.get("density_ids") or []),
+    )
+    uncraft_ok = exact_class(
+        observed["uncraft_ids"],
+        list(debt.get("uncraft_ids") or []),
+    )
+    mutation_ok = exact_class(
+        observed["mutation_ids"],
+        list(debt.get("mutation_ids") or []),
+    )
+
+    overmap_ok = True
+    if observed["overmap_failed"]:
+        allowed_ids = set(debt.get("overmap_allowed_ids") or [])
+        allowed_prefixes = tuple(debt.get("overmap_allowed_prefixes") or [])
+        missing_ids = observed["overmap_missing_ids"]
+        ids_ok = bool(missing_ids) and all(
+            item in allowed_ids
+            or any(item.startswith(prefix) for prefix in allowed_prefixes)
+            for item in missing_ids
+        )
+        count_range = debt.get("overmap_missing_count_range")
+        count = observed["overmap_missing_count"]
+        count_ok = (
+            isinstance(count_range, list)
+            and len(count_range) == 2
+            and count is not None
+            and int(count_range[0]) <= count <= int(count_range[1])
+        )
+        overmap_ok = ids_ok and count_ok
+    elif not allow_partial and (
+        debt.get("overmap_allowed_ids")
+        or debt.get("overmap_allowed_prefixes")
+    ):
+        overmap_ok = False
+
+    recognized = bool(
+        observed["density_ids"]
+        or observed["uncraft_ids"]
+        or observed["mutation_ids"]
+        or observed["overmap_failed"]
+    )
     exact = (
-        not observed["unknown_failures"]
-        and observed_density == expected_density
-        and observed_uncraft == expected_uncraft
-        and len(observed["density_ids"]) == len(expected_density)
-        and len(observed["uncraft_ids"]) == len(expected_uncraft)
+        recognized
+        and not observed["unknown_failures"]
+        and density_ok
+        and uncraft_ok
+        and mutation_ok
+        and overmap_ok
     )
     result["inherited_debt_check"] = {
         "debt_id": debt_id,
         "matched": exact,
         "density_count": len(observed["density_ids"]),
         "uncraft_count": len(observed["uncraft_ids"]),
+        "mutation_count": len(observed["mutation_ids"]),
+        "overmap_missing_count": observed["overmap_missing_count"],
         "unknown_failures": observed["unknown_failures"],
     }
     if exact:
@@ -1098,11 +1202,13 @@ def normalize_inherited_debt_result(
         result["inherited_debt_only"] = True
         result["inherited_debt"] = {
             "debt_id": debt_id,
-            "density_ids": observed_density,
-            "uncraft_ids": observed_uncraft,
+            "density_ids": sorted(observed["density_ids"]),
+            "uncraft_ids": sorted(observed["uncraft_ids"]),
+            "mutation_ids": sorted(observed["mutation_ids"]),
+            "overmap_missing_ids": sorted(observed["overmap_missing_ids"]),
+            "overmap_missing_count": observed["overmap_missing_count"],
         }
     return result
-
 
 def normalize_cata_test_result(result: dict, log_dir: Path) -> dict:
     """Keep real Catch failures fatal while downgrading pure text-style noise."""

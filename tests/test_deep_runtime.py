@@ -352,6 +352,91 @@ class DeepRuntimePlanTests(unittest.TestCase):
             self.assertNotEqual(missing["exit_code"], 0)
             self.assertFalse(missing["inherited_debt_check"]["matched"])
 
+    def test_mom_compat_inherited_debt_is_additive_and_strict(self):
+        baseline = deep.suite.read(deep.INHERITED_DEBT_BASELINE)
+        debt = baseline["debts"]["aftershock_prime_mom_upstream"]
+        self.assertEqual(len(debt["density_ids"]), 104)
+        self.assertEqual(len(debt["uncraft_ids"]), 80)
+        self.assertEqual(len(debt["mutation_ids"]), 3)
+
+        lines = []
+        for mutation_id in debt["mutation_ids"]:
+            lines += [
+                f"Given: mutation of ID {mutation_id} is valid and removable",
+                "../tests/mutation_test.cpp:614: FAILED:",
+            ]
+        for item_id in debt["density_ids"]:
+            lines += [
+                "../tests/item_test.cpp:1037: FAILED:",
+                f'  target.typeId() := string_id( "{item_id}" )',
+            ]
+        for item_id in debt["uncraft_ids"]:
+            lines += [
+                "../tests/item_test.cpp:1375: FAILED:",
+                f"  Item {item_id} weight 1 gram, but its uncraft recipe differs.",
+            ]
+
+        with tempfile.TemporaryDirectory() as tmp:
+            log_dir = Path(tmp)
+            (log_dir / "stderr.log").write_text("", encoding="utf-8")
+            (log_dir / "stdout.log").write_text(
+                "\n".join(lines) + "\n",
+                encoding="utf-8",
+            )
+            result = deep.normalize_inherited_debt_result(
+                {"exit_code": 187, "errors": [], "catch_failed": True},
+                log_dir,
+                TARGET,
+                baseline["commit"],
+                ["aftershock_prime", "aftershock_prime_mom"],
+            )
+            self.assertEqual(result["exit_code"], 0)
+            self.assertTrue(result["inherited_debt_only"])
+            self.assertEqual(
+                result["inherited_debt"]["debt_id"],
+                "aftershock_prime_mom_upstream",
+            )
+
+            overmap = "\n".join(
+                [
+                    "../tests/overmap_test.cpp:798: FAILED:",
+                    "  num_missing := 127",
+                    '  missing_oter_type_ids := "lab_surface_brick_blockA0, '
+                    'mom_shoggothed_world_ravine_floor"',
+                ]
+            )
+            (log_dir / "stdout.log").write_text(
+                overmap + "\n",
+                encoding="utf-8",
+            )
+            slow = deep.normalize_inherited_debt_result(
+                {"exit_code": 1, "errors": [], "catch_failed": True},
+                log_dir,
+                TARGET,
+                baseline["commit"],
+                ["aftershock_prime", "aftershock_prime_mom"],
+            )
+            self.assertEqual(slow["exit_code"], 0)
+            self.assertTrue(slow["inherited_debt_only"])
+
+            (log_dir / "stdout.log").write_text(
+                overmap.replace(
+                    'mom_shoggothed_world_ravine_floor"',
+                    'unexpected_repo_terrain"',
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            unexpected = deep.normalize_inherited_debt_result(
+                {"exit_code": 1, "errors": [], "catch_failed": True},
+                log_dir,
+                TARGET,
+                baseline["commit"],
+                ["aftershock_prime", "aftershock_prime_mom"],
+            )
+            self.assertNotEqual(unexpected["exit_code"], 0)
+            self.assertFalse(unexpected["inherited_debt_check"]["matched"])
+
     def test_inherited_debt_baseline_is_commit_and_component_bound(self):
         baseline = deep.suite.read(deep.INHERITED_DEBT_BASELINE)
         self.assertIsNotNone(
