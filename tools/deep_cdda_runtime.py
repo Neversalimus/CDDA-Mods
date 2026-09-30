@@ -988,11 +988,18 @@ def source_specs(
     if depth in ("full", "exhaustive"):
         # Match CDDA's own CI partition and explicitly include starting_items,
         # which exercises character/profession construction under loaded mod data.
-        specs.append("~[slow] ~[.],starting_items")
+        # Repository-owned probes are compiled into the shared cata_test binary,
+        # so exclude them from generic partitions and run them only in their
+        # owning component suite above.
+        specs.append(
+            "~[slow] ~[.] ~[axiom7_lifecycle],"
+            "starting_items ~[axiom7_lifecycle]"
+        )
     if depth == "exhaustive":
         # Complementary slow partition: together with the line above this covers
-        # essentially the full non-hidden upstream runtime surface.
-        specs.append("[slow] ~starting_items")
+        # essentially the full non-hidden upstream runtime surface without
+        # leaking repository-owned component probes into unrelated suites.
+        specs.append("[slow] ~starting_items ~[axiom7_lifecycle]")
     return specs
 
 
