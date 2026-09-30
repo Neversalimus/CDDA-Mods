@@ -542,6 +542,91 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
                 self.assertIn(item_id, objects)
                 self.assertEqual(objects[item_id].get("volume"), volume)
 
+    def test_blazemod_uncraft_mass_repairs_preserve_intent(self):
+        root = ROOT / "mods" / "blazemod" / "content"
+
+        ammo_recipes = {
+            obj["result"]: obj
+            for obj in read_json(root / "recipes" / "blaze_ammo_recipes.json")
+            if obj.get("result")
+        }
+        lead = ammo_recipes["lead_ball"]["components"][0][0]
+        self.assertEqual(lead, ["lead", 80])
+
+        gun_recipes = {
+            obj["result"]: obj
+            for obj in read_json(root / "recipes" / "blaze_gun_recipes.json")
+            if obj.get("result")
+        }
+        coil = {
+            comp[0]: comp[1]
+            for group in gun_recipes["blaze_coilgun"]["components"]
+            for comp in group
+        }
+        self.assertEqual(coil["pipe"], 4)
+
+        weapon_recipes = {
+            obj["result"]: obj
+            for obj in read_json(root / "recipes" / "blaze_weapons_recipes.json")
+            if obj.get("result")
+        }
+        rifle = {
+            comp[0]: comp[1]
+            for group in weapon_recipes["rifle_308"]["components"]
+            for comp in group
+        }
+        self.assertEqual(
+            rifle,
+            {
+                "pipe": 1,
+                "spring_small": 1,
+                "lc_steel_chunk": 1,
+                "plank_short": 1,
+                "scrap": 3,
+            },
+        )
+
+        blob_recipes = {
+            obj["result"]: obj
+            for obj in read_json(root / "recipes" / "blob_recipes.json")
+            if obj.get("result")
+        }
+        expected_water = {
+            "frostie_wheel": 1,
+            "gray_wheel": 137,
+            "oozle_wheel": 136,
+            "frostie_hull": 1,
+        }
+        for result, count in expected_water.items():
+            with self.subTest(recipe=result):
+                water = [
+                    comp
+                    for group in blob_recipes[result]["components"]
+                    for comp in group
+                    if comp[0] == "water"
+                ]
+                self.assertEqual(water, [["water", count]])
+
+        split_pairs = {
+            "biter": ("bitergrow", "9166 g"),
+            "clutter": ("cluttergrow", "3626 g"),
+            "meltie": ("meltiegrow", "7777 g"),
+            "frostie": ("frostiegrow", "3056 g"),
+            "gray": ("graygrow", "9560 g"),
+            "oozle": ("oozlegrow", "8131 g"),
+            "glowie": ("glowiegrow", "2566 g"),
+        }
+        tools = {
+            obj["id"]: obj
+            for obj in read_json(root / "items" / "tools" / "blob_tools.json")
+            if obj.get("id")
+        }
+        for adult, (grow, weight) in split_pairs.items():
+            with self.subTest(adult=adult):
+                components = blob_recipes[adult]["components"]
+                self.assertEqual(components, [[[grow, 2]]])
+                self.assertEqual(tools[grow]["weight"], weight)
+
     def test_blazemod_exhaustive_vehicle_metadata_is_current(self):
         root = ROOT / "mods" / "blazemod" / "content"
         flagged_ids = {
