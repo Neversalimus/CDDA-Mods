@@ -114,6 +114,21 @@ class DeepRuntimePlanTests(unittest.TestCase):
             workflow,
         )
 
+    def test_install_matrix_preserves_failure_logs_without_copying_staged_data(self):
+        matrix = (
+            ROOT / "tools" / "deep_install_matrix.ps1"
+        ).read_text(encoding="utf-8")
+        self.assertIn("Preserve-InstallerDiagnostics", matrix)
+        self.assertIn(
+            "@('stdout.log','stderr.log','debug.log')",
+            matrix,
+        )
+        self.assertIn("transaction-diagnostics", matrix)
+        self.assertNotIn(
+            "Copy-Item -LiteralPath $validation -Destination",
+            matrix,
+        )
+
     def test_external_game_dependencies_are_explicit_for_runtime(self):
         mods = deep.json_components(TARGET)
         game_ids = deep.game_ids_for(
