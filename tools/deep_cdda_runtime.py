@@ -992,14 +992,13 @@ def source_specs(
         # so exclude them from generic partitions and run them only in their
         # owning component suite above.
         specs.append(
-            "~[slow] ~[.] ~[axiom7_lifecycle],"
-            "starting_items ~[axiom7_lifecycle]"
+            "~[slow] ~[.] ~[axiom7_lifecycle],starting_items"
         )
     if depth == "exhaustive":
-        # Complementary slow partition: together with the line above this covers
-        # essentially the full non-hidden upstream runtime surface without
-        # leaking repository-owned component probes into unrelated suites.
-        specs.append("[slow] ~starting_items ~[axiom7_lifecycle]")
+        # The slow partition cannot select AXIOM lifecycle probes because those
+        # probes are not tagged [slow], so preserve CDDA's original filter
+        # exactly instead of narrowing upstream coverage.
+        specs.append("[slow] ~starting_items")
     return specs
 
 
