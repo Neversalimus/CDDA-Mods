@@ -1,0 +1,92 @@
+name: Temporary exact-runtime branch recheck
+
+on:
+  push:
+    branches:
+      - infra/exhaustive-isolation-axiom-fixes
+    paths:
+      - '.github/workflows/deep-branch-recheck.yml'
+      - 'mods/**'
+      - 'tools/deep_cdda_runtime.py'
+      - 'tests/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: temporary-exact-recheck-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DEEP_TARGET: experimental-2026-09-23-0546
+  CDDA_COMMIT: e262adb299a7613b4aedc5f12c08fe0413c56a84
+  CATA_TEST_ARTIFACT_ID: '11067638496'
+
+jobs:
+  exact-recheck:
+    name: Exact recheck / ${{ matrix.suite }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix:
+        suite:
+          - component-axiom_7
+          - component-secronom
+          - component-secronom_plus
+          - component-blazemod
+          - component-tankmod
+          - component-aftershock_prime
+    steps:
+      - name: Checkout CDDA-Mods branch
+        uses: actions/checkout@v4
+        with:
+          path: mods-repo
+
+      - name: Checkout exact CDDA data
+        uses: actions/checkout@v4
+        with:
+          repository: CleverRaven/Cataclysm-DDA
+          ref: ${{ env.CDDA_COMMIT }}
+          path: cdda
+          fetch-depth: 1
+          sparse-checkout: |
+            data
+          sparse-checkout-cone-mode: true
+
+      - name: Reuse exact cata_test binary from Deep #12
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p cdda/tests build/cata-artifact
+          gh api \
+            -H "Accept: application/vnd.github+json" \
+            "/repos/${GITHUB_REPOSITORY}/actions/artifacts/${CATA_TEST_ARTIFACT_ID}/zip" \
+            > build/cata-test.zip
+          unzip -q build/cata-test.zip -d build/cata-artifact
+          cp build/cata-artifact/cata_test cdda/tests/cata_test
+          chmod +x cdda/tests/cata_test
+
+      - name: Run current branch against exact CDDA runtime
+        shell: bash
+        working-directory: mods-repo
+        run: |
+          python tools/deep_cdda_runtime.py run-source \
+            --cdda-root ../cdda \
+            --target "${DEEP_TARGET}" \
+            --suite "${{ matrix.suite }}" \
+            --depth full \
+            --out "../build/recheck/${{ matrix.suite }}" \
+            --timeout 7200
+
+      - name: Upload exact recheck evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: temporary-recheck-${{ matrix.suite }}
+          path: build/recheck/${{ matrix.suite }}/**
+          if-no-files-found: warn
+          retention-days: 7
