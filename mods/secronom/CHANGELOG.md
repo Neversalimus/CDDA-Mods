@@ -5,6 +5,8 @@
 - Added explicit broken robot wreck items for the reinforcer, shocker, rifle walker and launcher.
 - Wired the four BROKEN-death monsters to those valid item IDs instead of relying on invalid auto-derived IDs.
 - Preserved monster stats, attacks, factions, spawn data and existing death-drop groups.
+- Reworked legacy `human`, `animal` and `insect` monster-faction overrides into `copy-from + extend`, preserving vanilla relations while keeping Secronom's intended fleshweaver/security relationships.
+- Added reciprocal root-faction relations for fleshweaver, saddler, carrion and AXIOM-style security-bot interactions without changing monster stats or spawns.
 
 ## 1.5.1 complete text-style cleanup
 
