@@ -41,17 +41,32 @@ class DeepRuntimePlanTests(unittest.TestCase):
             ["[force_load_game]"],
         )
         full = deep.source_specs("full", combined=False)
-        self.assertIn(
-            "~[slow] ~[.] ~[axiom7_lifecycle],starting_items",
-            full,
-        )
+        fast = full[1]
+        self.assertIn("~[slow]", fast)
+        self.assertIn("~[.]", fast)
+        self.assertIn("~[axiom7_lifecycle]", fast)
+        self.assertIn('~"item_new_to_hit_enforcement"', fast)
+        self.assertIn('~"uncraft_blacklist_is_pruned"', fast)
+        self.assertIn(",starting_items", fast)
+        self.assertNotIn("uncraft_sanity_check", fast)
+
         exhaustive = deep.source_specs("exhaustive", combined=True)
-        self.assertIn(
-            "~[slow] ~[.] ~[axiom7_lifecycle],starting_items",
-            exhaustive,
-        )
+        fast = exhaustive[1]
+        self.assertIn('~"item_new_to_hit_enforcement"', fast)
+        self.assertIn('~"uncraft_blacklist_is_pruned"', fast)
         self.assertIn("[slow] ~starting_items", exhaustive)
 
+
+    def test_only_upstream_blacklist_maintenance_tests_are_excluded(self):
+        spec = deep.source_specs(
+            "full",
+            combined=False,
+            suite_name="component-blazemod",
+        )[1]
+        self.assertIn('~"item_new_to_hit_enforcement"', spec)
+        self.assertIn('~"uncraft_blacklist_is_pruned"', spec)
+        self.assertNotIn('~"uncraft_sanity_check"', spec)
+        self.assertNotIn('~"item_material_density_sanity_check"', spec)
 
     def test_axiom_component_gets_exact_engine_lifecycle_probe(self):
         self.assertEqual(
