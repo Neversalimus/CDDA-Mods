@@ -284,7 +284,7 @@ $summary=[pscustomobject]@{
     json_components=$jsonIds
     check_mods_interaction_capability=$script:checkModsInteractions
     duration_seconds=[Math]::Round($matrixTimer.Elapsed.TotalSeconds,3)
-    cases=@($script:results)
+    cases=$script:results.ToArray()
     passed=($failed.Count -eq 0)
 }
 $summary | ConvertTo-Json -Depth 20 | Set-Content (Join-Path $outRoot 'matrix-summary.json') -Encoding UTF8
