@@ -87,7 +87,7 @@
     "name": { "str": "vortex rifle" },
     "description": "This weapon uses powerful bursts of air to launch small projectiles at its target at high speed.  You'll need some form of platform to mount it on.",
     "weight": "11759 g",
-    "volume": "2500 ml",
+    "volume": "2750 ml",
     "price": "900 USD",
     "melee_damage": { "bash": 12 },
     "material": [ "steel", "plastic" ],
