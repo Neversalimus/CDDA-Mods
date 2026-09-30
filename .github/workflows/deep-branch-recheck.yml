@@ -72,6 +72,7 @@ jobs:
         shell: bash
         working-directory: mods-repo
         run: |
+          set +e
           python tools/deep_cdda_runtime.py run-source \
             --cdda-root ../cdda \
             --target "${DEEP_TARGET}" \
@@ -79,6 +80,18 @@ jobs:
             --depth full \
             --out "../build/recheck/${{ matrix.suite }}" \
             --timeout 7200
+          code=$?
+          if [ "$code" -ne 0 ]; then
+            while IFS= read -r log; do
+              echo "::group::$log"
+              tail -n 500 "$log" || true
+              echo "::endgroup::"
+            done < <(
+              find "../build/recheck/${{ matrix.suite }}" -type f \
+                \( -name 'stdout.log' -o -name 'stderr.log' \) | sort
+            )
+          fi
+          exit "$code"
 
       - name: Upload exact recheck evidence
         if: always()
