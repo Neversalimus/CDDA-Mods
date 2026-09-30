@@ -1,5 +1,12 @@
 # Blazemod Revival
 
+## 0.5.5-r6 — Legacy ammo-effect migration
+
+- Removed obsolete `NEVER_MISFIRES` ammo-effect references; mounted guns already use the current `NEVER_JAMS` item flag, while ammunition no longer has a current engine-side equivalent for that retired pseudo effect.
+- Restored `MININUKE_MOD` as a current JSON ammo effect instead of dropping the authored nuclear projectile behavior.
+- The modernized effect keeps the legacy 24-tile nuclear-gas field and a 3000-power impact explosion.
+- No ordinary projectile damage, magazine capacity, gun dispersion or crafting recipes changed.
+
 ## 0.5.5-r5 — Uncraft mass conservation
 
 - Updated the legacy lead-ball recipe from 100 to 80 lead units so its reversible craft returns the same 400 g mass.
