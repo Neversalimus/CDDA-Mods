@@ -278,6 +278,104 @@ class DeepRuntimePlanTests(unittest.TestCase):
             self.assertEqual(result["exit_code"], 1)
             self.assertTrue(result["catch_failed"])
 
+    def test_aftershock_inherited_debt_baseline_is_exact_and_strict(self):
+        baseline = deep.suite.read(deep.INHERITED_DEBT_BASELINE)
+        debt = baseline["debts"]["aftershock_prime_upstream"]
+        self.assertEqual(len(debt["density_ids"]), 72)
+        self.assertEqual(len(debt["uncraft_ids"]), 80)
+
+        def failure_stdout(extra=""):
+            lines = []
+            for item_id in debt["density_ids"]:
+                lines += [
+                    "../tests/item_test.cpp:1037: FAILED:",
+                    f'  target.typeId() := string_id( "{item_id}" )',
+                ]
+            for item_id in debt["uncraft_ids"]:
+                lines += [
+                    "../tests/item_test.cpp:1375: FAILED:",
+                    f"  Item {item_id} weight 1 gram, but its uncraft recipe differs.",
+                ]
+            if extra:
+                lines += ["../tests/other_test.cpp:42: FAILED:", extra]
+            return "\n".join(lines) + "\n"
+
+        with tempfile.TemporaryDirectory() as tmp:
+            log_dir = Path(tmp)
+            (log_dir / "stderr.log").write_text("", encoding="utf-8")
+            (log_dir / "stdout.log").write_text(
+                failure_stdout(),
+                encoding="utf-8",
+            )
+            result = deep.normalize_inherited_debt_result(
+                {"exit_code": 152, "errors": [], "catch_failed": True},
+                log_dir,
+                TARGET,
+                baseline["commit"],
+                ["aftershock_prime"],
+            )
+            self.assertEqual(result["exit_code"], 0)
+            self.assertTrue(result["inherited_debt_only"])
+            self.assertTrue(result["inherited_debt_check"]["matched"])
+
+            (log_dir / "stdout.log").write_text(
+                failure_stdout("unexpected regression"),
+                encoding="utf-8",
+            )
+            extra = deep.normalize_inherited_debt_result(
+                {"exit_code": 153, "errors": [], "catch_failed": True},
+                log_dir,
+                TARGET,
+                baseline["commit"],
+                ["aftershock_prime"],
+            )
+            self.assertNotEqual(extra["exit_code"], 0)
+            self.assertFalse(extra["inherited_debt_check"]["matched"])
+
+            missing_text = failure_stdout().replace(
+                f'../tests/item_test.cpp:1037: FAILED:\n'
+                f'  target.typeId() := string_id( "{debt["density_ids"][0]}" )\n',
+                "",
+                1,
+            )
+            (log_dir / "stdout.log").write_text(
+                missing_text,
+                encoding="utf-8",
+            )
+            missing = deep.normalize_inherited_debt_result(
+                {"exit_code": 151, "errors": [], "catch_failed": True},
+                log_dir,
+                TARGET,
+                baseline["commit"],
+                ["aftershock_prime"],
+            )
+            self.assertNotEqual(missing["exit_code"], 0)
+            self.assertFalse(missing["inherited_debt_check"]["matched"])
+
+    def test_inherited_debt_baseline_is_commit_and_component_bound(self):
+        baseline = deep.suite.read(deep.INHERITED_DEBT_BASELINE)
+        self.assertIsNotNone(
+            deep.inherited_debt_expectation(
+                TARGET,
+                baseline["commit"],
+                ["aftershock_prime"],
+            )
+        )
+        self.assertIsNone(
+            deep.inherited_debt_expectation(
+                TARGET,
+                "0" * 40,
+                ["aftershock_prime"],
+            )
+        )
+        self.assertIsNone(
+            deep.inherited_debt_expectation(
+                TARGET,
+                baseline["commit"],
+                ["secronom"],
+            )
+        )
+
     def test_run_process_records_elapsed_time_without_changing_exit_code(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

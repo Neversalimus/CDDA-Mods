@@ -27,6 +27,8 @@ def result_status(result: dict) -> str:
         return "DEFER"
     if result.get("exit_code") or result.get("errors"):
         return "FAIL"
+    if result.get("inherited_debt_only"):
+        return "DEBT"
     return "PASS"
 
 
@@ -80,7 +82,22 @@ def scan_report(path: Path, doc: dict, rows: list[dict], source_warnings: dict[s
             result = run.get("result") or {}
             suite = run.get("suite", "?")
             spec = run.get("spec", "?")
-            add_row(rows, "source", f"{suite}::{spec}", result_status(result), result)
+            debt = result.get("inherited_debt") or {}
+            note = ""
+            if debt:
+                note = (
+                    "strict inherited upstream debt: "
+                    f"{len(debt.get('density_ids', []))} density, "
+                    f"{len(debt.get('uncraft_ids', []))} uncraft"
+                )
+            add_row(
+                rows,
+                "source",
+                f"{suite}::{spec}",
+                result_status(result),
+                result,
+                note,
+            )
             source_warnings.setdefault(suite, set()).update(result.get("style_warnings", []) or [])
         return
 
