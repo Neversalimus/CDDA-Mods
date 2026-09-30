@@ -392,9 +392,18 @@
       "item_restriction": [
         "belt223",
         "belt308"
-      ]
+      ],
+      "id": "ammo"
     }
-  ]
+  ],
+  "firing_requirements": {
+    "DEFAULT": [
+      {
+        "pocket": "ammo",
+        "qty": 50
+      }
+    ]
+  }
 },
 {
   "id": "psg1",
@@ -609,12 +618,21 @@
       "item_restriction": [
         "belt223",
         "belt308"
-      ]
+      ],
+      "id": "ammo"
     }
   ],
   "flags": [
     "USE_UPS"
-  ]
+  ],
+  "firing_requirements": {
+    "DEFAULT": [
+      {
+        "pocket": "ammo",
+        "qty": 80
+      }
+    ]
+  }
 },
 {
   "id": "xm8",
@@ -663,7 +681,8 @@
         "survivor223mag",
         "g3mag",
         "g3bigmag"
-      ]
+      ],
+      "id": "ammo"
     }
   ],
   "modes": [
@@ -677,7 +696,21 @@
       "auto",
       5
     ]
-  ]
+  ],
+  "firing_requirements": {
+    "DEFAULT": [
+      {
+        "pocket": "ammo",
+        "qty": 1
+      }
+    ],
+    "AUTO": [
+      {
+        "pocket": "ammo",
+        "qty": 5
+      }
+    ]
+  }
 },
 {
   "id": "zx1sniper",
