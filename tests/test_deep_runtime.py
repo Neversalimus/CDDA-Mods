@@ -114,6 +114,27 @@ class DeepRuntimePlanTests(unittest.TestCase):
             workflow,
         )
 
+    def test_installer_failure_evidence_is_uploaded_without_staged_game_data(self):
+        workflow = (
+            ROOT / ".github" / "workflows" / "deep-runtime.yml"
+        ).read_text(encoding="utf-8")
+        self.assertIn(
+            "_CDDA-Mods/transactions/**/validation/**/stdout.log",
+            workflow,
+        )
+        self.assertIn(
+            "_CDDA-Mods/transactions/**/validation/**/stderr.log",
+            workflow,
+        )
+        self.assertIn(
+            "_CDDA-Mods/transactions/**/validation/**/debug.log",
+            workflow,
+        )
+        self.assertNotIn(
+            "_CDDA-Mods/transactions/**/validation/data/**",
+            workflow,
+        )
+
     def test_external_game_dependencies_are_explicit_for_runtime(self):
         mods = deep.json_components(TARGET)
         game_ids = deep.game_ids_for(
