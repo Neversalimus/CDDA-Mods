@@ -13,6 +13,9 @@ import modsuite as suite
 ROOT = Path(__file__).resolve().parents[1]
 
 ITEM_TYPES = {
+    # Current CDDA unified item schema.
+    "ITEM",
+    # Keep legacy item kinds visible if an imported mod still contains one.
     "AMMO", "ARMOR", "BATTERY", "BIONIC_ITEM", "BOOK", "COMESTIBLE",
     "ENGINE", "GENERIC", "GUN", "GUNMOD", "MAGAZINE", "PET_ARMOR",
     "TOOL", "TOOL_ARMOR", "WHEEL",
