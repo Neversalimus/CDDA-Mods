@@ -68,6 +68,63 @@ class DeepRuntimePlanTests(unittest.TestCase):
         self.assertNotIn('~"uncraft_sanity_check"', spec)
         self.assertNotIn('~"item_material_density_sanity_check"', spec)
 
+    def test_content_audit_shards_are_explicit_and_object_level(self):
+        self.assertEqual(
+            deep.CONTENT_SHARDS,
+            ("items", "recipes", "vehicles", "overmap"),
+        )
+        self.assertIn(
+            "[cdda_mods_content][content_items]",
+            deep.content_specs("items"),
+        )
+        self.assertIn(
+            "item_material_density_sanity_check",
+            deep.content_specs("items"),
+        )
+        self.assertIn(
+            "uncraft_sanity_check",
+            deep.content_specs("items"),
+        )
+        self.assertIn(
+            "[cdda_mods_content][content_recipes]",
+            deep.content_specs("recipes"),
+        )
+        self.assertIn("[recipe]", deep.content_specs("recipes"))
+        self.assertIn(
+            "[cdda_mods_content][content_vehicles]",
+            deep.content_specs("vehicles"),
+        )
+        self.assertIn("vehicle_turret", deep.content_specs("vehicles"))
+        self.assertIn(
+            "[cdda_mods_content][content_overmap]",
+            deep.content_specs("overmap"),
+        )
+        self.assertIn("[overmap]", deep.content_specs("overmap"))
+
+    def test_content_probe_and_jobs_are_wired_into_deep_workflow(self):
+        probe = (
+            ROOT / "tools" / "runtime_probes" / "content_catalog_test.cpp"
+        ).read_text(encoding="utf-8")
+        workflow = (
+            ROOT / ".github" / "workflows" / "deep-runtime.yml"
+        ).read_text(encoding="utf-8")
+        for required in (
+            "item_controller->all()",
+            "recipe_dict",
+            "vehicles::parts::get_all()",
+            "vehicles::get_all_prototypes()",
+            "overmap_terrains::get_all()",
+            "overmap_specials::get_all()",
+        ):
+            self.assertIn(required, probe)
+        self.assertIn(
+            "tools/runtime_probes/content_catalog_test.cpp",
+            workflow,
+        )
+        self.assertIn("Content exhaustive /", workflow)
+        self.assertIn("content_audit:", workflow)
+        self.assertIn("--timeout 5400", workflow)
+
     def test_axiom_component_gets_exact_engine_lifecycle_probe(self):
         self.assertEqual(
             deep.source_specs(

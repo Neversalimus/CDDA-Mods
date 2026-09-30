@@ -32,6 +32,11 @@ on:
         required: true
         default: true
         type: boolean
+      content_audit:
+        description: Run object-level item/recipe/vehicle/overmap audit
+        required: true
+        default: true
+        type: boolean
   schedule:
     # Weekly deep runs are ON by default; set CDDA_DEEP_TESTS_ENABLED=false to disable.
     - cron: '17 2 * * 0'
@@ -155,7 +160,7 @@ jobs:
     name: Resolve exact source-runtime matrix
     if: >-
       ${{
-        (github.event_name == 'workflow_dispatch' && inputs.source_runtime) ||
+        (github.event_name == 'workflow_dispatch' && (inputs.source_runtime || inputs.content_audit)) ||
         (github.event_name == 'schedule' && vars.CDDA_DEEP_TESTS_ENABLED != 'false')
       }}
     runs-on: ubuntu-24.04
@@ -233,6 +238,8 @@ jobs:
         run: |
           cp harness/tools/runtime_probes/axiom7_lifecycle_test.cpp \
             external/cdda/tests/axiom7_lifecycle_test.cpp
+          cp harness/tools/runtime_probes/content_catalog_test.cpp \
+            external/cdda/tests/content_catalog_test.cpp
 
       - name: Build and smoke the real engine test executable
         working-directory: external/cdda
@@ -263,6 +270,11 @@ jobs:
 
   source-runtime:
     name: Exact source / ${{ matrix.suite }}
+    if: >-
+      ${{
+        (github.event_name == 'workflow_dispatch' && inputs.source_runtime) ||
+        (github.event_name == 'schedule' && vars.CDDA_DEEP_TESTS_ENABLED != 'false')
+      }}
     needs: [source_plan, source_build]
     runs-on: ubuntu-24.04
     timeout-minutes: 360
@@ -319,10 +331,101 @@ jobs:
           if-no-files-found: warn
           retention-days: 30
 
+  content-inventory:
+    name: Inventory repository content
+    if: >-
+      ${{
+        (github.event_name == 'workflow_dispatch' && inputs.content_audit) ||
+        (github.event_name == 'schedule' && vars.CDDA_DEEP_TESTS_ENABLED != 'false')
+      }}
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Enumerate repository-owned content
+        shell: bash
+        run: |
+          python tools/content_inventory.py \
+            --target "$DEEP_TARGET" \
+            --out build/content-inventory
+      - name: Upload inventory
+        uses: actions/upload-artifact@v4
+        with:
+          name: deep-content-inventory-${{ env.DEEP_TARGET }}
+          path: build/content-inventory/**
+          if-no-files-found: error
+          retention-days: 30
+
+  content-runtime:
+    name: Content exhaustive / ${{ matrix.shard }}
+    if: >-
+      ${{
+        (github.event_name == 'workflow_dispatch' && inputs.content_audit) ||
+        (github.event_name == 'schedule' && vars.CDDA_DEEP_TESTS_ENABLED != 'false')
+      }}
+    needs: [source_plan, source_build, content-inventory]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        shard: [items, recipes, vehicles, overmap]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - uses: actions/checkout@v4
+        with:
+          repository: CleverRaven/Cataclysm-DDA
+          ref: ${{ needs.source_plan.outputs.commit }}
+          path: external/cdda
+          fetch-depth: 1
+          persist-credentials: false
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: cata-test-${{ needs.source_plan.outputs.commit }}
+          path: external/cdda/tests
+
+      - name: Prepare exact-source runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          chmod +x external/cdda/tests/cata_test
+          if ! dpkg-query -W libncursesw6 >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y libncursesw6
+          fi
+
+      - name: Run object-level content shard
+        shell: bash
+        run: |
+          python tools/deep_cdda_runtime.py run-content \
+            --cdda-root external/cdda \
+            --target "$DEEP_TARGET" \
+            --out "build/deep-content/${{ matrix.shard }}" \
+            --shard "${{ matrix.shard }}" \
+            --timeout 5400
+
+      - name: Upload content evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deep-content-${{ matrix.shard }}-${{ env.DEEP_TARGET }}
+          path: build/deep-content/${{ matrix.shard }}/**
+          if-no-files-found: warn
+          retention-days: 30
+
   summary:
     name: Read-only deep evidence summary
     if: always()
-    needs: [release-binary, source_plan, source_build, source-runtime]
+    needs: [release-binary, source_plan, source_build, source-runtime, content-inventory, content-runtime]
     runs-on: ubuntu-24.04
     continue-on-error: true
     steps:
@@ -352,6 +455,8 @@ jobs:
             --job-result "source-plan=${{ needs.source_plan.result }}" \
             --job-result "source-build=${{ needs.source_build.result }}" \
             --job-result "source-runtime=${{ needs.source-runtime.result }}"
+            --job-result "content-inventory=${{ needs.content-inventory.result }}" \
+            --job-result "content-runtime=${{ needs.content-runtime.result }}"
 
       - name: Upload compact deep summary
         if: always()

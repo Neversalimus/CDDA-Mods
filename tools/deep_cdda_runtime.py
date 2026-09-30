@@ -1004,6 +1004,37 @@ def source_specs(
     return specs
 
 
+CONTENT_SHARDS = ("items", "recipes", "vehicles", "overmap")
+
+
+def content_specs(shard: str) -> list[str]:
+    """Focused exact-engine selectors for object-level content auditing."""
+    if shard == "items":
+        return [
+            "[cdda_mods_content][content_items]",
+            "item_length_sanity_check",
+            "item_material_density_sanity_check",
+            "uncraft_sanity_check",
+        ]
+    if shard == "recipes":
+        return [
+            "[cdda_mods_content][content_recipes]",
+            "[recipe]",
+        ]
+    if shard == "vehicles":
+        return [
+            "[cdda_mods_content][content_vehicles]",
+            "[vehicle][vehicle_parts]",
+            "vehicle_turret",
+        ]
+    if shard == "overmap":
+        return [
+            "[cdda_mods_content][content_overmap]",
+            "[overmap]",
+        ]
+    raise ValueError(f"Unknown content shard: {shard}")
+
+
 INHERITED_DEBT_BASELINE = ROOT / ".github" / "deep-inherited-debt.json"
 
 
@@ -1390,6 +1421,117 @@ def run_source(
     return report
 
 
+
+def run_content_shard(
+    cdda_root: Path,
+    target: str,
+    out: Path,
+    shard: str,
+    timeout: int,
+) -> dict:
+    """Run focused object-level content checks on the full JSON stack."""
+    if shard not in CONTENT_SHARDS:
+        raise ValueError(f"Unknown content shard: {shard}")
+    _, targets = suite.validate()
+    if target not in targets:
+        raise ValueError(f"Unknown target: {target}")
+    target_info = targets[target]
+    cdda_root = cdda_root.resolve()
+    try:
+        actual_commit = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"],
+            cwd=cdda_root,
+            text=True,
+            errors="replace",
+        ).strip().lower()
+    except (OSError, subprocess.SubprocessError) as exc:
+        raise ValueError("Cannot verify exact CDDA source commit") from exc
+    if actual_commit != target_info["commit"].lower():
+        raise ValueError(
+            f"CDDA source commit mismatch: expected {target_info['commit']}, "
+            f"got {actual_commit}"
+        )
+
+    test_bin = find_cata_test(cdda_root)
+    _, rows = build_suites(target)
+    combined_rows = [row for row in rows if row["name"] == "combined-all-json"]
+    if len(combined_rows) != 1:
+        raise ValueError("combined-all-json suite missing or ambiguous")
+    row = combined_rows[0]
+
+    stage_source(cdda_root, target, row["components"])
+    out = out.resolve()
+    out.mkdir(parents=True, exist_ok=True)
+    write_environment(
+        out,
+        target,
+        target_info["commit"],
+        runtime=test_bin,
+        observed_commit=actual_commit,
+    )
+
+    runs = []
+    mod_arg = ",".join(row["game_mod_ids"])
+    for index, spec in enumerate(content_specs(shard)):
+        safe_spec = (
+            re.sub(r"[^A-Za-z0-9_.-]+", "_", spec).strip("_")
+            or "spec"
+        )
+        log_dir = out / f"{index:02d}-{safe_spec}"
+        userdir = log_dir / "user"
+        args = [
+            str(test_bin),
+            f"--mods={mod_arg}",
+            f"--user-dir={userdir}",
+            "--rng-seed",
+            "0",
+            "--order",
+            "lex",
+            "--error-format=github-action",
+            spec,
+        ]
+        result = run_process(args, cdda_root, log_dir, timeout)
+        result = normalize_cata_test_result(result, log_dir)
+        result = normalize_inherited_debt_result(
+            result,
+            log_dir,
+            target,
+            target_info["commit"],
+            row["components"],
+        )
+        runs.append(
+            {
+                "suite": f"content-{shard}",
+                "components": row["components"],
+                "content_sha256": row["content_sha256"],
+                "mods": row["game_mod_ids"],
+                "spec": spec,
+                "result": result,
+            }
+        )
+
+    report = {
+        "schema": 2,
+        "kind": "source-cata-test",
+        "depth": f"content-{shard}",
+        "target": target,
+        "commit": target_info["commit"],
+        "observed_source_commit": actual_commit,
+        "suite_filter": f"content-{shard}",
+        "runs": runs,
+    }
+    suite.write(out / "report.json", report)
+    failed = [
+        f"{r['suite']}::{r['spec']}"
+        for r in runs
+        if r["result"]["exit_code"]
+    ]
+    if failed:
+        raise RuntimeError(
+            "Content runtime tests failed: " + ", ".join(failed)
+        )
+    return report
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     sub = parser.add_subparsers(dest="command", required=True)
@@ -1441,6 +1583,13 @@ def main() -> None:
         help="Run only one suite name from the plan (used by CI matrix jobs)",
     )
 
+    content = sub.add_parser("run-content")
+    content.add_argument("--cdda-root", required=True)
+    content.add_argument("--target", required=True)
+    content.add_argument("--out", required=True)
+    content.add_argument("--shard", choices=CONTENT_SHARDS, required=True)
+    content.add_argument("--timeout", type=int, default=5400)
+
     args = parser.parse_args()
     if args.command == "plan":
         _, rows = build_suites(args.target)
@@ -1483,6 +1632,14 @@ def main() -> None:
             args.depth,
             args.timeout,
             args.suite,
+        )
+    elif args.command == "run-content":
+        run_content_shard(
+            Path(args.cdda_root),
+            args.target,
+            Path(args.out),
+            args.shard,
+            args.timeout,
         )
 
 
