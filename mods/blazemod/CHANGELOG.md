@@ -1,5 +1,11 @@
 # Blazemod Revival
 
+## 0.5.5-r7 — Blob projectile-effect registry cleanup
+
+- Migrated the legacy acid-puffer ammo effect from `ACID_BOMB` to the current pinned-CDDA `ACIDBOMB` registry ID.
+- Removed `CUSTOM_EXPLOSION` from the fuel puffer and gel spouter ammo-effect lists.  In the pinned engine that token is no longer a registered ammo effect; its remaining hardcoded path only copies explosion data from the loaded ammunition, while gasoline and water define no such explosion, so removal preserves current projectile behavior and eliminates runtime D_ERRORs.
+- Preserved `JET`, `WIDE`, `BEANBAG`, `BLINDS_EYES`, `ACT_ON_RANGED_HIT` and `NO_EMBED` behavior unchanged.
+
 ## 0.5.5-r6 — Legacy ammo-effect migration
 
 - Removed obsolete `NEVER_MISFIRES` ammo-effect references; mounted guns already use the current `NEVER_JAMS` item flag, while ammunition no longer has a current engine-side equivalent for that retired pseudo effect.
