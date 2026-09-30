@@ -393,18 +393,12 @@
           "belt223",
           "belt308"
         ],
-        "id": "ammo",
         "default_magazine": "belt223"
       }
     ],
-    "firing_requirements": {
-      "DEFAULT": [
-        {
-          "pocket": "ammo",
-          "qty": 50
-        }
-      ]
-    }
+    "flags": [
+      "NO_TURRET"
+    ]
   },
   {
     "id": "psg1",
@@ -620,21 +614,13 @@
           "belt223",
           "belt308"
         ],
-        "id": "ammo",
         "default_magazine": "belt223"
       }
     ],
     "flags": [
-      "USE_UPS"
-    ],
-    "firing_requirements": {
-      "DEFAULT": [
-        {
-          "pocket": "ammo",
-          "qty": 80
-        }
-      ]
-    }
+      "USE_UPS",
+      "NO_TURRET"
+    ]
   },
   {
     "id": "xm8",
@@ -684,7 +670,6 @@
           "g3mag",
           "g3bigmag"
         ],
-        "id": "ammo",
         "default_magazine": "stanag30"
       }
     ],
@@ -700,20 +685,9 @@
         5
       ]
     ],
-    "firing_requirements": {
-      "DEFAULT": [
-        {
-          "pocket": "ammo",
-          "qty": 1
-        }
-      ],
-      "AUTO": [
-        {
-          "pocket": "ammo",
-          "qty": 5
-        }
-      ]
-    }
+    "flags": [
+      "NO_TURRET"
+    ]
   },
   {
     "id": "zx1sniper",
