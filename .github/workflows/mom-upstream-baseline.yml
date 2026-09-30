@@ -1,0 +1,101 @@
+name: Temporary upstream MoM exhaustive baseline
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/mom-upstream-baseline.yml'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  mom-upstream:
+    name: Exact upstream Mind Over Matter baseline
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    env:
+      CDDA_COMMIT: e262adb299a7613b4aedc5f12c08fe0413c56a84
+      CATA_TEST_ARTIFACT_ID: '11101923048'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: CleverRaven/Cataclysm-DDA
+          ref: ${{ env.CDDA_COMMIT }}
+          path: cdda
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Reuse exact cata_test from Deep 13
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p cdda/tests build/cata-artifact
+          gh api -H "Accept: application/vnd.github+json" \
+            "/repos/${GITHUB_REPOSITORY}/actions/artifacts/${CATA_TEST_ARTIFACT_ID}/zip" \
+            > build/cata-test.zip
+          unzip -q build/cata-test.zip -d build/cata-artifact
+          cp build/cata-artifact/cata_test cdda/tests/cata_test
+          chmod +x cdda/tests/cata_test
+
+      - name: Run exact upstream MoM exhaustive selectors
+        id: baseline
+        continue-on-error: true
+        working-directory: cdda
+        shell: bash
+        run: |
+          set +e
+          mkdir -p ../build/mom-upstream
+          tests/cata_test \
+            --mods=dda,mindovermatter \
+            --user-dir=../build/mom-upstream/user-main \
+            --rng-seed 0 \
+            --order lex \
+            --error-format=github-action \
+            '~[slow] ~[.] ~[axiom7_lifecycle] ~"item_new_to_hit_enforcement" ~"uncraft_blacklist_is_pruned",starting_items' \
+            > ../build/mom-upstream/main.stdout.log \
+            2> ../build/mom-upstream/main.stderr.log
+          main_code=$?
+          echo "$main_code" > ../build/mom-upstream/main.exit-code.txt
+
+          tests/cata_test \
+            --mods=dda,mindovermatter \
+            --user-dir=../build/mom-upstream/user-slow \
+            --rng-seed 0 \
+            --order lex \
+            --error-format=github-action \
+            '[slow] ~starting_items' \
+            > ../build/mom-upstream/slow.stdout.log \
+            2> ../build/mom-upstream/slow.stderr.log
+          slow_code=$?
+          echo "$slow_code" > ../build/mom-upstream/slow.exit-code.txt
+
+          echo "main selector exit: $main_code"
+          echo "slow selector exit: $slow_code"
+          echo "::group::main stdout tail"
+          tail -n 5000 ../build/mom-upstream/main.stdout.log || true
+          echo "::endgroup::"
+          echo "::group::slow stdout tail"
+          tail -n 5000 ../build/mom-upstream/slow.stdout.log || true
+          echo "::endgroup::"
+
+          if [ "$main_code" -ne 0 ] || [ "$slow_code" -ne 0 ]; then
+            exit 1
+          fi
+
+      - name: Upload baseline evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: upstream-mom-exhaustive-baseline
+          path: build/mom-upstream/**
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Preserve baseline result
+        if: always() && steps.baseline.outcome == 'failure'
+        shell: bash
+        run: exit 1
