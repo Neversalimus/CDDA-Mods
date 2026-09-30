@@ -1,5 +1,11 @@
 # Tankmod Revived
 
+## 2026.9.23.4-r6 — Custom explosion compatibility
+
+- Registered the hardcoded `CUSTOM_EXPLOSION` projectile marker as a no-op ammo effect for current CDDA.
+- Tank shells keep their existing per-item `explosion` power and distance settings; the registration only prevents the current ammo-effect factory from treating the hardcoded marker as an invalid ID.
+- No ammunition damage, blast power, shrapnel, recoil or range values changed.
+
 ## 2026.9.23.4-r5 — Shell salvage mass restoration
 
 - Restored missing inert metal mass in eight legacy 25/105/120/155 mm uncraft recipes using standard steel salvage components.
