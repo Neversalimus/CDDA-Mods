@@ -1,5 +1,11 @@
 # Secronom Revival
 
+## 1.5.1-r2 — Broken robot corpse integrity
+
+- Added explicit broken robot wreck items for the reinforcer, shocker, rifle walker and launcher.
+- Wired the four BROKEN-death monsters to those valid item IDs instead of relying on invalid auto-derived IDs.
+- Preserved monster stats, attacks, factions, spawn data and existing death-drop groups.
+
 ## 1.5.1 complete text-style cleanup
 
 Resolved the remaining 985 exact-source text-style diagnostics reported by CDDA's
