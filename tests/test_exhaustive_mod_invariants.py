@@ -74,6 +74,24 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
                 for mode, qty in modes.items():
                     self.assertEqual(reqs[mode], [{"pocket": "ammo", "qty": qty}])
 
+    def test_secronom_grenade_effects_use_current_flag_schema(self):
+        path = (
+            ROOT / "mods" / "secronom" / "content"
+            / "Modification_Files" / "Monsters" / "-Essentials"
+            / "secro_ammo_zombie.json"
+        )
+        objects = {
+            obj["id"]: obj
+            for obj in read_json(path)
+            if isinstance(obj.get("id"), str)
+        }
+        for item_id in ("SSxgrenade", "SSygrenade", "SSzgrenade"):
+            with self.subTest(item=item_id):
+                obj = objects[item_id]
+                self.assertNotIn("CUSTOM_EXPLOSION", obj.get("effects", []))
+                self.assertNotIn("NEVER_MISFIRES", obj.get("effects", []))
+                self.assertIn("CUSTOM_EXPLOSION", obj.get("flags", []))
+
     def test_secronom_extends_vanilla_factions_instead_of_replacing_them(self):
         factions = {
             obj["name"]: obj
@@ -108,6 +126,10 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
         self.assertIn(
             "fleshweaver",
             factions["zombie"]["extend"]["neutral"],
+        )
+        self.assertIn(
+            "zombie_weaver",
+            factions["zombie"]["extend"]["hate"],
         )
         self.assertIn(
             "saddler",
