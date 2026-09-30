@@ -1,5 +1,12 @@
 # Secronom Revival
 
+## 1.5.1-r3 — Exact runtime compatibility
+
+- Removed the invalid relation to the nonexistent pinned-CDDA `blob` monster faction, eliminating the loader circular-dependency error.
+- Migrated KAC ChainSAW, XM556 and XM8 magazine wells to explicit `firing_requirements`, matching current multimag vehicle-turret semantics.
+- Normalized the two remaining base Secronom flesh-density violations by preserving weight and using physically valid volumes.
+- The intentional `zombie_weaver` targeting relationship is left unchanged for a dedicated semantic pass.
+
 ## 1.5.1-r2 — Broken robot corpse integrity
 
 - Added explicit broken robot wreck items for the reinforcer, shocker, rifle walker and launcher.
