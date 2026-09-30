@@ -124,7 +124,7 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
         monsters = {
             obj["id"]: obj
             for _, obj in objects
-            if obj.get("type") == "MONSTER"
+            if obj.get("type") == "MONSTER" and obj.get("id")
         }
         self.assertEqual(
             monsters["mon_uica_irradiant"].get("broken_itype"),
