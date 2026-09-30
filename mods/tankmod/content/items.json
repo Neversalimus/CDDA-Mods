@@ -1151,7 +1151,7 @@
       "powder"
     ],
     "volume": "250 ml",
-    "weight": "40 g",
+    "weight": "45 g",
     "stackable": true,
     "explode_in_fire": true,
     "explosion": {
@@ -1175,7 +1175,7 @@
       "powder"
     ],
     "volume": "250 ml",
-    "weight": "80 g",
+    "weight": "51 g",
     "stackable": true,
     "explode_in_fire": true,
     "explosion": {
@@ -1860,8 +1860,8 @@
       "steel",
       "plastic"
     ],
-    "weight": "45000 kg",
-    "volume": "900 L",
+    "weight": "4500 kg",
+    "volume": "1000 L",
     "melee_damage": {
       "bash": 20,
       "cut": 15
