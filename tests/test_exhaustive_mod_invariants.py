@@ -235,7 +235,7 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
             "secro_power_armor_module_core": "300 ml",
             "secro_power_armor_module_vessel": "1100 ml",
             "secro_power_armor_module_vessel_act": "1100 ml",
-            "secro_fleshmech_gun_spikes": "16.5 L",
+            "secro_fleshmech_gun_spikes": "16500 ml",
         }
         all_objects = {
             obj["id"]: obj

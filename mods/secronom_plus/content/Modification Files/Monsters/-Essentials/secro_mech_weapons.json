@@ -12,7 +12,7 @@
     },
     "description": "This is a rather vague integral weapon system for the Secronom Project's Experimental Mech \"Flesh\". Possesses wide variety of bio-organic guns to shoot different projectiles which consumes flesh as ammunition. Mech's hand have currently turned into a bone launcher, which volleys bone spikes at a high rate.",
     "weight": "43220 g",
-    "volume": "16.5 L",
+    "volume": "16500 ml",
     "melee_damage": {
       "bash": 8
     },
