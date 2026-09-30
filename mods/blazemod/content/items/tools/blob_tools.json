@@ -28,59 +28,59 @@
     }
   },
   {
-    "id": "bitergrow",
-    "type": "ITEM",
-    "subtypes": [
-      "TOOL"
-    ],
-    "category": "tools",
-    "name": {
-      "str_sp": "growing keratinous mass"
-    },
-    "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
-    "weight": "12140 g",
-    "volume": "11500 ml",
-    "price": "1 USD",
-    "material": [
-      "flesh"
-    ],
-    "symbol": ";",
-    "color": "blue",
-    "use_action": {
-      "target": "biter",
-      "msg": "The blob balloons to full size.",
-      "type": "delayed_transform",
-      "transform_age": 4800,
-      "not_ready_msg": "Whatever it's doing, it's not done yet."
-    }
+  "id": "bitergrow",
+  "type": "ITEM",
+  "subtypes": [
+    "TOOL"
+  ],
+  "category": "tools",
+  "name": {
+    "str_sp": "growing keratinous mass"
   },
+  "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
+  "weight": "9166 g",
+  "volume": "11500 ml",
+  "price": "1 USD",
+  "material": [
+    "flesh"
+  ],
+  "symbol": ";",
+  "color": "blue",
+  "use_action": {
+    "target": "biter",
+    "msg": "The blob balloons to full size.",
+    "type": "delayed_transform",
+    "transform_age": 4800,
+    "not_ready_msg": "Whatever it's doing, it's not done yet."
+  }
+},
   {
-    "id": "cluttergrow",
-    "type": "ITEM",
-    "subtypes": [
-      "TOOL"
-    ],
-    "category": "tools",
-    "name": {
-      "str_sp": "growing beaded mass"
-    },
-    "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
-    "weight": "5410 g",
-    "volume": "5500 ml",
-    "price": "1 USD",
-    "material": [
-      "flesh"
-    ],
-    "symbol": ";",
-    "color": "magenta",
-    "use_action": {
-      "target": "clutter",
-      "msg": "The blob balloons to full size.",
-      "type": "delayed_transform",
-      "transform_age": 2400,
-      "not_ready_msg": "Whatever it's doing, it's not done yet."
-    }
+  "id": "cluttergrow",
+  "type": "ITEM",
+  "subtypes": [
+    "TOOL"
+  ],
+  "category": "tools",
+  "name": {
+    "str_sp": "growing beaded mass"
   },
+  "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
+  "weight": "3626 g",
+  "volume": "5500 ml",
+  "price": "1 USD",
+  "material": [
+    "flesh"
+  ],
+  "symbol": ";",
+  "color": "magenta",
+  "use_action": {
+    "target": "clutter",
+    "msg": "The blob balloons to full size.",
+    "type": "delayed_transform",
+    "transform_age": 2400,
+    "not_ready_msg": "Whatever it's doing, it's not done yet."
+  }
+},
   {
     "id": "freeziegrow",
     "type": "ITEM",
@@ -132,32 +132,32 @@
     "color": "light_blue"
   },
   {
-    "id": "frostiegrow",
-    "type": "ITEM",
-    "subtypes": [
-      "TOOL"
-    ],
-    "category": "tools",
-    "name": {
-      "str_sp": "growing cold mass"
-    },
-    "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
-    "weight": "3562 g",
-    "volume": "3500 ml",
-    "price": "1 USD",
-    "material": [
-      "flesh"
-    ],
-    "symbol": ";",
-    "color": "light_blue",
-    "use_action": {
-      "target": "frostie",
-      "msg": "The blob balloons to full size.",
-      "type": "delayed_transform",
-      "transform_age": 9600,
-      "not_ready_msg": "Whatever it's doing, it's not done yet."
-    }
+  "id": "frostiegrow",
+  "type": "ITEM",
+  "subtypes": [
+    "TOOL"
+  ],
+  "category": "tools",
+  "name": {
+    "str_sp": "growing cold mass"
   },
+  "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
+  "weight": "3056 g",
+  "volume": "3500 ml",
+  "price": "1 USD",
+  "material": [
+    "flesh"
+  ],
+  "symbol": ";",
+  "color": "light_blue",
+  "use_action": {
+    "target": "frostie",
+    "msg": "The blob balloons to full size.",
+    "type": "delayed_transform",
+    "transform_age": 9600,
+    "not_ready_msg": "Whatever it's doing, it's not done yet."
+  }
+},
   {
     "id": "fuzzlegrow",
     "type": "ITEM",
@@ -292,32 +292,32 @@
     }
   },
   {
-    "id": "glowiegrow",
-    "type": "ITEM",
-    "subtypes": [
-      "TOOL"
-    ],
-    "category": "tools",
-    "name": {
-      "str_sp": "growing glowing mass"
-    },
-    "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
-    "weight": "3562 g",
-    "volume": "3500 ml",
-    "price": "1 USD",
-    "material": [
-      "flesh"
-    ],
-    "symbol": ";",
-    "color": "cyan",
-    "use_action": {
-      "target": "glowie",
-      "msg": "The blob balloons to full size.",
-      "type": "delayed_transform",
-      "transform_age": 4800,
-      "not_ready_msg": "Whatever it's doing, it's not done yet."
-    }
+  "id": "glowiegrow",
+  "type": "ITEM",
+  "subtypes": [
+    "TOOL"
+  ],
+  "category": "tools",
+  "name": {
+    "str_sp": "growing glowing mass"
   },
+  "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
+  "weight": "2566 g",
+  "volume": "3500 ml",
+  "price": "1 USD",
+  "material": [
+    "flesh"
+  ],
+  "symbol": ";",
+  "color": "cyan",
+  "use_action": {
+    "target": "glowie",
+    "msg": "The blob balloons to full size.",
+    "type": "delayed_transform",
+    "transform_age": 4800,
+    "not_ready_msg": "Whatever it's doing, it's not done yet."
+  }
+},
   {
     "id": "gray",
     "type": "ITEM",
@@ -398,32 +398,32 @@
     }
   },
   {
-    "id": "graygrow",
-    "type": "ITEM",
-    "subtypes": [
-      "TOOL"
-    ],
-    "category": "tools",
-    "name": {
-      "str_sp": "growing gray mass"
-    },
-    "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
-    "weight": "16335 g",
-    "volume": "15 L",
-    "price": "1 USD",
-    "material": [
-      "flesh"
-    ],
-    "symbol": ";",
-    "color": "light_gray",
-    "use_action": {
-      "target": "gray",
-      "msg": "The blob balloons to full size.",
-      "type": "delayed_transform",
-      "transform_age": 9600,
-      "not_ready_msg": "Whatever it's doing, it's not done yet."
-    }
+  "id": "graygrow",
+  "type": "ITEM",
+  "subtypes": [
+    "TOOL"
+  ],
+  "category": "tools",
+  "name": {
+    "str_sp": "growing gray mass"
   },
+  "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
+  "weight": "9560 g",
+  "volume": "15 L",
+  "price": "1 USD",
+  "material": [
+    "flesh"
+  ],
+  "symbol": ";",
+  "color": "light_gray",
+  "use_action": {
+    "target": "gray",
+    "msg": "The blob balloons to full size.",
+    "type": "delayed_transform",
+    "transform_age": 9600,
+    "not_ready_msg": "Whatever it's doing, it's not done yet."
+  }
+},
   {
     "id": "horrorgrow",
     "type": "ITEM",
@@ -479,32 +479,32 @@
     }
   },
   {
-    "id": "meltiegrow",
-    "type": "ITEM",
-    "subtypes": [
-      "TOOL"
-    ],
-    "category": "tools",
-    "name": {
-      "str_sp": "growing acidic mass"
-    },
-    "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
-    "weight": "12140 g",
-    "volume": "11500 ml",
-    "price": "1 USD",
-    "material": [
-      "flesh"
-    ],
-    "symbol": ";",
-    "color": "light_red",
-    "use_action": {
-      "target": "meltie",
-      "msg": "The blob balloons to full size.",
-      "type": "delayed_transform",
-      "transform_age": 4800,
-      "not_ready_msg": "Whatever it's doing, it's not done yet."
-    }
+  "id": "meltiegrow",
+  "type": "ITEM",
+  "subtypes": [
+    "TOOL"
+  ],
+  "category": "tools",
+  "name": {
+    "str_sp": "growing acidic mass"
   },
+  "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
+  "weight": "7777 g",
+  "volume": "11500 ml",
+  "price": "1 USD",
+  "material": [
+    "flesh"
+  ],
+  "symbol": ";",
+  "color": "light_red",
+  "use_action": {
+    "target": "meltie",
+    "msg": "The blob balloons to full size.",
+    "type": "delayed_transform",
+    "transform_age": 4800,
+    "not_ready_msg": "Whatever it's doing, it's not done yet."
+  }
+},
   {
     "id": "oozle",
     "type": "ITEM",
@@ -585,32 +585,32 @@
     }
   },
   {
-    "id": "oozlegrow",
-    "type": "ITEM",
-    "subtypes": [
-      "TOOL"
-    ],
-    "category": "tools",
-    "name": {
-      "str_sp": "growing ooze"
-    },
-    "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
-    "weight": "12662 g",
-    "volume": "12 L",
-    "price": "1 USD",
-    "material": [
-      "flesh"
-    ],
-    "symbol": ";",
-    "color": "green",
-    "use_action": {
-      "target": "oozle",
-      "msg": "The blob balloons to full size.",
-      "type": "delayed_transform",
-      "transform_age": 4800,
-      "not_ready_msg": "Whatever it's doing, it's not done yet."
-    }
+  "id": "oozlegrow",
+  "type": "ITEM",
+  "subtypes": [
+    "TOOL"
+  ],
+  "category": "tools",
+  "name": {
+    "str_sp": "growing ooze"
   },
+  "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
+  "weight": "8131 g",
+  "volume": "12 L",
+  "price": "1 USD",
+  "material": [
+    "flesh"
+  ],
+  "symbol": ";",
+  "color": "green",
+  "use_action": {
+    "target": "oozle",
+    "msg": "The blob balloons to full size.",
+    "type": "delayed_transform",
+    "transform_age": 4800,
+    "not_ready_msg": "Whatever it's doing, it's not done yet."
+  }
+},
   {
     "id": "queengrow",
     "type": "ITEM",
