@@ -1210,7 +1210,7 @@
     },
     "description": "A tension-operated speargun.  A hand-crank lets one draw the strings quickly, but it's too unwieldy to handle without a support of some sort.",
     "weight": "18500 g",
-    "volume": "4 L",
+    "volume": "4250 ml",
     "price": "1100 USD",
     "melee_damage": {
       "bash": 12
