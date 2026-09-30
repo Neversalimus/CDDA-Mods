@@ -6,7 +6,7 @@
     "str": "SP Experimental Mech \"Flesh\"",
     "str_pl": "SP Experimental Mechs \"Flesh\""
   },
-  "description": "This experimental mech type \"Flesh\" is the most recent (and last) mechsuit produced by the engineers of the Secronom Project. Very scarce and limited to military use only, it was designed to take on the main force of the battlefield thanks to its exotic yet nigh indestructible material, especially supplemented with a variety of gun morphs. Unfortunately, it requires one to wear a bio-organic power and link it with the mech to accept you as its rider.",
+  "description": "This experimental mech type \"Flesh\" is the most recent (and last) mechsuit produced by the engineers of the Secronom Project.  Very scarce and limited to military use only, it was designed to take on the main force of the battlefield thanks to its exotic yet nigh indestructible material, especially supplemented with a variety of gun morphs.  Unfortunately, it requires one to wear a bio-organic power and link it with the mech to accept you as its rider.",
   "default_faction": "mech_bot",
   "species": [
     "ROBOT",
@@ -77,7 +77,7 @@
     "str": "SP Experimental Mech \"Flesh\"",
     "str_pl": "SP Experimental Mechs \"Flesh\""
   },
-  "description": "This experimental mech type \"Flesh\" is the most recent (and last) mechsuit produced by the engineers of the Secronom Project. Very scarce and limited to military use only, it was designed to take on the main force of the battlefield thanks to its exotic yet nigh indestructible material, especially supplemented with a variety of gun morphs.",
+  "description": "This experimental mech type \"Flesh\" is the most recent (and last) mechsuit produced by the engineers of the Secronom Project.  Very scarce and limited to military use only, it was designed to take on the main force of the battlefield thanks to its exotic yet nigh indestructible material, especially supplemented with a variety of gun morphs.",
   "speed": 60,
   "extend": {
     "flags": [

@@ -248,7 +248,7 @@
     "type": "martial_art",
     "id": "secro_style_biomorph",
     "name": { "str": "Biomorph" },
-    "description": "An innate knowledge gained by those who harness the power of bio-organic exoskeleton \"Flesh Vessel\". This style specializes at controlling hybrid weaponry called armaments and use them at their full potential thanks to your power armor's own consciousness.",
+    "description": "An innate knowledge gained by those who harness the power of bio-organic exoskeleton \"Flesh Vessel\".  This style specializes at controlling hybrid weaponry called armaments and use them at their full potential thanks to your power armor's own consciousness.",
     "initiate": [ "Your suit trembles as you take a defensive stance.", "%s takes on a defensive stance." ],
     "learn_difficulty": 10,
     "primary_skill": "secro_flesh_combat",
@@ -274,7 +274,7 @@
       {
         "id": "buff_secro_biomorph_augment_onpause",
         "name": "Augmenting Distribution",
-        "description": "You channel your suit to enhance your armament. Disables suit's defensive capabilities as a cost.\n\nLasts for 10 turns",
+        "description": "You channel your suit to enhance your armament.  Disables suit's defensive capabilities as a cost.\n\nLasts for 10 turns",
         "buff_duration": 10,
         "melee_allowed": true
       }
@@ -283,7 +283,7 @@
       {
         "id": "buff_secro_biomorph_augment_tent_onhit",
         "name": "Augment: Twisted Vein",
-        "description": "Your twisted veins armament increases in numbers as you land a hit.\n\nBash damage increased by 2 for each stack. Physical resistance decreases by 1 every 3 stacks. Lasts for 4 turns. Stacks 6 times.",
+        "description": "Your twisted veins armament increases in numbers as you land a hit.\n\nBash damage increased by 2 for each stack.  Physical resistance decreases by 1 every 3 stacks.  Lasts for 4 turns.  Stacks 6 times.",
         "buff_duration": 4,
         "max_stacks": 6,
         "melee_allowed": true,

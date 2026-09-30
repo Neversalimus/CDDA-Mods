@@ -64,7 +64,7 @@
   "name": {
     "str": "Transmit"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Item signals the nearby crimson horrors, hinting them the wearer is friendly.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Item signals the nearby crimson horrors, hinting them the wearer is friendly.'",
   "message": "",
   "flags": [
     "SILENT",
@@ -195,7 +195,7 @@
   "name": {
     "str": "a spell"
   },
-  "description": "Target spell casted by an item. If you're seeing this, then read this one instead:\n'Caster locks its line of sight onto the target, then randomly casts one of the Spell(s).'",
+  "description": "Target spell casted by an item.  If you're seeing this, then read this one instead:\n'Caster locks its line of sight onto the target, then randomly casts one of the Spell(s).'",
   "message": "",
   "extra_effects": [
     {
@@ -230,7 +230,7 @@
   "name": {
     "str": "Traverse"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Item temporarily reverts the infection of the flesh terrain, while smoothing the meatslabs of the flesh.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Item temporarily reverts the infection of the flesh terrain, while smoothing the meatslabs of the flesh.'",
   "flags": [
     "SILENT",
     "NO_HANDS",
@@ -254,7 +254,7 @@
   "name": {
     "str": "Link"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Item transmits a signal to the suit, temporarily protecting the user from constant damage.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Item transmits a signal to the suit, temporarily protecting the user from constant damage.'",
   "message": "",
   "flags": [
     "SILENT",
@@ -277,7 +277,7 @@
   "name": {
     "str": "Morph"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Item provides the starter gear for flesh vessel.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Item provides the starter gear for flesh vessel.'",
   "message": "",
   "flags": [
     "SILENT",
@@ -299,7 +299,7 @@
   "name": {
     "str": "Morph"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Item provides the starter gear for flesh vessel.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Item provides the starter gear for flesh vessel.'",
   "message": "",
   "flags": [
     "SILENT",
@@ -321,7 +321,7 @@
   "name": {
     "str": "Morph"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Item provides the starter gear for flesh vessel.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Item provides the starter gear for flesh vessel.'",
   "message": "",
   "flags": [
     "SILENT",
@@ -343,7 +343,7 @@
   "name": {
     "str": "Flesh Vessel"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Proof that you merged with the vessel, providing you its benefits.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Proof that you merged with the vessel, providing you its benefits.'",
   "message": "",
   "valid_targets": [
     "self"
@@ -364,7 +364,7 @@
   "name": {
     "str": "a spell"
   },
-  "description": "Target spell casted by a monster. If you're seeing this, then read this one instead:\n'Caster locks its line of sight onto the target, then casts the Spell(s).'",
+  "description": "Target spell casted by a monster.  If you're seeing this, then read this one instead:\n'Caster locks its line of sight onto the target, then casts the Spell(s).'",
   "message": "",
   "extra_effects": [
     {
@@ -402,7 +402,7 @@
   "name": {
     "str": "Morph"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Item provides an object used for selecting the morphing branch.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Item provides an object used for selecting the morphing branch.'",
   "message": "",
   "flags": [
     "SILENT",
@@ -426,7 +426,7 @@
   "name": {
     "str": "Slash"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'User performs a basic slash at their target, dealing small cutting damage .'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'User performs a basic slash at their target, dealing small cutting damage .'",
   "message": "",
   "flags": [
     "SILENT",
@@ -452,7 +452,7 @@
   "name": {
     "str": "Slice"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'User performs a high momentum slash at their target, dealing cutting damage .'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'User performs a high momentum slash at their target, dealing cutting damage .'",
   "message": "",
   "flags": [
     "SILENT",
@@ -478,7 +478,7 @@
   "name": {
     "str": "Inject"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Flesh vessel's twisted veins pierces at the target, dealing small stabbing damage and slightly enslows them.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Flesh vessel's twisted veins pierces at the target, dealing small stabbing damage and slightly enslows them.'",
   "message": "",
   "flags": [
     "SILENT",
@@ -508,7 +508,7 @@
   "name": {
     "str": "Inject"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Flesh vessel's twisted veins inject a target, dealing stabbing damage and enslows them.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Flesh vessel's twisted veins inject a target, dealing stabbing damage and enslows them.'",
   "message": "",
   "flags": [
     "SILENT",
@@ -539,7 +539,7 @@
   "name": {
     "str": "a spell"
   },
-  "description": "Target spell casted by an item. If you're seeing this, then read this one instead:\n'Caster locks its line of sight onto the target, then randomly casts one of the Spell(s).'",
+  "description": "Target spell casted by an item.  If you're seeing this, then read this one instead:\n'Caster locks its line of sight onto the target, then randomly casts one of the Spell(s).'",
   "message": "Your tentacles writhe violently!",
   "extra_effects": [
     {
@@ -614,7 +614,7 @@
   "name": {
     "str": "Acid Spit"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Flesh vessel's spitter armanent shoots a glob of blood acid at the target, dealing acid damage.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Flesh vessel's spitter armanent shoots a glob of blood acid at the target, dealing acid damage.'",
   "message": "",
   "flags": [
     "SILENT",
@@ -645,7 +645,7 @@
   "name": {
     "str": "a spell"
   },
-  "description": "Target spell casted by an item. If you're seeing this, then read this one instead:\n'Caster locks its line of sight onto the target, then randomly casts one of the Spell(s).'",
+  "description": "Target spell casted by an item.  If you're seeing this, then read this one instead:\n'Caster locks its line of sight onto the target, then randomly casts one of the Spell(s).'",
   "message": "",
   "flags": [
     "SILENT",
@@ -673,7 +673,7 @@
   "name": {
     "str": "Bone Spike"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Flesh vessel's bone launcher armanent spews a chunk of calcified material onto the target.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Flesh vessel's bone launcher armanent spews a chunk of calcified material onto the target.'",
   "message": "",
   "flags": [
     "SILENT",
@@ -704,7 +704,7 @@
   "name": {
     "str": "a spell"
   },
-  "description": "Target spell casted by an item. If you're seeing this, then read this one instead:\n'Caster locks its line of sight onto the target, then randomly casts one of the Spell(s).'",
+  "description": "Target spell casted by an item.  If you're seeing this, then read this one instead:\n'Caster locks its line of sight onto the target, then randomly casts one of the Spell(s).'",
   "message": "",
   "extra_effects": [
     {
@@ -738,7 +738,7 @@
   "name": {
     "str": "React"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Flesh vessel's bone spike reacts, dealing stab damage to the attacker.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Flesh vessel's bone spike reacts, dealing stab damage to the attacker.'",
   "message": "",
   "flags": [
     "SILENT",
@@ -764,7 +764,7 @@
   "name": {
     "str": "Retaliate"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Flesh vessel's bone spike viciously reacts, dealing stab damage and stunning the attacker.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Flesh vessel's bone spike viciously reacts, dealing stab damage and stunning the attacker.'",
   "message": "",
   "flags": [
     "SILENT",
@@ -793,7 +793,7 @@
   "name": {
     "str": "Skeletal Outburst"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'User channels its flesh vessel. After some moments, the bone spikes grow and protrudes outward, impaling nearby targets. Inaccurate, yet deadly.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'User channels its flesh vessel.  After some moments, the bone spikes grow and protrudes outward, impaling nearby targets.  Inaccurate, yet deadly.'",
   "message": "",
   "flags": [
     "SILENT",
@@ -825,7 +825,7 @@
   "name": {
     "str": "a spell"
   },
-  "description": "Target spell casted by an item. If you're seeing this, then read this one instead:\n'Caster locks its line of sight onto the target, then randomly casts one of the Spell(s).'",
+  "description": "Target spell casted by an item.  If you're seeing this, then read this one instead:\n'Caster locks its line of sight onto the target, then randomly casts one of the Spell(s).'",
   "message": "",
   "extra_effects": [
     {
@@ -859,7 +859,7 @@
   "name": {
     "str": "Powerpunch"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Flesh vessel's fleshpound delivers a devastating blow, dealing massive bash damage and applies stun for sveral turns.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Flesh vessel's fleshpound delivers a devastating blow, dealing massive bash damage and applies stun for sveral turns.'",
   "message": "",
   "flags": [
     "SILENT",
@@ -889,7 +889,7 @@
   "name": {
     "str": "Powerkick"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'User performs a devastating kick at the target, dealing massive bashing damage and applies stun for several turns .'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'User performs a devastating kick at the target, dealing massive bashing damage and applies stun for several turns .'",
   "message": "",
   "flags": [
     "SILENT",
@@ -918,7 +918,7 @@
   "name": {
     "str": "Bite"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Flesh vessel's jawed biter bites at the target, dealing stabbing damage.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Flesh vessel's jawed biter bites at the target, dealing stabbing damage.'",
   "message": "",
   "flags": [
     "SILENT",
@@ -944,7 +944,7 @@
   "name": {
     "str": "Crunch"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Flesh vessel's jawed biter ferociously bites at the target, dealing high stabbing damage.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Flesh vessel's jawed biter ferociously bites at the target, dealing high stabbing damage.'",
   "message": "",
   "flags": [
     "SILENT",
@@ -970,8 +970,8 @@
   "name": {
     "str": "a spell"
   },
-  "description": "Target spell casted by an item. If you're seeing this, then read this one instead:\n'Caster locks its line of sight onto the target, then casts the Spell(s).'",
-  "message": "<color_dark_gray>The bio-organic splicer's tentacles start to writhe violently...\n<color_light_green>The bio-organic splicer rakes %3$s!",
+  "description": "Target spell casted by an item.  If you're seeing this, then read this one instead:\n'Caster locks its line of sight onto the target, then casts the Spell(s).'",
+  "message": "<color_dark_gray>The bio-organic splicer's tentacles start to writhe violently…\n<color_light_green>The bio-organic splicer rakes %3$s!",
   "extra_effects": [
     {
       "id": "secro_flesh_splicer_zombie_blade"
@@ -1038,7 +1038,7 @@
   "name": {
     "str": "Scan"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Item scans the target...'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Item scans the target…'",
   "flags": [
     "SILENT",
     "NO_HANDS",
@@ -1071,7 +1071,7 @@
   "name": {
     "str": "Collect"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Provides the specific DNA.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Provides the specific DNA.'",
   "flags": [
     "SILENT",
     "NO_HANDS",
@@ -1103,7 +1103,7 @@
   "name": {
     "str": "Scan"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Item scans the target...'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Item scans the target…'",
   "flags": [
     "SILENT",
     "NO_HANDS",
@@ -1136,7 +1136,7 @@
   "name": {
     "str": "Collect"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Provides the specific DNA.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Provides the specific DNA.'",
   "flags": [
     "SILENT",
     "NO_HANDS",
@@ -1168,7 +1168,7 @@
   "name": {
     "str": "Scan"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Item scans the target...'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Item scans the target…'",
   "flags": [
     "SILENT",
     "NO_HANDS",
@@ -1200,7 +1200,7 @@
   "name": {
     "str": "Collect"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Provides the specific DNA.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Provides the specific DNA.'",
   "flags": [
     "SILENT",
     "NO_HANDS",
@@ -1231,7 +1231,7 @@
   "name": {
     "str": "Scan"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Item scans the target...'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Item scans the target…'",
   "flags": [
     "SILENT",
     "NO_HANDS",
@@ -1264,7 +1264,7 @@
   "name": {
     "str": "Collect"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Provides the specific DNA.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Provides the specific DNA.'",
   "flags": [
     "SILENT",
     "NO_HANDS",
@@ -1296,7 +1296,7 @@
   "name": {
     "str": "Scan"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Item scans the target...'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Item scans the target…'",
   "flags": [
     "SILENT",
     "NO_HANDS",
@@ -1327,7 +1327,7 @@
   "name": {
     "str": "Collect"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Provides the specific DNA.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Provides the specific DNA.'",
   "flags": [
     "SILENT",
     "NO_HANDS",
@@ -1357,7 +1357,7 @@
   "name": {
     "str": "Scan"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Item scans the target...'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Item scans the target…'",
   "flags": [
     "SILENT",
     "NO_HANDS",
@@ -1389,7 +1389,7 @@
   "name": {
     "str": "Collect"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Provides the specific DNA.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Provides the specific DNA.'",
   "flags": [
     "SILENT",
     "NO_HANDS",
@@ -1420,7 +1420,7 @@
   "name": {
     "str": "a spell"
   },
-  "description": "Target spell casted by an item. If you're seeing this, then read this one instead:\n'Caster locks its line of sight onto the target, then randomly casts one of the Spell(s).'",
+  "description": "Target spell casted by an item.  If you're seeing this, then read this one instead:\n'Caster locks its line of sight onto the target, then randomly casts one of the Spell(s).'",
   "message": "",
   "flags": [
     "SILENT"
@@ -1454,7 +1454,7 @@
   "name": {
     "str": "Item Command"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Provides the item command.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Provides the item command.'",
   "flags": [
     "SILENT",
     "NO_HANDS",
@@ -1478,7 +1478,7 @@
   "name": {
     "str": "Follow"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'The amalgam starts to follow you .'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'The amalgam starts to follow you .'",
   "message": "The transmitter writhes wildly!",
   "flags": [
     "SILENT",
@@ -1507,7 +1507,7 @@
   "name": {
     "str": "Item Command"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Provides the item command.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Provides the item command.'",
   "flags": [
     "SILENT",
     "NO_HANDS",
@@ -1531,7 +1531,7 @@
   "name": {
     "str": "Follow"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'All nearby amalgam starts to follow you .'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'All nearby amalgam starts to follow you .'",
   "message": "The transmitter writhes wildly!",
   "flags": [
     "SILENT",
@@ -1560,7 +1560,7 @@
   "name": {
     "str": "Item Command"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Provides the item command.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Provides the item command.'",
   "flags": [
     "SILENT",
     "NO_HANDS",
@@ -1584,7 +1584,7 @@
   "name": {
     "str": "Attack"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'The amalgam starts will patrol and attack nearby hostiles .'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'The amalgam starts will patrol and attack nearby hostiles .'",
   "message": "The transmitter writhes wildly!",
   "flags": [
     "SILENT",
@@ -1613,7 +1613,7 @@
   "name": {
     "str": "Item Command"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Provides the item command.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Provides the item command.'",
   "flags": [
     "SILENT",
     "NO_HANDS",
@@ -1637,7 +1637,7 @@
   "name": {
     "str": "Attack"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'All nearby amalgam starts to attack hostiles .'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'All nearby amalgam starts to attack hostiles .'",
   "message": "The transmitter writhes wildly!",
   "flags": [
     "SILENT",
@@ -1666,7 +1666,7 @@
   "name": {
     "str": "Sweep"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'The modded weapon unleashes several tendrils, swinging wildly into the vicinity that deals bashing damage.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'The modded weapon unleashes several tendrils, swinging wildly into the vicinity that deals bashing damage.'",
   "message": "",
   "flags": [
     "SILENT",
@@ -1695,7 +1695,7 @@
   "name": {
     "str": "a spell"
   },
-  "description": "Target spell casted by an item. If you're seeing this, then read this one instead:\n'Caster locks its line of sight onto the target, then randomly casts one of the Spell(s).'",
+  "description": "Target spell casted by an item.  If you're seeing this, then read this one instead:\n'Caster locks its line of sight onto the target, then randomly casts one of the Spell(s).'",
   "message": "",
   "flags": [
     "SILENT",
@@ -1724,7 +1724,7 @@
   "name": {
     "str": "Slam"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'The modded weapon's tendrils compresses, then slams into the target, dealing bashing damage and applying stun.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'The modded weapon's tendrils compresses, then slams into the target, dealing bashing damage and applying stun.'",
   "message": "",
   "flags": [
     "SILENT",
@@ -1752,7 +1752,7 @@
   "name": {
     "str": "Thrust"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'The modded weapon's tendrils thrust at the target, dealing stabbing damage and applying stun.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'The modded weapon's tendrils thrust at the target, dealing stabbing damage and applying stun.'",
   "message": "",
   "flags": [
     "SILENT",
@@ -1780,7 +1780,7 @@
   "name": {
     "str": "Electric Discharge"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'User's power gloves generate a high current electricity on impact, dealing small electric damage and zaps them of their tracks.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'User's power gloves generate a high current electricity on impact, dealing small electric damage and zaps them of their tracks.'",
   "message": "",
   "flags": [
     "SILENT",
@@ -1809,7 +1809,7 @@
   "name": {
     "str": "Overcharged Shock"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'User's power gloves generate an extremely high-powered electric current, randomly arching through the vicinity that deals electric damage and zaps affected targets.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'User's power gloves generate an extremely high-powered electric current, randomly arching through the vicinity that deals electric damage and zaps affected targets.'",
   "message": "",
   "flags": [
     "SILENT",
@@ -1844,7 +1844,7 @@
   "name": {
     "str": "a spell"
   },
-  "description": "Target spell casted by an item. If you're seeing this, then read this one instead:\n'Caster locks its line of sight onto the target, then randomly casts one of the Spell(s).'",
+  "description": "Target spell casted by an item.  If you're seeing this, then read this one instead:\n'Caster locks its line of sight onto the target, then randomly casts one of the Spell(s).'",
   "message": "",
   "extra_effects": [
     {
@@ -1880,7 +1880,7 @@
   "name": {
     "str": "Pulse"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'User's shockwave generators create a shockwave pulse.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'User's shockwave generators create a shockwave pulse.'",
   "message": "",
   "effect": "area_push",
   "shape": "blast",
@@ -1903,7 +1903,7 @@
   "name": {
     "str": "Movecost"
   },
-  "description": "Movecost spell. Alternative to ACTIVITY.",
+  "description": "Movecost spell.  Alternative to ACTIVITY.",
   "valid_targets": [
     "self"
   ],

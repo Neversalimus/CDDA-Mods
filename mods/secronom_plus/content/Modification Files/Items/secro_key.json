@@ -31,7 +31,7 @@
     "name": {
       "str": "Identify"
     },
-    "description": "Item is swapped to the door's card reader. If successful, opens specific doors.",
+    "description": "Item is swapped to the door's card reader.  If successful, opens specific doors.",
     "flags": [
       "SILENT",
       "NO_PROJECTILE"
@@ -53,7 +53,7 @@
     "name": {
       "str": "Identify"
     },
-    "description": "Item is swapped to the door's card reader. If successful, opens specific doors.",
+    "description": "Item is swapped to the door's card reader.  If successful, opens specific doors.",
     "flags": [
       "SILENT",
       "NO_PROJECTILE"
@@ -78,7 +78,7 @@
     "name": {
       "str": "Secronom ID card"
     },
-    "description": "This ID card once belonged to a secronom researcher. One side shows the information about the owner, the other describes the use for it. \"Level 2 clearance\".",
+    "description": "This ID card once belonged to a secronom researcher.  One side shows the information about the owner, the other describes the use for it.  \"Level 2 clearance\".",
     "price": "180 USD",
     "price_postapoc": "1 USD",
     "material": [
@@ -102,7 +102,7 @@
     "name": {
       "str": "Secronom ID card"
     },
-    "description": "This ID card once belonged to a secronom researcher. One side shows the information about the owner, the other describes the use for it. \"Level 1 clearance\".",
+    "description": "This ID card once belonged to a secronom researcher.  One side shows the information about the owner, the other describes the use for it.  \"Level 1 clearance\".",
     "price": "90 USD",
     "price_postapoc": "1 USD",
     "material": [

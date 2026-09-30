@@ -5,7 +5,7 @@
   "name": {
     "str": "Mechsuit Link"
   },
-  "description": "Your flesh vessel links itself with the Experimental Mech \"Flesh\". This doesn't bypasses military identification check.",
+  "description": "Your flesh vessel links itself with the Experimental Mech \"Flesh\".  This doesn't bypasses military identification check.",
   "flags": [
     "SILENT",
     "NO_HANDS",
@@ -35,7 +35,7 @@
   "name": {
     "str": "Flesh Mending"
   },
-  "description": "Flesh core's internal flesh weavers start to repair your body using vast amounts of bionic power and stored calories. Immediately stops/blocks further bleeding and heals 2 HP every 10 seconds, up to 12 HP for each activation.",
+  "description": "Flesh core's internal flesh weavers start to repair your body using vast amounts of bionic power and stored calories.  Immediately stops/blocks further bleeding and heals 2 HP every 10 seconds, up to 12 HP for each activation.",
   "message": "",
   "flags": [
     "SILENT",
@@ -69,7 +69,7 @@
   "name": {
     "str": "Morph"
   },
-  "description": "Spell casted by an item. If you're seeing this, then read this one instead:\n'Morph the suit by giving it as an item.'",
+  "description": "Spell casted by an item.  If you're seeing this, then read this one instead:\n'Morph the suit by giving it as an item.'",
   "message": "",
   "flags": [
     "SILENT",

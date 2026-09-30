@@ -165,7 +165,7 @@
       "str": "<color_light_green>core</color> (blade zombie)",
       "str_pl": "<color_light_green>cores</color> (blade zombie)"
     },
-    "description": "A heavily compressed flesh of a blade zombie. Contains a potent DNA suitable for replication.",
+    "description": "A heavily compressed flesh of a blade zombie.  Contains a potent DNA suitable for replication.",
     "price": "1 USD",
     "price_postapoc": "1 USD",
     "weight": "370 g",
@@ -184,7 +184,7 @@
       "str": "<color_light_green>core</color> (lying body)",
       "str_pl": "<color_light_green>cores</color> (lying body)"
     },
-    "description": "A heavily compressed flesh of a lying body. Contains a potent DNA suitable for replication.",
+    "description": "A heavily compressed flesh of a lying body.  Contains a potent DNA suitable for replication.",
     "price": "1 USD",
     "price_postapoc": "1 USD",
     "weight": "370 g",
@@ -203,7 +203,7 @@
       "str": "<color_light_green>core</color> (mouthswell zombie)",
       "str_pl": "<color_light_green>cores</color> (mouthswell zombie)"
     },
-    "description": "A heavily compressed flesh of a mouthswell zombie. Contains a potent DNA suitable for replication.",
+    "description": "A heavily compressed flesh of a mouthswell zombie.  Contains a potent DNA suitable for replication.",
     "price": "1 USD",
     "price_postapoc": "1 USD",
     "weight": "370 g",
@@ -222,7 +222,7 @@
       "str": "<color_light_green>core</color> (tendril zombie)",
       "str_pl": "<color_light_green>cores</color> (tendril zombie)"
     },
-    "description": "A heavily compressed flesh of a tendril zombie. Contains a potent DNA suitable for replication.",
+    "description": "A heavily compressed flesh of a tendril zombie.  Contains a potent DNA suitable for replication.",
     "price": "1 USD",
     "price_postapoc": "1 USD",
     "weight": "370 g",
@@ -241,7 +241,7 @@
       "str": "<color_light_green>core</color> (titan)",
       "str_pl": "<color_light_green>cores</color> (titan)"
     },
-    "description": "A heavily compressed flesh of a titan. Contains a potent DNA suitable for replication.",
+    "description": "A heavily compressed flesh of a titan.  Contains a potent DNA suitable for replication.",
     "price": "1 USD",
     "price_postapoc": "1 USD",
     "weight": "370 g",
@@ -260,7 +260,7 @@
       "str": "<color_light_green>core</color> (unifier zombie)",
       "str_pl": "<color_light_green>cores</color> (unifier zombie)"
     },
-    "description": "A heavily compressed flesh of a unifier zombie. Contains a potent DNA suitable for replication.",
+    "description": "A heavily compressed flesh of a unifier zombie.  Contains a potent DNA suitable for replication.",
     "price": "1 USD",
     "price_postapoc": "1 USD",
     "weight": "370 g",

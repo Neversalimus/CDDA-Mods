@@ -10,7 +10,7 @@
     "name": {
       "str": "SPEMF bone launcher"
     },
-    "description": "This is a rather vague integral weapon system for the Secronom Project's Experimental Mech \"Flesh\". Possesses wide variety of bio-organic guns to shoot different projectiles which consumes flesh as ammunition. Mech's hand have currently turned into a bone launcher, which volleys bone spikes at a high rate.",
+    "description": "This is a rather vague integral weapon system for the Secronom Project's Experimental Mech \"Flesh\".  Possesses wide variety of bio-organic guns to shoot different projectiles which consumes flesh as ammunition.  Mech's hand have currently turned into a bone launcher, which volleys bone spikes at a high rate.",
     "weight": "43220 g",
     "volume": "16500 ml",
     "melee_damage": {
@@ -127,7 +127,7 @@
     "name": {
       "str": "SPEMF bone cannon"
     },
-    "description": "Morphs the mech's hands into bone cannons which launches and sprays bone spikes. Consumes chunks of flesh.",
+    "description": "Morphs the mech's hands into bone cannons which launches and sprays bone spikes.  Consumes chunks of flesh.",
     "weight": "1 g",
     "volume": "0 ml",
     "mod_targets": [
@@ -182,7 +182,7 @@
     "name": {
       "str": "SPEMF acid launcher"
     },
-    "description": "Morphs the mech's hands into heavy acid launchers, allowing one to spray large amounts of blood acid. Consumes chunks of flesh.",
+    "description": "Morphs the mech's hands into heavy acid launchers, allowing one to spray large amounts of blood acid.  Consumes chunks of flesh.",
     "weight": "1 g",
     "volume": "0 ml",
     "mod_targets": [
@@ -237,7 +237,7 @@
     "name": {
       "str": "SPEMF acid spitter"
     },
-    "description": "A large, elongated limb-like proboscis that sprouts from the back of the mech when activated. Bursts globs of blood acid.",
+    "description": "A large, elongated limb-like proboscis that sprouts from the back of the mech when activated.  Bursts globs of blood acid.",
     "weight": "1 g",
     "volume": "0 ml",
     "mod_targets": [

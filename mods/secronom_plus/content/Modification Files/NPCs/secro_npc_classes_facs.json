@@ -17,7 +17,7 @@
       "wasteland_scavengers": { "knows your voice": true },
       "no_faction": { "knows your voice": true }
     },
-    "description": "A small group of scientists working under a certain project. Their advanced development of utilities is their fortitude for survival."
+    "description": "A small group of scientists working under a certain project.  Their advanced development of utilities is their fortitude for survival."
   },
   {
     "type": "faction",
@@ -30,7 +30,7 @@
     "power": 0,
 	"fac_food_supply": [ [ 0, { "calories": 0, "vitamins": { "iron": 0, "calcium": 0, "vitC": 0 } } ] ],
     "wealth": 0,
-    "description": "A uniformed groups of humans/monsters created by the Secronom Project. They rarely appear in the world, and is motivated to dominate the world."
+    "description": "A uniformed groups of humans/monsters created by the Secronom Project.  They rarely appear in the world, and is motivated to dominate the world."
   },
   {
     "type": "npc_class",

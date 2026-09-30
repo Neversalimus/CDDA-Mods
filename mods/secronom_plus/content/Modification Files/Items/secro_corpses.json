@@ -32,7 +32,7 @@
     "color": "light_red",
     "weight": "75 kg",
     "name": { "str": "inactive laser beam turret" },
-    "description": "An inactive turret. It needs to be recharged in order to be used again, or could be gutted for parts.",
+    "description": "An inactive turret.  It needs to be recharged in order to be used again, or could be gutted for parts.",
     "copy-from": "broken_turret"
   }
 ]

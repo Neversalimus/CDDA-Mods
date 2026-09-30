@@ -162,7 +162,7 @@
   "name": {
     "str_sp": "<color_yellow>juggernaut armament</color> - meat shield"
   },
-  "description": "Your hands have fused together to form a meaty shield. It significantly hampers your movement, but has great blocking ability.",
+  "description": "Your hands have fused together to form a meaty shield.  It significantly hampers your movement, but has great blocking ability.",
   "weight": "3000 g",
   "color": "red",
   "symbol": "U",

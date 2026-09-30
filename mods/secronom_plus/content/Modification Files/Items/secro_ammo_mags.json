@@ -13,12 +13,12 @@
     },
     "symbol": "=",
     "color": "red",
-    "description": "A throbbing, seemingly alive slab of meat. Not edible for you to eat, but it is a necessary catalyst for flesh weaving and as a \"fuel\" for bio-organics.",
+    "description": "A throbbing, seemingly alive slab of meat.  Not edible for you to eat, but it is a necessary catalyst for flesh weaving and as a \"fuel\" for bio-organics.",
     "material": [
       "secro_flesh_fuel"
     ],
     "phase": "solid",
-    "//": "Base item is chunk of meat. Its volume/weight are divided by 25 as shown here: 500ml / 25 = 20ml, 592g / 25 = 24g",
+    "//": "Base item is chunk of meat.  Its volume/weight are divided by 25 as shown here: 500ml / 25 = 20ml, 592g / 25 = 24g",
     "volume": "20 ml",
     "weight": "24 g",
     "ammo_type": "secro_flesh",
@@ -39,7 +39,7 @@
     },
     "symbol": "=",
     "color": "red",
-    "description": "A big throbbing, seemingly alive slab of meat. Not edible for you to eat, but it is a necessary catalyst for flesh weaving and as a \"fuel\" for bio-organics.",
+    "description": "A big throbbing, seemingly alive slab of meat.  Not edible for you to eat, but it is a necessary catalyst for flesh weaving and as a \"fuel\" for bio-organics.",
     "material": [
       "secro_flesh_fuel"
     ],
@@ -63,7 +63,7 @@
     },
     "symbol": "=",
     "color": "red",
-    "description": "Formed using the flesh's versatile cell reconstruction. This bio-organic needle is tipped with a sharp end that can easily pierce through flesh and mildly-armoured targets.",
+    "description": "Formed using the flesh's versatile cell reconstruction.  This bio-organic needle is tipped with a sharp end that can easily pierce through flesh and mildly-armoured targets.",
     "material": [
       "bone"
     ],
@@ -93,7 +93,7 @@
     "name": {
       "str": "flesh pouch"
     },
-    "description": "A small orifice with small residue for storage. Usually located on small bio-organic devices.",
+    "description": "A small orifice with small residue for storage.  Usually located on small bio-organic devices.",
     "weight": "190 g",
     "volume": "430 ml",
     "price": "1 USD",
@@ -131,7 +131,7 @@
     "name": {
       "str": "flesh residue"
     },
-    "description": "A some sort of pouched orifice that consumes a special type of flesh. Unifies permanently to a flesh vessel.",
+    "description": "A some sort of pouched orifice that consumes a special type of flesh.  Unifies permanently to a flesh vessel.",
     "weight": "190 g",
     "volume": "430 ml",
     "price": "1 USD",
@@ -169,7 +169,7 @@
     "name": {
       "str": "massive flesh residue"
     },
-    "description": "A massive pouched orifice that consumes a special type of flesh. Unifies permanently to a certain flesh vessel.",
+    "description": "A massive pouched orifice that consumes a special type of flesh.  Unifies permanently to a certain flesh vessel.",
     "weight": "3200 g",
     "volume": "5530 ml",
     "price": "1 USD",
@@ -293,7 +293,7 @@
       "str": "overcharged lump of flesh",
       "str_pl": "overcharged lumps of flesh"
     },
-    "description": "This large lump of organic material stores incredibly high amount of energy produced by an artificial flesh core. Mainly used to power up a certain mech suit.",
+    "description": "This large lump of organic material stores incredibly high amount of energy produced by an artificial flesh core.  Mainly used to power up a certain mech suit.",
     "weight": "42000 g",
     "volume": "22 L",
     "material": [

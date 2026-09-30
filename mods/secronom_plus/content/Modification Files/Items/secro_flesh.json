@@ -8,7 +8,7 @@
   "name": {
     "str_sp": "bio-organic flesh"
   },
-  "description": "A chunk of heavily compressed flesh. Rubbery yet stiff, its toughness is compared to that of kevlar.",
+  "description": "A chunk of heavily compressed flesh.  Rubbery yet stiff, its toughness is compared to that of kevlar.",
   "material": [
     "secro_flesh_reinforced"
   ],
@@ -28,7 +28,7 @@
   "name": {
     "str": "molten flesh vessel"
   },
-  "description": "A bio-organic exoskeleton turned into a mish-mash of flesh and bones. Completely unusable in its form.",
+  "description": "A bio-organic exoskeleton turned into a mish-mash of flesh and bones.  Completely unusable in its form.",
   "material": [
     "secro_flesh_reinforced"
   ],

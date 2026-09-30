@@ -4,7 +4,7 @@
     "id": "mon_szombie_vessel",
     "type": "MONSTER",
     "name": { "str": "vessel experimental" },
-    "description": "A human who fell and succumbed to the flesh vessel exoskeleton - an experimental battle suit developed by the Secronom Project. It has completely fused with the body, and seem to have full control over it.",
+    "description": "A human who fell and succumbed to the flesh vessel exoskeleton - an experimental battle suit developed by the Secronom Project.  It has completely fused with the body, and seem to have full control over it.",
     "default_faction": "secro_flesh",
     "bodytype": "human",
     "species": [ "SFLESH", "HUMAN" ],

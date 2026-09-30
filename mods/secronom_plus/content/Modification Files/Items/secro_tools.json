@@ -3,7 +3,7 @@
     "melee_damage": { "bash": 3 },
     "charges_per_use": 50,
     "color": "red",
-    "description": "An experimental, syringe-like device. Labeled with \"Secronom Project\", it is used to forcefully feed a flesh vessel.",
+    "description": "An experimental, syringe-like device.  Labeled with \"Secronom Project\", it is used to forcefully feed a flesh vessel.",
     "id": "secro_tool_finfuse",
     "material": [ "steel", "glass", "plastic" ],
     "name": { "str": "SP - flesh injector" },
