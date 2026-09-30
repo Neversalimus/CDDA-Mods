@@ -1213,7 +1213,6 @@
     "melee_damage": {
       "bash": 12
     },
-    "to_hit": -1,
     "dispersion": 15,
     "durability": 8,
     "modes": [
@@ -1279,7 +1278,6 @@
     "melee_damage": {
       "bash": 10
     },
-    "to_hit": -1,
     "ranged_damage": {
       "damage_type": "bullet",
       "amount": -4
@@ -1357,7 +1355,6 @@
     "melee_damage": {
       "bash": 10
     },
-    "to_hit": -1,
     "ranged_damage": {
       "damage_type": "bullet",
       "amount": -5,
@@ -1412,7 +1409,6 @@
     "melee_damage": {
       "bash": 12
     },
-    "to_hit": -6,
     "range": 40,
     "dispersion": 20,
     "sight_dispersion": 10,
@@ -1462,7 +1458,6 @@
     "melee_damage": {
       "bash": 12
     },
-    "to_hit": -6,
     "range": 40,
     "dispersion": 30,
     "sight_dispersion": 10,
@@ -1510,7 +1505,6 @@
     "melee_damage": {
       "bash": 12
     },
-    "to_hit": -6,
     "ranged_damage": {
       "damage_type": "bullet",
       "amount": -15,
@@ -1564,7 +1558,6 @@
     "melee_damage": {
       "bash": 10
     },
-    "to_hit": -6,
     "range": 45,
     "dispersion": 15,
     "sight_dispersion": 10,
@@ -1613,7 +1606,6 @@
     "melee_damage": {
       "bash": 12
     },
-    "to_hit": -6,
     "ranged_damage": {
       "damage_type": "bullet",
       "amount": -10,
@@ -1665,7 +1657,6 @@
     "melee_damage": {
       "bash": 13
     },
-    "to_hit": -6,
     "range": 70,
     "dispersion": 40,
     "sight_dispersion": 10,
@@ -1713,7 +1704,6 @@
     "melee_damage": {
       "bash": 12
     },
-    "to_hit": -6,
     "ranged_damage": {
       "damage_type": "bullet",
       "amount": -20,
@@ -1753,7 +1743,6 @@
     "longest_side": "150 cm",
     "price": "91000 USD",
     "price_postapoc": "50 USD",
-    "to_hit": -6,
     "melee_damage": {
       "bash": 12
     },
@@ -1877,7 +1866,6 @@
       "bash": 20,
       "cut": 15
     },
-    "to_hit": -3,
     "flags": [
       "TRADER_AVOID",
       "NO_REPAIR"
@@ -1898,7 +1886,6 @@
     "volume": "50 L",
     "price": "255 USD",
     "price_postapoc": "8 USD",
-    "to_hit": -3,
     "melee_damage": {
       "bash": 30
     },
@@ -1927,7 +1914,6 @@
     "volume": "60 L",
     "price": "455 USD",
     "price_postapoc": "10 USD",
-    "to_hit": -3,
     "melee_damage": {
       "bash": 30
     },
@@ -1954,7 +1940,6 @@
     "volume": "80 L",
     "price": "755 USD",
     "price_postapoc": "12 USD",
-    "to_hit": -3,
     "melee_damage": {
       "bash": 30
     },
