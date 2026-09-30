@@ -1,5 +1,13 @@
 # Blazemod Revival
 
+## 0.5.5-r4 — Exact material-density normalization
+
+- Corrected the physical volume of all 72 items reported by the pinned exact-source material-density invariant.
+- Each new volume is the smallest practical rounded value above the current material-density limit, with a small safety margin.
+- Ammo stack/count semantics were preserved: per-charge physical volume was corrected and then converted back to the JSON stack volume.
+- Weight, damage, armor penetration, ammunition counts, vehicle capacity and crafting recipes are unchanged.
+- No synthetic high-density blob material was introduced; legacy flesh/blob items continue to use their authored materials.
+
 ## 0.5.5-r3 — Modular turret compatibility
 
 - Removed three legacy vehicle turret definitions that mounted CDDA modular receivers (`modular_m4_carbine`, `modular_ar15`, `modular_ump`) as if they were complete guns.
