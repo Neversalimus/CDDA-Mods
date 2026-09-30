@@ -992,7 +992,9 @@ def source_specs(
         # so exclude them from generic partitions and run them only in their
         # owning component suite above.
         specs.append(
-            "~[slow] ~[.] ~[axiom7_lifecycle],starting_items"
+            '~[slow] ~[.] ~[axiom7_lifecycle] '
+            '~"item_new_to_hit_enforcement" '
+            '~"uncraft_blacklist_is_pruned",starting_items'
         )
     if depth == "exhaustive":
         # The slow partition cannot select AXIOM lifecycle probes because those
