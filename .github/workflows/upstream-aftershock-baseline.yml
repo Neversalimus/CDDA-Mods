@@ -1,0 +1,80 @@
+name: Temporary upstream Aftershock baseline
+
+on:
+  push:
+    branches:
+      - infra/exhaustive-isolation-axiom-fixes
+    paths:
+      - '.github/workflows/upstream-aftershock-baseline.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+env:
+  CDDA_COMMIT: e262adb299a7613b4aedc5f12c08fe0413c56a84
+  CATA_TEST_ARTIFACT_ID: '11067638496'
+
+jobs:
+  upstream-aftershock:
+    name: Dependency-complete upstream Aftershock baseline
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    steps:
+      - name: Checkout exact CDDA runtime tree
+        uses: actions/checkout@v4
+        with:
+          repository: CleverRaven/Cataclysm-DDA
+          ref: ${{ env.CDDA_COMMIT }}
+          path: cdda
+          fetch-depth: 1
+
+      - name: Reuse exact cata_test binary from Deep #12
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p cdda/tests build/cata-artifact
+          gh api \
+            -H "Accept: application/vnd.github+json" \
+            "/repos/${GITHUB_REPOSITORY}/actions/artifacts/${CATA_TEST_ARTIFACT_ID}/zip" \
+            > build/cata-test.zip
+          unzip -q build/cata-test.zip -d build/cata-artifact
+          cp build/cata-artifact/cata_test cdda/tests/cata_test
+          chmod +x cdda/tests/cata_test
+
+      - name: Capture dependency-complete upstream failures
+        shell: bash
+        working-directory: cdda
+        run: |
+          mkdir -p ../build/upstream-aftershock/user
+          set +e
+          tests/cata_test \
+            --mods=no_npc_food,aftershock_exoplanet \
+            --user-dir=../build/upstream-aftershock/user \
+            --rng-seed 0 \
+            --order lex \
+            --error-format=github-action \
+            '~[slow] ~[.] ~[axiom7_lifecycle] ~"item_new_to_hit_enforcement" ~"uncraft_blacklist_is_pruned",starting_items' \
+            > ../build/upstream-aftershock/stdout.log \
+            2> ../build/upstream-aftershock/stderr.log
+          code=$?
+          echo "$code" > ../build/upstream-aftershock/exit-code.txt
+          echo "Pinned upstream exit code: $code"
+          echo "::group::upstream stdout tail"
+          tail -n 3000 ../build/upstream-aftershock/stdout.log || true
+          echo "::endgroup::"
+          echo "::group::upstream stderr tail"
+          tail -n 3000 ../build/upstream-aftershock/stderr.log || true
+          echo "::endgroup::"
+          exit 0
+
+      - name: Upload upstream debt evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: temporary-upstream-aftershock-dependency-complete
+          path: build/upstream-aftershock/**
+          if-no-files-found: warn
+          retention-days: 7
