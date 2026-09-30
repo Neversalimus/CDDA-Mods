@@ -10,7 +10,7 @@
     "name": {
       "str": "AX-41 photon carbine prototype"
     },
-    "description": "A compact AXIOM-7 solid-state directed-energy demonstrator. It is exceptionally precise and nearly recoil-free, but still power-hungry and thermally constrained.",
+    "description": "A compact AXIOM-7 solid-state directed-energy demonstrator.  It is exceptionally precise and nearly recoil-free, but still power-hungry and thermally constrained.",
     "weight": "2550 g",
     "volume": "2750 ml",
     "longest_side": "760 mm",
@@ -51,7 +51,7 @@
     "name": {
       "str": "PX-9 photonic sidearm prototype"
     },
-    "description": "A compact AXIOM-7 photonic sidearm. It is efficient and recoilless, but limited by heat and external power availability.",
+    "description": "A compact AXIOM-7 photonic sidearm.  It is efficient and recoilless, but limited by heat and external power availability.",
     "price": "11 kUSD",
     "price_postapoc": "140 USD",
     "range": 22,
@@ -96,7 +96,7 @@
     "name": {
       "str": "AXIOM adaptive field shell prototype"
     },
-    "description": "An AXIOM-7 integration prototype combining powered assistance, environmental routing and a dense sensor harness. Evaluation hardware only."
+    "description": "An AXIOM-7 integration prototype combining powered assistance, environmental routing and a dense sensor harness.  Evaluation hardware only."
   },
   {
     "id": "axiom_guard_shell",
@@ -105,7 +105,7 @@
     "name": {
       "str": "AXIOM security shell"
     },
-    "description": "A standardized powered security shell used by AXIOM-7 perimeter personnel. It is deliberately less sophisticated than the prototype systems displayed deeper inside the complex."
+    "description": "A standardized powered security shell used by AXIOM-7 perimeter personnel.  It is deliberately less sophisticated than the prototype systems displayed deeper inside the complex."
   },
   {
     "id": "axiom_service_harness",
@@ -124,7 +124,7 @@
     "name": {
       "str": "AXIOM power-routing cassette"
     },
-    "description": "A compact high-current switching and regulation package. Used in AXIOM service recipes, energy systems and contractor work."
+    "description": "A compact high-current switching and regulation package.  Used in AXIOM service recipes, energy systems and contractor work."
   },
   {
     "id": "axiom_sensor_wafer",
@@ -154,7 +154,7 @@
     "name": {
       "str": "AXIOM high-density tool cell"
     },
-    "description": "A heavily screened high-density tool battery rebuilt to AXIOM-7 tolerances. It fits the same industrial battery interface as a normal large tool battery."
+    "description": "A heavily screened high-density tool battery rebuilt to AXIOM-7 tolerances.  It fits the same industrial battery interface as a normal large tool battery."
   },
   {
     "id": "axiom_diagnostic_interface",
@@ -163,7 +163,7 @@
     "name": {
       "str": "AXIOM diagnostic interface"
     },
-    "description": "A hardened AXIOM service interface assembled around an electrohack core. It is intended for field diagnostics and access-control troubleshooting."
+    "description": "A hardened AXIOM service interface assembled around an electrohack core.  It is intended for field diagnostics and access-control troubleshooting."
   },
   {
     "id": "axiom_sensor_relay_core",
@@ -172,7 +172,7 @@
     "name": {
       "str": "AXIOM relay core"
     },
-    "description": "The sealed processing core from an AXIOM external sensor relay. Operations wants this specific unit back for its calibration data.",
+    "description": "The sealed processing core from an AXIOM external sensor relay.  Operations wants this specific unit back for its calibration data.",
     "flags": [
       "TRADER_AVOID"
     ]
@@ -243,7 +243,7 @@
     "name": {
       "str": "AXIOM sealed display power module"
     },
-    "description": "A sealed high-capacity UPS module used to energize AXIOM demonstration hardware. In the gallery it is mounted on a separate service pedestal instead of being piled on top of the exhibit."
+    "description": "A sealed high-capacity UPS module used to energize AXIOM demonstration hardware.  In the gallery it is mounted on a separate service pedestal instead of being piled on top of the exhibit."
   },
   {
     "type": "item_group",
@@ -268,7 +268,7 @@
     "name": {
       "str": "KX-91 heavy pulse laser"
     },
-    "description": "A vehicle-integrated AXIOM-7 heavy pulse laser package for the KX-91 combat helicopter. This is not a handheld weapon: the emitter, cooling jacket and power conditioner are hard-wired into the airframe. When mounted, each shot draws 110 kJ directly from the helicopter storage batteries; there is no ammunition magazine or separate UPS to reload. Operate it from the KX-91 cockpit vehicle controls using the turret-aim/fire commands.",
+    "description": "A vehicle-integrated AXIOM-7 heavy pulse laser package for the KX-91 combat helicopter.  This is not a handheld weapon: the emitter, cooling jacket and power conditioner are hard-wired into the airframe.  When mounted, each shot draws 110 kJ directly from the helicopter storage batteries; there is no ammunition magazine or separate UPS to reload.  Operate it from the KX-91 cockpit vehicle controls using the turret-aim/fire commands.",
     "price": "80 kUSD",
     "price_postapoc": "800 USD",
     "range": 52,
@@ -316,7 +316,7 @@
     "name": {
       "str": "AXIOM contractor access card"
     },
-    "description": "A personalized AXIOM-7 contractor credential. It opens service-level doors while leaving research, security and flight systems restricted.",
+    "description": "A personalized AXIOM-7 contractor credential.  It opens service-level doors while leaving research, security and flight systems restricted.",
     "price": "2 kUSD",
     "price_postapoc": "40 USD",
     "material": [
@@ -337,7 +337,7 @@
     "name": {
       "str": "AXIOM specialist access card"
     },
-    "description": "A higher-level AXIOM-7 credential carrying contractor and infrastructure authorization. It grants access to sensitive power, data and engineering spaces.",
+    "description": "A higher-level AXIOM-7 credential carrying contractor and infrastructure authorization.  It grants access to sensitive power, data and engineering spaces.",
     "price": "5 kUSD",
     "price_postapoc": "100 USD",
     "material": [
@@ -359,7 +359,7 @@
     "name": {
       "str": "AXIOM prototype access card"
     },
-    "description": "A restricted AXIOM-7 credential recognized by contractor, specialist and prototype security readers. It grants access, not ownership: equipment inside remains AXIOM property.",
+    "description": "A restricted AXIOM-7 credential recognized by contractor, specialist and prototype security readers.  It grants access, not ownership: equipment inside remains AXIOM property.",
     "price": "10 kUSD",
     "price_postapoc": "200 USD",
     "material": [

@@ -755,8 +755,8 @@
     "id": "TALK_AXIOM_SECURITY",
     "type": "talk_topic",
     "dynamic_line": [
-      "Keep to the marked public routes. If a door is locked, assume someone had a reason.",
-      "Vehicles, service bays, and anything behind a colored reader belong to AXIOM. Ask before touching.",
+      "Keep to the marked public routes.  If a door is locked, assume someone had a reason.",
+      "Vehicles, service bays, and anything behind a colored reader belong to AXIOM.  Ask before touching.",
       "The sentries are less patient than I am. Please do not make me find out how much less."
     ],
     "responses": [
@@ -769,7 +769,7 @@
   {
     "id": "TALK_AXIOM_SENTINEL",
     "type": "talk_topic",
-    "dynamic_line": "The glass lets you look. That is the entire agreement.",
+    "dynamic_line": "The glass lets you look.  That is the entire agreement.",
     "responses": [
       {
         "text": "Message received.",
@@ -787,7 +787,7 @@
           "u_val": "axiom_clearance_prototype"
         }
       ],
-      "yes": "Purple card. Fine. Some prototype hardware can leave the cage with you now. \"Can\" is doing a lot of work there; if I only have one, the answer is still no.",
+      "yes": "Purple card.  Fine.  Some prototype hardware can leave the cage with you now.  \"Can\" is doing a lot of work there; if I only have one, the answer is still no.",
       "no": {
         "compare_string": [
           "yes",
@@ -795,7 +795,7 @@
             "u_val": "axiom_clearance_specialist"
           }
         ],
-        "yes": "Blue card. Now we are talking. I can release hardened gear and dense-power stock, within reason. We still need to keep this place running.",
+        "yes": "Blue card.  Now we are talking.  I can release hardened gear and dense-power stock, within reason.  We still need to keep this place running.",
         "no": {
           "compare_string": [
             "yes",
@@ -803,8 +803,8 @@
               "u_val": "axiom_clearance_contractor"
             }
           ],
-          "yes": "Yellow card? Good. That means I can stop pretending all the useful service kit is \"out of stock.\" Do not make me regret the paperwork.",
-          "no": "You are on the public list. I can spare tools, consumables, and ordinary protection. If you want the interesting shelves, convince Lena you are useful."
+          "yes": "Yellow card?  Good.  That means I can stop pretending all the useful service kit is \"out of stock.\" Do not make me regret the paperwork.",
+          "no": "You are on the public list.  I can spare tools, consumables, and ordinary protection.  If you want the interesting shelves, convince Lena you are useful."
         }
       }
     },
@@ -835,7 +835,7 @@
         "topic": "TALK_MISSION_LIST"
       },
       {
-        "text": "Viktor has his telemetry. What do you need to make regular KX flights sustainable?",
+        "text": "Viktor has his telemetry.  What do you need to make regular KX flights sustainable?",
         "topic": "TALK_MISSION_LIST",
         "condition": {
           "compare_string": [
@@ -878,7 +878,7 @@
   {
     "id": "TALK_AXIOM_COMPONENTS",
     "type": "talk_topic",
-    "dynamic_line": "Routing cassettes move power where it is needed. Sensor wafers do the measuring. Control fiber carries the nervous-system traffic between them. With decent electronics work you can turn the lot into diagnostic interfaces or rebuild our dense tool cells. None of it looks glamorous until the glamorous thing stops working.",
+    "dynamic_line": "Routing cassettes move power where it is needed.  Sensor wafers do the measuring.  Control fiber carries the nervous-system traffic between them.  With decent electronics work you can turn the lot into diagnostic interfaces or rebuild our dense tool cells.  None of it looks glamorous until the glamorous thing stops working.",
     "responses": [
       {
         "text": "So the boring parts are the important parts.",
@@ -896,7 +896,7 @@
           "u_val": "axiom_clearance_prototype"
         }
       ],
-      "yes": "Purple clearance? All right. That opens the odd shelf: fabrication interfaces, high-density parts, and things with calibration procedures longer than their manuals.",
+      "yes": "Purple clearance?  All right.  That opens the odd shelf: fabrication interfaces, high-density parts, and things with calibration procedures longer than their manuals.",
       "no": {
         "compare_string": [
           "yes",
@@ -912,8 +912,8 @@
               "u_val": "axiom_clearance_contractor"
             }
           ],
-          "yes": "Lena gave you yellow? Then I can sell you service interfaces and parts that actually talk to our systems. Try not to teach them any new failure modes.",
-          "no": "If it plugs in, blinks, or overheats, someone eventually leaves it on my desk. Visitor clearance keeps us to the harmless pile."
+          "yes": "Lena gave you yellow?  Then I can sell you service interfaces and parts that actually talk to our systems.  Try not to teach them any new failure modes.",
+          "no": "If it plugs in, blinks, or overheats, someone eventually leaves it on my desk.  Visitor clearance keeps us to the harmless pile."
         }
       }
     },
@@ -975,7 +975,7 @@
           "u_val": "axiom_clearance_prototype"
         }
       ],
-      "yes": "At this point I should probably stop calling you a visitor. Three assignments, three clean returns, and no reason for Security to learn your name the unpleasant way. What do you need?",
+      "yes": "At this point I should probably stop calling you a visitor.  Three assignments, three clean returns, and no reason for Security to learn your name the unpleasant way.  What do you need?",
       "no": {
         "compare_string": [
           "yes",
@@ -983,7 +983,7 @@
             "u_val": "axiom_clearance_specialist"
           }
         ],
-        "yes": "Blue clearance already. You have been useful faster than most of our pre-Cataclysm contractors ever managed. There is still one restricted problem left, if you want it.",
+        "yes": "Blue clearance already.  You have been useful faster than most of our pre-Cataclysm contractors ever managed.  There is still one restricted problem left, if you want it.",
         "no": {
           "compare_string": [
             "yes",
@@ -991,8 +991,8 @@
               "u_val": "axiom_clearance_contractor"
             }
           ],
-          "yes": "Back again. Yellow card suits you. The service routes are open now, and people here will start treating you less like a guest and more like someone who might actually come back.",
-          "no": "You made it through the approach under your own power. These days, that is already a better introduction than most people manage. Welcome to AXIOM-7."
+          "yes": "Back again.  Yellow card suits you.  The service routes are open now, and people here will start treating you less like a guest and more like someone who might actually come back.",
+          "no": "You made it through the approach under your own power.  These days, that is already a better introduction than most people manage.  Welcome to AXIOM-7."
         }
       }
     },
@@ -1006,11 +1006,11 @@
         "topic": "TALK_AXIOM_ACCESS"
       },
       {
-        "text": "You said useful. What needs doing?",
+        "text": "You said useful.  What needs doing?",
         "topic": "TALK_MISSION_LIST"
       },
       {
-        "text": "About the job you gave me...",
+        "text": "About the job you gave me…",
         "condition": "has_assigned_mission",
         "topic": "TALK_MISSION_INQUIRE"
       },
@@ -1080,7 +1080,7 @@
         "topic": "TALK_MISSION_LIST"
       },
       {
-        "text": "KX-91 is operational. What happens to the aircraft now?",
+        "text": "KX-91 is operational.  What happens to the aircraft now?",
         "topic": "TALK_MISSION_LIST",
         "condition": {
           "compare_string": [
@@ -1114,7 +1114,7 @@
         }
       },
       {
-        "text": "KX-91 is mine now. Does AXIOM have a real field operation for it?",
+        "text": "KX-91 is mine now.  Does AXIOM have a real field operation for it?",
         "topic": "TALK_MISSION_LIST",
         "condition": {
           "compare_string": [
@@ -1143,7 +1143,7 @@
   {
     "id": "TALK_AXIOM_WHAT_IS",
     "type": "talk_topic",
-    "dynamic_line": "Before the Cataclysm, AXIOM-7 was where you sent a problem when normal engineering had already failed politely. Photonics, robotics, dense power, medical automation, materials work. We lost people, satellites, suppliers, and most of the world outside the fence. We did not lose the habit of coming to work.",
+    "dynamic_line": "Before the Cataclysm, AXIOM-7 was where you sent a problem when normal engineering had already failed politely.  Photonics, robotics, dense power, medical automation, materials work.  We lost people, satellites, suppliers, and most of the world outside the fence.  We did not lose the habit of coming to work.",
     "responses": [
       {
         "text": "So this is still an institution, not just a shelter.",
@@ -1161,7 +1161,7 @@
           "u_val": "axiom_clearance_prototype"
         }
       ],
-      "yes": "Purple means we trust you near things we cannot easily replace. Near, not with. The flight deck and prototype sections will recognize your card; ownership rules have not changed.",
+      "yes": "Purple means we trust you near things we cannot easily replace.  Near, not with.  The flight deck and prototype sections will recognize your card; ownership rules have not changed.",
       "no": {
         "compare_string": [
           "yes",
@@ -1169,7 +1169,7 @@
             "u_val": "axiom_clearance_specialist"
           }
         ],
-        "yes": "Blue gets you into the infrastructure spaces and the better technical stock. There is one more Operations job between you and the prototype areas. It is the one Security cares about most.",
+        "yes": "Blue gets you into the infrastructure spaces and the better technical stock.  There is one more Operations job between you and the prototype areas.  It is the one Security cares about most.",
         "no": {
           "compare_string": [
             "yes",
@@ -1177,14 +1177,14 @@
               "u_val": "axiom_clearance_contractor"
             }
           ],
-          "yes": "Yellow opens the service routes and tells Mara and Elias they can stop showing you the visitor shelves. Keep doing useful work and I can justify opening more doors.",
-          "no": "Start by doing one useful thing for us. Bring back what I ask for, intact, and I will issue you a yellow contractor card. Around here, trust is mostly a record of problems you did not create."
+          "yes": "Yellow opens the service routes and tells Mara and Elias they can stop showing you the visitor shelves.  Keep doing useful work and I can justify opening more doors.",
+          "no": "Start by doing one useful thing for us. Bring back what I ask for, intact, and I will issue you a yellow contractor card.  Around here, trust is mostly a record of problems you did not create."
         }
       }
     },
     "responses": [
       {
-        "text": "So I earn access by being useful. Fair enough.",
+        "text": "So I earn access by being useful.  Fair enough.",
         "topic": "TALK_AXIOM_LIAISON"
       }
     ]
@@ -1192,7 +1192,7 @@
   {
     "id": "TALK_AXIOM_ROOF",
     "type": "talk_topic",
-    "dynamic_line": "KX-91 is on the roof. Nadia calls it repairable; Security calls it property; I call it the reason visitors keep asking about the roof. If you eventually get prototype access, you may inspect it. That is not the same as being given an aircraft.",
+    "dynamic_line": "KX-91 is on the roof.  Nadia calls it repairable; Security calls it property; I call it the reason visitors keep asking about the roof.  If you eventually get prototype access, you may inspect it. That is not the same as being given an aircraft.",
     "responses": [
       {
         "text": "I had a feeling there was a catch.",
@@ -1359,7 +1359,7 @@
   {
     "id": "TALK_AXIOM_SECURITY_DIRECTOR",
     "type": "talk_topic",
-    "dynamic_line": "The lower level is not a vault. It is where a bad decision turns into a dark building, dead cooling, or blind security. Your card opens what Operations has cleared. If a reader says no, take the answer.",
+    "dynamic_line": "The lower level is not a vault.  It is where a bad decision turns into a dark building, dead cooling, or blind security.  Your card opens what Operations has cleared.  If a reader says no, take the answer.",
     "responses": [
       {
         "text": "What happens when someone ignores the answer?",
@@ -1402,7 +1402,7 @@
         "topic": "TALK_MISSION_LIST"
       },
       {
-        "text": "Lena opened the long-range program. Anything dangerous blocking the routes?",
+        "text": "Lena opened the long-range program.  Anything dangerous blocking the routes?",
         "topic": "TALK_MISSION_LIST",
         "condition": {
           "compare_string": [
@@ -1431,7 +1431,7 @@
   {
     "id": "TALK_AXIOM_SECURITY_THEFT",
     "type": "talk_topic",
-    "dynamic_line": "Take a tool by mistake and someone tells you to put it back. Force a lock, strip a vehicle, or keep going after a warning and the conversation changes. The automated systems are faster at changing tone than I am.",
+    "dynamic_line": "Take a tool by mistake and someone tells you to put it back.  Force a lock, strip a vehicle, or keep going after a warning and the conversation changes.  The automated systems are faster at changing tone than I am.",
     "responses": [
       {
         "text": "So the warning is the generous part.",
@@ -1442,7 +1442,7 @@
   {
     "id": "TALK_AXIOM_CORE_ENGINEER",
     "type": "talk_topic",
-    "dynamic_line": "People remember the glass gallery because it is bright. I remember what feeds it: conversion stacks, thermal loops, buffers, data trunks, maintenance crawlers. Upstairs is the performance. Down here is the part that cannot miss a cue.",
+    "dynamic_line": "People remember the glass gallery because it is bright.  I remember what feeds it: conversion stacks, thermal loops, buffers, data trunks, maintenance crawlers.  Upstairs is the performance.  Down here is the part that cannot miss a cue.",
     "responses": [
       {
         "text": "So this is the real heart of the site.",
@@ -1465,7 +1465,7 @@
         "topic": "TALK_MISSION_LIST"
       },
       {
-        "text": "KX-91 has power. What is wrong with its navigation?",
+        "text": "KX-91 has power.  What is wrong with its navigation?",
         "condition": {
           "compare_string": [
             "yes",
@@ -1477,7 +1477,7 @@
         "topic": "TALK_MISSION_LIST"
       },
       {
-        "text": "The corridor is clear. What does KX-91 need before we rely on it farther out?",
+        "text": "The corridor is clear.  What does KX-91 need before we rely on it farther out?",
         "topic": "TALK_MISSION_LIST",
         "condition": {
           "compare_string": [
@@ -1506,7 +1506,7 @@
   {
     "id": "TALK_AXIOM_CORE_ENGINEER_HEART",
     "type": "talk_topic",
-    "dynamic_line": "Heart, lungs, nerves — pick your metaphor. I only care that all three are still working tomorrow morning.",
+    "dynamic_line": "Heart, lungs, nerves — pick your metaphor.  I only care that all three are still working tomorrow morning.",
     "responses": [
       {
         "text": "That sounds like an engineer's answer.",
@@ -1524,12 +1524,12 @@
           "u_val": "axiom_clearance_prototype"
         }
       ],
-      "yes": "Purple card? Then the lock will stop arguing with you. You are welcome on the deck. KX-91 is still AXIOM's aircraft and, for the moment, my headache.",
-      "no": "You can use the stair annex, but not the deck. The magenta lock is there because KX-91 attracts exactly the kind of curiosity that ruins aircraft."
+      "yes": "Purple card?  Then the lock will stop arguing with you.  You are welcome on the deck.  KX-91 is still AXIOM's aircraft and, for the moment, my headache.",
+      "no": "You can use the stair annex, but not the deck.  The magenta lock is there because KX-91 attracts exactly the kind of curiosity that ruins aircraft."
     },
     "responses": [
       {
-        "text": "Be honest. Could KX-91 actually fly again?",
+        "text": "Be honest.  Could KX-91 actually fly again?",
         "topic": "TALK_AXIOM_KX91_REPAIR"
       },
       {
@@ -1561,7 +1561,7 @@
         "topic": "TALK_MISSION_LIST"
       },
       {
-        "text": "Start with the truth. What does KX-91 actually need?",
+        "text": "Start with the truth.  What does KX-91 actually need?",
         "condition": {
           "compare_string": [
             "yes",
@@ -1573,7 +1573,7 @@
         "topic": "TALK_MISSION_LIST"
       },
       {
-        "text": "The subsystems are ready. What do you need for final integration?",
+        "text": "The subsystems are ready.  What do you need for final integration?",
         "condition": {
           "compare_string": [
             "yes",
@@ -1631,7 +1631,7 @@
           "u_val": "axiom_kx91_restored"
         }
       ],
-      "yes": "It flies again. Full-power ground run was clean, both turbines are stable, and the flight stack is coherent. Do not confuse operational with yours; AXIOM still owns the aircraft.",
+      "yes": "It flies again.  Full-power ground run was clean, both turbines are stable, and the flight stack is coherent.  Do not confuse operational with yours; AXIOM still owns the aircraft.",
       "no": {
         "compare_string": [
           "yes",
@@ -1639,7 +1639,7 @@
             "u_val": "axiom_kx91_stage_security"
           }
         ],
-        "yes": "Fire-control is validated and the weapon nodes are back on the aircraft bus. The last job is final integration: replace the temporary bridges, close the panels, and run the turbines.",
+        "yes": "Fire-control is validated and the weapon nodes are back on the aircraft bus.  The last job is final integration: replace the temporary bridges, close the panels, and run the turbines.",
         "no": {
           "compare_string": [
             "yes",
@@ -1647,7 +1647,7 @@
               "u_val": "axiom_kx91_stage_nav"
             }
           ],
-          "yes": "Power and avionics are stable. Rhea still refuses to connect the weapon nodes until the rebuilt IFF tables survive a live validation trace.",
+          "yes": "Power and avionics are stable.  Rhea still refuses to connect the weapon nodes until the rebuilt IFF tables survive a live validation trace.",
           "no": {
             "compare_string": [
               "yes",
@@ -1655,7 +1655,7 @@
                 "u_val": "axiom_kx91_stage_power"
               }
             ],
-            "yes": "The main distribution spine is alive. That gives us enough power to rebuild navigation and prove whether the flight computers can agree on where the aircraft is.",
+            "yes": "The main distribution spine is alive.  That gives us enough power to rebuild navigation and prove whether the flight computers can agree on where the aircraft is.",
             "no": {
               "compare_string": [
                 "yes",
@@ -1663,8 +1663,8 @@
                   "u_val": "axiom_kx91_stage_diag"
                 }
               ],
-              "yes": "The diagnostic bus is coherent. The ugly surprise is the power regulator: it failed hard enough that I will not energize the main spine until Elias has a replacement.",
-              "no": "Fly again? Maybe. Right now KX-91 is an airframe with several expensive arguments happening inside it. We need a cold diagnostic before I call any of them repairable."
+              "yes": "The diagnostic bus is coherent.  The ugly surprise is the power regulator: it failed hard enough that I will not energize the main spine until Elias has a replacement.",
+              "no": "Fly again?  Maybe.  Right now KX-91 is an airframe with several expensive arguments happening inside it. We need a cold diagnostic before I call any of them repairable."
             }
           }
         }
@@ -1687,12 +1687,12 @@
           "u_val": "axiom_clearance_contractor"
         }
       ],
-      "yes": "That is the systems core: power conversion, cooling, data, robotics maintenance, security. Your yellow card gets you into the service shaft. The deeper rooms still expect the right color of plastic.",
-      "no": "Critical infrastructure. Not a mystery vault, unfortunately — mostly the machinery that keeps the lights, doors, robots, and people upstairs functioning. Visitor access stops before the service shaft."
+      "yes": "That is the systems core: power conversion, cooling, data, robotics maintenance, security.  Your yellow card gets you into the service shaft.  The deeper rooms still expect the right color of plastic.",
+      "no": "Critical infrastructure.  Not a mystery vault, unfortunately — mostly the machinery that keeps the lights, doors, robots, and people upstairs functioning.  Visitor access stops before the service shaft."
     },
     "responses": [
       {
-        "text": "Less treasure, more things I should not break. Got it.",
+        "text": "Less treasure, more things I should not break.  Got it.",
         "topic": "TALK_AXIOM_LIAISON"
       }
     ]
@@ -1700,7 +1700,7 @@
   {
     "id": "TALK_AXIOM_KX91_WEAPONS",
     "type": "talk_topic",
-    "dynamic_line": "They are not giant rifles with batteries taped on. The mounts drink straight from the aircraft bus — one focused pulse is about one hundred ten kilojoules. Use the cockpit turret controls to select a mode and aim the mounts. If the sealed fire-control nodes are intact, they can also handle automatic tracking. When the main batteries are empty, the lasers are expensive decorations.",
+    "dynamic_line": "They are not giant rifles with batteries taped on. The mounts drink straight from the aircraft bus — one focused pulse is about one hundred ten kilojoules.  Use the cockpit turret controls to select a mode and aim the mounts.  If the sealed fire-control nodes are intact, they can also handle automatic tracking.  When the main batteries are empty, the lasers are expensive decorations.",
     "responses": [
       {
         "text": "That answers both the weapon and the battery question.",
@@ -1791,7 +1791,7 @@
   {
     "id": "TALK_AXIOM_QUARTERMASTER_SERVICES",
     "type": "talk_topic",
-    "dynamic_line": "Shelf stock is for browsing. Field lots are different: I seal them, sign them out, and then explain to three different ledgers where the hardware went. I will do one for you every three days. Your card decides which list I am allowed to use.",
+    "dynamic_line": "Shelf stock is for browsing.  Field lots are different: I seal them, sign them out, and then explain to three different ledgers where the hardware went.  I will do one for you every three days.  Your card decides which list I am allowed to use.",
     "responses": [
       {
         "text": "[Contractor] Pack a basic electronics field lot.",
@@ -1908,7 +1908,7 @@
         "topic": "TALK_AXIOM_QUARTERMASTER_SERVICES"
       },
       {
-        "text": "Never mind. I will use the shelves.",
+        "text": "Never mind.  I will use the shelves.",
         "topic": "TALK_AXIOM_QUARTERMASTER"
       }
     ]
@@ -1916,7 +1916,7 @@
   {
     "id": "TALK_AXIOM_SYSTEMS_SERVICES",
     "type": "talk_topic",
-    "dynamic_line": "If it is AXIOM hardware, I can at least put it on a proper bench instead of asking you to diagnose it with a flashlight. Dense cells are easy enough. I can also teach, if you are willing to sit still while I explain why guessing is not a troubleshooting method.",
+    "dynamic_line": "If it is AXIOM hardware, I can at least put it on a proper bench instead of asking you to diagnose it with a flashlight.  Dense cells are easy enough.  I can also teach, if you are willing to sit still while I explain why guessing is not a troubleshooting method.",
     "responses": [
       {
         "text": "[Specialist] Cycle and balance one of my AXIOM dense cells.",
@@ -1977,7 +1977,7 @@
   {
     "id": "TALK_AXIOM_CORE_SERVICES",
     "type": "talk_topic",
-    "dynamic_line": "I do not repair arbitrary scrap by miracle. Bring me known donor hardware and I can rebuild it to our tolerances. A clean power supply, a processor, and a memory module are enough for one useful service set. Anything stranger becomes a research project.",
+    "dynamic_line": "I do not repair arbitrary scrap by miracle.  Bring me known donor hardware and I can rebuild it to our tolerances.  A clean power supply, a processor, and a memory module are enough for one useful service set.  Anything stranger becomes a research project.",
     "responses": [
       {
         "text": "[Specialist] Rework these donor parts into an AXIOM service set.",
@@ -2067,7 +2067,7 @@
   {
     "id": "TALK_AXIOM_MEDICAL_DONE",
     "type": "talk_topic",
-    "dynamic_line": "Operations keeps a treatment station for people we expect to send back outside. That is the quick pass, not surgery. If you are still leaking after this, stay inside.",
+    "dynamic_line": "Operations keeps a treatment station for people we expect to send back outside.  That is the quick pass, not surgery.  If you are still leaking after this, stay inside.",
     "responses": [
       {
         "text": "That will do. Thanks.",

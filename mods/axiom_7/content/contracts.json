@@ -7,7 +7,7 @@
     "name": {
       "str": "AXIOM logistics manifest wafer"
     },
-    "description": "A sealed AXIOM logistics wafer carrying a pre-Cataclysm routing manifest and inventory signatures. Mara Voss wants this exact wafer back, not the hardware around it.",
+    "description": "A sealed AXIOM logistics wafer carrying a pre-Cataclysm routing manifest and inventory signatures.  Mara Voss wants this exact wafer back, not the hardware around it.",
     "extend": {
       "flags": [
         "TRADER_AVOID"
@@ -22,7 +22,7 @@
     "name": {
       "str": "AXIOM diagnostic bus tap"
     },
-    "description": "A rugged field coupler used to mirror traffic on AXIOM power and control buses without breaking the circuit. Elias Chen needs the old unit for calibration references.",
+    "description": "A rugged field coupler used to mirror traffic on AXIOM power and control buses without breaking the circuit.  Elias Chen needs the old unit for calibration references.",
     "extend": {
       "flags": [
         "TRADER_AVOID"
@@ -37,7 +37,7 @@
     "name": {
       "str": "AXIOM thermal transient logger"
     },
-    "description": "A compact recorder used to capture short-lived power and cooling faults. Its memory contains a failure trace Viktor Hale wants for comparison with the Systems Core.",
+    "description": "A compact recorder used to capture short-lived power and cooling faults.  Its memory contains a failure trace Viktor Hale wants for comparison with the Systems Core.",
     "extend": {
       "flags": [
         "TRADER_AVOID"
@@ -52,7 +52,7 @@
     "name": {
       "str": "KX-series inertial reference unit"
     },
-    "description": "A sealed inertial reference package from the same supplier family used by KX-series aircraft. Nadia Karpenko wants it as a donor and calibration reference for KX-91.",
+    "description": "A sealed inertial reference package from the same supplier family used by KX-series aircraft.  Nadia Karpenko wants it as a donor and calibration reference for KX-91.",
     "extend": {
       "flags": [
         "TRADER_AVOID"
@@ -314,13 +314,13 @@
     ],
     "dialogue": {
       "describe": "A shipment ledger vanished with one of our pre-Cataclysm staging caches.",
-      "offer": "I have a warehouse manifest that never made it into the final inventory. The warehouse itself is probably worthless by now, but the routing wafer was sealed. Bring me that wafer and I can stop carrying six missing crates as if they might walk through the gate tomorrow.",
-      "accepted": "I marked the warehouse. Small blue wafer, AXIOM seal. Do not waste time hauling the shelves home.",
+      "offer": "I have a warehouse manifest that never made it into the final inventory.  The warehouse itself is probably worthless by now, but the routing wafer was sealed.  Bring me that wafer and I can stop carrying six missing crates as if they might walk through the gate tomorrow.",
+      "accepted": "I marked the warehouse.  Small blue wafer, AXIOM seal.  Do not waste time hauling the shelves home.",
       "rejected": "Then the six crates remain a philosophical problem for Logistics.",
       "advice": "The wafer should be near the old receiving floor, not in an office safe.",
       "inquire": "Please tell me you found my missing paperwork in solid-state form.",
-      "success": "That is the one. Good. I can finally close the old manifest instead of inventing a new excuse every time I audit it. Take this charged cell; field gear is more useful than my gratitude.",
-      "success_lie": "Wrong serial block. I know my own missing paperwork.",
+      "success": "That is the one.  Good.  I can finally close the old manifest instead of inventing a new excuse every time I audit it. Take this charged cell; field gear is more useful than my gratitude.",
+      "success_lie": "Wrong serial block.  I know my own missing paperwork.",
       "failure": "Then I keep the line open and pretend optimism is a logistics method."
     }
   },
@@ -369,13 +369,13 @@
     ],
     "dialogue": {
       "describe": "I want an old field bus tap back before its calibration history disappears with it.",
-      "offer": "Before the Cataclysm I left a diagnostic coupler with a retailer that was helping us reproduce an intermittent fault. Ridiculous place to lose something useful, but here we are. If the coupler survived, its calibration history is worth more to me than the hardware.",
-      "accepted": "Electronics store is marked. Look for a squat service module with AXIOM markings.",
-      "rejected": "Fine. I will continue comparing failures against my memory, which is a terrible instrument.",
+      "offer": "Before the Cataclysm I left a diagnostic coupler with a retailer that was helping us reproduce an intermittent fault.  Ridiculous place to lose something useful, but here we are.  If the coupler survived, its calibration history is worth more to me than the hardware.",
+      "accepted": "Electronics store is marked.  Look for a squat service module with AXIOM markings.",
+      "rejected": "Fine.  I will continue comparing failures against my memory, which is a terrible instrument.",
       "advice": "Do not open it. The interesting part is the logged reference data.",
       "inquire": "Did the old bus tap survive?",
-      "success": "Yes. Contacts are ugly, memory is intact. Perfect. Keep this diagnostic interface; if you are going to bring me broken systems, I would prefer you know what they are saying first.",
-      "success_lie": "That is a power module. Similar shape, completely different argument.",
+      "success": "Yes.  Contacts are ugly, memory is intact.  Perfect.  Keep this diagnostic interface; if you are going to bring me broken systems, I would prefer you know what they are saying first.",
+      "success_lie": "That is a power module.  Similar shape, completely different argument.",
       "failure": "Then that calibration trace is gone, and I get to learn the same lesson twice."
     }
   },
@@ -409,13 +409,13 @@
     ],
     "dialogue": {
       "describe": "Operations is burning through ordinary compute hardware faster than I like.",
-      "offer": "Not every AXIOM problem needs an AXIOM part. We use ordinary processors as donor hardware for control boards, test rigs, and anything else Elias can bully into cooperating. Bring me four intact processors. No coordinates this time; I assume you know what an office looks like.",
-      "accepted": "Four intact processors. Burned boards do not count, however persuasive your expression is.",
-      "rejected": "No problem. This one is a convenience, not an emergency.",
-      "advice": "Offices, electronics stores, broken computers. Nothing exotic.",
+      "offer": "Not every AXIOM problem needs an AXIOM part.  We use ordinary processors as donor hardware for control boards, test rigs, and anything else Elias can bully into cooperating.  Bring me four intact processors.  No coordinates this time; I assume you know what an office looks like.",
+      "accepted": "Four intact processors.  Burned boards do not count, however persuasive your expression is.",
+      "rejected": "No problem.  This one is a convenience, not an emergency.",
+      "advice": "Offices, electronics stores, broken computers.  Nothing exotic.",
       "inquire": "Do you have the four processors?",
-      "success": "Good. That buys us a little breathing room. Viktor converted a pair of our own spares for you — router and sensor wafer. Consider it a better trade than cash.",
-      "success_lie": "I can count to four. So can the inventory system.",
+      "success": "Good.  That buys us a little breathing room.  Viktor converted a pair of our own spares for you — router and sensor wafer.  Consider it a better trade than cash.",
+      "success_lie": "I can count to four.  So can the inventory system.",
       "failure": "Then we keep cannibalizing the least important machines first."
     }
   },
@@ -477,14 +477,14 @@
     ],
     "dialogue": {
       "describe": "A security unit dropped off our net and came back with the wrong idea about authority.",
-      "offer": "One old sentry missed the recall and rebuilt its threat table from bad local data. It is not connected to our network anymore, so shutting it down here does nothing. I have its last position. Destroy it.",
+      "offer": "One old sentry missed the recall and rebuilt its threat table from bad local data.  It is not connected to our network anymore, so shutting it down here does nothing.  I have its last position.  Destroy it.",
       "accepted": "Do not negotiate with it. It has no useful concept of surrender.",
       "rejected": "Then I will schedule a team when the perimeter can spare one.",
-      "advice": "It is a rifle UGV. Break line of sight, make it spend time reacquiring you, and do not stand in a doorway.",
+      "advice": "It is a rifle UGV.  Break line of sight, make it spend time reacquiring you, and do not stand in a doorway.",
       "inquire": "Is 12-K off the board?",
-      "success": "Confirmed. Clean enough. Take two EMP grenades from Security stores. I would rather you use them on someone else's machines than test them on mine.",
+      "success": "Confirmed.  Clean enough.  Take two EMP grenades from Security stores.  I would rather you use them on someone else's machines than test them on mine.",
       "success_lie": "No. Its telemetry stopped being trustworthy; its transponder did not.",
-      "failure": "Then it remains armed and unsupervised. I dislike both words."
+      "failure": "Then it remains armed and unsupervised.  I dislike both words."
     }
   },
   {
@@ -533,12 +533,12 @@
     ],
     "dialogue": {
       "describe": "I need a failure trace from one of the old field power enclosures.",
-      "offer": "A remote enclosure logged a thermal transient before the network went dark. The fault itself is ancient history; the shape of it is not. Bring me the logger. If our Core starts developing the same signature, I would like to recognize it before the room becomes educational.",
-      "accepted": "The relay site is marked. Small recorder, sealed casing, likely still bolted near the control electronics.",
-      "rejected": "Then I continue watching our thermal curves without the comparison. Less comfortable, not fatal.",
+      "offer": "A remote enclosure logged a thermal transient before the network went dark.  The fault itself is ancient history; the shape of it is not.  Bring me the logger.  If our Core starts developing the same signature, I would like to recognize it before the room becomes educational.",
+      "accepted": "The relay site is marked.  Small recorder, sealed casing, likely still bolted near the control electronics.",
+      "rejected": "Then I continue watching our thermal curves without the comparison.  Less comfortable, not fatal.",
       "advice": "You want the logger, not the relay core and not the antenna hardware.",
       "inquire": "Do you have my transient trace?",
-      "success": "Excellent. There it is — the same oscillation family, but not the same failure. That is reassuring. Take these nanomaterial packs; they are more useful to you than sitting in my reserve.",
+      "success": "Excellent.  There it is — the same oscillation family, but not the same failure.  That is reassuring.  Take these nanomaterial packs; they are more useful to you than sitting in my reserve.",
       "success_lie": "No. This device has never logged anything more complicated than a boot sequence.",
       "failure": "Then I will keep treating every unusual thermal slope as guilty until proven innocent."
     }
@@ -593,13 +593,13 @@
     ],
     "dialogue": {
       "describe": "There is one KX-series reference unit I would very much like to compare with KX-91.",
-      "offer": "A supplier shipped us a spare inertial reference package before the world ended. It never reached the airframe; Logistics parked the crate in a warehouse. I do not need it because KX-91's unit is dead. I need it because I want to know whether KX-91's unit is lying.",
-      "accepted": "Warehouse is marked. Sealed gray module, shock mounts on both ends. Please do not drop the thing you are fetching to measure not-dropping.",
-      "rejected": "Fair. It is not urgent. The aircraft is very good at staying exactly where it is.",
-      "advice": "The crate label should mention KX-series navigation or inertial reference. Ignore everything that says actuator.",
+      "offer": "A supplier shipped us a spare inertial reference package before the world ended.  It never reached the airframe; Logistics parked the crate in a warehouse.  I do not need it because KX-91's unit is dead.  I need it because I want to know whether KX-91's unit is lying.",
+      "accepted": "Warehouse is marked.  Sealed gray module, shock mounts on both ends.  Please do not drop the thing you are fetching to measure not-dropping.",
+      "rejected": "Fair.  It is not urgent.  The aircraft is very good at staying exactly where it is.",
+      "advice": "The crate label should mention KX-series navigation or inertial reference.  Ignore everything that says actuator.",
       "inquire": "Did you find the reference unit?",
-      "success": "Yes. Same supplier revision. Give me a minute... good. KX-91 is drifting, but predictably. That is much better than randomly. Take a charged cell and two composite packs. You saved me several days of guessing.",
-      "success_lie": "That is not an inertial reference unit. It may be expensive, but it is expensive in the wrong direction.",
+      "success": "Yes.  Same supplier revision.  Give me a minute… good.  KX-91 is drifting, but predictably.  That is much better than randomly.  Take a charged cell and two composite packs.  You saved me several days of guessing.",
+      "success_lie": "That is not an inertial reference unit.  It may be expensive, but it is expensive in the wrong direction.",
       "failure": "Then I keep treating every attitude estimate from KX-91 as a suggestion."
     }
   }

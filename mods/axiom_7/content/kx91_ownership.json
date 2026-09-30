@@ -9,7 +9,7 @@
     "name": {
       "str": "KX-91 custody handshake recorder"
     },
-    "description": "A sealed AXIOM recorder carrying the custody-transfer challenge for KX-91. It can authorize a final ownership handshake but cannot directly control the aircraft.",
+    "description": "A sealed AXIOM recorder carrying the custody-transfer challenge for KX-91.  It can authorize a final ownership handshake but cannot directly control the aircraft.",
     "symbol": ";",
     "color": "light_blue",
     "category": "tools",
@@ -60,7 +60,7 @@
         "value": "yes"
       },
       {
-        "u_message": "The recorder exchanges a signed challenge with KX-91. The flight computer accepts your operator identity and produces a custody-transfer record for Operations.",
+        "u_message": "The recorder exchanges a signed challenge with KX-91.  The flight computer accepts your operator identity and produces a custody-transfer record for Operations.",
         "type": "good"
       }
     ],
@@ -169,7 +169,7 @@
           "value": "yes"
         },
         {
-          "u_message": "Operations closes the AXIOM vehicle record and releases KX-91 from faction inventory. The aircraft is now available for your custody; vanilla vehicle ownership will attach it to your faction on first use.",
+          "u_message": "Operations closes the AXIOM vehicle record and releases KX-91 from faction inventory.  The aircraft is now available for your custody; vanilla vehicle ownership will attach it to your faction on first use.",
           "type": "good",
           "popup": true
         },
@@ -197,13 +197,13 @@
     ],
     "dialogue": {
       "describe": "Formalize custody of the restored KX-91.",
-      "offer": "The aircraft is operational, but it is still on AXIOM's books. Nadia and Security have signed their releases. I can sign the last one if you perform a custody handshake on the flight deck. That proves the aircraft accepts your operator identity before we remove it from faction inventory.",
-      "accepted": "Take the recorder upstairs, run the handshake beside KX-91, and bring it back. Once I close the record, the aircraft is yours to operate and maintain.",
-      "rejected": "Then it remains AXIOM equipment on the roof. No offense taken.",
-      "advice": "Use the custody recorder on the KX-91 flight-deck tile. It will not work anywhere else.",
+      "offer": "The aircraft is operational, but it is still on AXIOM's books.  Nadia and Security have signed their releases.  I can sign the last one if you perform a custody handshake on the flight deck.  That proves the aircraft accepts your operator identity before we remove it from faction inventory.",
+      "accepted": "Take the recorder upstairs, run the handshake beside KX-91, and bring it back.  Once I close the record, the aircraft is yours to operate and maintain.",
+      "rejected": "Then it remains AXIOM equipment on the roof.  No offense taken.",
+      "advice": "Use the custody recorder on the KX-91 flight-deck tile.  It will not work anywhere else.",
       "inquire": "Did KX-91 accept the custody challenge?",
-      "success": "It did. Security release, Engineering release, flight release, and now Operations. I am closing the asset record. Treat it well; we do not have another one.",
-      "success_lie": "The recorder signs the result. If KX-91 did not accept you, I cannot close the record.",
+      "success": "It did.  Security release, Engineering release, flight release, and now Operations.  I am closing the asset record.  Treat it well; we do not have another one.",
+      "success_lie": "The recorder signs the result.  If KX-91 did not accept you, I cannot close the record.",
       "failure": "Then the aircraft remains under AXIOM custody until we can repeat the handshake."
     },
     "fail": {

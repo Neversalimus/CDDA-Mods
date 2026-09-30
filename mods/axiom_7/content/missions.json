@@ -49,13 +49,13 @@
     "followup": "MISSION_AXIOM_POWER_STACK",
     "dialogue": {
       "describe": "We have a blind spot outside the perimeter, and I would like it to stop being blind.",
-      "offer": "An old relay on a radio tower went silent during the first week. I do not care about the mast. Inside is a sealed calibration core we can still use. Bring that back intact and I can stop treating you as a visitor.",
-      "accepted": "I will mark the tower. Bring me the core, not the whole radio station. And assume anything quiet out there is only temporarily quiet.",
-      "rejected": "Fair enough. Then we stay at visitor access for now.",
-      "advice": "The core is a sealed electronics block. If you find yourself reaching for a screwdriver, stop.",
+      "offer": "An old relay on a radio tower went silent during the first week.  I do not care about the mast.  Inside is a sealed calibration core we can still use.  Bring that back intact and I can stop treating you as a visitor.",
+      "accepted": "I will mark the tower.  Bring me the core, not the whole radio station.  And assume anything quiet out there is only temporarily quiet.",
+      "rejected": "Fair enough.  Then we stay at visitor access for now.",
+      "advice": "The core is a sealed electronics block.  If you find yourself reaching for a screwdriver, stop.",
       "inquire": "Please tell me that box in your pack is my relay core.",
-      "success": "There it is. Seal intact, contacts clean enough. Good. I was probably being too cautious with you. Take the yellow card — the service shaft is open to you now, and Mara and Elias can show you the useful shelves.",
-      "success_lie": "No. Wrong weight, wrong casing, and no calibration seal. Try again.",
+      "success": "There it is. Seal intact, contacts clean enough.  Good.  I was probably being too cautious with you.  Take the yellow card — the service shaft is open to you now, and Mara and Elias can show you the useful shelves.",
+      "success_lie": "No. Wrong weight, wrong casing, and no calibration seal.  Try again.",
       "failure": "Then we keep one blind direction and compensate the old-fashioned way."
     }
   },
@@ -109,13 +109,13 @@
     "followup": "MISSION_AXIOM_ROGUE_SENTINEL",
     "dialogue": {
       "describe": "We are short one thoroughly unglamorous piece of power electronics.",
-      "offer": "Funny, is it not? There are lasers behind glass upstairs, and part of this complex is being held together by a conversion stack the size of a microwave. We surveyed a compatible unit in an electronics store before everything collapsed. Bring it back intact and I can justify blue clearance.",
-      "accepted": "I will mark the store. Please resist the traditional scavenger solution of smashing the expensive box free.",
+      "offer": "Funny, is it not?  There are lasers behind glass upstairs, and part of this complex is being held together by a conversion stack the size of a microwave.  We surveyed a compatible unit in an electronics store before everything collapsed.  Bring it back intact and I can justify blue clearance.",
+      "accepted": "I will mark the store.  Please resist the traditional scavenger solution of smashing the expensive box free.",
       "rejected": "Then Viktor keeps routing around the fault and pretending he is not annoyed about it.",
-      "advice": "Look for the sealed AXIOM-marked module. Heavy, rectangular, boring. That is usually how you recognize infrastructure.",
+      "advice": "Look for the sealed AXIOM-marked module.  Heavy, rectangular, boring.  That is usually how you recognize infrastructure.",
       "inquire": "Did our very expensive boring box survive?",
-      "success": "That is it. Viktor will be insufferably pleased for at least ten minutes. Here — blue card. Infrastructure spaces are open to you now. The flight deck is still above your pay grade, figuratively and literally.",
-      "success_lie": "Nice box. Not our box.",
+      "success": "That is it. Viktor will be insufferably pleased for at least ten minutes.  Here — blue card.  Infrastructure spaces are open to you now.  The flight deck is still above your pay grade, figuratively and literally.",
+      "success_lie": "Nice box.  Not our box.",
       "failure": "Then we keep operating with less margin than I would like."
     }
   },
@@ -179,14 +179,14 @@
       "ORIGIN_SECONDARY"
     ],
     "dialogue": {
-      "describe": "One of our courier sentinels has decided almost everything is hostile. That includes us.",
-      "offer": "Its IFF is corrupted. Right now it is wandering through empty houses, which makes it our problem. If it reaches people, it becomes everyone's problem. Put it down. Do that cleanly and I will sign off on prototype clearance.",
-      "accepted": "Do not try to fix it in the street. Its rifle still works and its judgment does not.",
+      "describe": "One of our courier sentinels has decided almost everything is hostile.  That includes us.",
+      "offer": "Its IFF is corrupted.  Right now it is wandering through empty houses, which makes it our problem.  If it reaches people, it becomes everyone's problem.  Put it down.  Do that cleanly and I will sign off on prototype clearance.",
+      "accepted": "Do not try to fix it in the street.  Its rifle still works and its judgment does not.",
       "rejected": "Then Security will pull someone off the perimeter to deal with it. I would rather not do that.",
       "advice": "Treat it like a military robot that has forgotten the friendly half of friend-or-foe.",
       "inquire": "Is the courier finally down?",
-      "success": "Good. Telemetry agrees with you. Three jobs, no drama, and no missing pieces. You have earned the purple card. The flight deck and prototype areas will recognize it. That is access, not ownership — Rhea would insist I say that part.",
-      "success_lie": "Telemetry still has it moving. I trust telemetry on this one.",
+      "success": "Good.  Telemetry agrees with you.  Three jobs, no drama, and no missing pieces.  You have earned the purple card.  The flight deck and prototype areas will recognize it. That is access, not ownership — Rhea would insist I say that part.",
+      "success_lie": "Telemetry still has it moving.  I trust telemetry on this one.",
       "failure": "Then it is still armed, mobile, and somebody's future emergency."
     }
   }

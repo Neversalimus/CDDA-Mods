@@ -6,7 +6,7 @@
     "name": {
       "str": "AXIOM long-range beacon core"
     },
-    "description": "The hardened core of an old AXIOM long-range navigation beacon. Its stored timing and link records can extend the restored KX-91 operational picture.",
+    "description": "The hardened core of an old AXIOM long-range navigation beacon.  Its stored timing and link records can extend the restored KX-91 operational picture.",
     "symbol": ",",
     "color": "light_green",
     "category": "spare_parts",
@@ -30,7 +30,7 @@
     "name": {
       "str": "AXIOM flight telemetry archive"
     },
-    "description": "A sealed telemetry archive from a lost AXIOM support node. It contains enough historical fault data to improve KX-91 field diagnostics.",
+    "description": "A sealed telemetry archive from a lost AXIOM support node.  It contains enough historical fault data to improve KX-91 field diagnostics.",
     "symbol": ",",
     "color": "dark_gray",
     "category": "spare_parts",
@@ -54,7 +54,7 @@
     "name": {
       "str": "AXIOM recovery manifest"
     },
-    "description": "A hardened logistics manifest from an abandoned AXIOM-linked cache. Mara can use it to reconcile several lost maintenance lots.",
+    "description": "A hardened logistics manifest from an abandoned AXIOM-linked cache.  Mara can use it to reconcile several lost maintenance lots.",
     "symbol": ";",
     "color": "light_gray",
     "category": "other",
@@ -305,7 +305,7 @@
           "value": "yes"
         },
         {
-          "u_message": "The recovered beacon history is merged into KX-91's long-range navigation set. The aircraft now has a much cleaner picture beyond the local AXIOM sector.",
+          "u_message": "The recovered beacon history is merged into KX-91's long-range navigation set.  The aircraft now has a much cleaner picture beyond the local AXIOM sector.",
           "type": "good"
         }
       ]
@@ -315,12 +315,12 @@
     ],
     "dialogue": {
       "describe": "Recover a distant navigation beacon core for the restored KX-91.",
-      "offer": "Owning the aircraft is not the same thing as having a network to support it. One old beacon still answers intermittently. It is far enough away that this is exactly the sort of run KX-91 was built for. Bring back its hardened core.",
-      "accepted": "I marked the site. The core is the only part I care about; leave the mast where it fell.",
+      "offer": "Owning the aircraft is not the same thing as having a network to support it. One old beacon still answers intermittently.  It is far enough away that this is exactly the sort of run KX-91 was built for.  Bring back its hardened core.",
+      "accepted": "I marked the site.  The core is the only part I care about; leave the mast where it fell.",
       "rejected": "Then we keep flying with a very local picture of a very large world.",
-      "advice": "The target is an old radio site. The hardened core should be near the control electronics.",
+      "advice": "The target is an old radio site.  The hardened core should be near the control electronics.",
       "inquire": "Did you recover the beacon core?",
-      "success": "Good. This gives us timing history, old link geometry, and something the KX flight computer can actually correlate against.",
+      "success": "Good.  This gives us timing history, old link geometry, and something the KX flight computer can actually correlate against.",
       "success_lie": "That is not the beacon core.",
       "failure": "Then the outer navigation picture stays incomplete."
     }
@@ -385,12 +385,12 @@
     ],
     "dialogue": {
       "describe": "Clear a rogue autonomous sentry from a long-range AXIOM corridor.",
-      "offer": "One of our old corridor sentries came back on the net with a broken authority table. It is treating every contact as unknown-hostile. I want it gone before we start using that route again. This is a field operation, not a salvage job.",
-      "accepted": "Target marked. Do not try to recover it intact; the authority core is exactly what I do not trust.",
+      "offer": "One of our old corridor sentries came back on the net with a broken authority table.  It is treating every contact as unknown-hostile.  I want it gone before we start using that route again.  This is a field operation, not a salvage job.",
+      "accepted": "Target marked.  Do not try to recover it intact; the authority core is exactly what I do not trust.",
       "rejected": "Then the corridor stays red on my board.",
-      "advice": "Open ground favors the sentry. Use terrain, smoke, or range discipline. KX-91 gets you there; it does not make you immortal.",
+      "advice": "Open ground favors the sentry.  Use terrain, smoke, or range discipline.  KX-91 gets you there; it does not make you immortal.",
       "inquire": "Is corridor sentry C-9 down?",
-      "success": "Confirmed. The corridor is no longer being watched by a machine with a corrupted friend list.",
+      "success": "Confirmed.  The corridor is no longer being watched by a machine with a corrupted friend list.",
       "success_lie": "C-9 is still transmitting.",
       "failure": "Then that corridor remains closed."
     }
@@ -432,7 +432,7 @@
           "value": "yes"
         },
         {
-          "u_message": "Viktor folds the recovered fault history into the KX diagnostic model. Several intermittent field failures become predictable instead of mysterious.",
+          "u_message": "Viktor folds the recovered fault history into the KX diagnostic model.  Several intermittent field failures become predictable instead of mysterious.",
           "type": "good"
         }
       ]
@@ -442,12 +442,12 @@
     ],
     "dialogue": {
       "describe": "Recover historical KX-support telemetry from a remote power node.",
-      "offer": "The aircraft works. I would like it to keep working. One support node logged years of flight-system faults before the network died. Its telemetry archive would let me turn several unknown failure modes into scheduled maintenance instead of emergencies.",
-      "accepted": "Substation marked. The archive is sealed; bring the module, not a printout.",
+      "offer": "The aircraft works.  I would like it to keep working.  One support node logged years of flight-system faults before the network died.  Its telemetry archive would let me turn several unknown failure modes into scheduled maintenance instead of emergencies.",
+      "accepted": "Substation marked.  The archive is sealed; bring the module, not a printout.",
       "rejected": "Then we continue learning failures one expensive surprise at a time.",
       "advice": "The archive should be inside the service area, not on the high-voltage side.",
       "inquire": "Do you have the telemetry archive?",
-      "success": "Excellent. Historical faults are ugly, but they are measurable. Measurable is repairable.",
+      "success": "Excellent.  Historical faults are ugly, but they are measurable.  Measurable is repairable.",
       "success_lie": "No. This is not the support archive.",
       "failure": "Then our maintenance model stays shallower than I would like."
     }
@@ -489,7 +489,7 @@
           "value": "yes"
         },
         {
-          "u_message": "Mara reconciles the manifest against AXIOM's surviving inventory. The first post-restoration KX-91 operations cycle is closed, and she establishes a recurring flight-support maintenance allocation for you.",
+          "u_message": "Mara reconciles the manifest against AXIOM's surviving inventory.  The first post-restoration KX-91 operations cycle is closed, and she establishes a recurring flight-support maintenance allocation for you.",
           "type": "good",
           "popup": true
         }
@@ -500,12 +500,12 @@
     ],
     "dialogue": {
       "describe": "Recover a lost logistics manifest from a distant warehouse.",
-      "offer": "All this flying is useful, but useful machines eat parts. I found a warehouse entry tied to three maintenance lots that never made it back onto our books. I do not need you to haul the warehouse home. Bring me the hardened manifest so I can reconstruct what is still worth chasing.",
-      "accepted": "Warehouse marked. Find the manifest and come home. If the shelves are empty, I still want the record.",
-      "rejected": "Fine. Then I keep budgeting flight support from guesses.",
+      "offer": "All this flying is useful, but useful machines eat parts.  I found a warehouse entry tied to three maintenance lots that never made it back onto our books.  I do not need you to haul the warehouse home.  Bring me the hardened manifest so I can reconstruct what is still worth chasing.",
+      "accepted": "Warehouse marked.  Find the manifest and come home.  If the shelves are empty, I still want the record.",
+      "rejected": "Fine.  Then I keep budgeting flight support from guesses.",
       "advice": "The manifest is a hardened tablet-sized record, not ordinary paperwork.",
       "inquire": "Did the warehouse still have the AXIOM manifest?",
-      "success": "Yes. This closes enough gaps that I can stop treating every KX sortie as a one-off emergency. I will keep a flight-support lot available for you once per week.",
+      "success": "Yes.  This closes enough gaps that I can stop treating every KX sortie as a one-off emergency.  I will keep a flight-support lot available for you once per week.",
       "success_lie": "That is not the logistics manifest.",
       "failure": "Then the maintenance allocation stays provisional."
     }

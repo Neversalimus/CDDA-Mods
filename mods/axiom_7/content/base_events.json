@@ -3,14 +3,14 @@
     "type": "snippet",
     "category": "<AXIOM_AMBIENT_MAIN>",
     "text": [
-      "A two-tone chime sounds overhead.  “Maintenance, west service aisle is clear.  You have six minutes before the next cart movement.”",
-      "Somewhere beyond the glass, an electric driver chatters for a few seconds, followed by a technician muttering, “Good enough.  Log it and move on.”",
+      "A two-tone chime sounds overhead.  \"Maintenance, west service aisle is clear.  You have six minutes before the next cart movement.\"",
+      "Somewhere beyond the glass, an electric driver chatters for a few seconds, followed by a technician muttering, \"Good enough.  Log it and move on.\"",
       "The ventilation note changes almost imperceptibly as AXIOM shifts load between air-handling loops.",
-      "A calm voice comes over the local speakers.  “Receiving, do not put untagged hardware on Mara’s counter.  She will find out.”",
+      "A calm voice comes over the local speakers.  \"Receiving, do not put untagged hardware on Mara's counter.  She will find out.\"",
       "A patrol sentry pauses at an intersection while its sensor mast turns through a slow diagnostic sweep, then continues on its route.",
       "One of the wall consoles gives a soft confirmation tone.  A few seconds later another answers from deeper in the complex.",
       "A service door opens somewhere out of sight.  Wheels rattle over metal flooring, then fade toward the workshop wing.",
-      "“Blue bus test in thirty seconds,” the PA announces.  “If your bench reboots, your complaint has already been filed on your behalf.”",
+      "\"Blue bus test in thirty seconds,\" the PA announces.  \"If your bench reboots, your complaint has already been filed on your behalf.\"",
       "For a moment the complex smells faintly of hot electronics and cleaning solvent.  Then the ventilation clears it away.",
       "Two staff members argue quietly about a missing calibration fixture.  The argument ends when one of them remembers who borrowed it.",
       "A printer somewhere in Operations spits out a short burst of labels.  Nobody sounds pleased about it.",
@@ -23,13 +23,13 @@
     "text": [
       "The power-conversion hall gives off a deep rising hum, then settles back into its usual steady note.",
       "A cooling pump changes pitch.  Three seconds later a green status tone answers from somewhere behind the machinery.",
-      "“Thermal loop two purge complete,” a synthesized voice reports.  “No intervention required.”",
+      "\"Thermal loop two purge complete,\" a synthesized voice reports.  \"No intervention required.\"",
       "A fabrication arm cycles through an empty motion, checking its limits before returning to standby.",
       "Server fans surge hard enough to be heard through the walls, then wind down one bank at a time.",
-      "Something heavy moves on a service rail in the distance.  Viktor’s voice follows over the intercom: “That is normal.  For once.”",
-      "A maintenance controller chirps twice and announces, “Robotics bay path reserved.”  A nearby patrol unit briefly yields the corridor.",
+      "Something heavy moves on a service rail in the distance.  Viktor's voice follows over the intercom: \"That is normal.  For once.\"",
+      "A maintenance controller chirps twice and announces, \"Robotics bay path reserved.\"  A nearby patrol unit briefly yields the corridor.",
       "The floor vibrates gently as a conversion stack takes a new load.  Indicator tones ripple across the room and stop.",
-      "A cabinet relay chatters in a rapid sequence.  Somewhere nearby, an engineer says, “There.  Leave it alone now.”",
+      "A cabinet relay chatters in a rapid sequence.  Somewhere nearby, an engineer says, \"There.  Leave it alone now.\"",
       "The air smells briefly of ozone as an automated test bank discharges into a dummy load."
     ]
   },
@@ -39,10 +39,10 @@
     "text": [
       "The flight-deck edge lights blink in sequence, one circuit at a time, then return to steady illumination.",
       "A wind sensor mast clicks through a calibration sweep.  The local display updates and immediately marks the airframe hold as unchanged.",
-      "KX-91’s auxiliary bus wakes for a diagnostic pulse.  Pumps tick, a relay closes, and the aircraft goes quiet again.",
-      "Nadia’s voice comes over the deck intercom.  “If anyone moved my torque adapter, bring it back before I start checking pockets.”",
+      "KX-91's auxiliary bus wakes for a diagnostic pulse.  Pumps tick, a relay closes, and the aircraft goes quiet again.",
+      "Nadia's voice comes over the deck intercom.  \"If anyone moved my torque adapter, bring it back before I start checking pockets.\"",
       "A roof-mounted sensor tracks something far beyond the perimeter for several seconds before returning to its idle arc.",
-      "The helipad speakers emit a short warning tone.  “Crosswind threshold exceeded for light operations.”",
+      "The helipad speakers emit a short warning tone.  \"Crosswind threshold exceeded for light operations.\"",
       "A service panel near the aircraft flashes amber, runs through a column of checks, and returns to green.",
       "Somewhere inside the KX-91, a cooling valve snaps open and shut during an automated pressure test.",
       "A maintenance note appears on the nearest flight console: AIRFRAME INSPECTION QUEUE — 17 ITEMS.  Nadia has crossed out the number and written 23.",
@@ -53,13 +53,13 @@
     "type": "snippet",
     "category": "<AXIOM_SHIFT_EVENT>",
     "text": [
-      "A soft chime precedes a site-wide announcement.  “Shift handoff in ten minutes.  Open fault logs stay open until somebody owns them.”",
-      "“Operations to workshop: next power window is yours.  Please try not to use all of it this time.”",
-      "A clipped voice from Security says, “Routine perimeter check complete.  No changes worth waking anyone for.”",
-      "The PA crackles.  “Inventory count starts at the next bell.  If you borrowed a tool, now is the traditional time to remember.”",
-      "“Systems Core to Operations: load balance is stable.  Stop asking every five minutes.”",
+      "A soft chime precedes a site-wide announcement.  \"Shift handoff in ten minutes.  Open fault logs stay open until somebody owns them.\"",
+      "\"Operations to workshop: next power window is yours.  Please try not to use all of it this time.\"",
+      "A clipped voice from Security says, \"Routine perimeter check complete.  No changes worth waking anyone for.\"",
+      "The PA crackles.  \"Inventory count starts at the next bell.  If you borrowed a tool, now is the traditional time to remember.\"",
+      "\"Systems Core to Operations: load balance is stable.  Stop asking every five minutes.\"",
       "A brief burst of laughter comes from one of the staff rooms before a door closes and the complex returns to its usual working murmur.",
-      "“Medical automation test in the east wing.  False alarms are still alarms until the test ends.”",
+      "\"Medical automation test in the east wing.  False alarms are still alarms until the test ends.\"",
       "A site clock chimes once.  Several distant doors open and close as staff trade stations."
     ]
   },
@@ -416,7 +416,7 @@
         "value": "yes"
       },
       {
-        "u_message": "A ceiling sensor follows you for a moment.  A quiet tone sounds: “Visitor tag acquired.  Marked corridors are open.”",
+        "u_message": "A ceiling sensor follows you for a moment.  A quiet tone sounds: \"Visitor tag acquired.  Marked corridors are open.\"",
         "type": "neutral"
       }
     ]
@@ -525,7 +525,7 @@
         "value": "yes"
       },
       {
-        "u_message": "Your yellow credential produces a different tone from the nearest reader.  “Contractor profile synchronized.  Service routing enabled.”  Somewhere nearby, a lock cycles.",
+        "u_message": "Your yellow credential produces a different tone from the nearest reader.  \"Contractor profile synchronized.  Service routing enabled.\"  Somewhere nearby, a lock cycles.",
         "type": "good"
       }
     ]
@@ -634,7 +634,7 @@
         "value": "yes"
       },
       {
-        "u_message": "A console quietly refreshes your badge permissions.  “Specialist authorization propagated.  Blue-sector diagnostics and stores are live.”",
+        "u_message": "A console quietly refreshes your badge permissions.  \"Specialist authorization propagated.  Blue-sector diagnostics and stores are live.\"",
         "type": "good"
       }
     ]
@@ -743,7 +743,7 @@
         "value": "yes"
       },
       {
-        "u_message": "The site network pauses on your credential for half a second, then returns a clean tone.  “Prototype access acknowledged.  Flight-deck corridor released.”",
+        "u_message": "The site network pauses on your credential for half a second, then returns a clean tone.  \"Prototype access acknowledged.  Flight-deck corridor released.\"",
         "type": "good"
       }
     ]

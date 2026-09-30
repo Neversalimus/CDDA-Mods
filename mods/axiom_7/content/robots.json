@@ -26,7 +26,7 @@
       "str": "AXIOM patrol sentry",
       "str_pl": "AXIOM patrol sentries"
     },
-    "description": "A compact tracked AXIOM-7 security UGV fitted with a rifle mount, sensor mast and hardened IFF package. It follows a fixed patrol while the site is green; once AXIOM security declares a hostile, its rules of engagement change immediately.",
+    "description": "A compact tracked AXIOM-7 security UGV fitted with a rifle mount, sensor mast and hardened IFF package.  It follows a fixed patrol while the site is green; once AXIOM security declares a hostile, its rules of engagement change immediately.",
     "default_faction": "axiom_security_bot",
     "species": [
       "ROBOT"
@@ -112,7 +112,7 @@
     "name": {
       "str_sp": "AXIOM autonomous security turret"
     },
-    "description": "A permanently installed AXIOM-7 remote weapon station with a hardened local controller and sealed maintenance interface. Its chassis uses the same general footprint as a military rifle turret, but it is tied into AXIOM IFF and site security.",
+    "description": "A permanently installed AXIOM-7 remote weapon station with a hardened local controller and sealed maintenance interface.  Its chassis uses the same general footprint as a military rifle turret, but it is tied into AXIOM IFF and site security.",
     "default_faction": "axiom_security_bot",
     "species": [
       "ROBOT"

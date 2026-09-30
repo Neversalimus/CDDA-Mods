@@ -42,7 +42,7 @@
         "value": "yes"
       },
       {
-        "u_message": "AXIOM-7 SECURITY ALERT: hostile action confirmed. All local security assets are cleared to engage.",
+        "u_message": "AXIOM-7 SECURITY ALERT: hostile action confirmed.  All local security assets are cleared to engage.",
         "type": "bad",
         "popup": true
       },
@@ -106,7 +106,7 @@
     },
     "effect": [
       {
-        "u_message": "A buried proximity grid chirps once beneath the KX-91. The flight deck immediately declares an unauthorized airframe intrusion.",
+        "u_message": "A buried proximity grid chirps once beneath the KX-91.  The flight deck immediately declares an unauthorized airframe intrusion.",
         "type": "warning"
       },
       {
