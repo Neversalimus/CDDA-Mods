@@ -398,6 +398,59 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
             "broken_manhack",
         )
 
+    def test_aftershock_prime_calorie_density_and_wip_metadata(self):
+        cheap_food = {
+            obj["id"]: obj
+            for obj in read_json(
+                ROOT / "mods" / "aftershock_prime" / "content"
+                / "items" / "comestibles" / "cheap_food.json"
+            )
+            if isinstance(obj.get("id"), str)
+        }
+        self.assertEqual(cheap_food["afs_calorie_pill"].get("weight"), "45 g")
+        self.assertEqual(cheap_food["afs_calorie_pill"].get("volume"), "50 ml")
+        self.assertEqual(cheap_food["afs_calorie_pill"].get("calories"), 400)
+        self.assertEqual(cheap_food["afs_sundew"].get("weight"), "20 g")
+        self.assertEqual(cheap_food["afs_sundew"].get("calories"), 163)
+
+        combat = read_json(
+            ROOT / "mods" / "aftershock_prime" / "content"
+            / "mutations" / "combat_brute.json"
+        )
+        category = next(
+            obj for obj in combat
+            if obj.get("type") == "mutation_category"
+            and obj.get("id") == "COMBAT_BRUTE"
+        )
+        self.assertTrue(category.get("wip"))
+
+    def test_blazemod_uses_current_ammo_effect_schema(self):
+        root = ROOT / "mods" / "blazemod" / "content"
+        obsolete = []
+        for file_path, obj in objects_under(root):
+            for field in ("effects", "ammo_effects"):
+                if "NEVER_MISFIRES" in obj.get(field, []):
+                    obsolete.append((str(file_path), obj.get("id"), field))
+        self.assertEqual(obsolete, [])
+
+        effects = {
+            obj["id"]: obj
+            for obj in read_json(root / "ammo_effects.json")
+            if obj.get("type") == "ammo_effect" and obj.get("id")
+        }
+        nuke = effects["MININUKE_MOD"]
+        self.assertEqual(nuke["aoe"][0].get("field_type"), "fd_nuke_gas")
+        self.assertEqual(nuke["aoe"][0].get("radius"), 24)
+        self.assertEqual(nuke["explosion"].get("power"), 3000)
+
+        ammo = {
+            obj["id"]: obj
+            for obj in read_json(root / "items" / "ammo" / "blaze_ammo.json")
+            if obj.get("id")
+        }
+        self.assertIn("MININUKE_MOD", ammo["h_projectile"].get("effects", []))
+        self.assertIn("MININUKE_MOD", ammo["hbolt_nuke"].get("effects", []))
+
     def test_aftershock_prime_extends_core_monster_factions(self):
         factions = {
             obj["name"]: obj
