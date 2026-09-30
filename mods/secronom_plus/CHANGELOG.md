@@ -1,5 +1,11 @@
 # Secronom+ Revival
 
+## 0.3.4-r5
+
+- Normalized legacy translatable text to the exact CDDA 2026-09-23-0546 text-style rules used by the official release validator.
+- This is presentation-only cleanup: JSON IDs, mechanics, item stats, recipes, mapgen and spawn behavior are unchanged.
+- Restores clean fresh-install validation for the shipped Secronom+ package.
+
 ## 0.3.4-r4
 
 - Removed the obsolete `NEVER_MISFIRES` token from bone-needle ammo effects. Current CDDA has no ammo effect by that ID; `NOGIB` and `NON_FOULING` remain valid and unchanged.
