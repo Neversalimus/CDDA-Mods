@@ -195,6 +195,7 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
         }
         self.assertEqual(materials["secro_flesh_fuel"].get("density"), 1.2)
         self.assertEqual(materials["secro_flesh_reinforced"].get("density"), 3.52)
+        self.assertEqual(materials["secro_flesh_artificial"].get("density"), 1.6)
 
         dna = read_json(
             root / "Modification Files" / "Items" / "secro_dna_cc.json"
@@ -204,6 +205,46 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
         for core in cores:
             with self.subTest(core=core.get("id")):
                 self.assertEqual(core.get("material"), ["secro_flesh_reinforced"])
+
+        self.assertEqual(
+            next(obj for obj in dna if obj.get("id") == "secro_flesh_splicer").get("material"),
+            ["secro_flesh_reinforced", "bone"],
+        )
+        for sample_id in (
+            "secro_flesh_splicer_zombie_blade_dna",
+            "secro_flesh_splicer_zombie_WALKINGPOTATO_dna",
+            "secro_flesh_splicer_zombie_mouth_dna",
+            "secro_flesh_splicer_zombie_tendril_dna",
+            "secro_flesh_splicer_zombie_titan_dna",
+            "secro_flesh_splicer_zombie_unify_dna",
+        ):
+            with self.subTest(dna_sample=sample_id):
+                self.assertEqual(
+                    next(obj for obj in dna if obj.get("id") == sample_id).get("volume"),
+                    "200 ml",
+                )
+
+        misc_expected = {
+            "secro_flesh_amalgam_transmitter": "150 ml",
+            "secro_recipe_flesh": "1350 ml",
+            "broken_secro_fleshmech_unlink": "560 L",
+            "broken_secro_fleshmech": "560 L",
+            "secro_id_fvvault": "6 ml",
+            "secro_id_frrom": "6 ml",
+            "secro_sample_shifter": "200 ml",
+            "secro_power_armor_module_core": "300 ml",
+            "secro_power_armor_module_vessel": "1100 ml",
+            "secro_power_armor_module_vessel_act": "1100 ml",
+            "secro_fleshmech_gun_spikes": "16.5 L",
+        }
+        all_objects = {
+            obj["id"]: obj
+            for _, obj in objects_under(root)
+            if isinstance(obj.get("id"), str)
+        }
+        for item_id, expected_volume in misc_expected.items():
+            with self.subTest(density_item=item_id):
+                self.assertEqual(all_objects[item_id].get("volume"), expected_volume)
 
         mutation = read_json(
             root / "Modification Files" / "Others" / "secro_mutation.json"

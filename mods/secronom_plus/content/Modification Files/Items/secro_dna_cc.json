@@ -13,7 +13,7 @@
     "volume": "640 ml",
     "price": "1 USD",
     "material": [
-      "flesh",
+      "secro_flesh_reinforced",
       "bone"
     ],
     "symbol": ":",
@@ -55,7 +55,7 @@
     "price": "1 USD",
     "price_postapoc": "1 USD",
     "weight": "200 g",
-    "volume": "40 ml"
+    "volume": "200 ml"
   },
   {
     "type": "ITEM",
@@ -74,7 +74,7 @@
     "price": "1 USD",
     "price_postapoc": "1 USD",
     "weight": "200 g",
-    "volume": "40 ml"
+    "volume": "200 ml"
   },
   {
     "type": "ITEM",
@@ -93,7 +93,7 @@
     "price": "1 USD",
     "price_postapoc": "1 USD",
     "weight": "200 g",
-    "volume": "40 ml"
+    "volume": "200 ml"
   },
   {
     "type": "ITEM",
@@ -112,7 +112,7 @@
     "price": "1 USD",
     "price_postapoc": "1 USD",
     "weight": "200 g",
-    "volume": "40 ml"
+    "volume": "200 ml"
   },
   {
     "type": "ITEM",
@@ -131,7 +131,7 @@
     "price": "1 USD",
     "price_postapoc": "1 USD",
     "weight": "200 g",
-    "volume": "40 ml"
+    "volume": "200 ml"
   },
   {
     "type": "ITEM",
@@ -150,7 +150,7 @@
     "price": "1 USD",
     "price_postapoc": "1 USD",
     "weight": "200 g",
-    "volume": "40 ml"
+    "volume": "200 ml"
   },
   {
     "type": "ITEM",

@@ -62,7 +62,8 @@
       "thoroughly mutilated"
     ],
     "bash_dmg_verb": "bruised",
-    "cut_dmg_verb": "sliced"
+    "cut_dmg_verb": "sliced",
+    "density": 1.6
   },
   {
     "type": "material",
