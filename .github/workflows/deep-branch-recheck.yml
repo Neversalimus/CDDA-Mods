@@ -84,7 +84,7 @@ jobs:
           if [ "$code" -ne 0 ]; then
             while IFS= read -r log; do
               echo "::group::$log"
-              tail -n 500 "$log" || true
+              tail -n 5000 "$log" || true
               echo "::endgroup::"
             done < <(
               find "../build/recheck/${{ matrix.suite }}" -type f \
