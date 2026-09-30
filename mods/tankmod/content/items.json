@@ -74,7 +74,7 @@
       "steel",
       "powder"
     ],
-    "volume": "220 ml",
+    "volume": "3300 ml",
     "weight": "450 g",
     "longest_side": "137 mm",
     "melee_damage": {
@@ -118,7 +118,7 @@
       "steel",
       "powder"
     ],
-    "volume": "220 ml",
+    "volume": "3300 ml",
     "weight": "450 g",
     "longest_side": "137 mm",
     "melee_damage": {
@@ -1273,7 +1273,7 @@
     "skill": "rifle",
     "ammo": "25mm",
     "weight": "50 kg",
-    "volume": "6 L",
+    "volume": "12 L",
     "longest_side": "210 cm",
     "melee_damage": {
       "bash": 10
@@ -1404,7 +1404,7 @@
     "skill": "launcher",
     "ammo": "120mm_usable",
     "weight": "3000 kg",
-    "volume": "175 L",
+    "volume": "400 L",
     "longest_side": "530 cm",
     "melee_damage": {
       "bash": 12
@@ -1453,7 +1453,7 @@
     "skill": "launcher",
     "ammo": "120mm_usable",
     "weight": "3300 kg",
-    "volume": "200 L",
+    "volume": "425 L",
     "longest_side": "550 cm",
     "melee_damage": {
       "bash": 12
@@ -1500,7 +1500,7 @@
     "skill": "launcher",
     "ammo": "120mm_usable",
     "weight": "1000 kg",
-    "volume": "87500 ml",
+    "volume": "125 L",
     "longest_side": "312 cm",
     "melee_damage": {
       "bash": 12
@@ -1553,7 +1553,7 @@
     "skill": "launcher",
     "ammo": "105mm",
     "weight": "1500 kg",
-    "volume": "150 L",
+    "volume": "190 L",
     "longest_side": "546 cm",
     "melee_damage": {
       "bash": 10
@@ -1601,7 +1601,7 @@
     "skill": "launcher",
     "ammo": "105mm",
     "weight": "750 kg",
-    "volume": "75 L",
+    "volume": "95 L",
     "longest_side": "330 cm",
     "melee_damage": {
       "bash": 12
@@ -1652,7 +1652,7 @@
     "skill": "launcher",
     "ammo": "155mm",
     "weight": "4300 kg",
-    "volume": "200 L",
+    "volume": "550 L",
     "longest_side": "604 cm",
     "melee_damage": {
       "bash": 13
@@ -1699,7 +1699,7 @@
     "skill": "launcher",
     "ammo": "155mm",
     "weight": "1500 kg",
-    "volume": "100 L",
+    "volume": "190 L",
     "longest_side": "370 cm",
     "melee_damage": {
       "bash": 12
@@ -1824,7 +1824,7 @@
     "skill": "launcher",
     "ammo": "120mm_usable",
     "weight": "3300 kg",
-    "volume": "10 L",
+    "volume": "425 L",
     "range": 100,
     "dispersion": 1200,
     "sight_dispersion": 500,
