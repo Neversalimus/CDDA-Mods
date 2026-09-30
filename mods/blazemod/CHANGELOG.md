@@ -1,5 +1,14 @@
 # Blazemod Revival
 
+## 0.5.5-r5 — Uncraft mass conservation
+
+- Updated the legacy lead-ball recipe from 100 to 80 lead units so its reversible craft returns the same 400 g mass.
+- Raised the coilgun pipe count to match the finished weapon mass without changing weapon stats.
+- Modernized the handmade .308 carbine recipe to use a small gun-sized spring and short plank, preserving its pipe-and-wood construction while removing obsolete multi-kilogram components.
+- Preserved all seven authored adult-blob → two-grow-form splits; grow-form masses now equal half their adult form instead of creating extra mass on uncraft.
+- Converted four old 200-charge water assumptions to current charge semantics for blob wheel/hull recipes.
+- No gun damage, blob abilities, transform timers or adult blob weights changed.
+
 ## 0.5.5-r4 — Exact material-density normalization
 
 - Corrected the physical volume of all 72 items reported by the pinned exact-source material-density invariant.
