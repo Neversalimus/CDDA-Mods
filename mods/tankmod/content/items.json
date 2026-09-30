@@ -74,7 +74,7 @@
       "steel",
       "powder"
     ],
-    "volume": "220 ml",
+    "volume": "3300 ml",
     "weight": "450 g",
     "longest_side": "137 mm",
     "melee_damage": {
@@ -118,7 +118,7 @@
       "steel",
       "powder"
     ],
-    "volume": "220 ml",
+    "volume": "3300 ml",
     "weight": "450 g",
     "longest_side": "137 mm",
     "melee_damage": {
@@ -1151,7 +1151,7 @@
       "powder"
     ],
     "volume": "250 ml",
-    "weight": "40 g",
+    "weight": "45 g",
     "stackable": true,
     "explode_in_fire": true,
     "explosion": {
@@ -1175,7 +1175,7 @@
       "powder"
     ],
     "volume": "250 ml",
-    "weight": "80 g",
+    "weight": "51 g",
     "stackable": true,
     "explode_in_fire": true,
     "explosion": {
@@ -1213,7 +1213,6 @@
     "melee_damage": {
       "bash": 12
     },
-    "to_hit": -1,
     "dispersion": 15,
     "durability": 8,
     "modes": [
@@ -1274,12 +1273,11 @@
     "skill": "rifle",
     "ammo": "25mm",
     "weight": "50 kg",
-    "volume": "6 L",
+    "volume": "12 L",
     "longest_side": "210 cm",
     "melee_damage": {
       "bash": 10
     },
-    "to_hit": -1,
     "ranged_damage": {
       "damage_type": "bullet",
       "amount": -4
@@ -1357,7 +1355,6 @@
     "melee_damage": {
       "bash": 10
     },
-    "to_hit": -1,
     "ranged_damage": {
       "damage_type": "bullet",
       "amount": -5,
@@ -1407,12 +1404,11 @@
     "skill": "launcher",
     "ammo": "120mm_usable",
     "weight": "3000 kg",
-    "volume": "175 L",
+    "volume": "400 L",
     "longest_side": "530 cm",
     "melee_damage": {
       "bash": 12
     },
-    "to_hit": -6,
     "range": 40,
     "dispersion": 20,
     "sight_dispersion": 10,
@@ -1457,12 +1453,11 @@
     "skill": "launcher",
     "ammo": "120mm_usable",
     "weight": "3300 kg",
-    "volume": "200 L",
+    "volume": "425 L",
     "longest_side": "550 cm",
     "melee_damage": {
       "bash": 12
     },
-    "to_hit": -6,
     "range": 40,
     "dispersion": 30,
     "sight_dispersion": 10,
@@ -1505,12 +1500,11 @@
     "skill": "launcher",
     "ammo": "120mm_usable",
     "weight": "1000 kg",
-    "volume": "87500 ml",
+    "volume": "125 L",
     "longest_side": "312 cm",
     "melee_damage": {
       "bash": 12
     },
-    "to_hit": -6,
     "ranged_damage": {
       "damage_type": "bullet",
       "amount": -15,
@@ -1559,12 +1553,11 @@
     "skill": "launcher",
     "ammo": "105mm",
     "weight": "1500 kg",
-    "volume": "150 L",
+    "volume": "190 L",
     "longest_side": "546 cm",
     "melee_damage": {
       "bash": 10
     },
-    "to_hit": -6,
     "range": 45,
     "dispersion": 15,
     "sight_dispersion": 10,
@@ -1608,12 +1601,11 @@
     "skill": "launcher",
     "ammo": "105mm",
     "weight": "750 kg",
-    "volume": "75 L",
+    "volume": "95 L",
     "longest_side": "330 cm",
     "melee_damage": {
       "bash": 12
     },
-    "to_hit": -6,
     "ranged_damage": {
       "damage_type": "bullet",
       "amount": -10,
@@ -1660,12 +1652,11 @@
     "skill": "launcher",
     "ammo": "155mm",
     "weight": "4300 kg",
-    "volume": "200 L",
+    "volume": "550 L",
     "longest_side": "604 cm",
     "melee_damage": {
       "bash": 13
     },
-    "to_hit": -6,
     "range": 70,
     "dispersion": 40,
     "sight_dispersion": 10,
@@ -1708,12 +1699,11 @@
     "skill": "launcher",
     "ammo": "155mm",
     "weight": "1500 kg",
-    "volume": "100 L",
+    "volume": "190 L",
     "longest_side": "370 cm",
     "melee_damage": {
       "bash": 12
     },
-    "to_hit": -6,
     "ranged_damage": {
       "damage_type": "bullet",
       "amount": -20,
@@ -1753,7 +1743,6 @@
     "longest_side": "150 cm",
     "price": "91000 USD",
     "price_postapoc": "50 USD",
-    "to_hit": -6,
     "melee_damage": {
       "bash": 12
     },
@@ -1835,7 +1824,7 @@
     "skill": "launcher",
     "ammo": "120mm_usable",
     "weight": "3300 kg",
-    "volume": "10 L",
+    "volume": "425 L",
     "range": 100,
     "dispersion": 1200,
     "sight_dispersion": 500,
@@ -1871,13 +1860,12 @@
       "steel",
       "plastic"
     ],
-    "weight": "45000 kg",
-    "volume": "900 L",
+    "weight": "4500 kg",
+    "volume": "1000 L",
     "melee_damage": {
       "bash": 20,
       "cut": 15
     },
-    "to_hit": -3,
     "flags": [
       "TRADER_AVOID",
       "NO_REPAIR"
@@ -1898,7 +1886,6 @@
     "volume": "50 L",
     "price": "255 USD",
     "price_postapoc": "8 USD",
-    "to_hit": -3,
     "melee_damage": {
       "bash": 30
     },
@@ -1927,7 +1914,6 @@
     "volume": "60 L",
     "price": "455 USD",
     "price_postapoc": "10 USD",
-    "to_hit": -3,
     "melee_damage": {
       "bash": 30
     },
@@ -1954,7 +1940,6 @@
     "volume": "80 L",
     "price": "755 USD",
     "price_postapoc": "12 USD",
-    "to_hit": -3,
     "melee_damage": {
       "bash": 30
     },

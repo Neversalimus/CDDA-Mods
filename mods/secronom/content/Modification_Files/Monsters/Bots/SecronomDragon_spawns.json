@@ -63,6 +63,7 @@
   "death_function": {
     "corpse_type": "BROKEN"
   },
+  "broken_itype": "broken_bot_secroinforcer",
   "flags": [
     "SEES",
     "FLIES",
@@ -147,6 +148,7 @@
   "death_function": {
     "corpse_type": "BROKEN"
   },
+  "broken_itype": "broken_bot_secroshocker",
   "flags": [
     "SEES",
     "HEARS",
@@ -251,6 +253,7 @@
   "death_function": {
     "corpse_type": "BROKEN"
   },
+  "broken_itype": "broken_bot_secroriflewalker",
   "flags": [
     "SEES",
     "ELECTRONIC",
@@ -321,6 +324,7 @@
   "death_function": {
     "corpse_type": "BROKEN"
   },
+  "broken_itype": "broken_bot_secrolauncher",
   "flags": [
     "SEES",
     "FLIES",

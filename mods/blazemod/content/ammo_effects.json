@@ -1,0 +1,21 @@
+[
+  {
+    "id": "MININUKE_MOD",
+    "type": "ammo_effect",
+    "//": "Modernized from the legacy Blazemod/old-CDDA mininuke projectile effect.",
+    "aoe": [
+      {
+        "field_type": "fd_nuke_gas",
+        "intensity_min": 3,
+        "intensity_max": 3,
+        "radius": 24,
+        "size": 1,
+        "check_passable": true
+      }
+    ],
+    "explosion": {
+      "power": 3000,
+      "distance_factor": 0.8
+    }
+  }
+]

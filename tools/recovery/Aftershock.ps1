@@ -578,7 +578,15 @@ function Apply-KnownTransforms([string]$AftershockRoot) {
     $dstVanillaOverrides = Join-Path $BuildRoot "mutations\vanilla_overrides_prime.json"
     if(Test-Path $srcVanillaOverrides) {
         $arr = Get-JsonArray $srcVanillaOverrides
-        $keep = @($arr | Where-Object { $KeepFromVanillaOverrides -contains (Get-ObjectId $_) })
+        $keep = @($arr | Where-Object {
+            $id = Get-ObjectId $_
+            $isSelfMutationOverlay = (
+                (Get-ObjectType $_) -eq "mutation" -and
+                $null -ne $_.PSObject.Properties["copy-from"] -and
+                [string]$_.'copy-from' -eq $id
+            )
+            ($KeepFromVanillaOverrides -contains $id) -or $isSelfMutationOverlay
+        })
         if($keep.Count -gt 0) { Set-JsonArray $dstVanillaOverrides $keep }
     }
 
@@ -764,8 +772,19 @@ function Remove-ExternalCollisions($ExternalIndex) {
                 continue
             }
 
-            $protected = $ProtectedImportedIds -contains $id
-            $action = if($auditOnly -or $protected) { "kept_audit" } else { "pruned" }
+            $semanticMutationOverlay = (
+                $t -eq "mutation" -and
+                $null -ne $o.PSObject.Properties["copy-from"] -and
+                [string]$o.'copy-from' -eq $id
+            )
+            $protected = ($ProtectedImportedIds -contains $id) -or $semanticMutationOverlay
+            $action = if($semanticMutationOverlay) {
+                "kept_semantic_overlay"
+            } elseif($auditOnly -or $protected) {
+                "kept_audit"
+            } else {
+                "pruned"
+            }
 
             $report.Add([pscustomobject]@{
                 file = Normalize-Rel ($f.FullName.Substring($BuildRoot.Length))

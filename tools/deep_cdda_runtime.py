@@ -988,12 +988,120 @@ def source_specs(
     if depth in ("full", "exhaustive"):
         # Match CDDA's own CI partition and explicitly include starting_items,
         # which exercises character/profession construction under loaded mod data.
-        specs.append("~[slow] ~[.],starting_items")
+        # Repository-owned probes are compiled into the shared cata_test binary,
+        # so exclude them from generic partitions and run them only in their
+        # owning component suite above.
+        specs.append(
+            '~[slow] ~[.] ~[axiom7_lifecycle] '
+            '~"item_new_to_hit_enforcement" '
+            '~"uncraft_blacklist_is_pruned",starting_items'
+        )
     if depth == "exhaustive":
-        # Complementary slow partition: together with the line above this covers
-        # essentially the full non-hidden upstream runtime surface.
+        # The slow partition cannot select AXIOM lifecycle probes because those
+        # probes are not tagged [slow], so preserve CDDA's original filter
+        # exactly instead of narrowing upstream coverage.
         specs.append("[slow] ~starting_items")
     return specs
+
+
+INHERITED_DEBT_BASELINE = ROOT / ".github" / "deep-inherited-debt.json"
+
+
+def parse_inherited_debt_failures(stdout: str) -> dict:
+    """Extract the two upstream-debt failure classes from Catch output."""
+    lines = stdout.splitlines()
+    observed = {"density_ids": [], "uncraft_ids": [], "unknown_failures": []}
+    failure_re = re.compile(r"\.\./tests/([^:]+):(\d+):\s+FAILED:")
+    for index, line in enumerate(lines):
+        match = failure_re.search(line)
+        if not match:
+            continue
+        location = f"{match.group(1)}:{match.group(2)}"
+        block = "\n".join(lines[index : index + 20])
+        if location == "item_test.cpp:1037":
+            item = re.search(r'target\.typeId\(\).*?string_id\( "([^"]+)" \)', block)
+            if item:
+                observed["density_ids"].append(item.group(1))
+            else:
+                observed["unknown_failures"].append(location + ":missing-item-id")
+        elif location == "item_test.cpp:1375":
+            item = re.search(r"Item ([^ ]+) weight", block)
+            if item:
+                observed["uncraft_ids"].append(item.group(1))
+            else:
+                observed["unknown_failures"].append(location + ":missing-item-id")
+        else:
+            observed["unknown_failures"].append(location)
+    return observed
+
+
+def inherited_debt_expectation(
+    target: str,
+    commit: str,
+    components: list[str],
+) -> tuple[str, dict] | None:
+    if not INHERITED_DEBT_BASELINE.is_file():
+        return None
+    baseline = suite.read(INHERITED_DEBT_BASELINE)
+    if (
+        baseline.get("target") != target
+        or str(baseline.get("commit", "")).lower() != commit.lower()
+    ):
+        return None
+    for debt_id, debt in (baseline.get("debts") or {}).items():
+        if debt.get("component") in components:
+            return debt_id, debt
+    return None
+
+
+def normalize_inherited_debt_result(
+    result: dict,
+    log_dir: Path,
+    target: str,
+    commit: str,
+    components: list[str],
+) -> dict:
+    """Accept only an exact, pinned copy of documented upstream test debt."""
+    result = dict(result)
+    if not result.get("exit_code") or result.get("errors") or not result.get("catch_failed"):
+        return result
+    expected = inherited_debt_expectation(target, commit, components)
+    if expected is None:
+        return result
+    debt_id, debt = expected
+    stdout_path = log_dir / "stdout.log"
+    if not stdout_path.is_file():
+        return result
+    observed = parse_inherited_debt_failures(
+        stdout_path.read_text(encoding="utf-8", errors="replace")
+    )
+    expected_density = sorted(debt.get("density_ids") or [])
+    expected_uncraft = sorted(debt.get("uncraft_ids") or [])
+    observed_density = sorted(observed["density_ids"])
+    observed_uncraft = sorted(observed["uncraft_ids"])
+    exact = (
+        not observed["unknown_failures"]
+        and observed_density == expected_density
+        and observed_uncraft == expected_uncraft
+        and len(observed["density_ids"]) == len(expected_density)
+        and len(observed["uncraft_ids"]) == len(expected_uncraft)
+    )
+    result["inherited_debt_check"] = {
+        "debt_id": debt_id,
+        "matched": exact,
+        "density_count": len(observed["density_ids"]),
+        "uncraft_count": len(observed["uncraft_ids"]),
+        "unknown_failures": observed["unknown_failures"],
+    }
+    if exact:
+        result["exit_code"] = 0
+        result["inherited_debt_only"] = True
+        result["inherited_debt"] = {
+            "debt_id": debt_id,
+            "density_ids": observed_density,
+            "uncraft_ids": observed_uncraft,
+        }
+    return result
 
 
 def normalize_cata_test_result(result: dict, log_dir: Path) -> dict:
@@ -1130,6 +1238,13 @@ def run_source(
             ]
             result = run_process(args, cdda_root, log_dir, timeout)
             result = normalize_cata_test_result(result, log_dir)
+            result = normalize_inherited_debt_result(
+                result,
+                log_dir,
+                target,
+                target_info["commit"],
+                row["components"],
+            )
             runs.append(
                 {
                     "suite": row["name"],

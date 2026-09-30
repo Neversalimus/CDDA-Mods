@@ -40,14 +40,33 @@ class DeepRuntimePlanTests(unittest.TestCase):
             deep.source_specs("load", combined=False),
             ["[force_load_game]"],
         )
-        self.assertIn(
-            "~[slow] ~[.],starting_items",
-            deep.source_specs("full", combined=False),
-        )
+        full = deep.source_specs("full", combined=False)
+        fast = full[1]
+        self.assertIn("~[slow]", fast)
+        self.assertIn("~[.]", fast)
+        self.assertIn("~[axiom7_lifecycle]", fast)
+        self.assertIn('~"item_new_to_hit_enforcement"', fast)
+        self.assertIn('~"uncraft_blacklist_is_pruned"', fast)
+        self.assertIn(",starting_items", fast)
+        self.assertNotIn("uncraft_sanity_check", fast)
+
         exhaustive = deep.source_specs("exhaustive", combined=True)
-        self.assertIn("~[slow] ~[.],starting_items", exhaustive)
+        fast = exhaustive[1]
+        self.assertIn('~"item_new_to_hit_enforcement"', fast)
+        self.assertIn('~"uncraft_blacklist_is_pruned"', fast)
         self.assertIn("[slow] ~starting_items", exhaustive)
 
+
+    def test_only_upstream_blacklist_maintenance_tests_are_excluded(self):
+        spec = deep.source_specs(
+            "full",
+            combined=False,
+            suite_name="component-blazemod",
+        )[1]
+        self.assertIn('~"item_new_to_hit_enforcement"', spec)
+        self.assertIn('~"uncraft_blacklist_is_pruned"', spec)
+        self.assertNotIn('~"uncraft_sanity_check"', spec)
+        self.assertNotIn('~"item_material_density_sanity_check"', spec)
 
     def test_axiom_component_gets_exact_engine_lifecycle_probe(self):
         self.assertEqual(
@@ -58,14 +77,35 @@ class DeepRuntimePlanTests(unittest.TestCase):
             ),
             ["[force_load_game]", "[axiom7_lifecycle]"],
         )
-        self.assertNotIn(
-            "[axiom7_lifecycle]",
-            deep.source_specs(
-                "full",
-                combined=True,
-                suite_name="combined-all-json",
-            ),
+        combined = deep.source_specs(
+            "full",
+            combined=True,
+            suite_name="combined-all-json",
         )
+        self.assertNotIn("[axiom7_lifecycle]", combined)
+        self.assertTrue(
+            all("~[axiom7_lifecycle]" in spec for spec in combined[1:])
+        )
+
+    def test_generic_exhaustive_partitions_exclude_repository_probes(self):
+        for suite_name in (
+            "component-aftershock_prime",
+            "component-aftershock_prime_mom",
+            "component-secronom",
+            "combined-all-json",
+        ):
+            specs = deep.source_specs(
+                "exhaustive",
+                combined=suite_name == "combined-all-json",
+                suite_name=suite_name,
+            )
+            self.assertNotIn("[axiom7_lifecycle]", specs)
+            self.assertIn(
+                "~[axiom7_lifecycle]",
+                specs[1],
+            )
+            if len(specs) > 2:
+                self.assertEqual(specs[2], "[slow] ~starting_items")
 
     def test_axiom_runtime_probe_is_wired_into_source_build(self):
         probe = (
@@ -84,6 +124,27 @@ class DeepRuntimePlanTests(unittest.TestCase):
             self.assertIn(required, probe)
         self.assertIn(
             "tools/runtime_probes/axiom7_lifecycle_test.cpp",
+            workflow,
+        )
+
+    def test_installer_failure_evidence_is_uploaded_without_staged_game_data(self):
+        workflow = (
+            ROOT / ".github" / "workflows" / "deep-runtime.yml"
+        ).read_text(encoding="utf-8")
+        self.assertIn(
+            "_CDDA-Mods/transactions/**/validation/**/stdout.log",
+            workflow,
+        )
+        self.assertIn(
+            "_CDDA-Mods/transactions/**/validation/**/stderr.log",
+            workflow,
+        )
+        self.assertIn(
+            "_CDDA-Mods/transactions/**/validation/**/debug.log",
+            workflow,
+        )
+        self.assertNotIn(
+            "_CDDA-Mods/transactions/**/validation/data/**",
             workflow,
         )
 
@@ -216,6 +277,104 @@ class DeepRuntimePlanTests(unittest.TestCase):
             )
             self.assertEqual(result["exit_code"], 1)
             self.assertTrue(result["catch_failed"])
+
+    def test_aftershock_inherited_debt_baseline_is_exact_and_strict(self):
+        baseline = deep.suite.read(deep.INHERITED_DEBT_BASELINE)
+        debt = baseline["debts"]["aftershock_prime_upstream"]
+        self.assertEqual(len(debt["density_ids"]), 72)
+        self.assertEqual(len(debt["uncraft_ids"]), 80)
+
+        def failure_stdout(extra=""):
+            lines = []
+            for item_id in debt["density_ids"]:
+                lines += [
+                    "../tests/item_test.cpp:1037: FAILED:",
+                    f'  target.typeId() := string_id( "{item_id}" )',
+                ]
+            for item_id in debt["uncraft_ids"]:
+                lines += [
+                    "../tests/item_test.cpp:1375: FAILED:",
+                    f"  Item {item_id} weight 1 gram, but its uncraft recipe differs.",
+                ]
+            if extra:
+                lines += ["../tests/other_test.cpp:42: FAILED:", extra]
+            return "\n".join(lines) + "\n"
+
+        with tempfile.TemporaryDirectory() as tmp:
+            log_dir = Path(tmp)
+            (log_dir / "stderr.log").write_text("", encoding="utf-8")
+            (log_dir / "stdout.log").write_text(
+                failure_stdout(),
+                encoding="utf-8",
+            )
+            result = deep.normalize_inherited_debt_result(
+                {"exit_code": 152, "errors": [], "catch_failed": True},
+                log_dir,
+                TARGET,
+                baseline["commit"],
+                ["aftershock_prime"],
+            )
+            self.assertEqual(result["exit_code"], 0)
+            self.assertTrue(result["inherited_debt_only"])
+            self.assertTrue(result["inherited_debt_check"]["matched"])
+
+            (log_dir / "stdout.log").write_text(
+                failure_stdout("unexpected regression"),
+                encoding="utf-8",
+            )
+            extra = deep.normalize_inherited_debt_result(
+                {"exit_code": 153, "errors": [], "catch_failed": True},
+                log_dir,
+                TARGET,
+                baseline["commit"],
+                ["aftershock_prime"],
+            )
+            self.assertNotEqual(extra["exit_code"], 0)
+            self.assertFalse(extra["inherited_debt_check"]["matched"])
+
+            missing_text = failure_stdout().replace(
+                f'../tests/item_test.cpp:1037: FAILED:\n'
+                f'  target.typeId() := string_id( "{debt["density_ids"][0]}" )\n',
+                "",
+                1,
+            )
+            (log_dir / "stdout.log").write_text(
+                missing_text,
+                encoding="utf-8",
+            )
+            missing = deep.normalize_inherited_debt_result(
+                {"exit_code": 151, "errors": [], "catch_failed": True},
+                log_dir,
+                TARGET,
+                baseline["commit"],
+                ["aftershock_prime"],
+            )
+            self.assertNotEqual(missing["exit_code"], 0)
+            self.assertFalse(missing["inherited_debt_check"]["matched"])
+
+    def test_inherited_debt_baseline_is_commit_and_component_bound(self):
+        baseline = deep.suite.read(deep.INHERITED_DEBT_BASELINE)
+        self.assertIsNotNone(
+            deep.inherited_debt_expectation(
+                TARGET,
+                baseline["commit"],
+                ["aftershock_prime"],
+            )
+        )
+        self.assertIsNone(
+            deep.inherited_debt_expectation(
+                TARGET,
+                "0" * 40,
+                ["aftershock_prime"],
+            )
+        )
+        self.assertIsNone(
+            deep.inherited_debt_expectation(
+                TARGET,
+                baseline["commit"],
+                ["secronom"],
+            )
+        )
 
     def test_run_process_records_elapsed_time_without_changing_exit_code(self):
         with tempfile.TemporaryDirectory() as tmp:

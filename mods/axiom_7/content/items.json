@@ -323,9 +323,8 @@
       "plastic"
     ],
     "weight": "6 g",
-    "volume": "5 ml",
+    "volume": "6 ml",
     "category": "keys",
-    "to_hit": -3,
     "flags": [
       "AXIOM_CARD_CONTRACTOR"
     ]
@@ -345,9 +344,8 @@
       "plastic"
     ],
     "weight": "6 g",
-    "volume": "5 ml",
+    "volume": "6 ml",
     "category": "keys",
-    "to_hit": -3,
     "flags": [
       "AXIOM_CARD_CONTRACTOR",
       "AXIOM_CARD_SPECIALIST"
@@ -368,9 +366,8 @@
       "plastic"
     ],
     "weight": "6 g",
-    "volume": "5 ml",
+    "volume": "6 ml",
     "category": "keys",
-    "to_hit": -3,
     "flags": [
       "AXIOM_CARD_CONTRACTOR",
       "AXIOM_CARD_SPECIALIST",

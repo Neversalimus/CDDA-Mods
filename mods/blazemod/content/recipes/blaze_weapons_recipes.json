@@ -1325,67 +1325,67 @@
     ]
   },
   {
-    "type": "recipe",
-    "activity_level": "LIGHT_EXERCISE",
-    "result": "rifle_308",
-    "category": "CC_WEAPON",
-    "subcategory": "CSC_WEAPON_RANGED",
-    "skill_used": "mechanics",
-    "skills_required": [
-      "gun",
-      3
+  "type": "recipe",
+  "activity_level": "LIGHT_EXERCISE",
+  "result": "rifle_308",
+  "category": "CC_WEAPON",
+  "subcategory": "CSC_WEAPON_RANGED",
+  "skill_used": "mechanics",
+  "skills_required": [
+    "gun",
+    3
+  ],
+  "difficulty": 7,
+  "time": "30 m",
+  "reversible": true,
+  "autolearn": true,
+  "qualities": [
+    {
+      "id": "SAW_M_FINE",
+      "level": 1
+    },
+    {
+      "id": "SCREW_FINE",
+      "level": 1
+    },
+    {
+      "id": "WRENCH",
+      "level": 1
+    }
+  ],
+  "components": [
+    [
+      [
+        "pipe",
+        1
+      ]
     ],
-    "difficulty": 7,
-    "time": "30 m",
-    "reversible": true,
-    "autolearn": true,
-    "qualities": [
-      {
-        "id": "SAW_M_FINE",
-        "level": 1
-      },
-      {
-        "id": "SCREW_FINE",
-        "level": 1
-      },
-      {
-        "id": "WRENCH",
-        "level": 1
-      }
+    [
+      [
+        "spring_small",
+        1
+      ]
     ],
-    "components": [
+    [
       [
-        [
-          "pipe",
-          2
-        ]
-      ],
+        "lc_steel_chunk",
+        1
+      ]
+    ],
+    [
       [
-        [
-          "spring",
-          1
-        ]
-      ],
+        "plank_short",
+        1
+      ]
+    ],
+    [
       [
-        [
-          "lc_steel_chunk",
-          3
-        ]
-      ],
-      [
-        [
-          "2x4",
-          1
-        ]
-      ],
-      [
-        [
-          "scrap",
-          3
-        ]
+        "scrap",
+        3
       ]
     ]
-  },
+  ]
+},
   {
     "type": "recipe",
     "activity_level": "LIGHT_EXERCISE",

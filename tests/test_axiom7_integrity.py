@@ -351,6 +351,40 @@ class Axiom7IntegrityTests(unittest.TestCase):
             self.assertIn(targets[0], missions, offer["id"])
             self.assertIn(offer["id"], npc_text, offer["id"])
 
+    def test_access_cards_use_current_item_fields_and_safe_density(self):
+        items = {
+            entry["id"]: entry
+            for entry in load_json("items.json")
+            if entry.get("id", "").startswith("axiom_card_")
+        }
+        self.assertEqual(
+            set(items),
+            {
+                "axiom_card_contractor",
+                "axiom_card_specialist",
+                "axiom_card_prototype",
+            },
+        )
+        for item_id, item in items.items():
+            with self.subTest(item=item_id):
+                self.assertEqual(item["weight"], "6 g")
+                self.assertEqual(item["volume"], "6 ml")
+                self.assertNotIn("to_hit", item)
+
+    def test_security_bot_does_not_declare_one_way_ecology_wars(self):
+        faction = next(
+            entry
+            for entry in load_json("robots.json")
+            if entry.get("type") == "MONSTER_FACTION"
+            and entry.get("name") == "axiom_security_bot"
+        )
+        self.assertNotIn("fungus", faction.get("hate", []))
+        self.assertNotIn("triffid", faction.get("hate", []))
+        self.assertEqual(
+            set(faction.get("hate", [])),
+            {"zombie", "zombie_aquatic", "nether"},
+        )
+
     def test_security_character_events_cover_every_axiom_level(self):
         facility_ids = {
             entry["id"] for entry in load_json("overmap_terrain.json")
