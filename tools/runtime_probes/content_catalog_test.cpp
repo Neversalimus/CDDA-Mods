@@ -110,7 +110,7 @@ TEST_CASE( "cdda_mods_all_loaded_overmap_content_resolves",
         CHECK( special.id.is_valid() );
         for( const oter_type_id &terrain_id : special.get_terrain_type_ids() ) {
             CAPTURE( terrain_id.id().str() );
-            CHECK( terrain_id.is_valid() );
+            CHECK( terrain_id.id().is_valid() );
         }
         ++special_count;
     }
