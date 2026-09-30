@@ -52,10 +52,10 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
 
     def test_tankmod_exhaustive_legacy_fields_are_removed(self):
         root = ROOT / "mods" / "tankmod" / "content"
-        objects = {
+        item_objects = {
             obj["id"]: obj
             for _, obj in objects_under(root)
-            if obj.get("id")
+            if obj.get("type") == "ITEM" and obj.get("id")
         }
         legacy_to_hit = {
             "25mm_autocannon",
@@ -76,8 +76,8 @@ class ExhaustiveModInvariantTests(unittest.TestCase):
         }
         for item_id in legacy_to_hit:
             with self.subTest(item=item_id):
-                self.assertIn(item_id, objects)
-                self.assertNotIn("to_hit", objects[item_id])
+                self.assertIn(item_id, item_objects)
+                self.assertNotIn("to_hit", item_objects[item_id])
         for part_id in ("tread1", "tread2", "tread3"):
             with self.subTest(part=part_id):
                 part = next(
