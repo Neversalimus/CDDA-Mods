@@ -39,7 +39,7 @@
     },
     "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
     "weight": "12140 g",
-    "volume": "4500 ml",
+    "volume": "11500 ml",
     "price": "1 USD",
     "material": [
       "flesh"
@@ -66,7 +66,7 @@
     },
     "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
     "weight": "5410 g",
-    "volume": "2500 ml",
+    "volume": "5500 ml",
     "price": "1 USD",
     "material": [
       "flesh"
@@ -93,7 +93,7 @@
     },
     "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
     "weight": "15140 g",
-    "volume": "3 L",
+    "volume": "14500 ml",
     "price": "1 USD",
     "material": [
       "flesh"
@@ -120,7 +120,7 @@
     },
     "description": "A biological mystery, this blob's internal structures exist in within a pool of low-density fluid that remains liquid despite being in a super-cooled state; yet possesses all the malleability of its former self.  Fragments of frost continually flake off it.  It seems pliable enough to pull apart…",
     "weight": "6112 g",
-    "volume": "5 L",
+    "volume": "6 L",
     "price": "5 USD",
     "melee_damage": {
       "bash": 9
@@ -143,7 +143,7 @@
     },
     "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
     "weight": "3562 g",
-    "volume": "2 L",
+    "volume": "3500 ml",
     "price": "1 USD",
     "material": [
       "flesh"
@@ -170,7 +170,7 @@
     },
     "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
     "weight": "18140 g",
-    "volume": "5 L",
+    "volume": "17 L",
     "price": "1 USD",
     "material": [
       "flesh"
@@ -197,7 +197,7 @@
     },
     "description": "An experiment gone horribly right.  While the original intent was to combine the structure of a bone frame with the impact absorption of the blob; the blob seems to have completely consumed the bone.  Instead, what remains is an amorphous mass of goo with what seems to be numerous thin filaments floating within.  With a bit of effort, you can grasp the fibers and stretch the mass into a multitude of shapes.  The mass is able to retain the new shape even under force, though the mass yields at your touch.  With enough strength, you think you can pull it apart.",
     "weight": "6662 g",
-    "volume": "5 L",
+    "volume": "6500 ml",
     "price": "1 USD",
     "material": [
       "flesh"
@@ -243,7 +243,7 @@
     },
     "description": "Having been fed, this blob is now rapidly multiplying into other copies of itself; extremely noisy copies!  And even worse, it's stuck to your hands until whatever it's doing is done!  Catch those blobs before they bring in every zombie for miles!",
     "weight": "8662 g",
-    "volume": "5 L",
+    "volume": "8500 ml",
     "price": "1 USD",
     "material": [
       "flesh"
@@ -276,7 +276,7 @@
     },
     "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
     "weight": "3562 g",
-    "volume": "2 L",
+    "volume": "3500 ml",
     "price": "1 USD",
     "material": [
       "flesh"
@@ -303,7 +303,7 @@
     },
     "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
     "weight": "3562 g",
-    "volume": "2 L",
+    "volume": "3500 ml",
     "price": "1 USD",
     "material": [
       "flesh"
@@ -330,7 +330,7 @@
     },
     "description": "This internal structures of this creature have developed significantly.  While retaining the resilience and malleability of its once simpler form, it has gained the considerable abilities of perception and stimulus response.  When directly threatened, it is able to shift and alter its microfibers, hardening its membrane to an almost steel-hard shell.  You can still pull it apart with enough force.  It's also really gray.",
     "weight": "19120 g",
-    "volume": "15 L",
+    "volume": "18 L",
     "price": "1 USD",
     "material": [
       "flesh"
@@ -376,7 +376,7 @@
     },
     "description": "Having been fed, this blob is now rapidly multiplying into other copies of itself; extremely noisy copies!  And even worse, it's stuck to your hands until whatever it's doing is done!  Catch those blobs before they bring in every zombie for miles!",
     "weight": "19662 g",
-    "volume": "5 L",
+    "volume": "18500 ml",
     "price": "1 USD",
     "material": [
       "flesh"
@@ -436,7 +436,7 @@
     },
     "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
     "weight": "20140 g",
-    "volume": "5500 ml",
+    "volume": "19 L",
     "price": "1 USD",
     "material": [
       "flesh"
@@ -463,7 +463,7 @@
     },
     "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
     "weight": "12140 g",
-    "volume": "3 L",
+    "volume": "11500 ml",
     "price": "1 USD",
     "material": [
       "flesh"
@@ -490,7 +490,7 @@
     },
     "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
     "weight": "12140 g",
-    "volume": "3 L",
+    "volume": "11500 ml",
     "price": "1 USD",
     "material": [
       "flesh"
@@ -563,7 +563,7 @@
     },
     "description": "Having been fed, this blob is now rapidly multiplying into other copies of itself; extremely noisy copies!  And even worse, it's stuck to your hands until whatever it's doing is done!  Catch those blobs before they bring in every zombie for miles!",
     "weight": "16662 g",
-    "volume": "5 L",
+    "volume": "15500 ml",
     "price": "1 USD",
     "material": [
       "flesh"
@@ -596,7 +596,7 @@
     },
     "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
     "weight": "12662 g",
-    "volume": "10 L",
+    "volume": "12 L",
     "price": "1 USD",
     "material": [
       "flesh"
@@ -623,7 +623,7 @@
     },
     "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
     "weight": "25325 g",
-    "volume": "15 L",
+    "volume": "24 L",
     "price": "1 USD",
     "material": [
       "flesh"
@@ -650,7 +650,7 @@
     },
     "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
     "weight": "18140 g",
-    "volume": "5 L",
+    "volume": "17 L",
     "price": "1 USD",
     "material": [
       "flesh"
@@ -677,7 +677,7 @@
     },
     "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
     "weight": "11140 g",
-    "volume": "3500 ml",
+    "volume": "10500 ml",
     "price": "1 USD",
     "material": [
       "flesh"
@@ -704,7 +704,7 @@
     },
     "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
     "weight": "12140 g",
-    "volume": "4 L",
+    "volume": "11500 ml",
     "price": "1 USD",
     "material": [
       "flesh"
@@ -731,7 +731,7 @@
     },
     "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
     "weight": "11140 g",
-    "volume": "3 L",
+    "volume": "10500 ml",
     "price": "1 USD",
     "material": [
       "flesh"
@@ -758,7 +758,7 @@
     },
     "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
     "weight": "8140 g",
-    "volume": "3 L",
+    "volume": "8 L",
     "price": "1 USD",
     "material": [
       "flesh"
@@ -785,7 +785,7 @@
     },
     "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
     "weight": "12140 g",
-    "volume": "3 L",
+    "volume": "11500 ml",
     "price": "1 USD",
     "material": [
       "flesh"
@@ -812,7 +812,7 @@
     },
     "description": "Not quite fully grown, this blob requires nourishment to fully develop.",
     "weight": "12140 g",
-    "volume": "4 L",
+    "volume": "11500 ml",
     "price": "1 USD",
     "material": [
       "flesh"
