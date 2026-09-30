@@ -42,20 +42,15 @@ class DeepRuntimePlanTests(unittest.TestCase):
         )
         full = deep.source_specs("full", combined=False)
         self.assertIn(
-            "~[slow] ~[.] ~[axiom7_lifecycle],"
-            "starting_items ~[axiom7_lifecycle]",
+            "~[slow] ~[.] ~[axiom7_lifecycle],starting_items",
             full,
         )
         exhaustive = deep.source_specs("exhaustive", combined=True)
         self.assertIn(
-            "~[slow] ~[.] ~[axiom7_lifecycle],"
-            "starting_items ~[axiom7_lifecycle]",
+            "~[slow] ~[.] ~[axiom7_lifecycle],starting_items",
             exhaustive,
         )
-        self.assertIn(
-            "[slow] ~starting_items ~[axiom7_lifecycle]",
-            exhaustive,
-        )
+        self.assertIn("[slow] ~starting_items", exhaustive)
 
 
     def test_axiom_component_gets_exact_engine_lifecycle_probe(self):
@@ -90,9 +85,12 @@ class DeepRuntimePlanTests(unittest.TestCase):
                 suite_name=suite_name,
             )
             self.assertNotIn("[axiom7_lifecycle]", specs)
-            self.assertTrue(
-                all("~[axiom7_lifecycle]" in spec for spec in specs[1:])
+            self.assertIn(
+                "~[axiom7_lifecycle]",
+                specs[1],
             )
+            if len(specs) > 2:
+                self.assertEqual(specs[2], "[slow] ~starting_items")
 
     def test_axiom_runtime_probe_is_wired_into_source_build(self):
         probe = (
