@@ -1120,14 +1120,16 @@ def inherited_debt_expectation(
     target: str,
     commit: str,
     components: list[str],
+    portable: bool = False,
 ) -> tuple[str, dict] | None:
     if not INHERITED_DEBT_BASELINE.is_file():
         return None
     baseline = suite.read(INHERITED_DEBT_BASELINE)
-    if (
-        baseline.get("target") != target
-        or str(baseline.get("commit", "")).lower() != commit.lower()
-    ):
+    exact_baseline = (
+        baseline.get("target") == target
+        and str(baseline.get("commit", "")).lower() == commit.lower()
+    )
+    if not exact_baseline and not portable:
         return None
     matches = [
         (int(debt.get("priority", 0)), debt_id, debt)
@@ -1137,6 +1139,8 @@ def inherited_debt_expectation(
     if not matches:
         return None
     _, debt_id, debt = max(matches, key=lambda item: item[0])
+    debt = dict(debt)
+    debt["_portable_baseline"] = not exact_baseline
     return debt_id, debt
 
 def normalize_inherited_debt_result(
@@ -1145,6 +1149,7 @@ def normalize_inherited_debt_result(
     target: str,
     commit: str,
     components: list[str],
+    portable_baseline: bool = False,
 ) -> dict:
     """Accept only pinned, component-specific copies of documented upstream debt."""
     result = dict(result)
@@ -1154,7 +1159,12 @@ def normalize_inherited_debt_result(
         or not result.get("catch_failed")
     ):
         return result
-    expected = inherited_debt_expectation(target, commit, components)
+    expected = inherited_debt_expectation(
+        target,
+        commit,
+        components,
+        portable=portable_baseline,
+    )
     if expected is None:
         return result
     debt_id, debt = expected
@@ -1232,6 +1242,7 @@ def normalize_inherited_debt_result(
         "mutation_count": len(observed["mutation_ids"]),
         "overmap_missing_count": observed["overmap_missing_count"],
         "unknown_failures": observed["unknown_failures"],
+        "portable_baseline": bool(debt.get("_portable_baseline")),
     }
     if exact:
         result["exit_code"] = 0
@@ -1243,6 +1254,7 @@ def normalize_inherited_debt_result(
             "mutation_ids": sorted(observed["mutation_ids"]),
             "overmap_missing_ids": sorted(observed["overmap_missing_ids"]),
             "overmap_missing_count": observed["overmap_missing_count"],
+            "portable_baseline": bool(debt.get("_portable_baseline")),
         }
     return result
 
@@ -1312,6 +1324,7 @@ def run_source(
     depth: str,
     timeout: int,
     suite_name: str | None = None,
+    portable_inherited_debt: bool = False,
 ) -> dict:
     _, targets = suite.validate()
     if target not in targets:
@@ -1386,6 +1399,7 @@ def run_source(
                 target,
                 target_info["commit"],
                 row["components"],
+                portable_baseline=portable_inherited_debt,
             )
             runs.append(
                 {
@@ -1428,6 +1442,7 @@ def run_content_shard(
     out: Path,
     shard: str,
     timeout: int,
+    portable_inherited_debt: bool = False,
 ) -> dict:
     """Run focused object-level content checks on the full JSON stack."""
     if shard not in CONTENT_SHARDS:
@@ -1498,6 +1513,7 @@ def run_content_shard(
             target,
             target_info["commit"],
             row["components"],
+            portable_baseline=portable_inherited_debt,
         )
         runs.append(
             {
@@ -1582,6 +1598,11 @@ def main() -> None:
         default=None,
         help="Run only one suite name from the plan (used by CI matrix jobs)",
     )
+    source.add_argument(
+        "--portable-inherited-debt",
+        action="store_true",
+        help="Reuse the pinned inherited-debt signature on a newer candidate only when it matches strictly.",
+    )
 
     content = sub.add_parser("run-content")
     content.add_argument("--cdda-root", required=True)
@@ -1589,6 +1610,11 @@ def main() -> None:
     content.add_argument("--out", required=True)
     content.add_argument("--shard", choices=CONTENT_SHARDS, required=True)
     content.add_argument("--timeout", type=int, default=5400)
+    content.add_argument(
+        "--portable-inherited-debt",
+        action="store_true",
+        help="Reuse the pinned inherited-debt signature on a newer candidate only when it matches strictly.",
+    )
 
     args = parser.parse_args()
     if args.command == "plan":
@@ -1632,6 +1658,7 @@ def main() -> None:
             args.depth,
             args.timeout,
             args.suite,
+            args.portable_inherited_debt,
         )
     elif args.command == "run-content":
         run_content_shard(
@@ -1640,6 +1667,7 @@ def main() -> None:
             Path(args.out),
             args.shard,
             args.timeout,
+            args.portable_inherited_debt,
         )
 
 

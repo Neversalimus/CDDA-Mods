@@ -69,6 +69,22 @@ class DeepRuntimePlanTests(unittest.TestCase):
         self.assertNotIn('~"uncraft_sanity_check"', spec)
         self.assertNotIn('~"item_material_density_sanity_check"', spec)
 
+    def test_portable_inherited_debt_is_explicit_and_signature_bound(self):
+        target = "experimental-candidate"
+        commit = "f" * 40
+        components = ["aftershock_prime"]
+        self.assertIsNone(
+            deep.inherited_debt_expectation(target, commit, components)
+        )
+        portable = deep.inherited_debt_expectation(
+            target,
+            commit,
+            components,
+            portable=True,
+        )
+        self.assertIsNotNone(portable)
+        self.assertTrue(portable[1]["_portable_baseline"])
+
     def test_content_audit_shards_are_explicit_and_object_level(self):
         self.assertEqual(
             deep.CONTENT_SHARDS,

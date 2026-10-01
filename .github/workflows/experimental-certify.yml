@@ -1,0 +1,336 @@
+name: CDDA Experimental Compatibility
+run-name: CDDA Mods certify / ${{ inputs.tag }}
+
+"on":
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Exact CDDA experimental tag
+        required: true
+        type: string
+      commit:
+        description: Exact 40-character CDDA source commit
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: cdda-mods-experimental-certify
+  cancel-in-progress: false
+
+env:
+  CANDIDATE_TAG: ${{ inputs.tag }}
+  CANDIDATE_COMMIT: ${{ inputs.commit }}
+
+jobs:
+  release:
+    name: Official release loader
+    runs-on: windows-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prepare candidate target
+        shell: pwsh
+        run: |
+          python tools/experimental_candidate.py --tag "$env:CANDIDATE_TAG" --commit "$env:CANDIDATE_COMMIT"
+          "CANDIDATE_TARGET=$($env:CANDIDATE_TAG.Substring(5))" >> $env:GITHUB_ENV
+      - name: Static repository gate
+        run: python tools/modsuite.py validate
+      - name: Download exact official CDDA release
+        shell: pwsh
+        env:
+          GH_API_TOKEN: ${{ github.token }}
+        run: >
+          python tools/fetch_cdda_release.py
+          --target "$env:CANDIDATE_TARGET"
+          --out build/cdda-release
+          --token "$env:GH_API_TOKEN"
+      - name: Run every JSON component, profiles and combined stack
+        shell: pwsh
+        run: |
+          $gameRoot=(Get-Content build/cdda-release/game-root.txt -Raw).Trim()
+          python tools/deep_cdda_runtime.py run-release `
+            --game-root "$gameRoot" `
+            --target "$env:CANDIDATE_TARGET" `
+            --out build/deep-release `
+            --timeout 900
+          if($LASTEXITCODE){exit $LASTEXITCODE}
+      - name: Upload release evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: experimental-release-${{ inputs.tag }}
+          path: build/deep-release/**
+          if-no-files-found: warn
+          retention-days: 14
+
+  build:
+    name: Build exact candidate cata_test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: harness
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prepare candidate target and inventory
+        working-directory: harness
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/experimental_candidate.py --tag "$CANDIDATE_TAG" --commit "$CANDIDATE_COMMIT"
+          target="${CANDIDATE_TAG#cdda-}"
+          echo "CANDIDATE_TARGET=$target" >> "$GITHUB_ENV"
+          python tools/modsuite.py validate
+          python tools/content_inventory.py --target "$target" --out ../build/content-inventory
+      - uses: actions/checkout@v4
+        with:
+          repository: CleverRaven/Cataclysm-DDA
+          ref: ${{ inputs.commit }}
+          path: external/cdda
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Install build dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! dpkg-query -W build-essential libncursesw5-dev ccache gettext parallel >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y build-essential libncursesw5-dev ccache gettext parallel
+          fi
+          ccache --max-size=5G
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ccache
+          key: candidate-cata-test-${{ runner.os }}-${{ inputs.commit }}
+          restore-keys: |
+            cdda-cata-test-${{ runner.os }}-
+      - name: Inject repository-owned runtime probes
+        shell: bash
+        run: |
+          cp harness/tools/runtime_probes/axiom7_lifecycle_test.cpp external/cdda/tests/axiom7_lifecycle_test.cpp
+          cp harness/tools/runtime_probes/content_catalog_test.cpp external/cdda/tests/content_catalog_test.cpp
+      - name: Build and deterministic smoke
+        working-directory: external/cdda
+        shell: bash
+        run: |
+          set -euo pipefail
+          make -j2 RELEASE=1 LOCALIZE=0 TILES=0 SOUND=0 TESTS=1 ASTYLE=0 LINTJSON=0 CCACHE=1
+          test -x tests/cata_test
+          ./tests/cata_test "[force_load_game]" --rng-seed 0 --user-dir=baseline-build-smoke
+      - uses: actions/upload-artifact@v4
+        with:
+          name: candidate-cata-test-${{ inputs.commit }}
+          path: external/cdda/tests/cata_test
+          if-no-files-found: error
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        with:
+          name: experimental-inventory-${{ inputs.tag }}
+          path: build/content-inventory/**
+          if-no-files-found: error
+          retention-days: 14
+
+  source:
+    name: Exact source full / combined-all-json
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: harness
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prepare candidate target
+        working-directory: harness
+        shell: bash
+        run: |
+          python tools/experimental_candidate.py --tag "$CANDIDATE_TAG" --commit "$CANDIDATE_COMMIT"
+          echo "CANDIDATE_TARGET=${CANDIDATE_TAG#cdda-}" >> "$GITHUB_ENV"
+      - uses: actions/checkout@v4
+        with:
+          repository: CleverRaven/Cataclysm-DDA
+          ref: ${{ inputs.commit }}
+          path: external/cdda
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: candidate-cata-test-${{ inputs.commit }}
+          path: external/cdda/tests
+      - name: Prepare runtime
+        shell: bash
+        run: |
+          chmod +x external/cdda/tests/cata_test
+          if ! dpkg-query -W libncursesw6 >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y libncursesw6
+          fi
+      - name: Run exact full combined suite
+        working-directory: harness
+        shell: bash
+        run: |
+          python tools/deep_cdda_runtime.py run-source \
+            --cdda-root ../external/cdda \
+            --target "$CANDIDATE_TARGET" \
+            --out ../build/candidate-source \
+            --depth full \
+            --suite combined-all-json \
+            --timeout 5400 \
+            --portable-inherited-debt
+      - name: Upload source evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: experimental-source-${{ inputs.tag }}
+          path: build/candidate-source/**
+          if-no-files-found: warn
+          retention-days: 14
+
+  content:
+    name: Candidate content / ${{ matrix.shard }}
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        shard: [items, recipes, vehicles, overmap]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: harness
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prepare candidate target
+        working-directory: harness
+        shell: bash
+        run: |
+          python tools/experimental_candidate.py --tag "$CANDIDATE_TAG" --commit "$CANDIDATE_COMMIT"
+          echo "CANDIDATE_TARGET=${CANDIDATE_TAG#cdda-}" >> "$GITHUB_ENV"
+      - uses: actions/checkout@v4
+        with:
+          repository: CleverRaven/Cataclysm-DDA
+          ref: ${{ inputs.commit }}
+          path: external/cdda
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: candidate-cata-test-${{ inputs.commit }}
+          path: external/cdda/tests
+      - name: Prepare runtime
+        shell: bash
+        run: |
+          chmod +x external/cdda/tests/cata_test
+          if ! dpkg-query -W libncursesw6 >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y libncursesw6
+          fi
+      - name: Run content shard
+        working-directory: harness
+        shell: bash
+        run: |
+          python tools/deep_cdda_runtime.py run-content \
+            --cdda-root ../external/cdda \
+            --target "$CANDIDATE_TARGET" \
+            --out "../build/candidate-content-${{ matrix.shard }}" \
+            --shard "${{ matrix.shard }}" \
+            --timeout 5400 \
+            --portable-inherited-debt
+      - name: Upload content evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: experimental-content-${{ matrix.shard }}-${{ inputs.tag }}
+          path: build/candidate-content-${{ matrix.shard }}/**
+          if-no-files-found: warn
+          retention-days: 14
+
+  promote:
+    name: Promote certified target
+    needs: [release, build, source, content]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+      actions: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Refuse stale promotion
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          current="$(git rev-parse origin/main)"
+          if [ "$current" != "${{ github.sha }}" ]; then
+            echo "::error::main moved from tested SHA ${{ github.sha }} to $current; rerun certification on current main."
+            exit 75
+          fi
+      - name: Materialize certified target
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/experimental_candidate.py --tag "$CANDIDATE_TAG" --commit "$CANDIDATE_COMMIT"
+          python tools/modsuite.py validate
+          mkdir -p catalog/certifications
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          tag=os.environ["CANDIDATE_TAG"]
+          target=tag.removeprefix("cdda-")
+          doc={
+              "schema": 1,
+              "target": target,
+              "tag": tag,
+              "source_commit": os.environ["CANDIDATE_COMMIT"].lower(),
+              "repository_sha_tested": os.environ["GITHUB_SHA"],
+              "workflow_run": int(os.environ["GITHUB_RUN_ID"]),
+              "checks": [
+                  "official_release_loader",
+                  "exact_source_full_combined",
+                  "content_items",
+                  "content_recipes",
+                  "content_vehicles",
+                  "content_overmap",
+              ],
+          }
+          Path(f"catalog/certifications/{target}.json").write_text(
+              json.dumps(doc, indent=2)+"\n", encoding="utf-8"
+          )
+          PY
+      - name: Commit certified support
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "cdda-mods-ci"
+          git config user.email "actions@users.noreply.github.com"
+          git add catalog/targets catalog/certifications mods/*/manifest.json
+          if git diff --cached --quiet; then
+            echo "Target already promoted."
+            exit 0
+          fi
+          git commit -m "Catalog: certify ${CANDIDATE_TAG}"
+          git push origin HEAD:main
+      - name: Request normal verification of promoted main
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: gh workflow run ci.yml --ref main
