@@ -85,7 +85,9 @@ TEST_CASE( "cdda_mods_all_loaded_vehicle_content_resolves",
 
     std::size_t prototype_count = 0;
     for( const vehicle_prototype &prototype : vehicles::get_all_prototypes() ) {
-        if( prototype.id.is_null() ) {
+        // CDDA keeps an internal "none" prototype with an intentionally empty
+        // blueprint.  It is a runtime sentinel, not playable vehicle content.
+        if( prototype.id.is_null() || prototype.id == vproto_id( "none" ) ) {
             continue;
         }
         CAPTURE( prototype.id.str() );
