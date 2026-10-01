@@ -1,4 +1,4 @@
-name: Temporary content exhaustive recheck
+name: Temporary CDDA 1040 upgrade recheck
 
 on:
   push:
@@ -15,6 +15,50 @@ permissions:
   contents: read
 
 jobs:
+  release:
+    name: 1040 official release loader
+    runs-on: windows-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Static repository gate
+        run: python tools/modsuite.py validate
+
+      - name: Download exact official CDDA 1040
+        shell: pwsh
+        env:
+          GH_API_TOKEN: ${{ github.token }}
+        run: >
+          python tools/fetch_cdda_release.py
+          --target experimental-2026-10-01-1040
+          --out build/cdda-release
+          --token "$env:GH_API_TOKEN"
+
+      - name: Run every JSON component, profiles and combined stack
+        shell: pwsh
+        run: |
+          $gameRoot=(Get-Content build/cdda-release/game-root.txt -Raw).Trim()
+          python tools/deep_cdda_runtime.py run-release `
+            --game-root "$gameRoot" `
+            --target experimental-2026-10-01-1040 `
+            --out build/deep-release `
+            --timeout 900
+          if($LASTEXITCODE){exit $LASTEXITCODE}
+
+      - name: Upload release evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cdda-1040-release-recheck
+          path: build/deep-release/**
+          if-no-files-found: warn
+          retention-days: 7
+
   build:
     name: Build exact cata_test with content probe
     runs-on: ubuntu-24.04
@@ -35,12 +79,12 @@ jobs:
         shell: bash
         run: |
           python tools/content_inventory.py \
-            --target experimental-2026-09-23-0546 \
+            --target experimental-2026-10-01-1040 \
             --out ../build/content-inventory
           python - <<'PY' >> "$GITHUB_OUTPUT"
           import json
           from pathlib import Path
-          doc=json.loads(Path("catalog/targets/experimental-2026-09-23-0546.json").read_text(encoding="utf-8"))
+          doc=json.loads(Path("catalog/targets/experimental-2026-10-01-1040.json").read_text(encoding="utf-8"))
           print("commit="+doc["commit"])
           PY
 
@@ -147,7 +191,7 @@ jobs:
         run: |
           python tools/deep_cdda_runtime.py run-content \
             --cdda-root ../external/cdda \
-            --target experimental-2026-09-23-0546 \
+            --target experimental-2026-10-01-1040 \
             --out "../build/content-${{ matrix.shard }}" \
             --shard "${{ matrix.shard }}" \
             --timeout 5400
