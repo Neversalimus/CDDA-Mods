@@ -1,21 +1,35 @@
-# Secronom: A Modification File for Cataclysm: Dark Days Ahead
+# Secronom Revival 1.5.1-r3
 
-Its mod thread is at the [official forums](https://discourse.cataclysmdda.org/t/secronom-zombies-mod-thread/16211/1).
+Secronom is a large content mod focused on monsters, items, mutations, locations
+and related systems. This repository carries a recovered/repaired version rather
+than claiming that an arbitrary "latest experimental" is always compatible.
 
-Mod made from various references, mixed up with random spices! It was created with its original goal set to imitate the *Dead Frontier*'s zombies. Right now, **Secronom** (name referenced from the game) is a core content mod, with vast assortments of monsters in its bestiary, a collection of items, either fictional or not, newfound mutations, locations and more. If you're up for an action-packed playthrough or just loves beating weird craps, activate this mod and see how your dark days get even darker!
+Original project discussion:
+https://discourse.cataclysmdda.org/t/secronom-zombies-mod-thread/16211/1
 
-- This mod works only with the latest experimental of CDDA. Update your client before activating.
-- This mod is stable. There are no known bugs that can cause fatal error. Please report an issue otherwise.
+## Supported repository targets
 
-Information about the mod's contents is currently unavailable.
-# Credits
-Great people who contributed to this ever-expanding mod :>
+- `experimental-2026-09-23-0546` (`e262adb299a7613b4aedc5f12c08fe0413c56a84`)
+- `experimental-2026-10-01-1040` (`3f7fb352bf492ba521bd9408a0c9f6ce239e8d83`)
 
-* **SomeDeadGuy** - He drew everything in this mod and made it compatible for the UndeadPeople tileset.
-* **RickyVanz** - His 2 new sci-fi guns eased the game a bit.
-* **ephemeralstoryteller** - She fixed the majority of color bugs while I'm not around.
-* **Kenan2000** - He helped with some bugfixes. Also a modding companion.
-* **The Go-Goat** - She shared some ideas with mutations.
-* **TheGoatGod** - He fixed some outdated bugs.
-* **SzQ** and **QuiteCoyote** - They helped on developing/expanding the flesh and flesh vessel exoskeletons.
-* **Lurak** and **Malkeus42** - They've suggested some in-game rebalances/tweaks.
+Do not interpret this as automatic support for every newer experimental. New
+builds are tested by the repository compatibility watcher before promotion.
+
+The revival includes compatibility fixes accumulated during repository recovery,
+including runtime/parser repairs and text-style cleanup. Exact-source and release
+loader evidence is tracked in `docs/STATUS.md` and GitHub Actions.
+
+## Credits
+
+The original Secronom credits are preserved:
+
+- **SomeDeadGuy** — tileset artwork and UndeadPeople compatibility.
+- **RickyVanz** — sci-fi guns.
+- **ephemeralstoryteller** — color fixes.
+- **Kenan2000** — bug fixes and modding support.
+- **The Go-Goat** — mutation ideas.
+- **TheGoatGod** — outdated bug fixes.
+- **SzQ** and **QuiteCoyote** — flesh/flesh-vessel exoskeleton work.
+- **Lurak** and **Malkeus42** — balance/tweak suggestions.
+
+This revival does not claim ownership of upstream authors' work.
