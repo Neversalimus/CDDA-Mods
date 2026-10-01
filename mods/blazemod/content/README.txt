@@ -1,5 +1,5 @@
-Blazemod Revival 0.5.5-r7
-==========================
+Blazemod Revival 0.5.5
+======================
 
 This is the maintained revival of Blazemod for the Neversalimus/CDDA-Mods suite.
 

@@ -1,7 +1,7 @@
 Aftershock: Prime Integration
 =============================
 
-Current repository version : 0.1.14a-r5
+Current repository version : 0.1.14a (revision: see manifest/package descriptor)
 Mod ID                     : aftershock_prime
 Hard dependency            : dda only
 
@@ -17,7 +17,7 @@ Upstream provenance
 The curated base snapshot was recovered from the 0546-era Aftershock source at
 e262adb299a7613b4aedc5f12c08fe0413c56a84.
 
-Prime is no longer a pure one-commit snapshot. Version r5 selectively imports the
+Prime is no longer a pure one-commit snapshot. Gameplay revision r5 selectively imports the
 Wraitheon Gryphon vehicle block from upstream Aftershock commit d65c89e0:
 - wraitheon_aerodyne
 - aerodyne_engine

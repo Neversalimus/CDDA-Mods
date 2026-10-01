@@ -1,7 +1,7 @@
 UNDEADPEOPLE HYBRID v3 — ПОЛНЫЙ КОМПЛЕКТ
 ========================================
 
-Текущая версия в CDDA-Mods: 3.1.1-r1.
+Текущая версия в CDDA-Mods: 3.1.1 (revision смотрите в manifest/package descriptor).
 
 Поддерживаемые repository targets:
 - experimental-2026-09-23-0546;

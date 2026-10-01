@@ -1,4 +1,4 @@
-# Secronom Revival 1.5.1-r3
+# Secronom Revival 1.5.1
 
 Secronom is a large content mod focused on monsters, items, mutations, locations
 and related systems. This repository carries a recovered/repaired version rather

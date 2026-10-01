@@ -28,9 +28,9 @@ Windows installer now supports long CatLauncher roots safely:
 A real CatLauncher installation on `1040` using `profile:all-content` completed
 successfully with `Exit code: 0`.
 
-## Aftershock Prime 0.1.14a-r5
+## Aftershock Prime 0.1.14a-r6
 
-Selective Wraitheon Gryphon import:
+Gryphon was introduced in r5; r6 is documentation/provenance-only. Current selective import:
 
 - new aerodyne vehicle + two new vehicle parts + two backing part-items;
 - weight 1 in `mil_helicopters_small`;

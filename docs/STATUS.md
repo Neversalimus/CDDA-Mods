@@ -61,7 +61,7 @@ After both fixes, a real CatLauncher installation of `profile:all-content` on
 
 ## Aftershock Prime
 
-Current version: `0.1.14a-r5`.
+Current package revision: `0.1.14a-r6` (Gryphon gameplay import was introduced in r5; r6 only synchronizes documentation/provenance).
 
 Base curated snapshot remains CDDA/Aftershock at `e262adb`. A selective upstream
 addition imports Wraitheon Gryphon from Aftershock commit `d65c89e0`:
@@ -79,15 +79,15 @@ Exact `1040` Prime vehicle registry/parts test passed.
 ## Current component versions
 
 - AXIOM-7 0.8.2.8-r2;
-- Blazemod 0.5.5-r7;
-- Secronom 1.5.1-r3;
+- Blazemod 0.5.5-r8;
+- Secronom 1.5.1-r4;
 - Secronom+ 0.3.4-r5;
-- Aftershock Prime 0.1.14a-r5;
-- Aftershock Prime / MoM 0.1.14a-r1;
+- Aftershock Prime 0.1.14a-r6 (r5 introduced Gryphon; r6 is documentation-only);
+- Aftershock Prime / MoM 0.1.14a-r2;
 - Tankmod 2026.9.23.4-r6;
-- UndeadPeople 3.1.1-r1;
-- AWS 0.6.1-r2 source snapshot, installer-disabled;
-- Survivor Progression 0.9.15-r1 source snapshot, installer-disabled.
+- UndeadPeople 3.1.1-r2;
+- AWS 0.6.1-r3 source snapshot, installer-disabled;
+- Survivor Progression 0.9.15-r2 source snapshot, installer-disabled.
 
 Manifest validation fields still include historical `pending/static` values. They
 are not automatically rewritten by the deep candidate workflow and should not be
