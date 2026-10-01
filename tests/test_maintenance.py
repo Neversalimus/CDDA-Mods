@@ -1,4 +1,4 @@
-import importlib.util,tempfile,unittest,zipfile
+import importlib.util,json,tempfile,unittest,zipfile
 from pathlib import Path
 spec=importlib.util.spec_from_file_location('suite',Path(__file__).parents[1]/'tools/modsuite.py')
 suite=importlib.util.module_from_spec(spec);spec.loader.exec_module(suite)
@@ -16,6 +16,24 @@ class MaintenanceTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             p=Path(d);(p/'one').write_bytes(b'one');first=suite.tree_hash(p)
             (p/'one').rename(p/'two');self.assertNotEqual(first,suite.tree_hash(p))
+    def test_baked_hybrid_contains_secronom_swarmer(self):
+        p=suite.ROOT/'mods/undeadpeople/content'
+        payload=[('payload/'+f.relative_to(p).as_posix(),f.read_bytes()) for f in suite.files(p)]
+        baked=dict(suite.bake_undeadpeople_secronom(payload))
+        self.assertIn('payload/compat_secronom_normal.png',baked)
+        self.assertIn('payload/compat_secronom_normal_offset.png',baked)
+        self.assertIn('payload/compat_secronom_large.png',baked)
+        self.assertIn('Secronom baked',baked['payload/tileset.txt'].decode('utf-8'))
+        cfg=json.loads(baked['payload/tile_config.json'].decode('utf-8'))
+        matches=[]
+        for part in cfg['tiles-new']:
+            for tile in part.get('tiles',[]):
+                ids=tile['id'] if isinstance(tile['id'],list) else [tile['id']]
+                if 'mon_zombie_swarmer_weak' in ids:matches.append((part['file'],tile))
+        self.assertEqual(len(matches),1)
+        self.assertEqual(matches[0][0],'compat_secronom_normal.png')
+        self.assertTrue(matches[0][1].get('fg'))
+
     def test_current_sources(self):
         mods,targets=suite.validate()
         for id,m in mods.items():
