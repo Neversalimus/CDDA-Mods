@@ -274,17 +274,24 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Refuse stale promotion
+      - name: Requeue if tested main became stale
+        id: freshness
+        env:
+          GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set -euo pipefail
           git fetch origin main
           current="$(git rev-parse origin/main)"
           if [ "$current" != "${{ github.sha }}" ]; then
-            echo "::error::main moved from tested SHA ${{ github.sha }} to $current; rerun certification on current main."
-            exit 75
+            echo "main moved from tested SHA ${{ github.sha }} to $current; requeueing certification on current main."
+            gh workflow run experimental-certify.yml --ref main -f "tag=$CANDIDATE_TAG" -f "commit=$CANDIDATE_COMMIT"
+            echo "stale=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "stale=false" >> "$GITHUB_OUTPUT"
           fi
       - name: Materialize certified target
+        if: steps.freshness.outputs.stale != 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -317,6 +324,7 @@ jobs:
           )
           PY
       - name: Commit certified support
+        if: steps.freshness.outputs.stale != 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -330,6 +338,7 @@ jobs:
           git commit -m "Catalog: certify ${CANDIDATE_TAG}"
           git push origin HEAD:main
       - name: Request normal verification of promoted main
+        if: steps.freshness.outputs.stale != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
