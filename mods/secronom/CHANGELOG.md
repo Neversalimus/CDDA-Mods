@@ -1,5 +1,11 @@
 # Secronom Revival
 
+## 1.5.1-r5 — UndeadPeople Hybrid v3 tileset compatibility
+
+- Added the current custom tileset ID `UndeadPeople_0J_Hybrid_v3` to Secronom's mod-tileset compatibility list.
+- Secronom's existing flesh terrain, monster, item and effect sprites are unchanged; CDDA can now load them with UndeadPeople Hybrid v3 instead of falling back to ASCII.
+
+
 ## 1.5.1-r4 — Documentation sync
 
 - README support/provenance sync only; gameplay payload unchanged.
