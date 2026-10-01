@@ -5,7 +5,7 @@ param(
     [string]$Mods='',
     [string]$Profile='',
     [string]$UserModRoot='',
-    [string]$PackageRoot=$PSScriptRoot,
+    [string]$PackageRoot='',
     [switch]$Update,
     [switch]$Online,
     [switch]$AllowUntested,
@@ -17,6 +17,7 @@ param(
 )
 $ErrorActionPreference='Stop'
 Import-Module (Join-Path $PSScriptRoot 'ModSuite.psm1') -Force
+if(-not $PackageRoot){$PackageRoot=$PSScriptRoot}
 $lock=$null;$work=$null
 try{
     if(-not $GameRoot){

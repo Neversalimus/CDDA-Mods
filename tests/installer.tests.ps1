@@ -15,6 +15,10 @@ try{
     ) | Out-Null
     Check (@($parseErrors).Count -eq 0) 'Deep installer matrix parses under current PowerShell'
 
+    $installerText=Get-Content -LiteralPath (Join-Path $PSScriptRoot '../installer/Install-Mods.ps1') -Raw
+    Check ($installerText -match "\[string\]\$PackageRoot=''") 'Installer does not bind PackageRoot from PSScriptRoot inside param block'
+    Check ($installerText -match 'if\(-not \$PackageRoot\)\{\$PackageRoot=\$PSScriptRoot\}') 'Installer resolves PackageRoot after script initialization'
+
     foreach($name in @('../evil','/absolute','C:/evil','a\b','a/../b','NUL.txt','a/file.','a//b')){Reject {Join-Safe $root $name} "Path blocked: $name"}
     $safe=Join-Safe $root 'normal/data.json';Check ($safe.StartsWith($root)) 'Normal path accepted'
     $catalog=Read-Json (Join-Path $PSScriptRoot '../dist/catalog.json')
