@@ -45,6 +45,7 @@ class DeepRuntimePlanTests(unittest.TestCase):
         self.assertIn("~[slow]", fast)
         self.assertIn("~[.]", fast)
         self.assertIn("~[axiom7_lifecycle]", fast)
+        self.assertIn("~[cdda_mods_content]", fast)
         self.assertIn('~"item_new_to_hit_enforcement"', fast)
         self.assertIn('~"uncraft_blacklist_is_pruned"', fast)
         self.assertIn(",starting_items", fast)
@@ -159,6 +160,10 @@ class DeepRuntimePlanTests(unittest.TestCase):
             self.assertNotIn("[axiom7_lifecycle]", specs)
             self.assertIn(
                 "~[axiom7_lifecycle]",
+                specs[1],
+            )
+            self.assertIn(
+                "~[cdda_mods_content]",
                 specs[1],
             )
             if len(specs) > 2:

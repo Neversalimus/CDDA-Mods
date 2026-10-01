@@ -290,3 +290,6 @@ $summary=[pscustomobject]@{
 $summary | ConvertTo-Json -Depth 20 | Set-Content (Join-Path $outRoot 'matrix-summary.json') -Encoding UTF8
 if($failed.Count){throw "$($failed.Count) installer matrix case(s) failed"}
 Write-Host "Deep installer matrix passed: $($script:results.Count) cases."
+# Expected negative test cases leave LASTEXITCODE non-zero even when the matrix
+# correctly classified them as passing.  Reset it only after every case passed.
+$global:LASTEXITCODE=0

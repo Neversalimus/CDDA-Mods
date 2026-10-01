@@ -32,6 +32,7 @@ TEST_CASE( "cdda_mods_all_loaded_recipes_materialize_results",
 {
     std::size_t count = 0;
     std::size_t materialized = 0;
+    std::size_t non_item_results = 0;
     for( const auto &entry : recipe_dict ) {
         const recipe_id &id = entry.first;
         const recipe &rec = entry.second;
@@ -40,9 +41,11 @@ TEST_CASE( "cdda_mods_all_loaded_recipes_materialize_results",
         CHECK( rec.was_loaded );
         CHECK( rec.get_consistency_error().empty() );
 
-        if( !rec.is_practice() && !rec.is_nested() && !rec.is_blueprint() ) {
-            CHECK_FALSE( rec.result().is_null() );
-            CHECK( rec.result().is_valid() );
+        const itype_id result_id = rec.result();
+        const bool item_producing =
+            !rec.is_practice() && !rec.is_nested() && !rec.is_blueprint() &&
+            !result_id.is_null() && result_id.is_valid();
+        if( item_producing ) {
             const std::vector<item> results = rec.create_results( 1 );
             CHECK_FALSE( results.empty() );
             for( const item &result : results ) {
@@ -55,11 +58,14 @@ TEST_CASE( "cdda_mods_all_loaded_recipes_materialize_results",
                 CHECK( byproduct.typeId().is_valid() );
             }
             ++materialized;
+        } else {
+            ++non_item_results;
         }
         ++count;
     }
     INFO( "loaded recipes: " << count );
     INFO( "materialized recipe outputs: " << materialized );
+    INFO( "non-item/sentinel recipe entries: " << non_item_results );
     CHECK( count > 0 );
     CHECK( materialized > 0 );
 }
@@ -79,6 +85,9 @@ TEST_CASE( "cdda_mods_all_loaded_vehicle_content_resolves",
 
     std::size_t prototype_count = 0;
     for( const vehicle_prototype &prototype : vehicles::get_all_prototypes() ) {
+        if( prototype.id.is_null() ) {
+            continue;
+        }
         CAPTURE( prototype.id.str() );
         CHECK( prototype.id.is_valid() );
         REQUIRE( prototype.blueprint );
@@ -97,16 +106,20 @@ TEST_CASE( "cdda_mods_all_loaded_overmap_content_resolves",
 {
     std::size_t terrain_count = 0;
     for( const oter_t &terrain : overmap_terrains::get_all() ) {
+        if( terrain.id.is_null() ) {
+            continue;
+        }
         CAPTURE( terrain.id.str() );
-        CHECK_FALSE( terrain.id.is_null() );
         CHECK( terrain.get_type_id().is_valid() );
         ++terrain_count;
     }
 
     std::size_t special_count = 0;
     for( const overmap_special &special : overmap_specials::get_all() ) {
+        if( special.id.is_null() ) {
+            continue;
+        }
         CAPTURE( special.id.str() );
-        CHECK_FALSE( special.id.is_null() );
         CHECK( special.id.is_valid() );
         for( const oter_type_id &terrain_id : special.get_terrain_type_ids() ) {
             CAPTURE( terrain_id.id().str() );

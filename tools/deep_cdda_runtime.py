@@ -992,7 +992,7 @@ def source_specs(
         # so exclude them from generic partitions and run them only in their
         # owning component suite above.
         specs.append(
-            '~[slow] ~[.] ~[axiom7_lifecycle] '
+            '~[slow] ~[.] ~[axiom7_lifecycle] ~[cdda_mods_content] '
             '~"item_new_to_hit_enforcement" '
             '~"uncraft_blacklist_is_pruned",starting_items'
         )
