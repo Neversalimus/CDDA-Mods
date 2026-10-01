@@ -1,0 +1,115 @@
+name: Temporary Gryphon upstream vehicle check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/gryphon-upstream-check.yml'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  gryphon:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: harness
+
+      - uses: actions/checkout@v4
+        with:
+          repository: CleverRaven/Cataclysm-DDA
+          ref: 3f7fb352bf492ba521bd9408a0c9f6ce239e8d83
+          path: external/cdda
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Download certified 1040 cata_test
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p external/cdda/tests
+          gh run download 36857816597 \
+            --repo Neversalimus/CDDA-Mods \
+            --name content-cata-test-3f7fb352bf492ba521bd9408a0c9f6ce239e8d83 \
+            --dir external/cdda/tests
+          chmod +x external/cdda/tests/cata_test
+
+      - name: Prepare runtime dependency
+        shell: bash
+        run: |
+          if ! dpkg-query -W libncursesw6 >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y libncursesw6
+          fi
+
+      - name: Check exact Gryphon-bearing Aftershock vehicle stack
+        working-directory: external/cdda
+        shell: bash
+        run: |
+          set -euo pipefail
+          ./tests/cata_test \
+            --mods=dda,aftershock_exoplanet \
+            --user-dir=gryphon-content \
+            --rng-seed 0 \
+            --order lex \
+            --error-format=github-action \
+            "[cdda_mods_content][content_vehicles]"
+
+          ./tests/cata_test \
+            --mods=dda,aftershock_exoplanet \
+            --user-dir=gryphon-parts \
+            --rng-seed 0 \
+            --order lex \
+            --error-format=github-action \
+            "[vehicle][vehicle_parts]"
+
+          ./tests/cata_test \
+            --mods=dda,aftershock_exoplanet \
+            --user-dir=gryphon-turret \
+            --rng-seed 0 \
+            --order lex \
+            --error-format=github-action \
+            "vehicle_turret"
+
+      - name: Verify Gryphon definitions are exactly present
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          root=Path("external/cdda/data/mods/aftershock_exoplanet")
+          def load(path):
+              return json.loads((root/path).read_text(encoding="utf-8"))
+
+          vehicles={row.get("id"):row for row in load("vehicles/vehicles.json") if isinstance(row,dict)}
+          parts={row.get("id"):row for row in load("vehicles/vehicle_parts.json") if isinstance(row,dict)}
+          items={row.get("id"):row for row in load("vehicles/part_items.json") if isinstance(row,dict)}
+
+          required_vehicle="wraitheon_aerodyne"
+          required_parts={"aerodyne_engine","engine_turbine_large"}
+          required_items={"afs_aerodyne_engine","afs_aerodyne_powerplant"}
+
+          assert required_vehicle in vehicles
+          assert required_parts <= parts.keys()
+          assert required_items <= items.keys()
+
+          gryphon=vehicles[required_vehicle]
+          used=[]
+          for cell in gryphon.get("parts",[]):
+              for part in cell.get("parts",[]):
+                  used.append(part["part"] if isinstance(part,dict) else part.split("#",1)[0])
+          assert "aerodyne_engine" in used
+          assert "engine_turbine_large" in used
+          assert "turret_afs_Accipitermg" in used
+          assert "afs_control_station" in used
+
+          print("Gryphon blueprint rows:", len(gryphon.get("blueprint",[])))
+          print("Gryphon part placements:", len(gryphon.get("parts",[])))
+          print("Gryphon required new parts/items resolved.")
+          PY
