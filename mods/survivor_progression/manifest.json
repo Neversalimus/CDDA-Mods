@@ -14,7 +14,8 @@
       "path": "native",
       "targets": [
         "experimental-2026-09-23-0546",
-        "experimental-2026-10-01-1040"
+        "experimental-2026-10-01-1040",
+        "experimental-2026-10-01-1312"
       ],
       "validation": "pending",
       "available": false
