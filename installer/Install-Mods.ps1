@@ -18,7 +18,7 @@ param(
 $ErrorActionPreference='Stop'
 Import-Module (Join-Path $PSScriptRoot 'ModSuite.psm1') -Force
 if(-not $PackageRoot){$PackageRoot=$PSScriptRoot}
-$lock=$null;$work=$null
+$lock=$null;$work=$null;$scratch=$null
 try{
     if(-not $GameRoot){
         $candidates=@(Find-GameRoots)
@@ -111,18 +111,24 @@ try{
     if(-not $Yes -and (Read-Host 'Install/update this selection with backup? [Y/N]') -notin @('y','Y')){throw 'Cancelled'}
     $transactionId=(Get-Date -Format 'yyyyMMdd-HHmmss')+'-'+[guid]::NewGuid().ToString('N').Substring(0,8)
     $work=Join-Path $stateRoot ('transactions/'+$transactionId);[IO.Directory]::CreateDirectory($work) | Out-Null
+    # Keep transient extraction/validation paths short. CatLauncher game roots can
+    # already be close to the legacy Win32 MAX_PATH limit used by PowerShell 5.1.
+    # Backups/journals stay beside the game for durable rollback, while scratch
+    # data lives under %TEMP% and is removed in finally.
+    $scratch=Join-Path ([IO.Path]::GetTempPath()) ('CDM-'+[guid]::NewGuid().ToString('N').Substring(0,12))
+    [IO.Directory]::CreateDirectory($scratch) | Out-Null
     foreach($p in $plan){
         $archive=Join-Safe $PackageRoot $p.package.archive
         if(-not(Test-Path -LiteralPath $archive)){
             if(-not $Online){throw "Missing package: $($p.package.archive)"}
             Invoke-WebRequest -UseBasicParsing -Uri ('https://github.com/Neversalimus/CDDA-Mods/releases/download/'+$catalog.release_tag+'/'+$p.package.archive) -OutFile $archive
         }
-        $p.staged=Expand-VerifiedPackage $archive (Join-Path $work ('stage/'+$p.package.id)) $p.package
+        $p.staged=Expand-VerifiedPackage $archive (Join-Path $scratch ('stage/'+$p.package.id)) $p.package
     }
     $changed=@($plan | Where-Object {-not $_.unchanged})
     if(-not $changed.Count){Write-Host 'Selected files already match this release.' -ForegroundColor Green;exit 0}
     Write-Host 'Validating in an isolated copy of game data. Saves are not used.'
-    Test-StagedMods $GameRoot $plan $work $ValidationTimeout $CheckModsInteractions
+    Test-StagedMods $GameRoot $plan $scratch $ValidationTimeout $CheckModsInteractions
     Install-Plan $changed $work $stateFile
     $records=@{}
     if(Test-Path $stateFile){foreach($p in @((Read-Json $stateFile).packages)){$records[$p.id]=$p}}
@@ -136,5 +142,15 @@ try{
     }
     Write-Host "Installed. Backup/rollback transaction: $transactionId" -ForegroundColor Green
     Write-Host 'Enable new content mods in the world settings. Select the tileset in game options if installed.'
-}catch{Write-Host $_.Exception.Message -ForegroundColor Red;if($work){Write-Host "Diagnostics: $work"};exit 1}
-finally{if($lock){$lock.Dispose()}}
+}catch{
+    Write-Host $_.Exception.Message -ForegroundColor Red
+    if($work){Write-Host "Transaction diagnostics: $work"}
+    if($scratch){Write-Host "Temporary diagnostics: $scratch"}
+    exit 1
+}
+finally{
+    if($lock){$lock.Dispose()}
+    if($scratch -and (Test-Path -LiteralPath $scratch)){
+        Remove-Item -LiteralPath $scratch -Recurse -Force -ErrorAction SilentlyContinue
+    }
+}

@@ -19,6 +19,10 @@ try{
     Check ($installerText.Contains("[string]`$PackageRoot=''")) 'Installer does not bind PackageRoot from PSScriptRoot inside param block'
     Check ($installerText.Contains("if(-not `$PackageRoot){`$PackageRoot=`$PSScriptRoot}")) 'Installer resolves PackageRoot after script initialization'
 
+    Check ($installerText.Contains("`$scratch=Join-Path ([IO.Path]::GetTempPath()) ('CDM-'")) 'Installer stages packages under short temp root'
+    Check ($installerText.Contains("Expand-VerifiedPackage `$archive (Join-Path `$scratch")) 'Package extraction uses short temp staging path'
+    Check ($installerText.Contains("Test-StagedMods `$GameRoot `$plan `$scratch")) 'Native validation uses short temp working path'
+
     foreach($name in @('../evil','/absolute','C:/evil','a\b','a/../b','NUL.txt','a/file.','a//b')){Reject {Join-Safe $root $name} "Path blocked: $name"}
     $safe=Join-Safe $root 'normal/data.json';Check ($safe.StartsWith($root)) 'Normal path accepted'
     $catalog=Read-Json (Join-Path $PSScriptRoot '../dist/catalog.json')
