@@ -1,5 +1,13 @@
 # Aftershock Prime
 
+## 0.1.14a-r5 — Wraitheon Gryphon selective vehicle import
+
+- Imported the upstream Wraitheon Gryphon military aerodyne from Aftershock commit `d65c89e0` together with its two new vehicle parts and two backing part-items.
+- Integrated it additively at weight 1 into vanilla `mil_helicopters_small` and `crashed_helicopters`; ordinary military/civilian vehicle pools are unchanged.
+- Did not import UICA/Salus IV mapgen, factions, missions or world-conversion content.
+- The Gryphon's vehicle prototype, parts and Accipiter turret stack were validated against exact CDDA `2026-10-01-1040`.
+
+
 ## 0.1.14a-r4 — Calorie sanity and inherited WIP metadata
 
 - Preserved the authored calories of nutriment and Spite Soda while raising their physical mass to remain below the engine's maximum plausible calorie density; nutriment volume is now 50 ml.
