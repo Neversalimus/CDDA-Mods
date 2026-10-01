@@ -7,13 +7,15 @@ function Check($ok,[string]$label){if(-not $ok){throw "FAIL: $label"};$script:pa
 function Reject([scriptblock]$code,[string]$label){$failed=$false;try{& $code | Out-Null}catch{$failed=$true;Write-Host ('EXPECTED ERROR: '+$_.Exception.Message)};Check $failed $label}
 function FileHash($path){(Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant()}
 try{
-    $tokens=$null;$parseErrors=$null
-    [System.Management.Automation.Language.Parser]::ParseFile(
-        (Join-Path $PSScriptRoot '../tools/deep_install_matrix.ps1'),
-        [ref]$tokens,
-        [ref]$parseErrors
-    ) | Out-Null
-    Check (@($parseErrors).Count -eq 0) 'Deep installer matrix parses under current PowerShell'
+    foreach($parseTarget in @('../tools/deep_install_matrix.ps1','../installer/Install-Mods.ps1')){
+        $tokens=$null;$parseErrors=$null
+        [System.Management.Automation.Language.Parser]::ParseFile(
+            (Join-Path $PSScriptRoot $parseTarget),
+            [ref]$tokens,
+            [ref]$parseErrors
+        ) | Out-Null
+        Check (@($parseErrors).Count -eq 0) "$parseTarget parses under current PowerShell"
+    }
 
     $installerText=Get-Content -LiteralPath (Join-Path $PSScriptRoot '../installer/Install-Mods.ps1') -Raw
     Check ($installerText.Contains("[string]`$PackageRoot=''")) 'Installer does not bind PackageRoot from PSScriptRoot inside param block'
