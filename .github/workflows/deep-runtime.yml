@@ -251,7 +251,7 @@ jobs:
           # resolved by the runner against the parent workspace and become invalid.
           make -j2 RELEASE=1 LOCALIZE=0 TILES=0 SOUND=0 TESTS=1 ASTYLE=0 LINTJSON=0 CCACHE=1
           test -x tests/cata_test
-          ./tests/cata_test "[force_load_game]" --user-dir=baseline-build-smoke
+          ./tests/cata_test "[force_load_game]" --rng-seed 0 --user-dir=baseline-build-smoke
           ccache --show-stats || true
 
       - name: Save compiler cache even after a failed build
