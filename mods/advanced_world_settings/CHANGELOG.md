@@ -1,5 +1,9 @@
 # Advanced World Settings
 
+## 0.6.1-r3 — Documentation sync
+
+- Native README ownership/status sync only; source code unchanged.
+
 ## 0.6.1 revision 2 — v8.7.3, 2026-09-27
 
 Module-only source imported from the latest available cumulative archive at 12:27 UTC. Upstream source audits and g++ C++17 syntax checks passed. Windows DLL compilation checked separately by CI. No host or game installer was run. Source-only until external host/runtime validation.

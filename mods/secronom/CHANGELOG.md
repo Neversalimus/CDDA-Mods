@@ -1,5 +1,9 @@
 # Secronom Revival
 
+## 1.5.1-r4 — Documentation sync
+
+- README support/provenance sync only; gameplay payload unchanged.
+
 ## 1.5.1-r3 — Exact runtime compatibility
 
 - Removed the invalid relation to the nonexistent pinned-CDDA `blob` monster faction, eliminating the loader circular-dependency error.

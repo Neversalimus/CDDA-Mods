@@ -1,5 +1,9 @@
 # Blazemod Revival
 
+## 0.5.5-r8 — Documentation sync
+
+- README compatibility target sync only; gameplay payload unchanged.
+
 ## 0.5.5-r7 — Blob projectile-effect registry cleanup
 
 - Migrated the legacy acid-puffer ammo effect from `ACID_BOMB` to the current pinned-CDDA `ACIDBOMB` registry ID.

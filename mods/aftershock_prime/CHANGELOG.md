@@ -1,5 +1,9 @@
 # Aftershock Prime
 
+## 0.1.14a-r6 — Documentation sync
+
+- Documentation/provenance sync only; no gameplay JSON changed from r5.
+
 ## 0.1.14a-r5 — Wraitheon Gryphon selective vehicle import
 
 - Imported the upstream Wraitheon Gryphon military aerodyne from Aftershock commit `d65c89e0` together with its two new vehicle parts and two backing part-items.
