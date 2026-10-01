@@ -22,6 +22,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Discover unseen CDDA experimentals
         shell: powershell
         env:
@@ -29,14 +30,42 @@ jobs:
         run: |
           $ErrorActionPreference='Stop'
 
+          function Get-ExperimentalTime([string]$tag){
+            if($tag -notmatch '^cdda-experimental-(\d{4})-(\d{2})-(\d{2})-(\d{4})$'){
+              return [DateTime]::MinValue
+            }
+            return [DateTime]::new(
+              [int]$Matches[1],
+              [int]$Matches[2],
+              [int]$Matches[3],
+              [int]$Matches[4].Substring(0,2),
+              [int]$Matches[4].Substring(2,2),
+              0,
+              [DateTimeKind]::Utc
+            )
+          }
+
           $targets=@(
             Get-ChildItem 'catalog/targets/*.json' -File |
               ForEach-Object { Get-Content $_.FullName -Raw | ConvertFrom-Json } |
               Where-Object { $_.channel -eq 'experimental' }
           )
           if(-not $targets){throw 'No experimental targets are registered.'}
-          function Get-ExperimentalTime([string]$tag){
-            if($tag -notmatch '^cdda-experimental-(\d{4})-(\d{2})-(\d{2})-(\d{4})          $seenTitles=@{}
+
+          $knownTags=@{}
+          foreach($target in $targets){$knownTags[[string]$target.tag]=$true}
+
+          $latestKnownTarget=$targets |
+            Sort-Object { Get-ExperimentalTime ([string]$_.tag) } -Descending |
+            Select-Object -First 1
+          $latestKnown=[string]$latestKnownTarget.tag
+          $latestKnownTime=Get-ExperimentalTime $latestKnown
+
+          $runs=@(
+            gh run list --workflow experimental-certify.yml --limit 100 --json displayTitle,status,conclusion |
+              ConvertFrom-Json
+          )
+          $seenTitles=@{}
           foreach($run in $runs){$seenTitles[[string]$run.displayTitle]=$true}
 
           $releases=@(
@@ -54,6 +83,7 @@ jobs:
           foreach($release in $releases){
             $tag=[string]$release.tag_name
             if($knownTags.ContainsKey($tag)){continue}
+
             $title="CDDA Mods certify / $tag"
             if($seenTitles.ContainsKey($title)){
               Write-Host "Already attempted or queued: $tag"
@@ -71,70 +101,7 @@ jobs:
             Write-Host "Dispatching compatibility certification for $tag ($commit)"
             gh workflow run experimental-certify.yml --ref main -f "tag=$tag" -f "commit=$commit"
             if($LASTEXITCODE){throw "Failed to dispatch $tag"}
-            $seenTitles[$title]=$true
-            $dispatched++
-          }
 
-          Write-Host "Latest supported target: $latestKnown"
-          Write-Host "New certification requests: $dispatched"
-){
-              return [DateTime]::MinValue
-            }
-            return [DateTime]::new(
-              [int]$Matches[1],
-              [int]$Matches[2],
-              [int]$Matches[3],
-              [int]$Matches[4].Substring(0,2),
-              [int]$Matches[4].Substring(2,2),
-              0,
-              [DateTimeKind]::Utc
-            )
-          }
-
-          $knownTags=@{}
-          foreach($target in $targets){$knownTags[[string]$target.tag]=$true}
-          $latestKnownTarget=$targets |
-            Sort-Object { Get-ExperimentalTime ([string]$_.tag) } -Descending |
-            Select-Object -First 1
-          $latestKnown=[string]$latestKnownTarget.tag
-          $latestKnownTime=Get-ExperimentalTime $latestKnown
-
-          $runs=@(gh run list --workflow experimental-certify.yml --limit 100 --json displayTitle,status,conclusion | ConvertFrom-Json)
-          $seenTitles=@{}
-          foreach($run in $runs){$seenTitles[[string]$run.displayTitle]=$true}
-
-          $releases=@(
-            gh api 'repos/CleverRaven/Cataclysm-DDA/releases?per_page=30' |
-              ConvertFrom-Json |
-              Where-Object {
-                -not $_.draft -and
-                [string]$_.tag_name -like 'cdda-experimental-*' -and
-                [string]$_.tag_name -gt $latestKnown
-              } |
-              Sort-Object published_at
-          )
-
-          $dispatched=0
-          foreach($release in $releases){
-            $tag=[string]$release.tag_name
-            if($knownTags.ContainsKey($tag)){continue}
-            $title="CDDA Mods certify / $tag"
-            if($seenTitles.ContainsKey($title)){
-              Write-Host "Already attempted or queued: $tag"
-              continue
-            }
-
-            $commit=[string]$release.target_commitish
-            if($commit -notmatch '^[0-9a-f]{40}$'){
-              $commit=(gh api "repos/CleverRaven/Cataclysm-DDA/commits/$tag" --jq .sha).Trim()
-            }
-            if($commit -notmatch '^[0-9a-f]{40}$'){
-              throw "Could not resolve exact source commit for $tag"
-            }
-
-            Write-Host "Dispatching compatibility certification for $tag ($commit)"
-            gh workflow run experimental-certify.yml --ref main -f "tag=$tag" -f "commit=$commit"
-            if($LASTEXITCODE){throw "Failed to dispatch $tag"}
             $seenTitles[$title]=$true
             $dispatched++
           }
