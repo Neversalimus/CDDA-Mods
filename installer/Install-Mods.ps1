@@ -103,9 +103,12 @@ try{
     foreach($pkg in $packages){
         $destination=Get-Destination $GameRoot $pkg $UserModRoot
         if($destinations.ContainsKey($destination)){throw 'Two packages target the same directory'};$destinations[$destination]=$true
+        $retire=@()
+        if($pkg.kind -eq 'tileset'){$retire=@(Get-TilesetRetirePaths $GameRoot $pkg $destination)}
         $same=Test-PayloadEqual $destination $pkg.files
-        $plan+=[pscustomobject]@{package=$pkg;destination=$destination;staged='';unchanged=$same}
+        $plan+=[pscustomobject]@{package=$pkg;destination=$destination;staged='';unchanged=$same;retire_paths=$retire}
         Write-Host "$($pkg.id) $($pkg.version) -> $destination $(if($same){'[unchanged]'})"
+        foreach($oldCopy in $retire){Write-Host "  retire duplicate tileset -> $oldCopy" -ForegroundColor Yellow}
     }
     if($PlanOnly){Write-Host 'Plan only: no game files changed.';exit 0}
     if(-not $Yes -and (Read-Host 'Install/update this selection with backup? [Y/N]') -notin @('y','Y')){throw 'Cancelled'}
@@ -125,7 +128,7 @@ try{
         }
         $p.staged=Expand-VerifiedPackage $archive (Join-Path $scratch ('stage/'+$p.package.id)) $p.package
     }
-    $changed=@($plan | Where-Object {-not $_.unchanged})
+    $changed=@($plan | Where-Object {-not $_.unchanged -or @($_.retire_paths).Count -gt 0})
     if(-not $changed.Count){Write-Host 'Selected files already match this release.' -ForegroundColor Green;exit 0}
     Write-Host 'Validating in an isolated copy of game data. Saves are not used.'
     Test-StagedMods $GameRoot $plan $scratch $ValidationTimeout $CheckModsInteractions
@@ -141,6 +144,7 @@ try{
         }
     }
     Write-Host "Installed. Backup/rollback transaction: $transactionId" -ForegroundColor Green
+    if(@($changed | ForEach-Object {$_.retire_paths}).Count){Write-Host 'Duplicate tileset copies were moved into the rollback transaction instead of being deleted.' -ForegroundColor Cyan}
     Write-Host 'Enable new content mods in the world settings. Select the tileset in game options if installed.'
 }catch{
     Write-Host $_.Exception.Message -ForegroundColor Red
