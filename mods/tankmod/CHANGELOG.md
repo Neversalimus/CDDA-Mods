@@ -1,5 +1,11 @@
 # Tankmod Revived
 
+## 2026.9.23.4-r7 — UndeadPeople Hybrid v3 tileset compatibility
+
+- Added the current custom tileset ID `UndeadPeople_0J_Hybrid_v3` to Tankmod's mod-tileset compatibility list.
+- Existing Tankmod sprite sheets and mappings are unchanged; this only enables them under UndeadPeople Hybrid v3.
+
+
 ## 2026.9.23.4-r6 — Custom explosion compatibility
 
 - Registered the hardcoded `CUSTOM_EXPLOSION` projectile marker as a no-op ammo effect for current CDDA.

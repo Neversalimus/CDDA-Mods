@@ -1,5 +1,11 @@
 # Blazemod Revival
 
+## 0.5.5-r9 — UndeadPeople Hybrid v3 tileset compatibility
+
+- Added the current custom tileset ID `UndeadPeople_0J_Hybrid_v3` to both Blazemod mod-tileset compatibility lists, including Blaze Industries.
+- Existing sprite sheets and tile mappings are unchanged; this only allows CDDA to load them with UndeadPeople Hybrid v3.
+
+
 ## 0.5.5-r8 — Documentation sync
 
 - README compatibility target sync only; gameplay payload unchanged.

@@ -32,6 +32,17 @@ upstream Aftershock commit `d65c89e0`, without Salus/UICA mapgen. It spawns only
 via additive weight-1 entries in `mil_helicopters_small` and
 `crashed_helicopters`. Targeted exact-`1040` Prime vehicle/parts runtime passed.
 
+## Mod tileset compatibility
+
+The repository-wide mod asset audit found mod-specific tilesets only in
+Blazemod (base + Blaze Industries), Secronom and Tankmod. All four
+`mod_tileset.json` compatibility lists now explicitly include
+`UndeadPeople_0J_Hybrid_v3`. Secronom+ has no separate tile sheet and continues
+to use Secronom's graphics. No tile IDs, sprite indices or gameplay data changed.
+
+Current affected package revisions are Blazemod `0.5.5-r9`, Secronom
+`1.5.1-r5` and Tankmod `2026.9.23.4-r7`.
+
 ## Experimental automation
 
 `experimental-watch.yml` automatically discovers new experimental releases.

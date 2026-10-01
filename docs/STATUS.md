@@ -76,15 +76,24 @@ Gryphon is added only to `mil_helicopters_small` and `crashed_helicopters`
 with weight 1. UICA/Salus mapgen, factions and world replacement are not imported.
 Exact `1040` Prime vehicle registry/parts test passed.
 
+## Mod tileset compatibility audit
+
+All current mod directories were checked for mod-specific sprite sheets and
+`mod_tileset` definitions. Only Blazemod, Secronom and Tankmod ship their own
+mod tilesets; Secronom+ has no separate sprite sheet and relies on base Secronom.
+Their compatibility arrays now explicitly include the current tileset ID
+`UndeadPeople_0J_Hybrid_v3`. Other current mods have no mod-tileset payload to
+gate on the base tileset ID.
+
 ## Current component versions
 
 - AXIOM-7 0.8.2.8-r2;
-- Blazemod 0.5.5-r8;
-- Secronom 1.5.1-r4;
+- Blazemod 0.5.5-r9;
+- Secronom 1.5.1-r5;
 - Secronom+ 0.3.4-r5;
 - Aftershock Prime 0.1.14a-r6 (r5 introduced Gryphon; r6 is documentation-only);
 - Aftershock Prime / MoM 0.1.14a-r2;
-- Tankmod 2026.9.23.4-r6;
+- Tankmod 2026.9.23.4-r7;
 - UndeadPeople 3.1.1-r2;
 - AWS 0.6.1-r3 source snapshot, installer-disabled;
 - Survivor Progression 0.9.15-r2 source snapshot, installer-disabled.
