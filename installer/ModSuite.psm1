@@ -157,309 +157,12 @@ function Get-ExistingTilesetDirectories([string[]]$Roots,[string]$TilesetId){
     $result=New-Object 'System.Collections.Generic.List[string]'
     foreach($root in $Roots){
         if(-not $root -or -not(Test-Path -LiteralPath $root -PathType Container)){continue}
-        foreach($dir in @(Get-ChildItem -LiteralPath $root -Directory -Force -ErrorAction Stop)){
+        foreach($dir in @(Get-ChildItem -LiteralPath $root -Directory -Force -ErrorAction SilentlyContinue)){
             if($dir.Attributes -band [IO.FileAttributes]::ReparsePoint){continue}
             $conf=Join-Path $dir.FullName 'tileset.txt'
             if(-not(Test-Path -LiteralPath $conf -PathType Leaf)){continue}
             try{$txt=Get-Content -LiteralPath $conf -Raw -Encoding UTF8}catch{continue}
-            $match=[regex]::Match($txt,'(?im)^\s*NAME:\s*(.+?)\s*([string]$Path,$Files){
-    if(-not(Test-Path -LiteralPath $Path -PathType Container)){return $false}
-    $props=@($Files.PSObject.Properties)
-    if(@(Get-ChildItem -LiteralPath $Path -File -Force -Recurse).Count -ne $props.Count){return $false}
-    foreach($p in $props){$file=Join-Safe $Path $p.Name;if(-not(Test-Path -LiteralPath $file -PathType Leaf) -or (Get-FileHash -LiteralPath $file -Algorithm SHA256).Hash.ToLowerInvariant() -ne $p.Value){return $false}}
-    return $true
-}
-function Invoke-GameCheck([string]$Exe,[string]$GameRoot,[string]$DataRoot,[string]$UserRoot,[string[]]$ModIds,[int]$TimeoutSeconds=240){
-    [IO.Directory]::CreateDirectory($UserRoot) | Out-Null
-    # CDDA opens config/debug.log before its later essential-directory setup.
-    # --check-mods may exit before that setup path, so preserve early diagnostics.
-    [IO.Directory]::CreateDirectory((Join-Path $UserRoot 'config')) | Out-Null
-    $psi=New-Object Diagnostics.ProcessStartInfo;$psi.FileName=$Exe;$psi.WorkingDirectory=$GameRoot;$psi.UseShellExecute=$false;$psi.CreateNoWindow=$true
-    $psi.RedirectStandardOutput=$true;$psi.RedirectStandardError=$true
-    foreach($p in @($GameRoot,$DataRoot,$UserRoot)){if($p.Contains('"')){throw 'Quotes in game paths are not supported'}}
-    $psi.Arguments='--basepath "'+$GameRoot.TrimEnd('\','/')+'/" --datadir "'+$DataRoot.TrimEnd('\','/')+'/" --userdir "'+$UserRoot.TrimEnd('\','/')+'/" --check-mods '+($ModIds -join ' ')
-    $proc=New-Object Diagnostics.Process;$proc.StartInfo=$psi
-    try{
-        [void]$proc.Start();$stdout=$proc.StandardOutput.ReadToEndAsync();$stderr=$proc.StandardError.ReadToEndAsync()
-        if(-not $proc.WaitForExit($TimeoutSeconds*1000)){try{$proc.Kill();$proc.WaitForExit()}catch{};throw "Game validator timed out after $TimeoutSeconds seconds"}
-        $out=$stdout.Result;$err=$stderr.Result
-        [IO.File]::WriteAllText((Join-Path $UserRoot 'stdout.log'),$out);[IO.File]::WriteAllText((Join-Path $UserRoot 'stderr.log'),$err)
-        $logs=$out+"`n"+$err
-        foreach($f in @(Get-ChildItem -LiteralPath $UserRoot -Filter debug.log -Recurse -File)){$logs+="`n"+(Get-Content $f.FullName -Raw)}
-        $lines=@($logs -split "`r?`n")
-        # Only source-bearing ERROR records decide severity. CDDA text-style
-        # diagnostics are multi-line; their following "Json error: ..." detail
-        # must inherit the style classification instead of becoming a false fatal.
-        $errorRecords=@($lines | Where-Object {$_ -match '(^|\s)ERROR\s*:'})
-        $style=@($errorRecords | Where-Object {$_ -match 'text_style_check_reader\.cpp:63'})
-        $bad=@(
-            $errorRecords | Where-Object {
-                ($_ -notmatch 'text_style_check_reader\.cpp:63') -and
-                ($_ -notmatch '^\s*(\(continued from above\)\s+)?ERROR\s*:\s*\(error message will follow backtrace\)\s*$')
-            }
-        )
-        $bad+=@($lines | Where-Object {
-            ($_ -match 'Error loading|Unknown mod:|Missing dependencies:|Fatal:') -and
-            ($_ -notmatch '(^|\s)ERROR\s*:')
-        })
-        $rawExit=$proc.ExitCode
-        $exit=$rawExit
-        # CDDA also returns 1 for advisory cata-text-style diagnostics.
-        if($exit -eq 1 -and $style.Count -gt 0 -and $bad.Count -eq 0){$exit=0}
-        return [pscustomobject]@{exit_code=$exit;raw_exit_code=$rawExit;errors=$bad;style_warnings=$style;log=$UserRoot}
-    }finally{$proc.Dispose()}
-}
-function Get-CheckModsInteractionHazards([string]$DataRoot,[string[]]$RootIds){
-    $modsRoot=Join-Path $DataRoot 'mods'
-    if(-not(Test-Path -LiteralPath $modsRoot -PathType Container)){return @()}
-    $index=@{}
-    foreach($file in @(Get-ChildItem -LiteralPath $modsRoot -Filter modinfo.json -Recurse -File -ErrorAction SilentlyContinue)){
-        try{$doc=Read-Json $file.FullName}catch{continue}
-        foreach($row in @($doc)){
-            if($null -eq $row -or [string]$row.type -ne 'MOD_INFO' -or -not $row.id){continue}
-            $deps=@()
-            if($row.PSObject.Properties['dependencies']){$deps=@($row.dependencies | ForEach-Object {[string]$_})}
-            $index[[string]$row.id]=[pscustomobject]@{root=$file.Directory.FullName;dependencies=$deps}
-        }
-    }
-    $seen=@{}
-    $stack=New-Object 'System.Collections.Generic.Stack[string]'
-    foreach($id in @($RootIds)){if($id){$stack.Push([string]$id)}}
-    $hazards=New-Object 'System.Collections.Generic.List[string]'
-    while($stack.Count -gt 0){
-        $id=$stack.Pop()
-        if($seen.ContainsKey($id)){continue}
-        $seen[$id]=$true
-        if(-not $index.ContainsKey($id)){continue}
-        $meta=$index[$id]
-        $interactions=Join-Path $meta.root 'mod_interactions'
-        if((Test-Path -LiteralPath $interactions -PathType Container) -and @(Get-ChildItem -LiteralPath $interactions -Filter '*.json' -Recurse -File -ErrorAction SilentlyContinue).Count){
-            if(-not $hazards.Contains($id)){$hazards.Add($id)}
-        }
-        foreach($dep in @($meta.dependencies)){if($dep){$stack.Push([string]$dep)}}
-    }
-    return @($hazards | Sort-Object -Unique)
-}
-function Test-CheckModsInteractionCapability([string]$Exe,[string]$GameRoot,[string]$DataRoot,[string]$Work,[int]$TimeoutSeconds=120){
-    $token='CDDA_MODS_CHECK_MODS_INTERACTION_PROBE_SENTINEL'
-    $modsRoot=Join-Path $DataRoot 'mods'
-    [IO.Directory]::CreateDirectory($modsRoot) | Out-Null
-    $dep=Join-Path $modsRoot '__cdda_mods_probe_interaction_dep'
-    $root=Join-Path $modsRoot '__cdda_mods_probe_interaction_root'
-    foreach($p in @($dep,$root)){if(Test-Path -LiteralPath $p){throw "Validator capability probe path already exists: $p"}}
-    try{
-        [IO.Directory]::CreateDirectory($dep) | Out-Null
-        [IO.Directory]::CreateDirectory($root) | Out-Null
-        Write-Json (Join-Path $dep 'modinfo.json') @{type='MOD_INFO';id='cdda_mods_probe_interaction_dep';name='CDDA-Mods validator capability dependency';authors=@('CDDA-Mods CI');description='Temporary capability probe.';category='content';dependencies=@('dda')}
-        Write-Json (Join-Path $root 'modinfo.json') @{type='MOD_INFO';id='cdda_mods_probe_interaction_root';name='CDDA-Mods validator capability root';authors=@('CDDA-Mods CI');description='Temporary capability probe.';category='content';dependencies=@('dda','cdda_mods_probe_interaction_dep')}
-        $hidden=Join-Path $dep 'mod_interactions/cdda_mods_probe_never_loaded'
-        [IO.Directory]::CreateDirectory($hidden) | Out-Null
-        Write-Json (Join-Path $hidden 'sentinel.json') @{
-            type='snippet'
-            category='cdda_mods_probe_interaction'
-            text=($token+'. single-space sentinel')
-        }
-        $probe=Invoke-GameCheck $Exe $GameRoot $DataRoot $Work @('cdda_mods_probe_interaction_root') ([Math]::Min($TimeoutSeconds,120))
-        $evidence=(@($probe.errors) -join "`n")
-        foreach($f in @(Get-ChildItem -LiteralPath $Work -File -Recurse -ErrorAction SilentlyContinue)){
-            if($f.Name -in @('stdout.log','stderr.log','debug.log')){try{$evidence+="`n"+(Get-Content $f.FullName -Raw)}catch{}}
-        }
-        if($evidence -match [regex]::Escape($token)){
-            return $false
-        }
-        if($probe.exit_code -eq 124){
-            Write-Warning 'Validator capability probe timed out; treating dependency mod_interactions as unsupported and deferring only affected roots.'
-            return $false
-        }
-        if($probe.exit_code -eq 0 -and @($probe.errors).Count -eq 0){
-            return $true
-        }
-        throw "Validator capability probe was inconclusive; report: $Work"
-    }finally{
-        Remove-Item -LiteralPath $root -Recurse -Force -ErrorAction SilentlyContinue
-        Remove-Item -LiteralPath $dep -Recurse -Force -ErrorAction SilentlyContinue
-    }
-}
-function Test-StagedMods([string]$GameRoot,[object[]]$Plan,[string]$Work,[int]$TimeoutSeconds=240,[string]$CheckModsInteractions='auto'){
-    $json=@($Plan | Where-Object {$_.package.kind -eq 'json'});if(-not $json.Count){return}
-    $exe=@('cataclysm-tiles.vanilla.exe','cataclysm-tiles.exe','cataclysm.exe','cataclysm') | ForEach-Object {Join-Path $GameRoot $_} | Where-Object {Test-Path -LiteralPath $_} | Select-Object -First 1
-    if(-not $exe){throw 'Game validator not found'}
-    $data=Join-Path $Work 'validation/data';[IO.Directory]::CreateDirectory($data) | Out-Null
-    foreach($item in Get-ChildItem -LiteralPath (Join-Path $GameRoot 'data') -Force){if($item.Name -notin @('cache','gfx')){Copy-Item -LiteralPath $item.FullName -Destination $data -Recurse -Force}}
-    # CDDA set_datadir changes gfxdir to datadir/gfx. Preserve real tiles/portraits here.
-    $gfx=Join-Path $GameRoot 'gfx';if(Test-Path $gfx){Copy-Item -LiteralPath $gfx -Destination (Join-Path $data 'gfx') -Recurse -Force}
-    $base=Invoke-GameCheck $exe $GameRoot $data (Join-Path $Work 'validation/baseline') @('dda') $TimeoutSeconds
-    if($base.exit_code -ne 0 -or @($base.errors).Count){throw "Vanilla baseline validation failed; report: $($base.log)"}
-    if($CheckModsInteractions -eq 'supported'){
-        $interactionSupported=$true
-    }elseif($CheckModsInteractions -eq 'broken'){
-        $interactionSupported=$false
-    }elseif($CheckModsInteractions -eq 'auto'){
-        $interactionSupported=Test-CheckModsInteractionCapability $exe $GameRoot $data (Join-Path $Work 'validation/capability-check-mods-interactions') $TimeoutSeconds
-    }else{
-        throw "Unknown check-mods interaction capability mode: $CheckModsInteractions"
-    }
-    Write-Host ("Validator capability: dependency mod_interactions = " + $(if($interactionSupported){'supported'}else{'broken; exact-source defer required'}))
-    foreach($entry in $json){
-        foreach($old in @(Get-ModDirectories @((Join-Path $data 'mods')) $entry.package.game_mod_ids)){Remove-Item -LiteralPath $old -Recurse -Force}
-        Copy-Item -LiteralPath $entry.staged -Destination (Join-Safe (Join-Path $data 'mods') $entry.package.folder) -Recurse
-    }
-    $ids=@($json | ForEach-Object {$_.package.game_mod_ids})
-    # A single selected game root should be checked directly. Wrapping one root
-    # in a synthetic dependency mod changes the validator path without adding
-    # any coexistence coverage, and older --check-mods builds can behave
-    # differently for that artificial graph.
-    if($ids.Count -eq 1){
-        $id=[string]$ids[0]
-        $idHazards=@(Get-CheckModsInteractionHazards $data @($id))
-        if($idHazards.Count -and -not $interactionSupported){
-            Write-Warning ("Deferring broken upstream --check-mods path for $id via: " + ($idHazards -join ', ') + ". Exact-source cata_test remains the runtime authority.")
-            return
-        }
-        $direct=Invoke-GameCheck $exe $GameRoot $data (Join-Path $Work 'validation/selected') @($id) $TimeoutSeconds
-        if($direct.exit_code -ne 0 -or @($direct.errors).Count){throw "Selected mod validation failed for $id; report: $($direct.log)"}
-        return
-    }
-
-    # Multiple selected roots still need a synthetic dependency-only mod so the
-    # validator exercises their coexistence as one stack.
-    $stack=Join-Path $data 'mods/suite_validation_stack';[IO.Directory]::CreateDirectory($stack) | Out-Null
-    Write-Json (Join-Path $stack 'modinfo.json') @(@{type='MOD_INFO';id='suite_validation_stack';name='Suite validation only';authors=@('Neversalimus');description='Temporary validation stack.';dependencies=@('dda')+$ids})
-    # Capability is detected from the exact binary instead of hard-coding a
-    # CDDA version. Older --check-mods builds recursively consume dependency
-    # mod_interactions; fixed builds can validate the full graph normally.
-    $hazards=@(Get-CheckModsInteractionHazards $data @('suite_validation_stack'))
-    if($hazards.Count -and -not $interactionSupported){
-        # Preserve every safe validator check in this plan. Only roots whose own
-        # dependency closure reaches interaction-bearing mods are deferred.
-        foreach($id in $ids){
-            $idHazards=@(Get-CheckModsInteractionHazards $data @([string]$id))
-            if($idHazards.Count){
-                Write-Warning ("Deferring broken upstream --check-mods path for $id via: " + ($idHazards -join ', ') + ". Exact-source cata_test remains the runtime authority.")
-                continue
-            }
-            $safe=($id -replace '[^A-Za-z0-9_.-]','_')
-            $individual=Invoke-GameCheck $exe $GameRoot $data (Join-Path $Work ('validation/safe-'+$safe)) @([string]$id) $TimeoutSeconds
-            if($individual.exit_code -ne 0 -or @($individual.errors).Count){throw "Selected mod validation failed for $id; report: $($individual.log)"}
-        }
-        return
-    }
-    # No interaction-bearing dependency is present: validate the whole selected
-    # stack together through one synthetic dependency root.
-    $result=Invoke-GameCheck $exe $GameRoot $data (Join-Path $Work 'validation/selected') @('suite_validation_stack') $TimeoutSeconds
-    if($result.exit_code -ne 0 -or @($result.errors).Count){throw "Selected mod validation failed; report: $($result.log)"}
-}
-function Restore-Transaction([string]$Transaction,[switch]$Automatic){
-    $path=Join-Path $Transaction 'journal.json';$journal=Read-Json $path
-    if($journal.status -eq 'rolled-back'){return}
-    # Validate the whole rollback before changing a single destination.
-    foreach($entry in @($journal.entries)){
-        if(-not $Automatic -and $entry.phase -eq 'installed' -and -not(Test-PayloadEqual $entry.destination $entry.files)){throw "Changed since installation: $($entry.destination). Refusing to overwrite newer/local files."}
-    }
-    if($journal.PSObject.Properties['retired_paths']){
-        foreach($retired in @($journal.retired_paths)){
-            if(-not $Automatic -and $retired.phase -in @('retired','restoring') -and (Test-Path -LiteralPath $retired.source)){
-                throw "Retired path was recreated after installation: $($retired.source). Refusing to overwrite it."
-            }
-        }
-    }
-    $entries=@($journal.entries);[array]::Reverse($entries)
-    foreach($entry in $entries){
-        $oldExists=Test-Path -LiteralPath $entry.backup
-        if($entry.phase -eq 'restored'){continue}
-        if($entry.phase -in @('prepared','backing-up') -and -not $oldExists){continue}
-        if($entry.phase -eq 'restoring'){
-            # Destination was already removed before restoring started. If the
-            # backup is gone, the preceding move completed before interruption.
-            if($oldExists){
-                if(Test-Path -LiteralPath $entry.destination){throw 'Rollback recovery destination occupied'}
-                Move-Item -LiteralPath $entry.backup -Destination $entry.destination
-            }
-            $entry.phase='restored';Write-Json $path $journal;continue
-        }
-        if($entry.phase -in @('installing','installed') -and (Test-Path -LiteralPath $entry.destination)){Remove-Item -LiteralPath $entry.destination -Recurse -Force}
-        $entry.phase='restoring';Write-Json $path $journal
-        if($oldExists){
-            if(Test-Path -LiteralPath $entry.destination){throw "Rollback destination occupied: $($entry.destination)"}
-            Move-Item -LiteralPath $entry.backup -Destination $entry.destination
-        }
-        $entry.phase='restored';Write-Json $path $journal
-    }
-    if($journal.PSObject.Properties['retired_paths']){
-        $retiredPaths=@($journal.retired_paths);[array]::Reverse($retiredPaths)
-        foreach($retired in $retiredPaths){
-            $backupExists=Test-Path -LiteralPath $retired.backup
-            if($retired.phase -eq 'restored'){continue}
-            if($retired.phase -eq 'prepared'){continue}
-            if($retired.phase -eq 'retiring' -and -not $backupExists){continue}
-            if($retired.phase -ne 'restoring'){$retired.phase='restoring';Write-Json $path $journal}
-            if($backupExists){
-                if(Test-Path -LiteralPath $retired.source){throw "Rollback retired-path destination occupied: $($retired.source)"}
-                [IO.Directory]::CreateDirectory((Split-Path $retired.source -Parent)) | Out-Null
-                Move-Item -LiteralPath $retired.backup -Destination $retired.source
-            }
-            $retired.phase='restored';Write-Json $path $journal
-        }
-    }
-    if($journal.PSObject.Properties['state_path'] -and $journal.state_path){
-        $records=@{}
-        if(Test-Path -LiteralPath $journal.state_path){foreach($record in @((Read-Json $journal.state_path).packages)){$records[$record.id]=$record}}
-        foreach($e in $journal.entries){$records.Remove($e.id)}
-        foreach($record in @($journal.previous_records)){$records[$record.id]=$record}
-        Write-Json $journal.state_path ([pscustomobject]@{schema=1;packages=@($records.Values)})
-    }
-    $journal.status='rolled-back';Write-Json $path $journal
-}
-function Install-Plan([object[]]$Plan,[string]$Transaction,[string]$StateFile=""){
-    [IO.Directory]::CreateDirectory($Transaction) | Out-Null
-    $entries=@();$i=0
-    foreach($p in $Plan){
-        $entries+= [pscustomobject]@{id=$p.package.id;destination=$p.destination;backup=(Join-Path $Transaction "backup/$i");staged=$p.staged;files=$p.package.files;version=$p.package.version;phase='prepared'};$i++
-    }
-    $retiredPaths=@();$seenRetired=@{};$ri=0
-    foreach($p in $Plan){
-        if(-not $p.PSObject.Properties['retire_paths']){continue}
-        foreach($source in @($p.retire_paths)){
-            if(-not $source){continue}
-            $full=[IO.Path]::GetFullPath([string]$source)
-            if($full.Equals([IO.Path]::GetFullPath($p.destination),[StringComparison]::OrdinalIgnoreCase)){continue}
-            $key=$full.ToLowerInvariant()
-            if($seenRetired.ContainsKey($key)){continue}
-            $seenRetired[$key]=$true
-            $retiredPaths+= [pscustomobject]@{source=$full;backup=(Join-Path $Transaction "retired/$ri");phase='prepared'};$ri++
-        }
-    }
-    $prior=@()
-    if($StateFile -and (Test-Path -LiteralPath $StateFile)){$selected=@($entries | ForEach-Object {$_.id});$prior=@((Read-Json $StateFile).packages | Where-Object {$selected -contains $_.id})}
-    $journal=[pscustomobject]@{schema=1;status='pending';entries=$entries;retired_paths=$retiredPaths;state_path=$StateFile;previous_records=$prior};$path=Join-Path $Transaction 'journal.json';Write-Json $path $journal
-    try{
-        foreach($retired in @($journal.retired_paths)){
-            if(-not(Test-Path -LiteralPath $retired.source -PathType Container)){$retired.phase='retired';Write-Json $path $journal;continue}
-            [IO.Directory]::CreateDirectory((Split-Path $retired.backup -Parent)) | Out-Null
-            if(Test-Path -LiteralPath $retired.backup){throw "Retired-path backup already exists: $($retired.backup)"}
-            $retired.phase='retiring';Write-Json $path $journal
-            Move-Item -LiteralPath $retired.source -Destination $retired.backup
-            $retired.phase='retired';Write-Json $path $journal
-        }
-        foreach($e in $journal.entries){
-            [IO.Directory]::CreateDirectory((Split-Path $e.destination -Parent)) | Out-Null
-            [IO.Directory]::CreateDirectory((Split-Path $e.backup -Parent)) | Out-Null
-            $e.phase='backing-up';Write-Json $path $journal
-            if(Test-Path -LiteralPath $e.destination){Move-Item -LiteralPath $e.destination -Destination $e.backup}
-            $e.phase='installing';Write-Json $path $journal
-            Copy-Item -LiteralPath $e.staged -Destination $e.destination -Recurse
-            if(-not(Test-PayloadEqual $e.destination $e.files)){throw "Post-install verification failed: $($e.id)"}
-            $e.phase='installed';Write-Json $path $journal
-        }
-        $journal.status='committed';Write-Json $path $journal
-    }catch{
-        $original=$_
-        try{Restore-Transaction $Transaction -Automatic}catch{throw "Install failed: $original. Rollback needs recovery: $_. Journal: $path"}
-        throw $original
-    }
-}
-Export-ModuleMember -Function *
-)
+            $match=[regex]::Match($txt,'(?im)^\s*NAME:\s*(.+?)\s*$')
             if($match.Success -and $match.Groups[1].Value.Trim() -ceq $TilesetId){$result.Add($dir.FullName)}
         }
     }
@@ -698,14 +401,19 @@ function Restore-Transaction([string]$Transaction,[switch]$Automatic){
     foreach($entry in @($journal.entries)){
         if(-not $Automatic -and $entry.phase -eq 'installed' -and -not(Test-PayloadEqual $entry.destination $entry.files)){throw "Changed since installation: $($entry.destination). Refusing to overwrite newer/local files."}
     }
+    if($journal.PSObject.Properties['retired_paths']){
+        foreach($retired in @($journal.retired_paths)){
+            if(-not $Automatic -and $retired.phase -in @('retired','restoring') -and (Test-Path -LiteralPath $retired.source)){
+                throw "Retired path was recreated after installation: $($retired.source). Refusing to overwrite it."
+            }
+        }
+    }
     $entries=@($journal.entries);[array]::Reverse($entries)
     foreach($entry in $entries){
         $oldExists=Test-Path -LiteralPath $entry.backup
         if($entry.phase -eq 'restored'){continue}
         if($entry.phase -in @('prepared','backing-up') -and -not $oldExists){continue}
         if($entry.phase -eq 'restoring'){
-            # Destination was already removed before restoring started. If the
-            # backup is gone, the preceding move completed before interruption.
             if($oldExists){
                 if(Test-Path -LiteralPath $entry.destination){throw 'Rollback recovery destination occupied'}
                 Move-Item -LiteralPath $entry.backup -Destination $entry.destination
@@ -719,6 +427,22 @@ function Restore-Transaction([string]$Transaction,[switch]$Automatic){
             Move-Item -LiteralPath $entry.backup -Destination $entry.destination
         }
         $entry.phase='restored';Write-Json $path $journal
+    }
+    if($journal.PSObject.Properties['retired_paths']){
+        $retiredPaths=@($journal.retired_paths);[array]::Reverse($retiredPaths)
+        foreach($retired in $retiredPaths){
+            $backupExists=Test-Path -LiteralPath $retired.backup
+            if($retired.phase -eq 'restored'){continue}
+            if($retired.phase -eq 'prepared'){continue}
+            if($retired.phase -eq 'retiring' -and -not $backupExists){continue}
+            if($retired.phase -ne 'restoring'){$retired.phase='restoring';Write-Json $path $journal}
+            if($backupExists){
+                if(Test-Path -LiteralPath $retired.source){throw "Rollback retired-path destination occupied: $($retired.source)"}
+                [IO.Directory]::CreateDirectory((Split-Path $retired.source -Parent)) | Out-Null
+                Move-Item -LiteralPath $retired.backup -Destination $retired.source
+            }
+            $retired.phase='restored';Write-Json $path $journal
+        }
     }
     if($journal.PSObject.Properties['state_path'] -and $journal.state_path){
         $records=@{}
@@ -735,10 +459,31 @@ function Install-Plan([object[]]$Plan,[string]$Transaction,[string]$StateFile=""
     foreach($p in $Plan){
         $entries+= [pscustomobject]@{id=$p.package.id;destination=$p.destination;backup=(Join-Path $Transaction "backup/$i");staged=$p.staged;files=$p.package.files;version=$p.package.version;phase='prepared'};$i++
     }
+    $retiredPaths=@();$seenRetired=@{};$ri=0
+    foreach($p in $Plan){
+        if(-not $p.PSObject.Properties['retire_paths']){continue}
+        foreach($source in @($p.retire_paths)){
+            if(-not $source){continue}
+            $full=[IO.Path]::GetFullPath([string]$source)
+            if($full.Equals([IO.Path]::GetFullPath($p.destination),[StringComparison]::OrdinalIgnoreCase)){continue}
+            $key=$full.ToLowerInvariant()
+            if($seenRetired.ContainsKey($key)){continue}
+            $seenRetired[$key]=$true
+            $retiredPaths+= [pscustomobject]@{source=$full;backup=(Join-Path $Transaction "retired/$ri");phase='prepared'};$ri++
+        }
+    }
     $prior=@()
     if($StateFile -and (Test-Path -LiteralPath $StateFile)){$selected=@($entries | ForEach-Object {$_.id});$prior=@((Read-Json $StateFile).packages | Where-Object {$selected -contains $_.id})}
-    $journal=[pscustomobject]@{schema=1;status='pending';entries=$entries;state_path=$StateFile;previous_records=$prior};$path=Join-Path $Transaction 'journal.json';Write-Json $path $journal
+    $journal=[pscustomobject]@{schema=1;status='pending';entries=$entries;retired_paths=$retiredPaths;state_path=$StateFile;previous_records=$prior};$path=Join-Path $Transaction 'journal.json';Write-Json $path $journal
     try{
+        foreach($retired in @($journal.retired_paths)){
+            if(-not(Test-Path -LiteralPath $retired.source -PathType Container)){$retired.phase='retired';Write-Json $path $journal;continue}
+            [IO.Directory]::CreateDirectory((Split-Path $retired.backup -Parent)) | Out-Null
+            if(Test-Path -LiteralPath $retired.backup){throw "Retired-path backup already exists: $($retired.backup)"}
+            $retired.phase='retiring';Write-Json $path $journal
+            Move-Item -LiteralPath $retired.source -Destination $retired.backup
+            $retired.phase='retired';Write-Json $path $journal
+        }
         foreach($e in $journal.entries){
             [IO.Directory]::CreateDirectory((Split-Path $e.destination -Parent)) | Out-Null
             [IO.Directory]::CreateDirectory((Split-Path $e.backup -Parent)) | Out-Null
