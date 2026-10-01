@@ -1,0 +1,104 @@
+name: Temporary Prime Gryphon check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/prime-gryphon-check.yml'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  gryphon-prime:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: harness
+
+      - uses: actions/checkout@v4
+        with:
+          repository: CleverRaven/Cataclysm-DDA
+          ref: 3f7fb352bf492ba521bd9408a0c9f6ce239e8d83
+          path: external/cdda
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Download exact 1040 cata_test
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p external/cdda/tests
+          gh run download 36857816597 \
+            --repo Neversalimus/CDDA-Mods \
+            --name content-cata-test-3f7fb352bf492ba521bd9408a0c9f6ce239e8d83 \
+            --dir external/cdda/tests
+          chmod +x external/cdda/tests/cata_test
+
+      - name: Prepare Prime into exact source tree
+        shell: bash
+        run: |
+          mkdir -p external/cdda/data/mods/Aftershock_Prime
+          cp -a harness/mods/aftershock_prime/content/. external/cdda/data/mods/Aftershock_Prime/
+          if ! dpkg-query -W libncursesw6 >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y libncursesw6
+          fi
+
+      - name: Validate Prime Gryphon vehicle stack
+        working-directory: external/cdda
+        shell: bash
+        run: |
+          set -euo pipefail
+          ./tests/cata_test \
+            --mods=dda,aftershock_prime \
+            --user-dir=prime-gryphon \
+            --rng-seed 0 \
+            --order lex \
+            --error-format=github-action \
+            "[cdda_mods_content][content_vehicles]"
+
+          ./tests/cata_test \
+            --mods=dda,aftershock_prime \
+            --user-dir=prime-gryphon-parts \
+            --rng-seed 0 \
+            --order lex \
+            --error-format=github-action \
+            "[vehicle][vehicle_parts]"
+
+      - name: Verify curated integration contract
+        working-directory: harness
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          root=Path("mods/aftershock_prime/content")
+          def load(p): return json.loads((root/p).read_text(encoding="utf-8"))
+
+          vehicles={x.get("id"):x for x in load("vehicles/vehicles.json") if isinstance(x,dict)}
+          parts={x.get("id"):x for x in load("vehicles/vehicle_parts.json") if isinstance(x,dict)}
+          items={x.get("id"):x for x in load("vehicles/part_items.json") if isinstance(x,dict)}
+          groups=[x for x in load("prime_integration_vehicles.json") if isinstance(x,dict)]
+
+          assert "wraitheon_aerodyne" in vehicles
+          assert {"aerodyne_engine","engine_turbine_large"} <= parts.keys()
+          assert {"afs_aerodyne_engine","afs_aerodyne_powerplant"} <= items.keys()
+
+          expected={"mil_helicopters_small":1,"crashed_helicopters":1}
+          for gid,weight in expected.items():
+              group=next(x for x in groups if x.get("type")=="vehicle_group" and x.get("id")==gid)
+              assert ["wraitheon_aerodyne",weight] in group["vehicles"]
+
+          forbidden={"military_vehicles","parkinglot","city_vehicles","helicopters"}
+          for group in groups:
+              if group.get("id") in forbidden:
+                  assert not any(v[0]=="wraitheon_aerodyne" for v in group.get("vehicles",[]))
+
+          print("Prime Gryphon curated integration contract PASS")
+          PY
