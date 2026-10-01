@@ -26,12 +26,12 @@ exact-source combined suite и все четыре content shards. Его пер
 | Компонент | Версия в этом репозитории | Тип |
 |---|---:|---|
 | AXIOM-7 | 0.8.2.8-r2 | JSON |
-| Blazemod Revival | 0.5.5-r8 | JSON |
-| Secronom Revival | 1.5.1-r4 | JSON |
+| Blazemod Revival | 0.5.5-r9 | JSON |
+| Secronom Revival | 1.5.1-r5 | JSON |
 | Secronom+ Revival | 0.3.4-r5 | JSON |
 | Aftershock Prime | 0.1.14a-r6 | JSON |
 | Aftershock Prime / Mind Over Matter | 0.1.14a-r2 | JSON compat |
-| Tankmod Revived | 2026.9.23.4-r6 | JSON |
+| Tankmod Revived | 2026.9.23.4-r7 | JSON |
 | UndeadPeople Hybrid v3 | 3.1.1-r2 | tileset |
 | Advanced World Settings | 0.6.1-r3 | native source snapshot, installer-disabled |
 | Survivor Progression | 0.9.15-r2 | native source snapshot, installer-disabled |
@@ -40,6 +40,10 @@ exact-source combined suite и все четыре content shards. Его пер
 Tankmod и UndeadPeople; зависимость Secronom добавляется автоматически.
 MoM-compat включается отдельно только при использовании Mind Over Matter.
 AWS/Survivor из этого репозитория не являются текущими runtime-модулями NCMM.
+
+Модовые тайлсеты Blazemod, Secronom и Tankmod явно совместимы с внутренним ID
+`UndeadPeople_0J_Hybrid_v3`; Secronom+ отдельного sprite sheet не имеет и использует
+графику базового Secronom.
 
 ## Установка
 
