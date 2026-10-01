@@ -1,184 +1,88 @@
 # Глубокие тесты на реальной CDDA
 
-Этот слой намеренно отделён от обычного CI. Он предназначен для редких,
-дорогих проверок совместимости и релизных проходов, а не для каждого коммита.
+`.github/workflows/deep-runtime.yml` — тяжёлый compatibility/diagnostic слой.
+Он не заменяет обычный CI и не должен запускаться на каждый commit без причины.
 
-## Что проверяется
+## 1. Official release binary
 
-Workflow `.github/workflows/deep-runtime.yml` работает в три слоя.
-
-### 1. Official release binary
-
-На Windows скачивается официальный release CDDA, соответствующий точному
-`catalog/targets/<target>.json`.
+На Windows скачивается официальный release для точного target из
+`catalog/targets`.
 
 Проверяется:
 
-- SHA игры из `VERSION.txt` должен в точности совпасть с каталогом;
-- скачанный официальный ZIP проверяется по опубликованному GitHub SHA-256 digest;
-- сначала проходит чистая `dda`, чтобы ошибка самой базы не засчиталась как
-  ошибка мода;
-- каждый JSON-мод без interaction-bearing dependency graph запускается отдельно через настоящий `--check-mods`;
-- зависимости автоматически добавляются из manifest;
-- перед такими проверками запускается synthetic capability probe именно на
-  текущем бинарнике: временный dependency mod содержит заведомо неактивный
-  `mod_interactions` sentinel. Если `--check-mods` ошибочно читает sentinel,
-  build автоматически помечается как `broken`; если игнорирует его как нормальный
-  world loader — как `supported`. Поэтому workaround не привязан навсегда к 0546;
-- только при capability=`broken` графы с `mod_interactions` (например Mind Over
-  Matter) получают `deferred_to=exact-source-cata_test`. На будущей версии CDDA,
-  где validator исправлен, те же графы автоматически снова проходят обычный
-  официальный `--check-mods`;
-- проверяются repository profiles;
-- проверяется общий стек всех JSON-модов;
-- stdout/stderr/debug.log сохраняются как artifact;
-- отчёт содержит SHA содержимого каждого tested payload.
+- commit из `VERSION.txt`;
+- vanilla baseline;
+- каждый JSON component;
+- profiles;
+- combined stack;
+- stdout/stderr/debug evidence и content hashes.
 
-То есть старый успешный отчёт не может автоматически сертифицировать изменённый
-мод.
+Для dependency `mod_interactions` используется capability probe точного игрового
+binary. Если upstream `--check-mods` на этой версии сломан, defer применяется
+только к затронутому dependency graph; остальные root-моды продолжают проходить
+native validator.
 
-### 2. Installation / lifecycle matrix на настоящей игре
+## 2. Реальный installation/lifecycle matrix
 
-На той же официальной Windows-сборке строится реальный `dist` и запускается именно
-тот `Install-Mods.ps1`, который получает пользователь. Это не mock файловой системы.
+Workflow собирает тот же installer, который получает пользователь, и проверяет
+реальную файловую установку:
 
-Для каждого JSON-мода выполняется последовательность:
+`clean -> install -> validate -> repeat -> update -> validate -> rollback`.
 
-`clean state -> install -> native validator (или documented cata_test defer) -> repeat install -> validator -> update -> validator -> rollback`
+Проверяются также негативные сценарии: повреждённый ZIP, duplicate mod IDs,
+незавершённая транзакция и другие contract failures.
 
-Отдельно выполняются общий JSON-стек и профиль `all-content`, включая установку и
-rollback тайлсета. После установки проверяется уже **live `data/mods` игры**, а не
-копия исходников из репозитория. После каждого rollback матрица проверяет не только
-receipt, но и фактическое отсутствие откатанных payload-каталогов на диске.
+Installer использует durable transaction/journal под
+`<game>/_CDDA-Mods/transactions`, но transient extraction и validation выполняет
+под коротким `%TEMP%\CDM-*`. Это необходимо для Windows PowerShell 5.1 и длинных
+CatLauncher paths; глубокие деревья Secronom не должны упираться в legacy MAX_PATH.
 
-Негативная матрица дополнительно требует корректного отказа при:
+## 3. Exact-source cata_test
 
-- повреждённом ZIP пакета;
-- двух живых копиях одного mod ID;
-- незавершённой предыдущей транзакции.
+Точный CDDA source commit checkout-ится отдельно. В него инжектируются только
+repository-owned test probes, после чего один раз строится `tests/cata_test`.
 
-Логи каждого шага и сводный `matrix-summary.json` сохраняются как artifact.
+Отдельные suites проверяют components, profiles и `combined-all-json`.
+AXIOM имеет собственный lifecycle probe; content probes имеют отдельный tag
+`[cdda_mods_content]`, исключённый из обычных component selectors.
 
-Installer сначала тем же принципом probing определяет возможность exact
-game binary. Если validator поддерживает dependency `mod_interactions`, весь
-выбранный stack проверяется обычным `--check-mods`. Если probe доказывает старое
-сломанное поведение, defer применяется только к затронутым root-модам; остальные
-root-моды всё равно проходят native validator. SHA/ZIP verification, staging,
-фактическая установка, repeat/update, receipts и rollback не пропускаются.
-Runtime deferred-графа обязан пройти exact-source `cata_test`; сам defer не
-является runtime certification.
+## 4. Object-level content audit
 
-### 3. Exact source + cata_test
+Четыре shards выполняются независимо:
 
-GitHub Actions отдельно делает checkout **точного commit CDDA**, указанного в
-target, сверяет фактический commit, один раз собирает родной `tests/cata_test`,
-а затем раздаёт этот бинарник отдельным чистым jobs для каждого JSON-мода,
-профиля и общего стека. Одновременно работают максимум три runtime jobs.
+- **items** — создание/валидность repository-visible item types;
+- **recipes** — consistency и создание реальных item-results/byproducts без
+  ложных требований к practice/nested/blueprint recipes;
+- **vehicles** — vehicle parts/base items и ненулевые vehicle prototypes;
+  служебный vanilla prototype `none` исключён как sentinel;
+- **overmap** — terrain/special IDs с исключением служебных null sentinels.
 
-Это важнее простого JSON parser gate: тестовый runtime CDDA загружает реальные
-регистры игры, зависимости, mapgen, EOC, предметы, рецепты, транспорт и прочие
-типы данных в тех же внутренних системах, которые использует сама игра.
+Это не просто загрузка JSON: probe проходит engine registries после полной
+инициализации данных.
 
-Режимы:
+## Inherited upstream debt
 
-- `load` — только `[force_load_game]` для каждого мода/профиля/общего стека;
-- `full` — `force_load_game` + upstream-проход
-  `~[slow] ~[.],starting_items` для **каждого** набора. Помимо широкого набора
-  engine-тестов сюда принудительно входит создание стартового персонажа;
-- `exhaustive` — всё из `full` + complementary slow-проход
-  `[slow] ~starting_items` для **каждого** набора. Вместе это покрывает
-  практически весь non-hidden runtime test surface CDDA с загруженным модом.
+Pinned известные upstream/interaction failures описаны отдельно и никогда не
+превращаются в общий whitelist.
 
-`full` — нормальный глубокий режим. `exhaustive` оставлен для редких
-релизных/аудитных проходов.
+Для автоматической сертификации нового experimental допускается
+`--portable-inherited-debt`: старая сигнатура принимается только при строгом
+совпадении ожидаемых IDs/классов/счётчиков. Любое новое отклонение fatal.
 
+## Актуальные контрольные точки
 
-### AXIOM-7 lifecycle probe
+- baseline `0546`: normal exact-source suites и content audit подтверждены;
+- `1040`: official release loader и exact `cata_test` build прошли; targeted
+  Aftershock Prime Gryphon vehicle/parts runtime — GREEN;
+- старый временный `1040` content-recheck был запущен до portable-debt режима,
+  поэтому его формальные red items/overmap не являются текущим правилом verdict;
+- `1124` candidate уже прошёл current generic harness:
+  exact-source combined + items + recipes + vehicles + overmap — GREEN.
 
-Для suite `component-axiom_7` exact-source слой дополнительно запускает
-`[axiom7_lifecycle]`. Это repository-owned Catch2 test, который перед сборкой
-временно копируется в `external/cdda/tests` и компилируется в тот же самый
-`cata_test` точного commit игры. Исходники CDDA в репозитории модов при этом
-не форкаются и не публикуются.
+## Что не считать доказательством
 
-Probe проверяет через реальные runtime API CDDA:
-
-- controlled generation representative OMT surface / basement / roof AXIOM;
-- появление Lena Orlov, Rhea Mercer и Nadia Karpenko в соответствующих OMT;
-- mapgen spawn points patrol sentry и AXIOM turret;
-- исходный `axiom_kx91_dormant` на flight deck;
-- последовательные реальные `update_mapgen` swaps KX-91:
-  powered -> avionics -> weapons-ready -> operational AXIOM -> operational player;
-- реальные end-effects трёх clearance missions и выдачу соответствующих cards;
-- активацию `EOC_AXIOM_SECURITY_ALARM` на живом patrol robot и переход
-  security state/anger.
-
-Этот probe запускается только для `component-axiom_7`, поэтому профили и общий
-JSON stack не повторяют его многократно. Успех probe является gameplay/runtime
-evidence, но сам по себе не заменяет Windows release-binary baseline, installer
-matrix и ручную UX-проверку диалогов/полёта KX-91.
-
-
-## Почему это не мешает разработке
-
-Deep workflow **не имеет** триггеров `push` и `pull_request`.
-Обычные ветки и PR продолжают выполнять только быстрый `ci.yml`.
-
-Ручной запуск всегда доступен через Actions -> **Deep real-CDDA runtime**.
-
-Плановый запуск раз в неделю включён по умолчанию. Для текущего режима, где моды
-меняются редко, schedule использует глубину `exhaustive`. Его можно перенастроить
-без правки workflow: repository variable `CDDA_DEEP_TESTS_DEPTH` принимает
-`load`, `full` или `exhaustive`, а `CDDA_DEEP_TESTS_TARGET` может указать
-другой catalog target.
-
-Для перехода в интенсивную разработку достаточно создать repository variable:
-
-`CDDA_DEEP_TESTS_ENABLED=false`
-
-После этого schedule не запускает тяжёлые jobs. Ручной `workflow_dispatch`
-остаётся доступен. Чтобы вернуть недельную проверку, удалить variable или поставить
-любое значение, кроме `false`. Никакие workflow-файлы менять не нужно.
-
-## Что сознательно не входит сюда
-
-- `advanced_world_settings` и `survivor_progression` — native NCMM modules.
-  Они не могут корректно загружаться ванильной CDDA без внешнего NCMM host.
-  Их compile/runtime contract тестируется отдельно вместе с NCMM.
-- tileset проходит структурную проверку в обычном CI; ванильный
-  `--check-mods` не проверяет графический рендер tileset.
-- `cata_test` действительно проходит engine-level создание персонажей,
-  mapgen/overmap/submap и присутствующие в upstream тестах save/load-пути, но это
-  всё ещё не интерактивное прохождение UI создания мира и нескольких игровых дней;
-- успешный `--check-mods` или `cata_test` не заменяет ручной UX smoke-test
-  миссий, диалогов и конкретных игровых сценариев. Но это уже гораздо глубже
-  статической JSON-валидации и хорошо подходит для автоматического регрессионного
-  барьера.
-
-## Локальный запуск
-
-Показать автоматически вычисленную матрицу:
-
-```sh
-python tools/deep_cdda_runtime.py plan --target experimental-2026-09-23-0546
-```
-
-Проверить уже скачанную точную CDDA:
-
-```sh
-python tools/deep_cdda_runtime.py run-release \
-  --game-root C:/Games/CDDA \
-  --target experimental-2026-09-23-0546 \
-  --out build/deep-release
-```
-
-Если есть собранный exact-source `tests/cata_test`:
-
-```sh
-python tools/deep_cdda_runtime.py run-source \
-  --cdda-root external/cdda \
-  --target experimental-2026-09-23-0546 \
-  --depth full \
-  --suite component-axiom_7 \
-  --out build/deep-source
-```
+- успешный JSON parse;
+- обычный package CI без exact-game runtime;
+- старый report после изменения payload;
+- успех vanilla вместо успеха мода;
+- совпадение только номера experimental без точного commit.

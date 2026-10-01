@@ -1,23 +1,61 @@
-Инфраструктурный выпуск PREVIEW: общий установщик и восемь независимых пакетов контентных модов/тайлсета. Ещё два нативных мода включены в каталог и исходники, но пока недоступны для установки. NCMM runtime/host исключён.
+# Current development notes — 2026-10-01
 
-### Возможности
+The repository is now beyond the original `v0.1.0` PREVIEW snapshot. The immutable
+old release/tag remains historical; current `main` contains newer compatibility,
+runtime-test and installer fixes.
 
-Выбор отдельных модов и групп, зависимости, SHA-256, точная привязка к сборке CDDA, проверка перед установкой, резервные копии и групповой откат. Документация для работы в нескольких чатах и переноса выбранных модов на новые стабильные/экспериментальные сборки.
+## CDDA 2026-10-01-1040
 
-### Обновлённые версии
+Registered exact target:
 
-Survivor Progression 0.9.15, revision 1, и Advanced World Settings 0.6.1, revision 2, перенесены из cumulative v8.7.3. Прежние исходники сохранены в history; устаревшая AWS 0.5.0 DLL не устанавливается. Срез доступных архивов: 27 сентября 2026, 15:27 МСК.
+- tag: `cdda-experimental-2026-10-01-1040`;
+- commit: `3f7fb352bf492ba521bd9408a0c9f6ce239e8d83`.
 
-### Проверено
+Official release loading and exact-source build passed. Current content has also
+been exercised by the newer generic candidate harness on `1124`, where combined
+source + items/recipes/vehicles/overmap are all GREEN.
 
-[Windows CI #11](https://github.com/Neversalimus/CDDA-Mods/actions/runs/36319464027) успешно проверил исходники `2d10f4708e0e3e0178999a1397a342ad73e48c52`: упаковку, тесты инсталлера под Windows PowerShell 5.1 и PowerShell 7, четыре Python-теста и сборку обеих актуальных DLL. Исправлена обработка JSON-массивов при обнаружении дубликатов. Публикация повторяет тесты для точного коммита релиза.
+## Installer hardening
 
-### Ограничения PREVIEW
+Windows installer now supports long CatLauncher roots safely:
 
-Все компоненты имеют статус pending: чистая ванильная база, индивидуальная и совместная игровые проверки не завершены. Secronom восстановлен и требует сверки с рабочей парой пользователя. Цель для проверки: experimental-2026-09-23-0546, commit e262adb299a7613b4aedc5f12c08fe0413c56a84.
+- PackageRoot is resolved after PowerShell script initialization;
+- extraction and isolated validation use short `%TEMP%\CDM-*` paths;
+- transaction journal and backups remain durable under
+  `<game>/_CDDA-Mods/transactions`;
+- PowerShell 5.1 and PowerShell 7 tests are both GREEN.
 
-Сборка DLL не подтверждает совместимость с хостом. AWS и Survivor остаются source-only до проверки внешнего NCMM API 1.8, игровых hooks и миграции сохранений (Survivor schema 8). Кандидаты DLL доступны отдельно в артефактах CI и не включены в установку.
+A real CatLauncher installation on `1040` using `profile:all-content` completed
+successfully with `Exit code: 0`.
 
-### Установка и обновление
+## Aftershock Prime 0.1.14a-r5
 
-Скачать CDDA-Mods-Installer.zip, распаковать, запустить INSTALL.cmd. Для выборочного обновления из нового архива — UPDATE.cmd. Закрытый репозиторий требует авторизованного скачивания через GitHub; анонимный Online не работает. Каждую новую экспериментальную или стабильную сборку сначала добавить и проверить отдельно.
+Selective Wraitheon Gryphon import:
+
+- new aerodyne vehicle + two new vehicle parts + two backing part-items;
+- weight 1 in `mil_helicopters_small`;
+- weight 1 in `crashed_helicopters`;
+- no Salus IV/UICA world/mapgen import.
+
+Exact-`1040` Prime vehicle and vehicle-parts runtime passed.
+
+## Automatic experimental compatibility
+
+The repository now watches official CDDA experimental releases hourly. Every
+unseen release is tested before promotion through:
+
+- official release loader;
+- exact source;
+- full combined JSON stack;
+- items;
+- recipes;
+- vehicles;
+- overmap.
+
+Known inherited upstream debt is accepted only by strict signature matching.
+
+## Native modules
+
+AWS 0.6.1 and Survivor Progression 0.9.15 in this repository remain
+installer-disabled source snapshots. Current NCMM host/module releases are owned
+by the separate NCMM repository.

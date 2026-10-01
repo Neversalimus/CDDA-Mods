@@ -1,5 +1,12 @@
 # Advanced World Settings 0.6.1
 
-Module-only source from v8.7.3. Build using CMake and external SDK c15fbff6, prepared by tools/prepare_survivor_sdk.py. The hash-bound recipe reproduces API 1.8 declarations only; it does not implement or install NCMM host/runtime.
+This directory is a preserved native source snapshot imported from the older
+module-only v8.7.3 line.
 
-Candidate DLLs remain unavailable in the shared installer until compatible host, exact game target and save-migration tests pass.
+It is **not the current player-facing AWS module** and remains installer-disabled
+in CDDA-Mods. The current NCMM host/API and current AWS runtime module are
+maintained and certified in the separate `Neversalimus/NCMM` repository.
+
+This snapshot is retained for provenance/history and can still be compiled by CI
+against its pinned external SDK contract. A successful snapshot build does not
+mean players should install this DLL into a current NCMM setup.

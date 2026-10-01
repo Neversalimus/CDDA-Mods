@@ -1,42 +1,85 @@
-# Новая experimental или stable
+# Совместимость с новой CDDA
 
-1. Выбрать точный release tag CDDA. `prepare-target` получает настоящий commit
-   тега через GitHub API. `target_commitish: master` не является фиксацией версии.
-2. Назвать моды: один, несколько или `all`. Команда копирует только выбранные
-   варианты в `mods/<id>/variants/<target>/`, оставляя старый вариант на месте.
-   Новая цель начинает со статуса pending. Для зависимости тоже подготовить вариант.
-3. Сопоставить схемы JSON/удалённые IDs, зависимости, EOC, рецепты, mapgen и
-   взаимодействия с изменениями CDDA. Внести минимальные патчи нужного варианта.
-4. Запустить `validate` и `build`. Это синтаксис/структура, а не игровая проверка.
-5. Скачать точную сборку CDDA и проверить её VERSION.txt. Запустить:
+Совместимость определяется точным release tag и source commit, а не только номером
+experimental.
+
+## Автоматический путь для experimental
+
+Workflow `.github/workflows/experimental-watch.yml` запускается ежечасно и
+обнаруживает новые официальные `cdda-experimental-*` releases.
+
+Новый release отправляется в `.github/workflows/experimental-certify.yml`.
+Candidate target создаётся только в рабочем checkout CI и не считается
+поддерживаемым заранее.
+
+Сертификация включает:
+
+1. проверку static repository/package gate;
+2. загрузку точного официального Windows release;
+3. прогон vanilla/каждого JSON component/profile/combined stack через release loader;
+4. checkout точного CDDA source commit;
+5. сборку `tests/cata_test` с repository-owned probes;
+6. full exact-source `combined-all-json`;
+7. object-level shards:
+   - `items`;
+   - `recipes`;
+   - `vehicles`;
+   - `overmap`.
+
+Известный inherited upstream debt допускается на новом candidate только через
+`--portable-inherited-debt` и только при строгом совпадении сохранённой сигнатуры.
+Новая ошибка, новый ID или другой класс сбоя остаются fatal.
+
+После полного GREEN promotion job:
+
+- повторно проверяет, что tested repository SHA не устарел;
+- материализует target/manifests;
+- пишет certification provenance;
+- коммитит поддержку в `main`;
+- запускает обычный Verify.
+
+Актуальная workflow-логика не должна публиковать stale результат: если `main`
+изменился во время проверки, candidate требуется проверить снова на свежем `main`.
+
+## Поддерживаемые targets на 2026-10-01
+
+- `experimental-2026-09-23-0546` /
+  `e262adb299a7613b4aedc5f12c08fe0413c56a84`;
+- `experimental-2026-10-01-1040` /
+  `3f7fb352bf492ba521bd9408a0c9f6ce239e8d83`.
+
+Candidate `2026-10-01-1124` / `cb7701da...` уже прошёл release loader,
+exact-source combined и все четыре content shards, но первый promotion-run был
+отклонён как stale после изменения `main`. Пока target не появился в
+`catalog/targets`, он не считается опубликованной поддержкой.
+
+## Ручной путь
+
+Для stable, локальной отладки или намеренно выбранного target:
 
 ```sh
-python tools/verify_game.py --game-root C:/Games/CDDA --target experimental-2026-09-23-0546 --mods axiom_7,blazemod --out build/check --timeout 240
-python tools/modsuite.py record-validation --report build/check/report.json
+python tools/modsuite.py prepare-target --tag cdda-experimental-YYYY-MM-DD-HHMM --mods MOD_ID
+python tools/modsuite.py validate
+python tools/modsuite.py build
 ```
 
-Проверяются ваниль, каждый мод и общий набор через временный dependency-only мод.
-Исходники проверяются по хешу: старый отчёт не сертифицирует новые файлы.
-Ошибка ванили не считается успехом мода. Валидация работает в копии данных, с
-отдельным userdir. Тайлсет/портреты копируются в datadir/gfx: в этой сборке движок
-меняет путь к gfx при использовании --datadir.
-6. Отдельно выполнить игровой smoke-test: загрузка копии существующего сохранения,
-   создание мира, основные системы мода. Для AXIOM — миссии/KX; для Secronom —
-   монстры/emit_fields; для Prime — hacking; для Blazemod — blobs и транспорт.
-7. Поднять только версии/ревизии изменённых модов. Обновить changelog и каталог.
-   Для общего релиза поднять suite_version. Tag должен быть `v<suite_version>`.
-8. Проверить CI, затем создать tag. Release workflow публикует независимые ZIP,
-   каталог, checksums и общий архив. В одном релизе могут быть варианты нескольких
-   версий игры. Пользователь обновляет только нужные IDs.
+`prepare-target` разрешает настоящий tag commit через GitHub API и не использует
+движущийся `target_commitish: master` как источник истины.
 
-Статусы: pending → static → load-tested → runtime-tested; blocked запрещает
-установку. Инсталлер не выбирает случайный вариант, если новая игра неизвестна
-или есть несколько кандидатов. `-AllowUntested` разрешает попытку локальной
-валидации, не объявляет совместимость и не пропускает проверку JSON-модов.
+Старые variants/targets не должны молча заменяться новыми.
 
-Native: новая версия игры требует подходящего внешнего NCMM host. Здесь меняются
-только модули. CI собирает DLL с exact SDK, но не компилирует CDDA на ПК игрока.
-Survivor 0.9.15 требует API 1.8 и host с механиками cumulative v8.7.3; пока его контракт и DLL не
-подтверждены вместе, пакет остаётся source-only. Не заменять его 0.9.0.
+## Статусы manifest
 
-Native refresh: AWS 0.6.1 and Survivor 0.9.15 revision 1 from v8.7.3 are source-only. Old AWS 0.5.0 DLL is history-only; both current native installs are blocked pending compatible external API 1.8 host. Module source audits and g++ checks passed. No host/game installer ran.
+`pending`, `static`, `load-tested`, `runtime-tested`, `blocked` — это
+метаданные конкретного variant. Deep/candidate CI не должен задним числом менять
+их без отдельного promotion/record-validation шага.
+
+Поэтому runtime evidence в Actions и поле `validation` в старом manifest могут
+временно различаться. При принятии релиза документация обязана явно указать такое
+расхождение, а не выдавать `pending` за отсутствие всех runtime-тестов.
+
+## Native
+
+AWS/Survivor snapshots в этом репозитории installer-disabled. Совместимость
+актуального NCMM host и текущих native-модулей проверяется в
+`Neversalimus/NCMM`. Этот репозиторий не должен копировать туда host/runtime.

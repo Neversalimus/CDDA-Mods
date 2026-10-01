@@ -1,105 +1,121 @@
 # Neversalimus CDDA Mods
 
-Единый репозиторий модов CDDA с раздельными версиями, установщиком Windows
-PowerShell 5.1/7 и учётом совместимости по точному коммиту игры.
-NCMM остаётся отдельным проектом.
+Единый репозиторий восстановленных и поддерживаемых модов Cataclysm: Dark Days Ahead.
+NCMM host/runtime и актуальные native-модули ведутся отдельно в
+[Neversalimus/NCMM](https://github.com/Neversalimus/NCMM).
 
-| Компонент | Текущая перенесённая версия |
-|---|---|
-| AXIOM-7 | 0.8.2.8 |
-| Blazemod Revival | 0.5.5 |
-| Secronom / Secronom+ | 1.5.1 / 0.3.4, восстановленные исходники |
-| Aftershock Prime + MoM compatibility | Hotfix14a, installer 1.1.1 |
-| Tankmod Revived | 2026 Fix4 |
-| UndeadPeople Hybrid | v3 FULL, все патчи |
-| Advanced World Settings | 0.6.1, исходники |
-| Survivor Progression | 0.9.15, cumulative v8.7.3, исходники; новая DLL ещё не выпущена |
+## Поддерживаемые цели
 
-**Текущий статус:** исходники опубликованы в закрытом репозитории; инфраструктурный
-выпуск имеет статус PREVIEW. Перенос JSON проверен на синтаксис, но эта сборка
-не объявлена прошедшей проверку в игре. Детали: [docs/STATUS.md](docs/STATUS.md).
-Survivor включён исходниками; его установка заблокирована до проверки внешнего host.
+| CDDA | Commit | Состояние |
+|---|---|---|
+| experimental-2026-09-23-0546 | `e262adb299a7613b4aedc5f12c08fe0413c56a84` | поддерживается |
+| experimental-2026-10-01-1040 | `3f7fb352bf492ba521bd9408a0c9f6ce239e8d83` | поддерживается |
+
+Совместимость определяется не номером версии, а точным release tag + source commit.
+Новые experimental автоматически обнаруживаются и проходят отдельную сертификацию
+до добавления в `catalog/targets`.
+
+На 1 октября 2026 кандидат `2026-10-01-1124`
+(`cb7701daa21338fffbbeb4b8c03bd3e26b2a0cb5`) прошёл official release loader,
+exact-source combined suite и все четыре content shards. Его первый promotion-run
+не был применён, потому что `main` изменился во время длительной проверки; target
+не считается опубликованным, пока повторная сертификация не завершит promotion.
+
+## Компоненты
+
+| Компонент | Версия в этом репозитории | Тип |
+|---|---:|---|
+| AXIOM-7 | 0.8.2.8-r2 | JSON |
+| Blazemod Revival | 0.5.5-r7 | JSON |
+| Secronom Revival | 1.5.1-r3 | JSON |
+| Secronom+ Revival | 0.3.4-r5 | JSON |
+| Aftershock Prime | 0.1.14a-r5 | JSON |
+| Aftershock Prime / Mind Over Matter | 0.1.14a-r1 | JSON compat |
+| Tankmod Revived | 2026.9.23.4-r6 | JSON |
+| UndeadPeople Hybrid v3 | 3.1.1-r1 | tileset |
+| Advanced World Settings | 0.6.1-r2 | native source snapshot, installer-disabled |
+| Survivor Progression | 0.9.15-r1 | native source snapshot, installer-disabled |
+
+`profile:all-content` устанавливает AXIOM-7, Blazemod, Secronom+, Aftershock Prime,
+Tankmod и UndeadPeople; зависимость Secronom добавляется автоматически.
+MoM-compat включается отдельно только при использовании Mind Over Matter.
+AWS/Survivor из этого репозитория не являются текущими runtime-модулями NCMM.
 
 ## Установка
 
-Скачать полный `CDDA-Mods-Installer.zip`, распаковать и запустить `INSTALL.cmd`.
-Python, Git, Visual Studio и компиляция CDDA игроку не нужны. Инсталлер находит
-CatLauncher/портативную/Steam-установку; при нескольких вариантах предлагает выбор.
-Затем выберите нужные компоненты. Зависимости добавляются автоматически.
+Скачать полный `CDDA-Mods-Installer.zip`, распаковать его целиком и запустить
+`INSTALL.cmd`. Python, Git, Visual Studio и компиляция CDDA игроку не нужны.
+
+Инсталлятор:
+
+- находит CatLauncher/portable/обычные установки CDDA;
+- определяет точный build по `VERSION.txt`;
+- выбирает пакет только для совпадающего commit;
+- проверяет SHA-256 архива и каждого payload-файла;
+- распаковывает пакеты в короткий `%TEMP%\CDM-*`, чтобы не упираться в старый
+  Win32 MAX_PATH под Windows PowerShell 5.1;
+- проверяет JSON-моды через точный игровой validator на изолированной копии data;
+- сохраняет backup/journal в `<game>/_CDDA-Mods/transactions`;
+- при ошибке выполняет групповой rollback;
+- не меняет saves и не включает моды в существующих мирах автоматически.
+
+Пример:
 
 ```powershell
-.\Install-Mods.ps1 -GameRoot 'C:\Games\CDDA' -Mods axiom_7,blazemod
+.\Install-Mods.ps1 -GameRoot 'C:\Games\CDDA' -Profile all-content
 .\Install-Mods.ps1 -GameRoot 'C:\Games\CDDA' -Profile secronom
-.\Install-Mods.ps1 -GameRoot 'C:\Games\CDDA' -Mods axiom_7 -PlanOnly -AllowUntested
-```
-
-Для пока не проверенной комбинации нужен явный `-AllowUntested` или согласие
-в меню; JSON-моды всё равно проходят родной валидатор игры **до** замены файлов.
-Сбой, тайм-аут или ошибка ванильной базы останавливают установку.
-Это не обход проверки. Сохранения при проверке не используются.
-
-Установка делает резервные копии только выбранных каталогов. При сбое откатывает
-всю выбранную группу. История: `<game>/_CDDA-Mods/transactions/`. Резервные копии
-не лежат внутри сканируемого `mods`. Новые моды ставятся в `data/mods`; для ранее
-установленного мода сохраняется его единственное найденное расположение, включая
-CatLauncher UserData. При дублирующихся IDs установка остановится с путями копий.
-Обновление общей UserData-копии влияет на все игры, использующие эту папку.
-
-```powershell
-.\Install-Mods.ps1 -GameRoot 'C:\Games\CDDA' -Update -Online
-.\Install-Mods.ps1 -GameRoot 'C:\Games\CDDA' -Mods axiom_7 -Online
+.\Install-Mods.ps1 -GameRoot 'C:\Games\CDDA' -Update
 .\Install-Mods.ps1 -GameRoot 'C:\Games\CDDA' -Rollback 'ИД_ТРАНЗАКЦИИ'
 ```
 
-Онлайн-обновление заработает после публикации GitHub Release в публично доступном
-репозитории. Для закрытого репозитория используйте полный архив релиза после
-авторизованного скачивания. Никакие токены не надо вставлять в чат или установщик.
-Откат отказывается перезаписывать изменённые после установки файлы.
-Тайлсет выбирается в настройках игры; новые JSON-моды — в настройках мира.
-Инсталлер не правит сохранения и не включает моды в существующих мирах сам.
+На `2026-10-01-1040` реальная установка `profile:all-content` через CatLauncher
+успешно прошла isolated validator и завершилась `Exit code: 0`.
+Для build-ов, где upstream `--check-mods` неправильно обрабатывает dependency
+`mod_interactions`, installer автоматически определяет capability и откладывает
+только опасный граф на exact-source `cata_test`; остальные проверки не пропускаются.
 
-## Работа из чатов и обновление игры
+## Автосертификация новых experimental
 
-Начать с [AGENTS.md](AGENTS.md), [процесса чатов](docs/CHAT_WORKFLOW_RU.md) и
-[процесса совместимости](docs/COMPATIBILITY_RU.md).
+`.github/workflows/experimental-watch.yml` раз в час ищет новые официальные
+experimental releases. Незнакомый release отправляется в
+`.github/workflows/experimental-certify.yml`.
 
-```sh
-python tools/modsuite.py context --mods axiom_7,blazemod
-python tools/modsuite.py prepare-target --tag ТОЧНЫЙ_GITHUB_TAG --mods axiom_7,blazemod
-python tools/modsuite.py validate
-python tools/modsuite.py build
-```
+Candidate не добавляется в поддерживаемые targets заранее. Сначала выполняются:
 
-Каждый мод получает свой ZIP и SHA-256; общий каталог связывает пакет с целевой
-сборкой. Исторические версии не заменяются новой эксперименталкой. Кодовые моды
-собираются отдельно от NCMM host, на GitHub Actions, с закреплённым внешним SDK.
+1. official Windows release loader;
+2. exact source build `cata_test`;
+3. full `combined-all-json`;
+4. object-level `items`, `recipes`, `vehicles`, `overmap`;
+5. строгая проверка известного inherited upstream debt.
 
-## Глубокая проверка на реальной CDDA
+Только полный GREEN разрешает promotion в `main`. Если `main` изменился во время
+долгой проверки, актуальная версия workflow не должна публиковать устаревший
+результат и ставит кандидата на повторную сертификацию.
 
-`.github/workflows/deep-runtime.yml` отделён от обычного CI и не запускается на
-`push`/`pull_request`. Он скачивает точный официальный Windows release CDDA и
-прогоняет vanilla baseline, каждый JSON-мод, профили и общий стек через настоящий
-`--check-mods`, затем проверяет реальный install/reinstall/update/rollback
-жизненный цикл shipped installer. Exact-source слой один раз собирает родной
-`tests/cata_test` и параллельно запускает отдельные чистые suites по модам,
-профилям и общему стеку через `--mods`.
+Подробности: [docs/COMPATIBILITY_RU.md](docs/COMPATIBILITY_RU.md).
 
-Ручной запуск доступен всегда. Плановый недельный запуск включён по умолчанию;
-repository variable `CDDA_DEEP_TESTS_ENABLED=false` одним переключателем отключает
-его на время активной разработки. Push/PR от этого workflow всё равно не блокируются.
+## Глубокая проверка
+
+`.github/workflows/deep-runtime.yml` остаётся тяжёлым релизным/диагностическим
+контуром, а не обязательным тестом каждого push. Он проверяет официальный бинарник,
+реальный installation matrix, exact-source suites и object-level content audit.
+
 Подробности: [docs/DEEP_RUNTIME_TESTS_RU.md](docs/DEEP_RUNTIME_TESTS_RU.md).
 
 ## Структура
 
-- `mods/<id>/manifest.json` — версия, тип, зависимости, варианты и цели.
-- `mods/<id>/content` — редактируемые готовые игровые файлы.
-- `mods/<id>/native` — исходники кодового мода.
-- `catalog/targets` — стабильные/экспериментальные версии и точные SHA игры.
-- `installer` — общий установщик; `tools` — обслуживание и сборка.
-- `history` — предыдущие импортированные версии; в релизы не включаются.
-- `docs` — актуальное состояние и инструкции для новых чатов.
+- `mods/<id>/manifest.json` — версия, ревизия, зависимости и target mapping;
+- `mods/<id>/content` — текущий JSON/tileset payload;
+- `mods/<id>/native` — сохранённые native source snapshots;
+- `catalog/targets` — поддерживаемые точные builds;
+- `catalog/certifications` — provenance автоматически промоутированных targets;
+- `installer` — Windows installer;
+- `tools` — maintenance/runtime probes;
+- `history` — исторические версии, не являющиеся текущим payload;
+- `docs` — актуальная эксплуатационная документация.
 
-Авторство и лицензии сторонних модов/графики сохраняются. Репозиторий не объявляет
-все сторонние материалы собственностью Neversalimus. См. THIRD_PARTY_NOTICES.md.
+Источником истины являются текущий `main`, manifests, target files и результаты
+Actions. Старый ZIP или память чата не заменяют repository state.
 
-Native refresh: AWS 0.6.1 and Survivor 0.9.15 revision 1 from v8.7.3 are source-only. Old AWS 0.5.0 DLL is history-only; both current native installs are blocked pending compatible external API 1.8 host. Module source audits and g++ checks passed. No host/game installer ran.
+Авторство и лицензии сторонних материалов сохраняются. См.
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

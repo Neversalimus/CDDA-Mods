@@ -1,46 +1,65 @@
 # Working agreement for every chat / coding agent
 
-This repository owns CDDA content mods, two independently versioned code mods,
-and the custom tileset. **NCMM runtime, bootstrap, host patches and the CDDA
-engine are external. Never migrate, replace or publish them from this repo.**
+This repository owns CDDA JSON/content mods, the custom tileset, installer and
+compatibility infrastructure. **NCMM runtime/bootstrap/host and the current native
+module delivery live in Neversalimus/NCMM and must not be replaced from here.**
 
-Before editing:
-1. Read README.md, docs/STATUS.md, docs/CHAT_WORKFLOW_RU.md and the selected
-   mods/<id>/manifest.json. Check `git status`, current branch and remote HEAD.
-2. Refresh current releases/source archives when the user says versions changed.
-   Library archive dates and a main branch are not interchangeable: newest work
-   can be a pinned patch outside main. Record provenance and hashes.
-3. Select the exact game tag AND commit in catalog/targets. Never treat newer
-   experimental or stable releases as automatically compatible.
-4. Make one task branch `mod/<id>/<task>` or `compat/<target>/<scope>`. Work in a
-   separate git worktree when another chat is active. Do not overwrite local edits.
+## Before editing
 
-Changes:
-- Edit selected mods only. Keep JSON IDs, save variables and native state schemas
-  compatible, or document and test an explicit migration. Never reset user saves.
-- Each mod has its own version/revision, source variant and target mapping.
-  Preserve old target variants. `prepare-target` copies only named components.
+1. Read `README.md`, `docs/STATUS.md`, `docs/CHAT_WORKFLOW_RU.md` and the
+   selected `mods/<id>/manifest.json`. Refresh remote `main` and current Actions.
+2. Use exact CDDA tag + 40-character source commit. Never infer compatibility from
+   date/version ordering.
+3. Normal new experimental releases are handled by
+   `.github/workflows/experimental-watch.yml` and
+   `.github/workflows/experimental-certify.yml`. Do not pre-add support merely
+   because a newer build exists.
+4. Preserve unrelated changes. For parallel chats prefer separate branches/worktrees.
+   Never force-push shared work.
+5. Never copy personal paths, saves, tokens or private user data into git.
+
+## Change rules
+
+- Edit selected mods only unless the task explicitly covers shared infrastructure.
+- Preserve IDs/save variables/state schemas unless an explicit migration is designed
+  and tested.
 - Keep dependencies explicit. Secronom+ depends on Secronom; MoM compatibility
-  depends on Prime and the game's MindOverMatter mod. A shared dependency change
-  requires testing its consumers and the combined stack.
-- `tools/recovery` is historical, staging-only reconstruction. It is NOT the
-  development source of truth and must never be run on a player's live game.
-- Native mods use external pinned NCMM SDKs. Building a DLL is not proof that the
-  target host supports its capabilities. Keep source-only releases unavailable.
-- Don't copy machine paths, user logs, tokens, saves or personal context into git.
+  depends on Prime and Mind Over Matter.
+- Historical `history/*` and original third-party provenance are immutable evidence,
+  not current development sources.
+- `tools/recovery` is reconstruction tooling, never a player-side updater.
+- Native source snapshots in this repository are installer-disabled. Current NCMM
+  host/modules are certified and shipped from the NCMM repository.
 
-Before handoff:
-- `python tools/modsuite.py validate`; `python tools/modsuite.py build`;
-  installer tests under Windows PowerShell 5.1 and pwsh (CI); Python tests.
-- For game compatibility run tools/verify_game.py on the exact binary, examine
-  baseline + individual + combined logs. Syntax checks are not runtime checks.
-- Deep real-CDDA CI is intentionally opt-in: `.github/workflows/deep-runtime.yml`
-  has no push/PR trigger. Use it for compatibility/release gates; weekly scheduled
-  runs are enabled unless repository variable `CDDA_DEEP_TESTS_ENABLED=false`.
-  Set that kill switch during active development and never make this workflow a
-  required per-commit check.
-- Only `record-validation` can promote verified content to load-tested. A gameplay
-  smoke test/save migration is additional evidence, never implied by --check-mods.
-- Update docs/STATUS.md, the selected mod changelog, target status and handoff.
-  State what was tested, what was not, exact source commit, pending work.
-- Never force-push shared branches. Rebase before PR; do not overwrite other chats.
+## Validation hierarchy
+
+Ordinary CI must pass:
+
+- `python tools/modsuite.py validate`;
+- package build/checksums;
+- installer tests on Windows PowerShell 5.1 and PowerShell 7;
+- Python regression tests;
+- native snapshot compilation checks where configured.
+
+Game compatibility requires exact-game evidence:
+
+- official release loader / native validator;
+- exact-source `cata_test`;
+- combined stack;
+- object-level content probes for items/recipes/vehicles/overmap;
+- targeted gameplay/lifecycle probes where a mod needs them.
+
+Known inherited upstream debt may be normalized only by an exact, pinned signature.
+Unknown/new failures remain fatal.
+
+The heavy `.github/workflows/deep-runtime.yml` is for compatibility/release and
+diagnostic passes, not a required every-push gate.
+
+## Documentation/handoff
+
+After meaningful changes update the active mod changelog when applicable and keep
+`docs/STATUS.md`, `docs/HANDOFF.md`, compatibility docs and installer guide in
+sync. State exact commits, what passed, what remains pending and which evidence is
+obsolete/superseded.
+
+Do not promote a candidate from stale evidence if `main` moved after it was tested.
