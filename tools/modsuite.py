@@ -12,6 +12,56 @@ def digest(p): return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def files(p): return sorted(x for x in Path(p).rglob('*') if x.is_file())
 def tree_hash(p):
     return hashlib.sha256(''.join(x.relative_to(p).as_posix()+'\0'+digest(x)+'\n' for x in files(p)).encode()).hexdigest()
+def payload_tree_hash(payload):
+    inventory={name[8:]:hashlib.sha256(data).hexdigest() for name,data in payload}
+    return hashlib.sha256(''.join(name+'\0'+inventory[name]+'\n' for name in sorted(inventory)).encode()).hexdigest()
+def _png_dimensions(data):
+    assert data[:8]==b'\x89PNG\r\n\x1a\n' and data[12:16]==b'IHDR'
+    return int.from_bytes(data[16:20],'big'),int.from_bytes(data[20:24],'big')
+def _shift_sprite_value(value,delta):
+    if isinstance(value,int): return value+delta
+    if isinstance(value,list):
+        shifted=[]
+        for item in value:
+            if isinstance(item,int): shifted.append(item+delta)
+            elif isinstance(item,dict):
+                item=dict(item)
+                if 'sprite' in item:item['sprite']=_shift_sprite_value(item['sprite'],delta)
+                shifted.append(item)
+            else:shifted.append(item)
+        return shifted
+    return value
+def bake_undeadpeople_secronom(payload):
+    entries=dict(payload)
+    cfg=json.loads(entries['payload/tile_config.json'].decode('utf-8-sig'))
+    tile_info=cfg['tile_info'][0]
+    base_total=0
+    for part in cfg['tiles-new']:
+        data=entries['payload/'+part['file']]
+        width,height=_png_dimensions(data)
+        sw=part.get('sprite_width',tile_info['width']);sh=part.get('sprite_height',tile_info['height'])
+        assert width%sw==0 and height%sh==0,(part['file'],width,height,sw,sh)
+        base_total+=(width//sw)*(height//sh)
+    sec=read(ROOT/'mods/secronom/content/mod_tileset.json')[0]
+    assert not any(str(part.get('file','')).startswith('compat_secronom_') for part in cfg['tiles-new'])
+    for source in sec['tiles-new']:
+        part=json.loads(json.dumps(source))
+        old_name=part['file'];part['file']='compat_'+old_name
+        part['//']=f'Hybrid v3 baked Secronom compatibility; source {old_name}; sprite refs +{base_total}'
+        for tile in part.get('tiles',[]):
+            if 'fg' in tile:tile['fg']=_shift_sprite_value(tile['fg'],base_total)
+            if 'bg' in tile:tile['bg']=_shift_sprite_value(tile['bg'],base_total)
+            for sub in tile.get('additional_tiles',[]):
+                if 'fg' in sub:sub['fg']=_shift_sprite_value(sub['fg'],base_total)
+                if 'bg' in sub:sub['bg']=_shift_sprite_value(sub['bg'],base_total)
+        cfg['tiles-new'].append(part)
+        entries['payload/'+part['file']]=(ROOT/'mods/secronom/content'/old_name).read_bytes()
+    entries['payload/tile_config.json']=(json.dumps(cfg,ensure_ascii=False,indent=2)+'\n').encode()
+    tileset=entries['payload/tileset.txt'].decode('utf-8-sig')
+    old_view='VIEW: UndeadPeople Hybrid v3 (2026-09-23)'
+    assert old_view in tileset
+    entries['payload/tileset.txt']=tileset.replace(old_view,'VIEW: UndeadPeople Hybrid v3 (2026-10-01, Secronom baked)').encode()
+    return sorted(entries.items())
 def manifests(): return {read(p)['id']:read(p) for p in sorted((ROOT/'mods').glob('*/manifest.json'))}
 def safe_path(root, rel):
     if not isinstance(rel,str) or '\\' in rel or ':' in rel or not rel or any(x in ('','.','..') for x in rel.split('/')): raise ValueError(f'Unsafe path: {rel!r}')
@@ -76,10 +126,14 @@ def build(out):
         for v in m['variants']:
             p=ROOT/'mods'/id/v['path'];name=f"{id}-{v['version']}-r{v['revision']}-{v['id']}.zip"
             payload=[('payload/'+f.relative_to(p).as_posix(),f.read_bytes()) for f in files(p)]
+            content_sha256=tree_hash(p)
+            if id=='undeadpeople':
+                payload=bake_undeadpeople_secronom(payload)
+                content_sha256=payload_tree_hash(payload)
             inventory={n[8:]:hashlib.sha256(b).hexdigest() for n,b in payload}
             descriptor={k:m[k] for k in ('id','name','kind','folder','dependencies','game_mod_ids')}
             descriptor.update({k:v[k] for k in ('version','revision','targets','validation')})
-            descriptor.update(variant=v['id'],content_sha256=tree_hash(p),files=inventory)
+            descriptor.update(variant=v['id'],content_sha256=content_sha256,files=inventory)
             if v.get('available',True):
                 make_zip(out/name,payload+[('package.json',json.dumps(descriptor,sort_keys=True).encode())])
                 output_names.add(name)

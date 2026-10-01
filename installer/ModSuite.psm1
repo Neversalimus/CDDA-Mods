@@ -134,6 +134,50 @@ function Get-UserMods([string]$Root){
     }
     return $result
 }
+function Get-TilesetRoots([string]$GameRoot){
+    $roots=New-Object 'System.Collections.Generic.List[string]'
+    if($env:LOCALAPPDATA){
+        if($GameRoot -like '*com.munetmo.cat-launcher*'){
+            $roots.Add((Join-Path $env:LOCALAPPDATA 'com.munetmo.cat-launcher/UserData/DarkDaysAhead/gfx'))
+        }
+        $roots.Add((Join-Path $env:LOCALAPPDATA 'cataclysm-dda/gfx'))
+    }
+    # --datadir changes PATH_INFO::gfxdir() to <datadir>/gfx.
+    $roots.Add((Join-Path $GameRoot 'data/gfx'))
+    $roots.Add((Join-Path $GameRoot 'gfx'))
+    $seen=@{};$result=New-Object 'System.Collections.Generic.List[string]'
+    foreach($root in $roots){
+        $full=[IO.Path]::GetFullPath($root)
+        $key=$full.ToLowerInvariant()
+        if(-not $seen.ContainsKey($key)){$seen[$key]=$true;$result.Add($full)}
+    }
+    return @($result.ToArray())
+}
+function Get-ExistingTilesetDirectories([string[]]$Roots,[string]$TilesetId){
+    $result=New-Object 'System.Collections.Generic.List[string]'
+    foreach($root in $Roots){
+        if(-not $root -or -not(Test-Path -LiteralPath $root -PathType Container)){continue}
+        foreach($dir in @(Get-ChildItem -LiteralPath $root -Directory -Force -ErrorAction SilentlyContinue)){
+            if($dir.Attributes -band [IO.FileAttributes]::ReparsePoint){continue}
+            $conf=Join-Path $dir.FullName 'tileset.txt'
+            if(-not(Test-Path -LiteralPath $conf -PathType Leaf)){continue}
+            try{$txt=Get-Content -LiteralPath $conf -Raw -Encoding UTF8}catch{continue}
+            $match=[regex]::Match($txt,'(?im)^\s*NAME:\s*(.+?)\s*$')
+            if($match.Success -and $match.Groups[1].Value.Trim() -ceq $TilesetId){$result.Add($dir.FullName)}
+        }
+    }
+    return @($result.ToArray())
+}
+function Get-TilesetRetirePaths([string]$GameRoot,$Package,[string]$Destination){
+    if($Package.kind -ne 'tileset'){return @()}
+    $destinationFull=[IO.Path]::GetFullPath($Destination)
+    $result=New-Object 'System.Collections.Generic.List[string]'
+    foreach($path in @(Get-ExistingTilesetDirectories (Get-TilesetRoots $GameRoot) $Package.folder)){
+        $full=[IO.Path]::GetFullPath($path)
+        if(-not $full.Equals($destinationFull,[StringComparison]::OrdinalIgnoreCase)){$result.Add($full)}
+    }
+    return @($result.ToArray())
+}
 function Get-Destination([string]$GameRoot,$Package,[string]$UserModRoot=''){
     switch($Package.kind){
         'json' {
@@ -142,7 +186,19 @@ function Get-Destination([string]$GameRoot,$Package,[string]$UserModRoot=''){
             if($existing.Count -gt 1){throw "Duplicate mod IDs for $($Package.id): $($existing -join '; '). Resolve duplicates before installing."}
             if($existing.Count -eq 1){return $existing[0]}
         }
-        'tileset' {$root=Join-Path $GameRoot 'gfx'}
+        'tileset' {
+            $roots=@(Get-TilesetRoots $GameRoot)
+            $existing=@(Get-ExistingTilesetDirectories $roots $Package.folder)
+            if($existing.Count){
+                if($existing.Count -gt 1){
+                    Write-Warning ("Duplicate tileset NAME $($Package.folder) found: " + ($existing -join '; ') + ". Updating the highest-priority copy and retiring the others transactionally: " + $existing[0])
+                }else{
+                    Write-Host ("Existing tileset location detected: " + $existing[0]) -ForegroundColor Cyan
+                }
+                return $existing[0]
+            }
+            $root=Join-Path $GameRoot 'gfx'
+        }
         'native' {
             if(-not(Test-Path -LiteralPath (Join-Path $GameRoot 'ncmm/bootstrap.sha256'))){throw 'Install the compatible NCMM host separately before code mods.'}
             $root=Join-Path $GameRoot 'code_mods'
@@ -345,14 +401,19 @@ function Restore-Transaction([string]$Transaction,[switch]$Automatic){
     foreach($entry in @($journal.entries)){
         if(-not $Automatic -and $entry.phase -eq 'installed' -and -not(Test-PayloadEqual $entry.destination $entry.files)){throw "Changed since installation: $($entry.destination). Refusing to overwrite newer/local files."}
     }
+    if($journal.PSObject.Properties['retired_paths']){
+        foreach($retired in @($journal.retired_paths)){
+            if(-not $Automatic -and $retired.phase -in @('retired','restoring') -and (Test-Path -LiteralPath $retired.source)){
+                throw "Retired path was recreated after installation: $($retired.source). Refusing to overwrite it."
+            }
+        }
+    }
     $entries=@($journal.entries);[array]::Reverse($entries)
     foreach($entry in $entries){
         $oldExists=Test-Path -LiteralPath $entry.backup
         if($entry.phase -eq 'restored'){continue}
         if($entry.phase -in @('prepared','backing-up') -and -not $oldExists){continue}
         if($entry.phase -eq 'restoring'){
-            # Destination was already removed before restoring started. If the
-            # backup is gone, the preceding move completed before interruption.
             if($oldExists){
                 if(Test-Path -LiteralPath $entry.destination){throw 'Rollback recovery destination occupied'}
                 Move-Item -LiteralPath $entry.backup -Destination $entry.destination
@@ -366,6 +427,22 @@ function Restore-Transaction([string]$Transaction,[switch]$Automatic){
             Move-Item -LiteralPath $entry.backup -Destination $entry.destination
         }
         $entry.phase='restored';Write-Json $path $journal
+    }
+    if($journal.PSObject.Properties['retired_paths']){
+        $retiredPaths=@($journal.retired_paths);[array]::Reverse($retiredPaths)
+        foreach($retired in $retiredPaths){
+            $backupExists=Test-Path -LiteralPath $retired.backup
+            if($retired.phase -eq 'restored'){continue}
+            if($retired.phase -eq 'prepared'){continue}
+            if($retired.phase -eq 'retiring' -and -not $backupExists){continue}
+            if($retired.phase -ne 'restoring'){$retired.phase='restoring';Write-Json $path $journal}
+            if($backupExists){
+                if(Test-Path -LiteralPath $retired.source){throw "Rollback retired-path destination occupied: $($retired.source)"}
+                [IO.Directory]::CreateDirectory((Split-Path $retired.source -Parent)) | Out-Null
+                Move-Item -LiteralPath $retired.backup -Destination $retired.source
+            }
+            $retired.phase='restored';Write-Json $path $journal
+        }
     }
     if($journal.PSObject.Properties['state_path'] -and $journal.state_path){
         $records=@{}
@@ -382,10 +459,31 @@ function Install-Plan([object[]]$Plan,[string]$Transaction,[string]$StateFile=""
     foreach($p in $Plan){
         $entries+= [pscustomobject]@{id=$p.package.id;destination=$p.destination;backup=(Join-Path $Transaction "backup/$i");staged=$p.staged;files=$p.package.files;version=$p.package.version;phase='prepared'};$i++
     }
+    $retiredPaths=@();$seenRetired=@{};$ri=0
+    foreach($p in $Plan){
+        if(-not $p.PSObject.Properties['retire_paths']){continue}
+        foreach($source in @($p.retire_paths)){
+            if(-not $source){continue}
+            $full=[IO.Path]::GetFullPath([string]$source)
+            if($full.Equals([IO.Path]::GetFullPath($p.destination),[StringComparison]::OrdinalIgnoreCase)){continue}
+            $key=$full.ToLowerInvariant()
+            if($seenRetired.ContainsKey($key)){continue}
+            $seenRetired[$key]=$true
+            $retiredPaths+= [pscustomobject]@{source=$full;backup=(Join-Path $Transaction "retired/$ri");phase='prepared'};$ri++
+        }
+    }
     $prior=@()
     if($StateFile -and (Test-Path -LiteralPath $StateFile)){$selected=@($entries | ForEach-Object {$_.id});$prior=@((Read-Json $StateFile).packages | Where-Object {$selected -contains $_.id})}
-    $journal=[pscustomobject]@{schema=1;status='pending';entries=$entries;state_path=$StateFile;previous_records=$prior};$path=Join-Path $Transaction 'journal.json';Write-Json $path $journal
+    $journal=[pscustomobject]@{schema=1;status='pending';entries=$entries;retired_paths=$retiredPaths;state_path=$StateFile;previous_records=$prior};$path=Join-Path $Transaction 'journal.json';Write-Json $path $journal
     try{
+        foreach($retired in @($journal.retired_paths)){
+            if(-not(Test-Path -LiteralPath $retired.source -PathType Container)){$retired.phase='retired';Write-Json $path $journal;continue}
+            [IO.Directory]::CreateDirectory((Split-Path $retired.backup -Parent)) | Out-Null
+            if(Test-Path -LiteralPath $retired.backup){throw "Retired-path backup already exists: $($retired.backup)"}
+            $retired.phase='retiring';Write-Json $path $journal
+            Move-Item -LiteralPath $retired.source -Destination $retired.backup
+            $retired.phase='retired';Write-Json $path $journal
+        }
         foreach($e in $journal.entries){
             [IO.Directory]::CreateDirectory((Split-Path $e.destination -Parent)) | Out-Null
             [IO.Directory]::CreateDirectory((Split-Path $e.backup -Parent)) | Out-Null

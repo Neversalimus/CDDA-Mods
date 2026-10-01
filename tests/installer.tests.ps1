@@ -7,13 +7,15 @@ function Check($ok,[string]$label){if(-not $ok){throw "FAIL: $label"};$script:pa
 function Reject([scriptblock]$code,[string]$label){$failed=$false;try{& $code | Out-Null}catch{$failed=$true;Write-Host ('EXPECTED ERROR: '+$_.Exception.Message)};Check $failed $label}
 function FileHash($path){(Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant()}
 try{
-    $tokens=$null;$parseErrors=$null
-    [System.Management.Automation.Language.Parser]::ParseFile(
-        (Join-Path $PSScriptRoot '../tools/deep_install_matrix.ps1'),
-        [ref]$tokens,
-        [ref]$parseErrors
-    ) | Out-Null
-    Check (@($parseErrors).Count -eq 0) 'Deep installer matrix parses under current PowerShell'
+    foreach($parseTarget in @('../tools/deep_install_matrix.ps1','../installer/Install-Mods.ps1')){
+        $tokens=$null;$parseErrors=$null
+        [System.Management.Automation.Language.Parser]::ParseFile(
+            (Join-Path $PSScriptRoot $parseTarget),
+            [ref]$tokens,
+            [ref]$parseErrors
+        ) | Out-Null
+        Check (@($parseErrors).Count -eq 0) "$parseTarget parses under current PowerShell"
+    }
 
     $installerText=Get-Content -LiteralPath (Join-Path $PSScriptRoot '../installer/Install-Mods.ps1') -Raw
     Check ($installerText.Contains("[string]`$PackageRoot=''")) 'Installer does not bind PackageRoot from PSScriptRoot inside param block'
@@ -22,6 +24,8 @@ try{
     Check ($installerText.Contains("`$scratch=Join-Path ([IO.Path]::GetTempPath()) ('CDM-'")) 'Installer stages packages under short temp root'
     Check ($installerText.Contains("Expand-VerifiedPackage `$archive (Join-Path `$scratch")) 'Package extraction uses short temp staging path'
     Check ($installerText.Contains("Test-StagedMods `$GameRoot `$plan `$scratch")) 'Native validation uses short temp working path'
+    $repositoryCatalog=Read-Json (Join-Path $PSScriptRoot '../catalog/repository.json')
+    Check (@($repositoryCatalog.profiles.'all-content') -contains 'aftershock_prime_mom') 'All-content profile includes Aftershock Prime MoM compatibility'
 
     foreach($name in @('../evil','/absolute','C:/evil','a\b','a/../b','NUL.txt','a/file.','a//b')){Reject {Join-Safe $root $name} "Path blocked: $name"}
     $safe=Join-Safe $root 'normal/data.json';Check ($safe.StartsWith($root)) 'Normal path accepted'
@@ -96,6 +100,28 @@ try{
     Write-Json (Join-Path $plain 'modinfo.json') @{type='MOD_INFO';id='plain_mod';dependencies=@()}
     Check (@(Get-CheckModsInteractionHazards $idata @('plain_mod')).Count -eq 0) 'Plain dependency graph remains eligible for native validator'
     Check ($null -ne (Get-Command Test-CheckModsInteractionCapability -ErrorAction SilentlyContinue)) 'Per-build interaction capability probe is exported'
+    # Tileset discovery preserves search-root priority and identifies stale duplicates.
+    $gfxA=Join-Path $root 'gfx-priority-a';$gfxB=Join-Path $root 'gfx-priority-b'
+    foreach($gfx in @($gfxA,$gfxB)){
+        $folder=Join-Path $gfx 'HybridFixture';[IO.Directory]::CreateDirectory($folder)|Out-Null
+        [IO.File]::WriteAllText((Join-Path $folder 'tileset.txt'),"NAME: HybridFixture`nVIEW: Fixture`n")
+    }
+    $tileCopies=@(Get-ExistingTilesetDirectories @($gfxA,$gfxB) 'HybridFixture')
+    Check ($tileCopies.Count -eq 2 -and $tileCopies[0] -eq (Join-Path $gfxA 'HybridFixture') -and $tileCopies[1] -eq (Join-Path $gfxB 'HybridFixture')) 'Tileset discovery preserves root priority and finds duplicates'
+
+    # Retired duplicate paths are moved into the transaction and restored by rollback.
+    $retireDest=Join-Path $root 'retire-live';[IO.Directory]::CreateDirectory($retireDest)|Out-Null
+    [IO.File]::WriteAllText((Join-Path $retireDest 'old.txt'),'old')
+    $retireDup=Join-Path $root 'retire-duplicate';[IO.Directory]::CreateDirectory($retireDup)|Out-Null
+    [IO.File]::WriteAllText((Join-Path $retireDup 'tileset.txt'),'duplicate')
+    $retirePlan=[pscustomobject]@{package=$pkg;staged=$payload;destination=$retireDest;retire_paths=@($retireDup)}
+    $retireTx=Join-Path $root 'retire-transaction';Install-Plan @($retirePlan) $retireTx
+    Check (-not(Test-Path -LiteralPath $retireDup)) 'Duplicate tileset path retired from active search roots'
+    $retireJournal=Read-Json (Join-Path $retireTx 'journal.json')
+    Check ($retireJournal.retired_paths.Count -eq 1 -and (Test-Path -LiteralPath $retireJournal.retired_paths[0].backup)) 'Retired duplicate preserved inside rollback transaction'
+    Restore-Transaction $retireTx
+    Check (Test-Path -LiteralPath (Join-Path $retireDup 'tileset.txt')) 'Rollback restores retired duplicate tileset path'
+
     # Duplicate mod IDs must not be silently selected.
     $dup=Join-Path $root 'duplicate';[IO.Directory]::CreateDirectory($dup)|Out-Null
     foreach($d in @('one','two')){[IO.Directory]::CreateDirectory((Join-Path $dup $d))|Out-Null;Copy-Item (Join-Path $payload 'modinfo.json') (Join-Path $dup "$d/modinfo.json")}
