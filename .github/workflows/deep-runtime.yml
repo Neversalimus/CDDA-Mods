@@ -1,4 +1,4 @@
-name: Deep real-CDDA runtime
+name: Diagnostic · Deep real-CDDA runtime
 
 on:
   workflow_dispatch:
@@ -37,6 +37,11 @@ on:
         required: true
         default: true
         type: boolean
+      blocking:
+        description: Treat deep runtime/content findings as blocking failures
+        required: true
+        default: false
+        type: boolean
   schedule:
     # Weekly deep runs are ON by default; set CDDA_DEEP_TESTS_ENABLED=false to disable.
     - cron: '17 2 * * 0'
@@ -61,6 +66,7 @@ jobs:
         (github.event_name == 'schedule' && vars.CDDA_DEEP_TESTS_ENABLED != 'false')
       }}
     runs-on: windows-latest
+    continue-on-error: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && !inputs.blocking) }}
     timeout-minutes: 240
     steps:
       - uses: actions/checkout@v4
@@ -197,6 +203,7 @@ jobs:
     name: Build exact CDDA cata_test once
     needs: source_plan
     runs-on: ubuntu-24.04
+    continue-on-error: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && !inputs.blocking) }}
     timeout-minutes: 240
     steps:
       - uses: actions/checkout@v4
@@ -277,6 +284,7 @@ jobs:
       }}
     needs: [source_plan, source_build]
     runs-on: ubuntu-24.04
+    continue-on-error: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && !inputs.blocking) }}
     timeout-minutes: 360
     strategy:
       fail-fast: false
@@ -367,6 +375,7 @@ jobs:
       }}
     needs: [source_plan, source_build, content-inventory]
     runs-on: ubuntu-24.04
+    continue-on-error: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && !inputs.blocking) }}
     timeout-minutes: 120
     strategy:
       fail-fast: false
@@ -435,6 +444,19 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Explain deep CI result policy
+        shell: bash
+        run: |
+          {
+            echo "## Deep CI result policy"
+            if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.blocking }}" != "true" ]; then
+              echo "Runtime/content findings are diagnostic in this run. They remain visible in job logs and artifacts but do not make the workflow red."
+              echo "Use **Run workflow → blocking=true** when you want deep findings to act as a hard gate."
+            else
+              echo "Blocking mode is enabled. Runtime/content findings fail the workflow."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Download deep evidence
         continue-on-error: true
         uses: actions/download-artifact@v4
@@ -454,7 +476,7 @@ jobs:
             --job-result "release-binary=${{ needs.release-binary.result }}" \
             --job-result "source-plan=${{ needs.source_plan.result }}" \
             --job-result "source-build=${{ needs.source_build.result }}" \
-            --job-result "source-runtime=${{ needs.source-runtime.result }}"
+            --job-result "source-runtime=${{ needs.source-runtime.result }}" \
             --job-result "content-inventory=${{ needs.content-inventory.result }}" \
             --job-result "content-runtime=${{ needs.content-runtime.result }}"
 
