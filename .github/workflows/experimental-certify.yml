@@ -1,5 +1,5 @@
-name: CDDA Experimental Compatibility
-run-name: CDDA Mods certify / ${{ inputs.tag }}
+name: Blocking · CDDA Experimental Compatibility
+run-name: BLOCKING · CDDA Mods certify / ${{ inputs.tag }}
 
 "on":
   workflow_dispatch:

@@ -1,4 +1,4 @@
-name: Deep real-CDDA runtime
+name: Diagnostic · Deep real-CDDA runtime
 
 on:
   workflow_dispatch:
@@ -36,6 +36,11 @@ on:
         description: Run object-level item/recipe/vehicle/overmap audit
         required: true
         default: true
+        type: boolean
+      blocking:
+        description: Treat deep runtime/content findings as blocking failures
+        required: true
+        default: false
         type: boolean
   schedule:
     # Weekly deep runs are ON by default; set CDDA_DEEP_TESTS_ENABLED=false to disable.
@@ -101,7 +106,9 @@ jobs:
         run: python tools/modsuite.py build --out dist
 
       - name: Run clean install / repeat / update / rollback / failure matrix
+        id: install_matrix
         if: ${{ github.event_name == 'schedule' || inputs.installation_matrix }}
+        continue-on-error: true
         shell: powershell
         run: |
           $gameRoot=(Get-Content build/cdda-release/game-root.txt -Raw).Trim()
@@ -146,15 +153,32 @@ jobs:
           if-no-files-found: warn
           retention-days: 30
 
-      - name: Preserve release-loader failure after installer evidence
+      - name: Report diagnostic release/install findings
         if: >-
           ${{
             always() &&
-            (github.event_name == 'schedule' || inputs.release_binary) &&
-            steps.release_loader.outcome == 'failure'
+            (steps.release_loader.outcome == 'failure' || steps.install_matrix.outcome == 'failure') &&
+            (
+              github.event_name == 'schedule' ||
+              (github.event_name == 'workflow_dispatch' && !inputs.blocking)
+            )
           }}
         shell: pwsh
-        run: throw 'Release loader matrix failed; installer lifecycle was still allowed to run so both evidence sets are preserved.'
+        run: |
+          Write-Warning 'Deep release/installation findings were recorded as diagnostic; inspect the uploaded evidence.'
+          "## Diagnostic finding: release/installation matrix" >> $env:GITHUB_STEP_SUMMARY
+          "At least one deep runtime check failed, but this run is non-blocking by policy." >> $env:GITHUB_STEP_SUMMARY
+
+      - name: Preserve release/install failure in blocking mode
+        if: >-
+          ${{
+            always() &&
+            github.event_name == 'workflow_dispatch' &&
+            inputs.blocking &&
+            (steps.release_loader.outcome == 'failure' || steps.install_matrix.outcome == 'failure')
+          }}
+        shell: pwsh
+        run: throw 'Blocking deep run failed in the release loader or installation matrix; inspect the uploaded evidence.'
 
   source_plan:
     name: Resolve exact source-runtime matrix
@@ -312,6 +336,8 @@ jobs:
           fi
 
       - name: Run one isolated mod/profile suite
+        id: source_runtime
+        continue-on-error: true
         shell: bash
         run: |
           python tools/deep_cdda_runtime.py run-source \
@@ -321,6 +347,30 @@ jobs:
             --depth "$DEEP_DEPTH" \
             --suite "${{ matrix.suite }}" \
             --timeout 10800
+
+      - name: Report diagnostic source-runtime finding
+        if: >-
+          ${{
+            steps.source_runtime.outcome == 'failure' &&
+            (
+              github.event_name == 'schedule' ||
+              (github.event_name == 'workflow_dispatch' && !inputs.blocking)
+            )
+          }}
+        shell: bash
+        run: echo "::warning::Deep source-runtime finding recorded for ${{ matrix.suite }}; this run is diagnostic."
+
+      - name: Preserve source-runtime failure in blocking mode
+        if: >-
+          ${{
+            github.event_name == 'workflow_dispatch' &&
+            inputs.blocking &&
+            steps.source_runtime.outcome == 'failure'
+          }}
+        shell: bash
+        run: |
+          echo "::error::Blocking deep source-runtime check failed for ${{ matrix.suite }}."
+          exit 1
 
       - name: Upload source-runtime evidence
         if: always()
@@ -404,6 +454,8 @@ jobs:
           fi
 
       - name: Run object-level content shard
+        id: content_runtime
+        continue-on-error: true
         shell: bash
         run: |
           python tools/deep_cdda_runtime.py run-content \
@@ -412,6 +464,30 @@ jobs:
             --out "build/deep-content/${{ matrix.shard }}" \
             --shard "${{ matrix.shard }}" \
             --timeout 5400
+
+      - name: Report diagnostic content finding
+        if: >-
+          ${{
+            steps.content_runtime.outcome == 'failure' &&
+            (
+              github.event_name == 'schedule' ||
+              (github.event_name == 'workflow_dispatch' && !inputs.blocking)
+            )
+          }}
+        shell: bash
+        run: echo "::warning::Deep content finding recorded for ${{ matrix.shard }}; this run is diagnostic."
+
+      - name: Preserve content failure in blocking mode
+        if: >-
+          ${{
+            github.event_name == 'workflow_dispatch' &&
+            inputs.blocking &&
+            steps.content_runtime.outcome == 'failure'
+          }}
+        shell: bash
+        run: |
+          echo "::error::Blocking deep content check failed for ${{ matrix.shard }}."
+          exit 1
 
       - name: Upload content evidence
         if: always()
@@ -435,6 +511,19 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Explain deep CI result policy
+        shell: bash
+        run: |
+          {
+            echo "## Deep CI result policy"
+            if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.blocking }}" != "true" ]; then
+              echo "Runtime/content findings are diagnostic in this run. They remain visible in job logs and artifacts but do not make the workflow red."
+              echo "Use **Run workflow → blocking=true** when you want deep findings to act as a hard gate."
+            else
+              echo "Blocking mode is enabled. Runtime/content findings fail the workflow."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Download deep evidence
         continue-on-error: true
         uses: actions/download-artifact@v4
@@ -454,7 +543,7 @@ jobs:
             --job-result "release-binary=${{ needs.release-binary.result }}" \
             --job-result "source-plan=${{ needs.source_plan.result }}" \
             --job-result "source-build=${{ needs.source_build.result }}" \
-            --job-result "source-runtime=${{ needs.source-runtime.result }}"
+            --job-result "source-runtime=${{ needs.source-runtime.result }}" \
             --job-result "content-inventory=${{ needs.content-inventory.result }}" \
             --job-result "content-runtime=${{ needs.content-runtime.result }}"
 
