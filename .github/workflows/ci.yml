@@ -1,4 +1,4 @@
-name: Verify and package
+name: Blocking · Verify and package
 on:
   push:
   pull_request:
