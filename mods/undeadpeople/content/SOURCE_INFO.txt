@@ -21,3 +21,13 @@ mappings and integration, not ownership of the artwork. Original donor PNGs are 
 CC BY-SA 3.0 license texts supplied with the underlying projects are included.
 Inputs and SHA256 hashes: Tools/SOURCES.json.
 Individual additions: Tools/plan.json.
+
+2026-10-04 sprite clarity addition:
+- v3_zombie_dwarf_crisp.png: newly generated artwork, OpenAI image generation,
+  directed for this project. Replaces only mon_zombie_dwarf's Ultica fallback.
+- Prompt: one short stout undead dwarf, gray-green skin, brown beard, torn blue
+  tunic, empty hands, UndeadPeople/MSX pixel style, dark contour, flat clusters,
+  transparent background, no blur/dithering/shadow.
+- Production conversion: binary alpha threshold 50%, trim, nearest-neighbor
+  fit to 22x26, bottom alignment with 2px ground margin in a 32x32 cell.
+- The previously existing donor artwork and licenses remain unchanged.

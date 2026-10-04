@@ -176174,11 +176174,6 @@
           "bg": 39490
         },
         {
-          "id": "mon_zombie_dwarf",
-          "fg": 39281,
-          "bg": 39490
-        },
-        {
           "id": "mon_nether_eater",
           "fg": 39285,
           "bg": 39490
@@ -182741,6 +182736,20 @@
         {
           "id": "mon_zombtreefrog",
           "fg": 59987,
+          "rotates": false
+        }
+      ]
+    },
+    {
+      "file": "v3_zombie_dwarf_crisp.png",
+      "sprite_width": 32,
+      "sprite_height": 32,
+      "sprite_offset_x": 0,
+      "sprite_offset_y": 0,
+      "tiles": [
+        {
+          "id": "mon_zombie_dwarf",
+          "fg": 59989,
           "rotates": false
         }
       ]
