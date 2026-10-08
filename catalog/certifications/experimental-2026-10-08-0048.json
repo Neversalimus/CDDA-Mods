@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "target": "experimental-2026-10-08-0048",
+  "tag": "cdda-experimental-2026-10-08-0048",
+  "source_commit": "e4079f830dc63c9e43b33a8abc63b9fe04fe3573",
+  "repository_sha_tested": "0f952fdb19e8b690f7b0bddfae6ce3cb846cc212",
+  "workflow_run": 37716099079,
+  "checks": [
+    "official_release_loader",
+    "exact_source_full_combined",
+    "content_items",
+    "content_recipes",
+    "content_vehicles",
+    "content_overmap"
+  ]
+}
