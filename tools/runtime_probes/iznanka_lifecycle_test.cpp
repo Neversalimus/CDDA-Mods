@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <iostream>
 #include <string>
 #include "avatar.h"
 #include "calendar.h"
@@ -26,6 +27,7 @@
 namespace {
 void eoc( const char *id )
 {
+    std::cerr << "IZN stage: " << id << std::endl;
     const effect_on_condition_id e( id );
     REQUIRE( e.is_valid() );
     dialogue d( get_talker_for( get_avatar() ), nullptr );
@@ -65,6 +67,12 @@ TEST_CASE( "iznanka_expedition_persists_and_returns", "[iznanka_lifecycle]" )
     u.name = "Iznanka runtime QA";
     calendar::turn = calendar::start_of_cataclysm + 7_days;
     const tripoint_abs_ms home = u.pos_abs();
+    const tripoint_abs_ms blocked_home = home + tripoint( 30, 0, 0 );
+    for( int x = -6; x <= 6; ++x ) {
+        for( int y = -6; y <= 6; ++y ) {
+            get_map().ter_set( get_map().get_bub( blocked_home + tripoint( x, y, 0 ) ), ter_str_id( "t_rock" ) );
+        }
+    }
     get_map().furn_set( u.pos_bub(), furn_str_id( "f_izn_entry" ) );
     get_map().add_item_or_charges( u.pos_bub(), item( itype_id( "izn_resin" ), calendar::turn ) );
     eoc( "IZN_ENTER" );
@@ -92,15 +100,6 @@ TEST_CASE( "iznanka_expedition_persists_and_returns", "[iznanka_lifecycle]" )
     REQUIRE( g->get_dimension_prefix() == dimension_id( "iznanka" ) );
     CHECK( saved_pos( "izn_hub" ) == hub );
     CHECK( ground_count( stash, "izn_detector" ) == 0 );
-    CHECK( ground_count( stash, "izn_glassbone" ) == 1 );
-
-    // Full game save/load, not just variable serialization.
-    const std::string save = world_generator->active_world->world_name;
-    REQUIRE( g->save() );
-    REQUIRE( g->load( save ) );
-    REQUIRE( g->get_dimension_prefix() == dimension_id( "iznanka" ) );
-    CHECK( saved_pos( "izn_hub" ) == hub );
-    CHECK( saved_pos( "izn_home" ) == home );
     CHECK( ground_count( stash, "izn_glassbone" ) == 1 );
 
     // Authored special: pump two OMTs south; cache east of the central trail.
@@ -139,6 +138,16 @@ TEST_CASE( "iznanka_expedition_persists_and_returns", "[iznanka_lifecycle]" )
     eoc( "IZN_HEART" );
     CHECK( u.get_value( "izn_resonance" ).dbl() == 60 );
 
+    // A blocked landing cancels the return and retains the seal.
+    const int before_blocked = u.amount_of( itype_id( "izn_seal" ) );
+    u.set_value( "izn_home", diag_value( blocked_home ) );
+    eoc( "IZN_SEAL_BEGIN" );
+    u.activity.moves_left = 0;
+    u.activity.do_turn( u );
+    REQUIRE( g->get_dimension_prefix() == dimension_id( "iznanka" ) );
+    CHECK( u.amount_of( itype_id( "izn_seal" ) ) == before_blocked );
+    u.set_value( "izn_home", diag_value( home ) );
+
     // Interrupted activity consumes nothing; successful completion consumes exactly one.
     const int seals = u.amount_of( itype_id( "izn_seal" ) );
     REQUIRE( seals >= 1 );
@@ -160,8 +169,18 @@ TEST_CASE( "iznanka_expedition_persists_and_returns", "[iznanka_lifecycle]" )
     for( const monster &m : g->all_monsters() ) {
         CHECK( m.type->id != mtype_id( "mon_izn_warden" ) );
     }
+    // Use the same cleanup path as Save and Quit before reloading JSON factories.
+    // Reloading in place leaves map item pointers referring to unloaded item types.
+    const std::string save = world_generator->active_world->world_name;
     REQUIRE( g->save() );
+    g->uquit = QUIT_SAVED;
+    REQUIRE( turn_handler::cleanup_at_end() );
     REQUIRE( g->load( save ) );
+    CHECK( saved_pos( "izn_hub" ) == hub );
+    CHECK( saved_pos( "izn_home" ) == home );
+    warp( hub );
+    CHECK( ground_count( stash, "izn_detector" ) == 0 );
+    CHECK( ground_count( stash, "izn_glassbone" ) == 1 );
     CHECK( global_num( "izn_node_done" ) == 1 );
     eoc( "IZN_RETURN" );
     CHECK( g->get_dimension_prefix() == dimension_id( "default" ) );

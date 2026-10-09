@@ -84,9 +84,23 @@
                 "force_safe": true
               },
               {
+                "u_location_variable": {
+                  "context_val": "izn_landing"
+                }
+              },
+              {
                 "if": {
-                  "math": [
-                    "distance('u', u_izn_hub) <= 5"
+                  "and": [
+                    {
+                      "math": [
+                        "distance('u', u_izn_hub) <= 5"
+                      ]
+                    },
+                    {
+                      "map_is_passable": {
+                        "context_val": "izn_landing"
+                      }
+                    }
                   ]
                 },
                 "then": [
@@ -226,9 +240,23 @@
             "force_safe": true
           },
           {
+            "u_location_variable": {
+              "context_val": "izn_landing"
+            }
+          },
+          {
             "if": {
-              "math": [
-                "distance('u', u_izn_home) <= 5"
+              "and": [
+                {
+                  "math": [
+                    "distance('u', u_izn_home) <= 5"
+                  ]
+                },
+                {
+                  "map_is_passable": {
+                    "context_val": "izn_landing"
+                  }
+                }
               ]
             },
             "then": [
@@ -259,6 +287,11 @@
                       "u_val": "izn_before_return"
                     },
                     "force_safe": true
+                  },
+                  {
+                    "u_location_variable": {
+                      "context_val": "izn_landing"
+                    }
                   },
                   {
                     "u_message": "Выход перекрыт.  Нить оттолкнула вас обратно; печать сохранена."

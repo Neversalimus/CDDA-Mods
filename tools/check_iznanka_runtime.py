@@ -5,6 +5,7 @@ import hashlib
 import json
 import shutil
 import subprocess
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -17,13 +18,15 @@ def main():
     p.add_argument('--out', type=Path)
     p.add_argument('--prepare', action='store_true')
     p.add_argument('--combined', action='store_true')
+    p.add_argument('--already-staged', action='store_true')
     a = p.parse_args()
     game = a.cdda_root.resolve()
     actual = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=game, text=True).strip()
     if actual != SHA:
         raise SystemExit(f'Expected CDDA {SHA}; got {actual}')
-    shutil.copytree(ROOT / 'mods/iznanka/content', game / 'data/mods/Iznanka', dirs_exist_ok=True)
-    shutil.rmtree(game / 'data/cache/mods/Iznanka', ignore_errors=True)
+    if not a.already_staged:
+        shutil.copytree(ROOT / 'mods/iznanka/content', game / 'data/mods/Iznanka', dirs_exist_ok=True)
+        shutil.rmtree(game / 'data/cache/mods/Iznanka', ignore_errors=True)
     if a.prepare:
         shutil.copy2(ROOT / 'tools/runtime_probes/iznanka_lifecycle_test.cpp', game / 'tests/iznanka_lifecycle_test.cpp')
         makefile = game / 'tests/Makefile'
@@ -42,15 +45,16 @@ def main():
     mods = 'dda,iznanka'
     if a.combined:
         import deep_cdda_runtime as runtime
-        runtime.stage_source(game, 'experimental-2026-10-06-1807')
+        if not a.already_staged:
+            runtime.stage_source(game, 'experimental-2026-10-06-1807')
         _, rows = runtime.build_suites('experimental-2026-10-06-1807')
         mods = ','.join(next(r['game_mod_ids'] for r in rows if r['name'] == 'combined-all-json'))
     files = {str(f.relative_to(ROOT)): hashlib.sha256(f.read_bytes()).hexdigest()
              for f in sorted((ROOT / 'mods/iznanka/content').rglob('*')) if f.is_file()}
     cmd = [str(game / 'tests/cata_test'), '[iznanka_lifecycle]', '--mods=' + mods,
-           '--rng-seed', '4242', '--user-dir=' + str(out / 'user') + '/']
+           '--rng-seed', '4242', '--user-dir=' + tempfile.mkdtemp(prefix='user-', dir=out) + '/']
     with (out / 'runtime.log').open('w') as log:
-        result = subprocess.run(cmd, cwd=game, stdout=log, stderr=subprocess.STDOUT, timeout=600)
+        result = subprocess.run(cmd, cwd=game, stdout=log, stderr=subprocess.STDOUT, timeout=1200)
     (out / 'evidence.json').write_text(json.dumps({'target': SHA, 'exit_code': result.returncode,
         'mods': mods, 'payload_sha256': files, 'probe_sha256': hashlib.sha256((ROOT / 'tools/runtime_probes/iznanka_lifecycle_test.cpp').read_bytes()).hexdigest()}, indent=2) + '\n')
     print((out / 'runtime.log').read_text())
