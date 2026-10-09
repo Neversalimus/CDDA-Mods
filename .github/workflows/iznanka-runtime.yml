@@ -12,11 +12,17 @@ permissions:
   contents: read
 concurrency:
   group: iznanka-${{ github.ref }}
-  cancel-in-progress: true
+  # Preserve a running expensive build; only the newest pending revision is kept.
+  cancel-in-progress: false
 jobs:
   lifecycle:
+    name: lifecycle (${{ matrix.suite }})
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [standalone, combined]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/checkout@v4
@@ -39,11 +45,13 @@ jobs:
         working-directory: external/cdda
         run: make -j2 tests LOCALIZE=0 TILES=0 SOUND=0 ASTYLE=0 LINTJSON=0 BACKTRACE=0 DEBUGSYMS= NOOPT=1 CCACHE=1
       - name: Standalone lifecycle
+        if: matrix.suite == 'standalone'
         run: python tools/check_iznanka_runtime.py --cdda-root external/cdda --out evidence/standalone
       - name: Combined-stack lifecycle
+        if: matrix.suite == 'combined'
         run: python tools/check_iznanka_runtime.py --cdda-root external/cdda --combined --out evidence/combined
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: Iznanka-runtime-evidence
+          name: Iznanka-runtime-${{ matrix.suite }}-evidence
           path: evidence/
