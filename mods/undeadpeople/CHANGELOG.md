@@ -1,5 +1,15 @@
 # UndeadPeople Hybrid v3 + all patches
 
+## 2026-10-09 — Full generated-sprite clarity review (3.1.1-r5)
+
+- Reviewed all 282 generated cells / 296 IDs; replaced 178 sprites for 186 IDs.
+- Simplified noisy shading, clarified equipment/variant silhouettes and dark figures.
+- Rebuilt dwarf and ravenfolk; corrected fungal construct size progression.
+- Kept all atlas dimensions, offsets, indices, source mappings and untouched pixels.
+- Added source + built-payload sprite QA, a per-cell review ledger and before/after panels.
+- Eight packages built and 76 local Python tests passed; game-session check pending.
+- See [art-review/README.md](art-review/README.md) for scope, evidence and limitations.
+
 ## 2026-10-04 — Sprite clarity candidate (3.1.1-r4)
 
 Baseline: `74b6a739d4280f936f26c15b0d89a5614cdb855b`.

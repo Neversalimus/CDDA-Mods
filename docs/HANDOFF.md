@@ -1,4 +1,21 @@
-# Handoff — 2026-10-01
+# Handoff — 2026-10-09
+
+## 2026-10-09 — Complete generated-art review (UndeadPeople 3.1.1-r5)
+
+Baseline: `f8debb4f8b8177f59fa65bf5602765f776d34e8b`.
+Reviewed 282 cells across all three generated PNGs: 281 used cells, 296 tile IDs.
+Redrew 178 sprites affecting 186 IDs; preserved all other cells, source mappings,
+atlas geometry/indices and upstream donor art. Fixed noisy native-size detail,
+weak silhouettes, dwarf/ravenfolk readability and fungal construct size progression.
+
+Source and packaged sprite audits passed (72/75 PNG sheets, 46,008/48,925 sprite
+references). Eight installable packages built; all 76 Python tests passed locally.
+Normal Windows CI is the installer/native gate; no new gameplay or compatibility
+claim is made. Interactive in-game display/zoom verification remains outstanding.
+
+Full per-cell review, hashes, before/after panels and verification instructions:
+[`mods/undeadpeople/art-review`](../mods/undeadpeople/art-review/README.md).
+The 2026-10-04 partial-artwork status below is superseded by this complete review.
 
 ## 2026-10-04 — Sprite clarity candidate (3.1.1-r4)
 

@@ -31,3 +31,17 @@ Individual additions: Tools/plan.json.
 - Production conversion: binary alpha threshold 50%, trim, nearest-neighbor
   fit to 22x26, bottom alignment with 2px ground margin in a 32x32 cell.
 - The previously existing donor artwork and licenses remain unchanged.
+
+2026-10-09 generated-art clarity revision (3.1.1-r5):
+- OpenAI image generation redrew 176 selected cells of v3_monsters_20260924.png,
+  plus the isolated v3_ravenfolk.png and v3_zombie_dwarf_crisp.png.
+- Eleven 16-cell reference groups and two isolated image edits; each final sprite
+  independently extracted using empty-alpha gutters, nearest-neighbor sampled,
+  palette-limited without dithering, and packed at its original index.
+- Maximum 24 opaque colors, binary alpha, 2px bottom margin for new sprites.
+- Preserved source tile_config.json byte-for-byte and all unselected atlas cells.
+- Retained 104 original atlas cells (103 used + one unreferenced); this change
+  does not reattribute any pre-existing artwork.
+- Repository provenance, per-cell before/after hashes and review comparisons:
+  mods/undeadpeople/art-review/2026-10-09.json and art-review/README.md.
+- CDDA-Mods baseline: f8debb4f8b8177f59fa65bf5602765f776d34e8b.
