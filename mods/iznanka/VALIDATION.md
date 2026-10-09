@@ -1,18 +1,47 @@
-# Candidate validation
+# Проверка Изнанки 0.1.0
 
-Target: `cdda-experimental-2026-10-06-1807`
-Source: `074aa98bd5be3de4c35f154082db32a0e63bb0f1`
+Цель: `cdda-experimental-2026-10-06-1807`.
+Исходники CDDA: `074aa98bd5be3de4c35f154082db32a0e63bb0f1`.
+Проверено 9 октября 2026. Статус JSON-пакета: `runtime-tested`.
 
-- Official Linux release `--check-mods iznanka`: passed, exit 0, clean debug log.
-- Repository manifest validation and package build: passed.
-- Existing Python tests: 76 passed; two new sprite/layout contract tests passed.
-- Exact-source lifecycle and combined stack: running after blocked-landing hardening.
-- Earlier lifecycle probe reached 58 assertions before a harness-only reload bug;
-  it now calls the normal Save-and-Quit cleanup before loading.
-- SDL software renderer loads the Hybrid atlas; full scene review is pending.
-- Windows installer (PowerShell 5.1/7), Python and native snapshot gates:
-  passed on initial candidate 5e6cdc496b6b7c4a0dae92f72576a0638081b9eb
-  (Actions 37968254773). Final head must be rerun.
+| Проверка | Результат |
+|---|---|
+| Официальный Linux release, `--check-mods iznanka` | Exit 0, ошибок в debug.log нет |
+| Exact-source `cata_test`, отдельный мод | 70 assertions, exit 0 |
+| Тот же тест с полным JSON-стеком репозитория | 70 assertions, exit 0 |
+| Python regression/контрактные тесты | 78 passed |
+| Каталог, сборка пакетов и контрольные суммы | Passed |
+| Windows PowerShell 5.1/7, Python, native snapshots | Passed на e3f407c75867b3d0767a19b6c46663fcc17f29b6, Actions 37970717186 |
+| Свежий запуск официальной графической сборки с сохранением | Насосная загрузилась, активный насос отображается собственным тайлом |
 
-This is a candidate until the remaining gates pass. No compatibility claim is
-made for other experimental tags.
+Игровые проверки покрывают отдельное измерение, возврат к входу, сохранность
+тайника при повторном посещении, смерть хранителя, материалы и одноразовую
+награду, резонанс и перезарядку сердца, отмену печати без расхода, успешный выход
+с расходом одной печати, перекрытый выход, сохранение и полную повторную загрузку.
+Проба загружает сохранение в новый объект игры, предварительно очистив карты
+и глобальные переменные; исходники движка не меняются.
+
+Полный JSON-стек: dda, Aftershock Prime, Mind Over Matter, их compat,
+AXIOM-7, Blazemod, Iznanka, Secronom, Secronom+, Tankmod.
+Это проверка взаимодействия экспедиции со стеком, а не новое доказательство
+всей функциональности каждого стороннего мода.
+
+[Машинные отчёты и очищенные логи](validation/) привязаны к SHA-256 каждого
+файла мода и тестовой пробы. Payload совпадает с e3f407c7; последующие изменения
+касаются тестового стенда, доказательств и документации. Текущие проверки финального
+коммита: [PR #19](https://github.com/Neversalimus/CDDA-Mods/pull/19).
+Отдельный тяжёлый workflow повторяет локальные lifecycle-проверки в CI.
+
+## Границы проверки
+
+- Совместимость с другими experimental не заявлена.
+- Автоматические тесты не заменяют прохождение для настройки сложности.
+- Графическая проверка выполнена SDL software renderer: ночная сцена насосной
+  после загрузки сохранения. Все 20 спрайтов проверены в атласе, но полный обзор
+  каждого спрайта в игровой сцене и при разных масштабах ещё не выполнен.
+- Графический loader этой сборки пишет ошибки при пропуске модовых тайлов для
+  несовместимых портретного/overmap-наборов, а также об отсутствии `unknown` у
+  портретного набора. Локальный Hybrid загружается. Графический лог не объявляется
+  чистым; эти сообщения не скрыты нормализацией. JSON loader чистый.
+- Прежние неуспешные тесты с повторной загрузкой в старый объект игры заменены
+  приложенными успешными прогонами. Они не являются доказательством текущего пакета.

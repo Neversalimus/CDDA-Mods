@@ -169,12 +169,14 @@ TEST_CASE( "iznanka_expedition_persists_and_returns", "[iznanka_lifecycle]" )
     for( const monster &m : g->all_monsters() ) {
         CHECK( m.type->id != mtype_id( "mon_izn_warden" ) );
     }
-    // Use the same cleanup path as Save and Quit before reloading JSON factories.
-    // Reloading in place leaves map item pointers referring to unloaded item types.
+    // Destroy the old game before reloading factories, as on a fresh process start.
     const std::string save = world_generator->active_world->world_name;
     REQUIRE( g->save() );
     g->uquit = QUIT_SAVED;
     REQUIRE( turn_handler::cleanup_at_end() );
+    g = std::make_unique<game>();
+    get_globals().clear_global_values();
+    std::cerr << "IZN stage: reload into fresh game" << std::endl;
     REQUIRE( g->load( save ) );
     CHECK( saved_pos( "izn_hub" ) == hub );
     CHECK( saved_pos( "izn_home" ) == home );

@@ -1,0 +1,50 @@
+
+
+-----------------------------------------
+14:16:30.068 : Starting log.
+14:16:30.068 INFO : Cataclysm DDA version cdda-experimental-2026-10-06-1807 074aa98-dirty
+14:16:30.068 INFO : Randomness seeded to: 4242
+
+14:16:30.068 INFO : Running Catch2 session:
+Filters: [iznanka_lifecycle]
+
+14:16:30.071 INFO : [options] C locale set to C
+14:16:30.071 INFO : [options] C++ locale set to C
+14:16:46.414 WARNING : Dark Days Ahead pack load time:: 15666616us (avg: 15666616us) (count: 1)
+14:16:46.414 WARNING : TESTING DATA pack load time:: 414005us (avg: 414005us) (count: 1)
+14:16:46.414 WARNING : Изнанка: первая экспедиция pack load time:: 58246us (avg: 58246us) (count: 1)
+14:20:17.180 INFO : Game data loaded
+IZN stage: IZN_ENTER
+IZN stage: IZN_RESONANCE
+IZN stage: IZN_RETURN
+IZN stage: IZN_RESONANCE
+IZN stage: IZN_ENTER
+IZN stage: IZN_PUMP
+IZN stage: IZN_PUMP
+IZN stage: IZN_PUMP
+IZN stage: IZN_RESONANCE
+IZN stage: IZN_HEART
+IZN stage: IZN_HEART
+IZN stage: IZN_SEAL_BEGIN
+IZN stage: IZN_SEAL_BEGIN
+IZN stage: IZN_SEAL_BEGIN
+IZN stage: IZN_ENTER
+IZN stage: reload into fresh game
+
+14:21:28.524 WARNING : opendir [<QA_ROOT>/iznanka-standalone-fresh/user-x17kad40/cache] failed with "No such file or directory".
+14:21:30.102 INFO : src/mod_tracker.h:68: Tried check if 'vector_null' had a duplicate, but type 'attack_vector' does not track object sources
+14:21:30.390 INFO : src/mod_tracker.h:68: Tried check if 'death_tombstone' had a duplicate, but type 'end_screen' does not track object sources
+14:21:30.569 INFO : src/mod_tracker.h:68: Tried check if 'adult_basic_background' had a duplicate, but type 'profession_group' does not track object sources
+14:21:31.081 INFO : src/mod_tracker.h:68: Tried check if 'plate_lc' had a duplicate, but type 'fault_group' does not track object sources
+14:21:44.732 INFO : src/mod_tracker.h:68: Tried check if 'default' had a duplicate, but type 'dimension_region_layout' does not track object sources
+14:21:44.732 INFO : src/mod_tracker.h:68: Tried check if 'default' had a duplicate, but type 'dimension_world' does not track object sources
+14:21:45.484 WARNING : Dark Days Ahead pack load time:: 30652027us (avg: 15326013us) (count: 2)
+14:21:45.484 WARNING : TESTING DATA pack load time:: 781755us (avg: 390877us) (count: 2)
+14:21:45.484 WARNING : Изнанка: первая экспедиция pack load time:: 78840us (avg: 39420us) (count: 2)IZN stage: IZN_RETURN
+===============================================================================
+All tests passed (70 assertions in 1 test case)
+
+
+14:24:57.593 INFO : Finished in 507.522 seconds
+14:24:57.593 INFO : Randomness seeded to: 4242
+

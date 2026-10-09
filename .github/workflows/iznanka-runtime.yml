@@ -2,7 +2,8 @@ name: Iznanka exact-1807 lifecycle
 on:
   pull_request:
     paths:
-      - 'mods/iznanka/**'
+      - 'mods/iznanka/content/**'
+      - 'mods/iznanka/manifest.json'
       - 'tools/check_iznanka_runtime.py'
       - 'tools/runtime_probes/iznanka_lifecycle_test.cpp'
       - '.github/workflows/iznanka-runtime.yml'

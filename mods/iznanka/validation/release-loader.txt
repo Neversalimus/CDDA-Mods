@@ -1,0 +1,18 @@
+
+
+-----------------------------------------
+14:01:13.376 : Starting log.
+14:01:13.377 INFO : Cataclysm DDA version cdda-experimental-2026-10-06-1807 074aa98-dirty
+14:01:13.377 INFO : [main] C locale set to C.UTF-8
+14:01:13.377 INFO : [main] C++ locale set to C.UTF-8
+14:01:13.377 INFO : SDL version used during compile is 3.4.10
+14:01:13.377 INFO : SDL version used during linking and in runtime is 3.4.10
+14:01:13.382 INFO : SDL render devices: software, opengl, opengles2, vulkan, gpu
+14:01:13.382 INFO : [options] C locale set to C.UTF-8
+14:01:13.382 INFO : [options] C++ locale set to C.UTF-8
+14:01:13.382 INFO : Setting language to: 'en'
+14:01:13.382 INFO : [i18n] Scanning core translations from lang/mo/
+14:01:13.412 WARNING : opendir [<QA_ROOT>/iznanka-release-final/save/] failed with "No such file or directory".
+14:01:29.648 : Log shutdown.
+-----------------------------------------
+

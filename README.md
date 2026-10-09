@@ -32,6 +32,7 @@ exact-source combined suite и все четыре content shards. Его пер
 | Aftershock Prime | 0.1.14a-r6 | JSON |
 | Aftershock Prime / Mind Over Matter | 0.1.14a-r2 | JSON compat |
 | Tankmod Revived | 2026.9.23.4-r7 | JSON |
+| [Изнанка: первая экспедиция](mods/iznanka/README.md) | 0.1.0-r1 | JSON + собственные тайлы |
 | UndeadPeople Hybrid v3 | 3.1.1-r5 | tileset |
 | Advanced World Settings | 0.6.1-r3 | native source snapshot, installer-disabled |
 | Survivor Progression | 0.9.15-r2 | native source snapshot, installer-disabled |
@@ -40,6 +41,11 @@ exact-source combined suite и все четыре content shards. Его пер
 Tankmod и UndeadPeople; зависимость Secronom добавляется автоматически.
 MoM-compat включается отдельно только при использовании Mind Over Matter.
 AWS/Survivor из этого репозитория не являются текущими runtime-модулями NCMM.
+
+`profile:iznanka` устанавливает Изнанку и UndeadPeople Hybrid v3. Эта первая
+экспедиция рассчитана только на `experimental-2026-10-06-1807` /
+`074aa98bd5be3de4c35f154082db32a0e63bb0f1`. Включите мод при создании мира;
+вход находится у редкого лесного разлома. [Проверки пакета](mods/iznanka/VALIDATION.md).
 
 Модовые тайлсеты Blazemod, Secronom и Tankmod явно совместимы с внутренним ID
 `UndeadPeople_0J_Hybrid_v3`; Secronom+ отдельного sprite sheet не имеет и использует
@@ -72,6 +78,7 @@ AWS/Survivor из этого репозитория не являются тек
 ```powershell
 .\Install-Mods.ps1 -GameRoot 'C:\Games\CDDA' -Profile all-content
 .\Install-Mods.ps1 -GameRoot 'C:\Games\CDDA' -Profile secronom
+.\Install-Mods.ps1 -GameRoot 'C:\Games\CDDA' -Profile iznanka
 .\Install-Mods.ps1 -GameRoot 'C:\Games\CDDA' -Update
 .\Install-Mods.ps1 -GameRoot 'C:\Games\CDDA' -Rollback 'ИД_ТРАНЗАКЦИИ'
 ```
