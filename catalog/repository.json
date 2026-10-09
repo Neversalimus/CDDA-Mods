@@ -23,6 +23,10 @@
     "native": [
       "advanced_world_settings",
       "survivor_progression"
+    ],
+    "iznanka": [
+      "iznanka",
+      "undeadpeople"
     ]
   }
 }

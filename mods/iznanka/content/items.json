@@ -1,0 +1,133 @@
+[
+  {
+    "type": "ITEM",
+    "id": "izn_detector",
+    "name": {
+      "str": "детектор резонанса",
+      "str_pl": "детекторы резонанса"
+    },
+    "description": "Самодельный прибор.  Активация показывает резонанс и этап экспедиции.  Батарейки не нужны: прибор питается помехами.",
+    "material": [
+      "steel"
+    ],
+    "symbol": ";",
+    "color": "cyan",
+    "weight": "350 g",
+    "volume": "500 ml",
+    "subtypes": [
+      "TOOL"
+    ],
+    "use_action": {
+      "type": "effect_on_conditions",
+      "effect_on_conditions": [
+        "IZN_DETECT"
+      ]
+    }
+  },
+  {
+    "type": "ITEM",
+    "id": "izn_seal",
+    "name": {
+      "str": "печать возврата",
+      "str_pl": "печати возврата"
+    },
+    "description": "Сложенная ткань с красным швом.  Активация требует 60 секунд неподвижности.  Печать расходуется только после успешного возвращения к лесному входу.",
+    "material": [
+      "cotton"
+    ],
+    "symbol": "*",
+    "color": "white",
+    "weight": "20 g",
+    "volume": "50 ml",
+    "subtypes": [
+      "TOOL"
+    ],
+    "use_action": {
+      "type": "effect_on_conditions",
+      "effect_on_conditions": [
+        "IZN_SEAL_BEGIN"
+      ]
+    }
+  },
+  {
+    "type": "ITEM",
+    "id": "izn_glassbone",
+    "name": {
+      "str": "стеклокость",
+      "str_pl": "стеклокости"
+    },
+    "description": "Полупрозрачный обломок.  Две штуки нужны для стабилизации насосной.",
+    "material": [
+      "glass"
+    ],
+    "symbol": "*",
+    "color": "light_gray",
+    "weight": "150 g",
+    "volume": "250 ml"
+  },
+  {
+    "type": "ITEM",
+    "id": "izn_resin",
+    "name": {
+      "str_sp": "чёрная смола"
+    },
+    "description": "Смола поглощает эхо.  Активация в Изнанке снижает резонанс на 25.  При нулевом резонансе не расходуется.",
+    "material": [
+      "veggy"
+    ],
+    "symbol": "*",
+    "color": "dark_gray",
+    "weight": "100 g",
+    "volume": "100 ml",
+    "subtypes": [
+      "TOOL"
+    ],
+    "use_action": {
+      "type": "effect_on_conditions",
+      "effect_on_conditions": [
+        "IZN_RESIN"
+      ]
+    }
+  },
+  {
+    "type": "ITEM",
+    "id": "izn_thread",
+    "name": {
+      "str": "жилая нить",
+      "str_pl": "жиловые нити"
+    },
+    "description": "Сухая красная нить.  Две штуки нужны насосной; из неё можно изготовить печать возврата.",
+    "material": [
+      "flesh"
+    ],
+    "symbol": "*",
+    "color": "red",
+    "weight": "30 g",
+    "volume": "50 ml"
+  },
+  {
+    "type": "ITEM",
+    "id": "izn_heart",
+    "name": {
+      "str": "сердце тихого узла",
+      "str_pl": "сердца тихого узла"
+    },
+    "description": "Награда за стабилизацию насосной.  Активация в Изнанке снижает резонанс на 40; перезарядка занимает 30 минут.  Не расходуется.",
+    "material": [
+      "stone"
+    ],
+    "symbol": "*",
+    "color": "cyan",
+    "weight": "700 g",
+    "volume": "500 ml",
+    "subtypes": [
+      "TOOL"
+    ],
+    "use_action": {
+      "type": "effect_on_conditions",
+      "effect_on_conditions": [
+        "IZN_HEART"
+      ]
+    }
+  }
+]

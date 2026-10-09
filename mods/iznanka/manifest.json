@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "id": "iznanka",
+  "name": "Изнанка",
+  "kind": "json",
+  "folder": "Iznanka",
+  "game_mod_ids": [
+    "iznanka"
+  ],
+  "dependencies": [],
+  "variants": [
+    {
+      "id": "baseline",
+      "version": "0.1.0",
+      "revision": 1,
+      "path": "content",
+      "targets": [
+        "experimental-2026-10-06-1807"
+      ],
+      "validation": "runtime-tested"
+    }
+  ]
+}

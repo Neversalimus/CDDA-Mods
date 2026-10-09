@@ -8,6 +8,17 @@
 Совместимость определяется точным release tag и source commit, а не только номером
 experimental.
 
+## Изнанка 0.1.0
+
+Первая экспедиция имеет отдельный target:
+`cdda-experimental-2026-10-06-1807` /
+`074aa98bd5be3de4c35f154082db32a0e63bb0f1`.
+Её собственные тайлы подключаются к `UndeadPeople_0J_Hybrid_v3`.
+Результаты официального Linux loader, проверки сохранения и выхода,
+совместного контентного стека и Windows CI записаны в
+[VALIDATION.md](../mods/iznanka/VALIDATION.md). Совместимость этой новой механики
+с другими целями каталога из их наличия не следует.
+
 ## Автоматический путь для experimental
 
 Workflow `.github/workflows/experimental-watch.yml` запускается ежечасно и

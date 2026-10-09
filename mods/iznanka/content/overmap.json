@@ -1,0 +1,209 @@
+[
+  {
+    "type": "overmap_terrain",
+    "id": "izn_entry",
+    "name": "лесной разлом",
+    "sym": "O",
+    "color": "magenta",
+    "see_cost": "low",
+    "flags": [
+      "NO_ROTATE"
+    ]
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "izn_woods",
+    "name": "Глухая опушка",
+    "sym": "F",
+    "color": "dark_gray",
+    "see_cost": "low",
+    "flags": [
+      "NO_ROTATE"
+    ]
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "izn_refuge",
+    "name": "убежище у нити",
+    "sym": "@",
+    "color": "cyan",
+    "see_cost": "low",
+    "flags": [
+      "NO_ROTATE"
+    ]
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "izn_trail",
+    "name": "мёртвая роща",
+    "sym": "F",
+    "color": "light_gray",
+    "see_cost": "low",
+    "flags": [
+      "NO_ROTATE"
+    ]
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "izn_cache",
+    "name": "застава экспедиции",
+    "sym": "C",
+    "color": "white",
+    "see_cost": "low",
+    "flags": [
+      "NO_ROTATE"
+    ]
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "izn_marsh",
+    "name": "Чёрная топь",
+    "sym": "~",
+    "color": "dark_gray",
+    "see_cost": "low",
+    "flags": [
+      "NO_ROTATE"
+    ]
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "izn_pump",
+    "name": "насосная узла",
+    "sym": "P",
+    "color": "red",
+    "see_cost": "low",
+    "flags": [
+      "NO_ROTATE"
+    ]
+  },
+  {
+    "type": "overmap_location",
+    "id": "izn_woods",
+    "terrains": [
+      "izn_woods"
+    ]
+  },
+  {
+    "type": "overmap_special",
+    "id": "izn_entry",
+    "overmaps": [
+      {
+        "point": [
+          0,
+          0,
+          0
+        ],
+        "overmap": "izn_entry"
+      }
+    ],
+    "locations": [
+      "forest"
+    ],
+    "city_distance": [
+      5,
+      -1
+    ],
+    "occurrences": [
+      15,
+      100
+    ],
+    "flags": [
+      "OVERMAP_UNIQUE"
+    ]
+  },
+  {
+    "type": "overmap_special",
+    "id": "izn_expedition",
+    "overmaps": [
+      {
+        "point": [
+          -1,
+          0,
+          0
+        ],
+        "overmap": "izn_woods"
+      },
+      {
+        "point": [
+          0,
+          0,
+          0
+        ],
+        "overmap": "izn_refuge"
+      },
+      {
+        "point": [
+          1,
+          0,
+          0
+        ],
+        "overmap": "izn_woods"
+      },
+      {
+        "point": [
+          -1,
+          1,
+          0
+        ],
+        "overmap": "izn_trail"
+      },
+      {
+        "point": [
+          0,
+          1,
+          0
+        ],
+        "overmap": "izn_trail"
+      },
+      {
+        "point": [
+          1,
+          1,
+          0
+        ],
+        "overmap": "izn_cache"
+      },
+      {
+        "point": [
+          -1,
+          2,
+          0
+        ],
+        "overmap": "izn_marsh"
+      },
+      {
+        "point": [
+          0,
+          2,
+          0
+        ],
+        "overmap": "izn_pump"
+      },
+      {
+        "point": [
+          1,
+          2,
+          0
+        ],
+        "overmap": "izn_marsh"
+      }
+    ],
+    "locations": [
+      "izn_woods"
+    ],
+    "city_distance": [
+      0,
+      -1
+    ],
+    "occurrences": [
+      0,
+      0
+    ],
+    "flags": [
+      "GLOBALLY_UNIQUE",
+      "EXTRADIMENSIONAL",
+      "IZNANKA"
+    ],
+    "rotate": false
+  }
+]
