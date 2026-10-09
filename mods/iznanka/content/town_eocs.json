@@ -1,0 +1,623 @@
+[
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_DISCOVER_TOWN",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "math": [
+          "izn_tuned_a = max(0, izn_tuned_a)"
+        ]
+      },
+      {
+        "math": [
+          "izn_tuned_b = max(0, izn_tuned_b)"
+        ]
+      },
+      {
+        "math": [
+          "izn_tuned_c = max(0, izn_tuned_c)"
+        ]
+      },
+      {
+        "math": [
+          "izn_voices_dead = max(0, izn_voices_dead)"
+        ]
+      },
+      {
+        "math": [
+          "izn_radio_done = max(0, izn_radio_done)"
+        ]
+      },
+      {
+        "math": [
+          "izn_node_done = max(0, izn_node_done)"
+        ]
+      },
+      {
+        "math": [
+          "u_izn_resonance = max(0, u_izn_resonance)"
+        ]
+      },
+      {
+        "if": {
+          "math": [
+            "!has_var(izn_town)"
+          ]
+        },
+        "then": [
+          {
+            "u_location_variable": {
+              "global_val": "izn_town"
+            },
+            "target_params": {
+              "om_terrain": "izn_town_gate",
+              "om_special": "izn_town",
+              "search_range": 60,
+              "z": 0,
+              "random": true
+            },
+            "false_eocs": [
+              {
+                "id": "IZN_TOWN_SEARCH_FAILED",
+                "effect": [
+                  {
+                    "u_message": "Посёлок пока не удалось найти.  Попробуйте детектор с другого края исследованной области."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "if": {
+          "math": [
+            "has_var(izn_town)"
+          ]
+        },
+        "then": [
+          {
+            "reveal_map": {
+              "global_val": "izn_town"
+            },
+            "radius": 3
+          }
+        ]
+      }
+    ],
+    "condition": {
+      "current_dimension": "iznanka"
+    }
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_VOICE_DEATH",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "math": [
+          "izn_voices_dead = min(3, izn_voices_dead + 1)"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_SILENCE_VOICE",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "u_die": {
+          "remove_corpse": true,
+          "supress_message": true
+        }
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_LEARN_SUPPRESSOR",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "u_learn_recipe": "izn_suppressor"
+      },
+      {
+        "u_message": "Вы изучили чертёж резонансного подавителя."
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_RADIO_DONE",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "run_eocs": "IZN_LEARN_SUPPRESSOR"
+      },
+      {
+        "u_message": "Радиоузел уже согласован.  Награда выдаётся один раз; чертёж доступен каждому выжившему."
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_TUNER_DONE",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "u_message": "Этот канал уже настроен."
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_TUNE_A_BEGIN",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "u_location_variable": {
+          "u_val": "izn_console"
+        },
+        "furniture": "f_izn_tuner_a",
+        "target_max_radius": 2,
+        "true_eocs": [
+          "IZN_TUNE_A_START"
+        ]
+      }
+    ],
+    "condition": {
+      "and": [
+        {
+          "current_dimension": "iznanka"
+        },
+        {
+          "math": [
+            "izn_tuned_a == 0"
+          ]
+        },
+        {
+          "math": [
+            "u_skill('electronics') >= 2"
+          ]
+        }
+      ]
+    },
+    "false_effect": [
+      {
+        "u_message": "Нужна электроника 2; настроенный канал повторно не обрабатывается.  Можно вместо этого уничтожить три голоса Хора."
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_TUNE_A_START",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "u_location_variable": {
+          "u_val": "izn_tune_start"
+        }
+      },
+      {
+        "u_assign_activity": "ACT_IZN_TUNE_A",
+        "duration": "2 minutes"
+      },
+      {
+        "u_message": "Вы настраиваете канал.  Нужно две минуты неподвижности."
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_TUNE_A_FINISH",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "math": [
+          "izn_tuned_a = 1"
+        ]
+      },
+      {
+        "u_transform_radius": 2,
+        "ter_furn_transform": "izn_tune_a"
+      },
+      {
+        "u_message": "Канал согласован.  Прогресс сохранён."
+      }
+    ],
+    "condition": {
+      "and": [
+        {
+          "current_dimension": "iznanka"
+        },
+        {
+          "math": [
+            "izn_tuned_a == 0"
+          ]
+        },
+        {
+          "math": [
+            "distance('u', u_izn_tune_start) <= 0"
+          ]
+        },
+        {
+          "math": [
+            "distance('u', u_izn_console) <= 2"
+          ]
+        },
+        {
+          "map_furniture_id": "f_izn_tuner_a",
+          "loc": {
+            "u_val": "izn_console"
+          }
+        }
+      ]
+    },
+    "false_effect": [
+      {
+        "u_message": "Настройка оборвалась.  Канал не изменён."
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_TUNE_B_BEGIN",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "u_location_variable": {
+          "u_val": "izn_console"
+        },
+        "furniture": "f_izn_tuner_b",
+        "target_max_radius": 2,
+        "true_eocs": [
+          "IZN_TUNE_B_START"
+        ]
+      }
+    ],
+    "condition": {
+      "and": [
+        {
+          "current_dimension": "iznanka"
+        },
+        {
+          "math": [
+            "izn_tuned_b == 0"
+          ]
+        },
+        {
+          "math": [
+            "u_skill('electronics') >= 2"
+          ]
+        }
+      ]
+    },
+    "false_effect": [
+      {
+        "u_message": "Нужна электроника 2; настроенный канал повторно не обрабатывается.  Можно вместо этого уничтожить три голоса Хора."
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_TUNE_B_START",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "u_location_variable": {
+          "u_val": "izn_tune_start"
+        }
+      },
+      {
+        "u_assign_activity": "ACT_IZN_TUNE_B",
+        "duration": "2 minutes"
+      },
+      {
+        "u_message": "Вы настраиваете канал.  Нужно две минуты неподвижности."
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_TUNE_B_FINISH",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "math": [
+          "izn_tuned_b = 1"
+        ]
+      },
+      {
+        "u_transform_radius": 2,
+        "ter_furn_transform": "izn_tune_b"
+      },
+      {
+        "u_message": "Канал согласован.  Прогресс сохранён."
+      }
+    ],
+    "condition": {
+      "and": [
+        {
+          "current_dimension": "iznanka"
+        },
+        {
+          "math": [
+            "izn_tuned_b == 0"
+          ]
+        },
+        {
+          "math": [
+            "distance('u', u_izn_tune_start) <= 0"
+          ]
+        },
+        {
+          "math": [
+            "distance('u', u_izn_console) <= 2"
+          ]
+        },
+        {
+          "map_furniture_id": "f_izn_tuner_b",
+          "loc": {
+            "u_val": "izn_console"
+          }
+        }
+      ]
+    },
+    "false_effect": [
+      {
+        "u_message": "Настройка оборвалась.  Канал не изменён."
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_TUNE_C_BEGIN",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "u_location_variable": {
+          "u_val": "izn_console"
+        },
+        "furniture": "f_izn_tuner_c",
+        "target_max_radius": 2,
+        "true_eocs": [
+          "IZN_TUNE_C_START"
+        ]
+      }
+    ],
+    "condition": {
+      "and": [
+        {
+          "current_dimension": "iznanka"
+        },
+        {
+          "math": [
+            "izn_tuned_c == 0"
+          ]
+        },
+        {
+          "math": [
+            "u_skill('electronics') >= 2"
+          ]
+        }
+      ]
+    },
+    "false_effect": [
+      {
+        "u_message": "Нужна электроника 2; настроенный канал повторно не обрабатывается.  Можно вместо этого уничтожить три голоса Хора."
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_TUNE_C_START",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "u_location_variable": {
+          "u_val": "izn_tune_start"
+        }
+      },
+      {
+        "u_assign_activity": "ACT_IZN_TUNE_C",
+        "duration": "2 minutes"
+      },
+      {
+        "u_message": "Вы настраиваете канал.  Нужно две минуты неподвижности."
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_TUNE_C_FINISH",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "math": [
+          "izn_tuned_c = 1"
+        ]
+      },
+      {
+        "u_transform_radius": 2,
+        "ter_furn_transform": "izn_tune_c"
+      },
+      {
+        "u_message": "Канал согласован.  Прогресс сохранён."
+      }
+    ],
+    "condition": {
+      "and": [
+        {
+          "current_dimension": "iznanka"
+        },
+        {
+          "math": [
+            "izn_tuned_c == 0"
+          ]
+        },
+        {
+          "math": [
+            "distance('u', u_izn_tune_start) <= 0"
+          ]
+        },
+        {
+          "math": [
+            "distance('u', u_izn_console) <= 2"
+          ]
+        },
+        {
+          "map_furniture_id": "f_izn_tuner_c",
+          "loc": {
+            "u_val": "izn_console"
+          }
+        }
+      ]
+    },
+    "false_effect": [
+      {
+        "u_message": "Настройка оборвалась.  Канал не изменён."
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_RADIO_PROMPT",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "if": {
+          "u_query": "Согласовать радиоузел?  Требуются три настроенных пульта ИЛИ три уничтоженных голоса.",
+          "default": false
+        },
+        "then": [
+          {
+            "run_eocs": "IZN_RADIO"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_RADIO",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "math": [
+          "izn_radio_done = 1"
+        ]
+      },
+      {
+        "u_run_monster_eocs": [
+          "IZN_SILENCE_VOICE"
+        ],
+        "mtype_ids": [
+          "mon_izn_voice"
+        ],
+        "monster_range": 24
+      },
+      {
+        "u_transform_radius": 2,
+        "ter_furn_transform": "izn_radio_activate"
+      },
+      {
+        "math": [
+          "u_izn_resonance = 0"
+        ]
+      },
+      {
+        "u_spawn_item": "izn_suppressor",
+        "count": 1
+      },
+      {
+        "u_spawn_item": "izn_radio_manual",
+        "count": 1
+      },
+      {
+        "u_spawn_item": "izn_seal",
+        "count": 2
+      },
+      {
+        "run_eocs": "IZN_LEARN_SUPPRESSOR"
+      },
+      {
+        "u_message": "Хор замолкает.  Радиоузел согласован: второй маршрут завершён.  В шкафу вы находите подавитель, руководство и две печати."
+      }
+    ],
+    "condition": {
+      "and": [
+        {
+          "current_dimension": "iznanka"
+        },
+        {
+          "math": [
+            "izn_radio_done == 0"
+          ]
+        },
+        {
+          "or": [
+            {
+              "math": [
+                "izn_voices_dead >= 3"
+              ]
+            },
+            {
+              "math": [
+                "izn_tuned_a + izn_tuned_b + izn_tuned_c >= 3"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "false_effect": [
+      {
+        "u_message": "Радиоузел удерживает Хор.  Настройте все три пульта либо уничтожьте три голоса.  Награда не повторяется."
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_SUPPRESS",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "u_consume_item": "izn_resin",
+        "count": 1
+      },
+      {
+        "u_add_effect": "izn_suppressed",
+        "duration": "20 minutes"
+      },
+      {
+        "u_add_effect": "izn_suppressor_cooldown",
+        "duration": "30 minutes"
+      },
+      {
+        "u_message": "Подавитель поглотил смолу.  Резонанс будет расти вдвое медленнее 20 минут."
+      }
+    ],
+    "condition": {
+      "and": [
+        {
+          "current_dimension": "iznanka"
+        },
+        {
+          "u_has_item": "izn_resin"
+        },
+        {
+          "not": {
+            "u_has_effect": "izn_suppressor_cooldown"
+          }
+        }
+      ]
+    },
+    "false_effect": [
+      {
+        "u_message": "Подавителю нужна одна чёрная смола, Изнанка вокруг и завершённое охлаждение."
+      }
+    ]
+  }
+]

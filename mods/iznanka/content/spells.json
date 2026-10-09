@@ -1,0 +1,24 @@
+[
+  {
+    "type": "SPELL",
+    "id": "izn_mend_allies",
+    "name": "Сращивание швов",
+    "description": "Восстановление союзников белого санитара.",
+    "effect": "attack",
+    "shape": "blast",
+    "valid_targets": [
+      "ally",
+      "self"
+    ],
+    "flags": [
+      "SILENT",
+      "NO_PROJECTILE"
+    ],
+    "min_damage": -15,
+    "max_damage": -15,
+    "min_aoe": 3,
+    "max_aoe": 3,
+    "min_range": 0,
+    "max_range": 0
+  }
+]

@@ -205,5 +205,177 @@
       "IZNANKA"
     ],
     "rotate": false
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "izn_town_gate",
+    "name": "вход в Сшитый посёлок",
+    "sym": "C",
+    "color": "light_gray",
+    "see_cost": "low",
+    "flags": [
+      "NO_ROTATE"
+    ]
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "izn_town_yard",
+    "name": "сшитый двор",
+    "sym": ".",
+    "color": "light_gray",
+    "see_cost": "low",
+    "flags": [
+      "NO_ROTATE"
+    ]
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "izn_hospital",
+    "name": "больничное крыло",
+    "sym": "H",
+    "color": "light_gray",
+    "see_cost": "low",
+    "flags": [
+      "NO_ROTATE"
+    ]
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "izn_town_square",
+    "name": "площадь немого эфира",
+    "sym": ".",
+    "color": "light_gray",
+    "see_cost": "low",
+    "flags": [
+      "NO_ROTATE"
+    ]
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "izn_housing",
+    "name": "сшитый жилой блок",
+    "sym": "H",
+    "color": "light_gray",
+    "see_cost": "low",
+    "flags": [
+      "NO_ROTATE"
+    ]
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "izn_workshop",
+    "name": "мастерская связиста",
+    "sym": "W",
+    "color": "light_gray",
+    "see_cost": "low",
+    "flags": [
+      "NO_ROTATE"
+    ]
+  },
+  {
+    "type": "overmap_terrain",
+    "id": "izn_radio",
+    "name": "радиоузел Хора",
+    "sym": "R",
+    "color": "light_gray",
+    "see_cost": "low",
+    "flags": [
+      "NO_ROTATE"
+    ]
+  },
+  {
+    "type": "overmap_special",
+    "id": "izn_town",
+    "overmaps": [
+      {
+        "point": [
+          -1,
+          0,
+          0
+        ],
+        "overmap": "izn_town_yard"
+      },
+      {
+        "point": [
+          0,
+          0,
+          0
+        ],
+        "overmap": "izn_town_gate"
+      },
+      {
+        "point": [
+          1,
+          0,
+          0
+        ],
+        "overmap": "izn_town_yard"
+      },
+      {
+        "point": [
+          -1,
+          1,
+          0
+        ],
+        "overmap": "izn_hospital"
+      },
+      {
+        "point": [
+          0,
+          1,
+          0
+        ],
+        "overmap": "izn_town_square"
+      },
+      {
+        "point": [
+          1,
+          1,
+          0
+        ],
+        "overmap": "izn_housing"
+      },
+      {
+        "point": [
+          -1,
+          2,
+          0
+        ],
+        "overmap": "izn_workshop"
+      },
+      {
+        "point": [
+          0,
+          2,
+          0
+        ],
+        "overmap": "izn_radio"
+      },
+      {
+        "point": [
+          1,
+          2,
+          0
+        ],
+        "overmap": "izn_town_yard"
+      }
+    ],
+    "locations": [
+      "izn_woods"
+    ],
+    "city_distance": [
+      0,
+      -1
+    ],
+    "occurrences": [
+      0,
+      0
+    ],
+    "flags": [
+      "GLOBALLY_UNIQUE",
+      "EXTRADIMENSIONAL",
+      "IZNANKA"
+    ],
+    "rotate": false
   }
 ]

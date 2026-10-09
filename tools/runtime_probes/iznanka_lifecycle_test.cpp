@@ -13,12 +13,15 @@
 #include "item.h"
 #include "map.h"
 #include "map_helpers.h"
+#include "mattack_common.h"
 #include "math_parser_diag_value.h"
 #include "monster.h"
 #include "mtype.h"
 #include "overmapbuffer.h"
 #include "player_activity.h"
 #include "player_helpers.h"
+#include "recipe.h"
+#include "skill.h"
 #include "talker.h"
 #include "teleport.h"
 #include "type_id.h"
@@ -102,6 +105,101 @@ TEST_CASE( "iznanka_expedition_persists_and_returns", "[iznanka_lifecycle]" )
     CHECK( ground_count( stash, "izn_detector" ) == 0 );
     CHECK( ground_count( stash, "izn_glassbone" ) == 1 );
 
+    // The second branch works before the pump; deleting only its discovery marker
+    // simulates a pre-extension save without overwriting any authored v0.1 maps.
+    u.wear_item( item( itype_id( "debug_backpack" ), calendar::turn ), false );
+    const diag_value *town_var = get_globals().maybe_get_global_value( "izn_town" );
+    REQUIRE( town_var != nullptr );
+    const tripoint_abs_ms town = town_var->tripoint();
+    get_globals().remove_global_value( "izn_town" );
+    eoc( "IZN_DETECT" );
+    REQUIRE( get_globals().maybe_get_global_value( "izn_town" ) != nullptr );
+    CHECK( get_globals().maybe_get_global_value( "izn_town" )->tripoint() == town );
+    const tripoint_abs_ms town_origin = project_to<coords::ms>( project_to<coords::omt>( town ) );
+    const tripoint_abs_ms radio = town_origin + tripoint( 12, 60, 0 );
+    warp( radio + tripoint::west );
+    REQUIRE( get_map().furn( get_map().get_bub( radio ) ) == furn_str_id( "f_izn_radio" ) );
+    eoc( "IZN_RADIO" );
+    CHECK( global_num( "izn_radio_done" ) == 0 );
+    CHECK( global_num( "izn_node_done" ) == 0 );
+    // A technical route with interrupted and repeated console use.
+    const tripoint_abs_ms consoles[] = {
+        town_origin + tripoint( -20, 29, 0 ),
+        town_origin + tripoint( 28, 29, 0 ),
+        town_origin + tripoint( -20, 53, 0 )
+    };
+    const char *begins[] = { "IZN_TUNE_A_BEGIN", "IZN_TUNE_B_BEGIN", "IZN_TUNE_C_BEGIN" };
+    const char *flags[] = { "izn_tuned_a", "izn_tuned_b", "izn_tuned_c" };
+    u.set_skill_level( skill_id( "electronics" ), 2 );
+    for( int i = 0; i < 3; ++i ) {
+        warp( consoles[i] + tripoint::west );
+        eoc( begins[i] );
+        CHECK_FALSE( u.activity.is_null() );
+        u.cancel_activity();
+        CHECK( global_num( flags[i] ) == 0 );
+        eoc( begins[i] );
+        u.activity.moves_left = 0;
+        u.activity.do_turn( u );
+        CHECK( global_num( flags[i] ) == 1 );
+        const int before = u.amount_of( itype_id( "izn_suppressor" ) );
+        eoc( begins[i] );
+        CHECK( u.activity.is_null() );
+        CHECK( u.amount_of( itype_id( "izn_suppressor" ) ) == before );
+    }
+    warp( radio + tripoint::west );
+    CHECK( global_num( "izn_voices_dead" ) == 0 );
+    eoc( "IZN_RADIO" );
+    REQUIRE( global_num( "izn_radio_done" ) == 1 );
+    CHECK( global_num( "izn_node_done" ) == 0 );
+    CHECK( global_num( "izn_voices_dead" ) == 3 );
+    CHECK( u.has_amount( itype_id( "izn_suppressor" ), 1 ) );
+    CHECK( u.knows_recipe( &recipe_id( "izn_suppressor" ).obj() ) );
+    eoc( "IZN_RADIO" );
+    CHECK_FALSE( u.has_amount( itype_id( "izn_suppressor" ), 2 ) );
+    u.i_add( item( itype_id( "izn_resin" ), calendar::turn ) );
+    const int resin = u.amount_of( itype_id( "izn_resin" ) );
+    eoc( "IZN_SUPPRESS" );
+    CHECK( u.amount_of( itype_id( "izn_resin" ) ) == resin - 1 );
+    u.set_value( "izn_resonance", diag_value( 20 ) );
+    eoc( "IZN_RESONANCE" );
+    CHECK( u.get_value( "izn_resonance" ).dbl() == 22 );
+    eoc( "IZN_SUPPRESS" );
+    CHECK( u.amount_of( itype_id( "izn_resin" ) ) == resin - 1 );
+    u.remove_effect( efftype_id( "izn_suppressed" ) );
+    eoc( "IZN_RESONANCE" );
+    CHECK( u.get_value( "izn_resonance" ).dbl() == 26 );
+    // Exercise the actual support attack, including its allied target filter.
+    clear_creatures();
+    monster *orderly = g->place_critter_at( mtype_id( "mon_izn_orderly" ),
+                                         get_map().get_bub( radio + tripoint( 3, 0, 0 ) ) );
+    monster *patient = g->place_critter_at( mtype_id( "mon_izn_walker" ),
+                                         get_map().get_bub( radio + tripoint( 4, 0, 0 ) ) );
+    REQUIRE( orderly != nullptr );
+    REQUIRE( patient != nullptr );
+    patient->set_hp( 100 );
+    const mtype_special_attack &mend = orderly->type->special_attacks.at( "izn_orderly_mend" );
+    REQUIRE( mend->call( *orderly ) );
+    CHECK( patient->get_hp() == 115 );
+    // Reset only the town fixture to test the combat route without any tuned consoles.
+    clear_creatures();
+    get_globals().set_global_value( "izn_radio_done", diag_value( 0 ) );
+    get_globals().set_global_value( "izn_voices_dead", diag_value( 0 ) );
+    for( const char *flag : flags ) {
+        get_globals().set_global_value( flag, diag_value( 0 ) );
+    }
+    get_map().furn_set( get_map().get_bub( radio ), furn_str_id( "f_izn_radio" ) );
+    for( int i = 0; i < 3; ++i ) {
+        monster *voice = g->place_critter_at( mtype_id( "mon_izn_voice" ),
+                                            get_map().get_bub( radio + tripoint( 3, i - 1, 0 ) ) );
+        REQUIRE( voice != nullptr );
+        voice->die( &get_map(), &u );
+    }
+    CHECK( global_num( "izn_voices_dead" ) == 3 );
+    const int suppressors = u.amount_of( itype_id( "izn_suppressor" ) );
+    eoc( "IZN_RADIO" );
+    CHECK( global_num( "izn_radio_done" ) == 1 );
+    CHECK( u.amount_of( itype_id( "izn_suppressor" ) ) == suppressors + 1 );
+
     // Authored special: pump two OMTs south; cache east of the central trail.
     const tripoint_abs_ms pump = hub + tripoint( 0, 49, 0 );
     warp( pump + tripoint::west );
@@ -118,7 +216,6 @@ TEST_CASE( "iznanka_expedition_persists_and_returns", "[iznanka_lifecycle]" )
     REQUIRE( found_warden );
     CHECK( global_num( "izn_warden_dead" ) == 1 );
     clear_creatures();
-    u.wear_item( item( itype_id( "debug_backpack" ), calendar::turn ), false );
     for( int n = 0; n < 2; ++n ) {
         u.i_add( item( itype_id( "izn_glassbone" ), calendar::turn ) );
         u.i_add( item( itype_id( "izn_thread" ), calendar::turn ) );
@@ -184,6 +281,12 @@ TEST_CASE( "iznanka_expedition_persists_and_returns", "[iznanka_lifecycle]" )
     CHECK( ground_count( stash, "izn_detector" ) == 0 );
     CHECK( ground_count( stash, "izn_glassbone" ) == 1 );
     CHECK( global_num( "izn_node_done" ) == 1 );
+    CHECK( global_num( "izn_radio_done" ) == 1 );
+    CHECK( get_globals().maybe_get_global_value( "izn_town" )->tripoint() == town );
+    warp( radio + tripoint::west );
+    CHECK( get_map().furn( get_map().get_bub( radio ) ) == furn_str_id( "f_izn_radio_active" ) );
+    eoc( "IZN_RADIO" );
+    CHECK( get_avatar().amount_of( itype_id( "izn_suppressor" ) ) == suppressors + 1 );
     eoc( "IZN_RETURN" );
     CHECK( g->get_dimension_prefix() == dimension_id( "default" ) );
 }

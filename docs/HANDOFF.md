@@ -1,5 +1,14 @@
 # Handoff — 2026-10-09
 
+## Изнанка 0.2.0 — town / UDP art candidate
+
+0.1.0 merged as PR #19 (`a2c86378299095ff137f4c7a14941a797e5d4b45`); all
+its CI passed. New independent town branch, technical/combat solutions, three
+threats, suppressor and UDP-style replacement art. Exact target remains 1807 /
+`074aa98bd5be3de4c35f154082db32a0e63bb0f1`. Validation and outstanding work:
+[mods/iznanka/VALIDATION.md](../mods/iznanka/VALIDATION.md).
+
+
 ## Изнанка 0.1.0 — first playable expedition
 
 Added a separate `iznanka` installer profile (mod + UndeadPeople Hybrid), limited

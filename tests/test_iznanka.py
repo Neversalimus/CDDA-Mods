@@ -1,48 +1,55 @@
-"""Payload and packaging contracts; gameplay is checked by exact-source cata_test."""
+"""Payload contracts; gameplay is checked by exact-source cata_test."""
 import json
 import unittest
 from pathlib import Path
 from PIL import Image
-
-ROOT = Path(__file__).resolve().parents[1]
-CONTENT = ROOT / 'mods/iznanka/content'
+ROOT=Path(__file__).resolve().parents[1]
+CONTENT=ROOT/'mods/iznanka/content'
 
 class IznankaPayloadTest(unittest.TestCase):
-    def test_every_visible_entity_has_a_sprite(self):
-        rows = [r for p in CONTENT.glob('*.json') for r in json.loads(p.read_text(encoding='utf-8'))]
-        visible = {r['id'] for r in rows if r['type'] in ('MONSTER', 'ITEM', 'terrain', 'furniture')}
-        config = next(r for r in rows if r['type'] == 'mod_tileset')
-        sheet = config['tiles-new'][0]
-        image = Image.open(CONTENT / sheet['file'])
-        self.assertEqual(image.size, (128, 160))
-        self.assertEqual(image.mode, 'RGBA')
-        mappings = {r['id']: r['fg'] for r in sheet['tiles']}
-        self.assertEqual(set(mappings), visible)
-        self.assertEqual(len(set(mappings.values())), len(visible))
-        for ident, index in mappings.items():
-            cell = image.crop(((index % 4) * 32, (index // 4) * 32, (index % 4 + 1) * 32, (index // 4 + 1) * 32))
-            self.assertIsNotNone(cell.getbbox(), ident)
+    def test_every_visible_entity_has_valid_sprite(self):
+        rows=[r for p in CONTENT.glob('*.json') for r in json.loads(p.read_text(encoding='utf-8'))]
+        visible={r['id'] for r in rows if r['type'] in ('MONSTER','ITEM','terrain','furniture')}
+        config=next(r for r in rows if r['type']=='mod_tileset')
+        offset=0;covered=set()
+        for sheet in config['tiles-new']:
+            im=Image.open(CONTENT/sheet['file']);self.assertEqual(im.mode,'RGBA')
+            w=sheet['sprite_width'];h=sheet['sprite_height'];self.assertEqual((w,h),(32,32))
+            self.assertEqual(im.width%w,0);self.assertEqual(im.height%h,0)
+            count=(im.width//w)*(im.height//h)
+            for row in sheet['tiles']:
+                ids=[row['id']] if isinstance(row['id'],str) else row['id']
+                self.assertFalse(covered.intersection(ids));covered.update(ids)
+                refs=[row['fg']] if isinstance(row['fg'],int) else [r['sprite'] for r in row['fg']]
+                for idx in refs:
+                    self.assertTrue(offset<=idx<offset+count)
+                    i=idx-offset;x=(i%(im.width//w))*w;y=(i//(im.width//w))*h
+                    cell=im.crop((x,y,x+w,y+h));self.assertIsNotNone(cell.getbbox())
+                    if set(ids).intersection({'t_izn_ash','t_izn_bog'}):
+                        self.assertEqual(cell.getchannel('A').getextrema(),(255,255),'Ground must never expose black cell borders')
+            offset+=count
+        self.assertEqual(visible,covered)
 
-    def test_fixed_expedition_is_connected_and_materials_guaranteed(self):
-        rows = json.loads((CONTENT / 'mapgen.json').read_text(encoding='utf-8'))
+    def test_authored_maps_and_guaranteed_materials(self):
+        rows=[r for filename in ['mapgen.json','town_mapgen.json'] for r in json.loads((CONTENT/filename).read_text(encoding='utf-8'))]
         for row in rows:
-            grid = row['object']['rows']
-            self.assertEqual(len(grid), 24)
-            self.assertTrue(all(len(line) == 24 for line in grid))
-        cache = next(r['object'] for r in rows if r['om_terrain'] == 'izn_cache')
-        materials = {i['item']: i['amount'] for i in cache['place_item']}
-        self.assertGreaterEqual(materials['izn_glassbone'], 2)
-        self.assertGreaterEqual(materials['izn_thread'], 2)
-        special = next(r for r in json.loads((CONTENT / 'overmap.json').read_text(encoding='utf-8')) if r.get('id') == 'izn_expedition')
-        self.assertFalse(special['rotate'])
-        coords = {tuple(r['point']) for r in special['overmaps']}
-        reached = {next(iter(coords))}
-        while True:
-            expanded = reached | {p for p in coords if any(abs(p[0]-q[0])+abs(p[1]-q[1])+abs(p[2]-q[2]) == 1 for q in reached)}
-            if expanded == reached:
-                break
-            reached = expanded
-        self.assertEqual(reached, coords)
+            grid=row['object']['rows'];self.assertEqual(len(grid),24)
+            self.assertTrue(all(len(line)==24 for line in grid))
+            self.assertTrue(set(''.join(grid)) <= set(row['object']['terrain']))
+        cache=next(r['object'] for r in rows if r['om_terrain']=='izn_cache')
+        materials={i['item']:i['amount'] for i in cache['place_item']}
+        self.assertGreaterEqual(materials['izn_glassbone'],2);self.assertGreaterEqual(materials['izn_thread'],2)
+        specials=json.loads((CONTENT/'overmap.json').read_text(encoding='utf-8'))
+        for id in ['izn_expedition','izn_town']:
+            special=next(r for r in specials if r.get('id')==id)
+            self.assertFalse(special['rotate'])
+            coords={tuple(r['point']) for r in special['overmaps']};reached={next(iter(coords))}
+            while True:
+                expanded=reached|{p for p in coords if any(sum(abs(a-b) for a,b in zip(p,q))==1 for q in reached)}
+                if expanded==reached:break
+                reached=expanded
+            self.assertEqual(reached,coords)
+        radio=next(r['object'] for r in rows if r['om_terrain']=='izn_radio')
+        self.assertEqual(sum(m.get('repeat',1) for m in radio['place_monster'] if m['monster']=='mon_izn_voice'),3)
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__=='__main__':unittest.main()

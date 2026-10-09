@@ -32,7 +32,7 @@ exact-source combined suite и все четыре content shards. Его пер
 | Aftershock Prime | 0.1.14a-r6 | JSON |
 | Aftershock Prime / Mind Over Matter | 0.1.14a-r2 | JSON compat |
 | Tankmod Revived | 2026.9.23.4-r7 | JSON |
-| [Изнанка: первая экспедиция](mods/iznanka/README.md) | 0.1.0-r1 | JSON + собственные тайлы |
+| [Изнанка: первая экспедиция](mods/iznanka/README.md) | 0.2.0-r1 | JSON + собственные тайлы |
 | UndeadPeople Hybrid v3 | 3.1.1-r5 | tileset |
 | Advanced World Settings | 0.6.1-r3 | native source snapshot, installer-disabled |
 | Survivor Progression | 0.9.15-r2 | native source snapshot, installer-disabled |

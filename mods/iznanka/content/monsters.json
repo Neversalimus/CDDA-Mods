@@ -268,5 +268,179 @@
         "cooldown": 16
       }
     ]
+  },
+  {
+    "type": "MONSTER",
+    "id": "mon_izn_walker",
+    "name": {
+      "str": "сшитый ходок",
+      "str_pl": "сшитые ходоки"
+    },
+    "description": "Несколько тел стянуты красными швами.  Медленно идёт на звук и цепляется за одежду.",
+    "default_faction": "nether",
+    "species": [
+      "NETHER"
+    ],
+    "bodytype": "human",
+    "material": [
+      "flesh"
+    ],
+    "volume": "80 L",
+    "weight": "90 kg",
+    "hp": 240,
+    "speed": 80,
+    "symbol": "I",
+    "color": "light_gray",
+    "aggression": 100,
+    "morale": 100,
+    "melee_skill": 6,
+    "melee_dice": 3,
+    "melee_dice_sides": 6,
+    "dodge": 2,
+    "armor": {
+      "bash": 8,
+      "cut": 12,
+      "bullet": 5
+    },
+    "vision_day": 25,
+    "vision_night": 12,
+    "path_settings": {
+      "max_dist": 30
+    },
+    "flags": [
+      "SEES",
+      "HEARS",
+      "BASHES",
+      "NO_BREATHE"
+    ],
+    "death_function": {
+      "corpse_type": "NO_CORPSE",
+      "message": "%s рассыпается серым пеплом."
+    },
+    "special_attacks": [
+      {
+        "id": "grab",
+        "cooldown": 12
+      }
+    ]
+  },
+  {
+    "type": "MONSTER",
+    "id": "mon_izn_orderly",
+    "name": {
+      "str": "белый санитар",
+      "str_pl": "белые санитары"
+    },
+    "description": "Белая маска не имеет прорезей.  Раз в 20 секунд сращивает раны союзников в радиусе трёх клеток; держите его отдельно от группы.",
+    "default_faction": "nether",
+    "species": [
+      "NETHER"
+    ],
+    "bodytype": "human",
+    "material": [
+      "flesh"
+    ],
+    "volume": "80 L",
+    "weight": "90 kg",
+    "hp": 180,
+    "speed": 100,
+    "symbol": "I",
+    "color": "light_gray",
+    "aggression": 100,
+    "morale": 100,
+    "melee_skill": 6,
+    "melee_dice": 3,
+    "melee_dice_sides": 6,
+    "dodge": 2,
+    "armor": {
+      "bash": 8,
+      "cut": 12,
+      "bullet": 5
+    },
+    "vision_day": 25,
+    "vision_night": 12,
+    "path_settings": {
+      "max_dist": 30
+    },
+    "flags": [
+      "SEES",
+      "HEARS",
+      "BASHES",
+      "NO_BREATHE"
+    ],
+    "death_function": {
+      "corpse_type": "NO_CORPSE",
+      "message": "%s рассыпается серым пеплом."
+    },
+    "special_attacks": [
+      {
+        "type": "spell",
+        "id": "izn_orderly_mend",
+        "spell_data": {
+          "id": "izn_mend_allies",
+          "hit_self": true
+        },
+        "cooldown": 20,
+        "allow_no_target": true,
+        "monster_message": "%s стягивает чужие швы."
+      }
+    ]
+  },
+  {
+    "type": "MONSTER",
+    "id": "mon_izn_voice",
+    "name": {
+      "str": "голос Хора",
+      "str_pl": "голоса Хора"
+    },
+    "description": "Неподвижный орган с раскрытыми ртами.  Крик привлекает уже находящихся рядом существ.  Три таких органа удерживают радиоузел.",
+    "default_faction": "nether",
+    "species": [
+      "NETHER"
+    ],
+    "bodytype": "human",
+    "material": [
+      "flesh"
+    ],
+    "volume": "80 L",
+    "weight": "90 kg",
+    "hp": 300,
+    "speed": 100,
+    "symbol": "I",
+    "color": "light_gray",
+    "aggression": 100,
+    "morale": 100,
+    "melee_skill": 6,
+    "melee_dice": 3,
+    "melee_dice_sides": 6,
+    "dodge": 2,
+    "armor": {
+      "bash": 8,
+      "cut": 12,
+      "bullet": 5
+    },
+    "vision_day": 25,
+    "vision_night": 12,
+    "path_settings": {
+      "max_dist": 30
+    },
+    "flags": [
+      "SEES",
+      "HEARS",
+      "BASHES",
+      "NO_BREATHE",
+      "IMMOBILE"
+    ],
+    "death_function": {
+      "corpse_type": "NO_CORPSE",
+      "message": "%s рассыпается серым пеплом.",
+      "eoc": "IZN_VOICE_DEATH"
+    },
+    "special_attacks": [
+      [
+        "SHRIEK",
+        30
+      ]
+    ]
   }
 ]
