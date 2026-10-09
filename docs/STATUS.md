@@ -1,6 +1,6 @@
 # Current status — 2026-10-09
 
-## Изнанка 0.2.0 — town / UDP art candidate
+## Изнанка 0.2.0 — town / UDP art verified
 
 0.1.0 merged as PR #19 (`a2c86378299095ff137f4c7a14941a797e5d4b45`); all
 its CI passed. New independent town branch, technical/combat solutions, three
@@ -10,7 +10,12 @@ threats, suppressor and UDP-style replacement art. Exact target remains 1807 /
 PR #20 carries the continuation. Official loader and 78 Python tests pass;
 grove terrain was verified in the official graphical client after fixing opaque
 ground behind trees. Discovery rejects a cached non-town position. Full current
-standalone/combined lifecycle remains pending; old 0.1.0 evidence is archived.
+standalone/combined lifecycle passed 146/146 and 146/146 assertions in run
+37997534838 on `cc19b2d52ee031cfde6f07f00c80f52c1790dafa`; normal CI
+37997534832 also passed. Manifest is runtime-tested. The first combined run's
+incorrect last-entry expectation was fixed in the probe; its failed evidence and
+old 0.1.0 evidence remain archived. PR #20 is ready for review, not merged.
+Only evidence/docs/validation metadata changed after the tested payload.
 
 
 ## Изнанка 0.1.0 — first playable expedition

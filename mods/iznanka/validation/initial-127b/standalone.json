@@ -1,0 +1,36 @@
+{
+  "report_kind": "record compiled from decoded GitHub job log and tested git blobs",
+  "repository_commit": "127b2ce578945d89c8586eea56993e6dd75a1670",
+  "target_tag": "cdda-experimental-2026-10-06-1807",
+  "target_source": "074aa98bd5be3de4c35f154082db32a0e63bb0f1",
+  "workflow_run": 37992725305,
+  "workflow_job": 114030787779,
+  "artifact_id": 11647203632,
+  "suite": "standalone",
+  "exit_code": 0,
+  "assertions": {
+    "passed": 141,
+    "failed": 0
+  },
+  "payload_sha256": {
+    "mods/iznanka/content/activities.json": "458ebb47feded24d24241f64e4dee2de938275759f915ca38bc2c3158a2dbe00",
+    "mods/iznanka/content/dimension.json": "dce32eda4131d3bfce9a1976adf04918e772485301bf17c30515af3bbdf2f17d",
+    "mods/iznanka/content/eocs.json": "c89fc1a5d2efe205920db7ace83407751591fe9590411c9233fa2da1f967ea8f",
+    "mods/iznanka/content/items.json": "ff9f9b1274c066fed4ed55f1e07173df36c3e19695bd64c50fb34593364cb5cd",
+    "mods/iznanka/content/iznanka-monsters.png": "a67aaa16caf5780fdc0ce584b6e2649dcb861b08deae6f86ad308a287357e281",
+    "mods/iznanka/content/iznanka-objects.png": "bd494959e0aafa3d8d3cf6b65a25f4ad2f05d7299cd569fa970a0af1c3e0c8de",
+    "mods/iznanka/content/iznanka-terrain.png": "c598c345069991f80a127542d3f9008b3b575d880ab3c4753175f1a30527a0b7",
+    "mods/iznanka/content/mapgen.json": "cec627fe670e1e47517a3008af5065646f93e34670ecdc69f9ae0d542f2903fb",
+    "mods/iznanka/content/modinfo.json": "049e16b48efde1247b7460532872c9d16f76963bb0cb67ae8561cd74aedb8817",
+    "mods/iznanka/content/monsters.json": "758ab8e17a8e421e96f919451935591cb6ceac78a3b6a67659e8d656cdd10b44",
+    "mods/iznanka/content/overmap.json": "06f356e969d59b695aeacb42bfd4b3c9f4fc528c81e7d8245daa19231bcdfb50",
+    "mods/iznanka/content/recipes.json": "b7f7fd4a1403d79026f002f03eaf284cd3183a6efdaa0ec48bbb70a4ddff226f",
+    "mods/iznanka/content/spells.json": "1a5f83f1f318261313821b438af8c6813761201eb7fb2efa7937ef78e3ec5844",
+    "mods/iznanka/content/terrain.json": "060b37e3dd14922ac29f48bea080079613b42f591324a890f714b50badc2c119",
+    "mods/iznanka/content/tileset.json": "2ccd34be42aa996a51a804edd06b924a78b64781a050210ab7fe6d212c3a43d4",
+    "mods/iznanka/content/town_eocs.json": "e7cbdcd6ba4ceafbf3bc5f077e18f0e6266e440454e4edbe4ea9175226444aa6",
+    "mods/iznanka/content/town_mapgen.json": "623a50233e90de1d62cb6c2fef49775a7012ef7640d7491acebc5543cddb757e"
+  },
+  "probe_sha256": "9987c4ea27674d4d9f077343384a125342e4ed55efdf3fdf714815c6f0c40ac6",
+  "log_normalization": "GitHub timestamp prefixes and ANSI escapes removed; runner temporary user directories redacted."
+}
