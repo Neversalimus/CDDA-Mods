@@ -263,7 +263,11 @@ TEST_CASE( "iznanka_expedition_persists_and_returns", "[iznanka_lifecycle]" )
     REQUIRE( g->get_dimension_prefix() == dimension_id( "default" ) );
     CHECK( rl_dist( u.pos_abs(), home ) <= 5 );
     CHECK( u.amount_of( itype_id( "izn_seal" ) ) == seals - 1 );
+    // Return may select a safe adjacent tile. Each entry records the character's
+    // actual departure point, so the reload oracle must track this last entry.
+    const tripoint_abs_ms last_entry = u.pos_abs();
     eoc( "IZN_ENTER" );
+    CHECK( saved_pos( "izn_home" ) == last_entry );
     REQUIRE( g->get_dimension_prefix() == dimension_id( "iznanka" ) );
     warp( pump + tripoint::west );
     CHECK( get_map().furn( get_map().get_bub( pump ) ) == furn_str_id( "f_izn_pump_active" ) );
@@ -281,7 +285,7 @@ TEST_CASE( "iznanka_expedition_persists_and_returns", "[iznanka_lifecycle]" )
     std::cerr << "IZN stage: reload into fresh game" << std::endl;
     REQUIRE( g->load( save ) );
     CHECK( saved_pos( "izn_hub" ) == hub );
-    CHECK( saved_pos( "izn_home" ) == home );
+    CHECK( saved_pos( "izn_home" ) == last_entry );
     warp( hub );
     CHECK( ground_count( stash, "izn_detector" ) == 0 );
     CHECK( ground_count( stash, "izn_glassbone" ) == 1 );
@@ -294,4 +298,5 @@ TEST_CASE( "iznanka_expedition_persists_and_returns", "[iznanka_lifecycle]" )
     CHECK( get_avatar().amount_of( itype_id( "izn_suppressor" ) ) == suppressors + 1 );
     eoc( "IZN_RETURN" );
     CHECK( g->get_dimension_prefix() == dimension_id( "default" ) );
+    CHECK( rl_dist( get_avatar().pos_abs(), last_entry ) <= 5 );
 }
