@@ -1,0 +1,148 @@
+[
+  {
+    "type": "terrain",
+    "id": "t_izn_ash",
+    "name": "пепельная почва",
+    "description": "Сухая серая земля.  Следы заполняются мелким чёрным песком.",
+    "copy-from": "t_dirt",
+    "color": "dark_gray"
+  },
+  {
+    "type": "terrain",
+    "id": "t_izn_tree",
+    "name": "глухое дерево",
+    "description": "Мёртвое дерево.  Под корой проступают линии, похожие на отпечатки пальцев.",
+    "copy-from": "t_tree_dead",
+    "color": "light_gray"
+  },
+  {
+    "type": "terrain",
+    "id": "t_izn_bog",
+    "name": "чёрная топь",
+    "description": "Неглубокая вязкая топь.  По ней можно идти, но медленно.  Вода непригодна для питья.",
+    "symbol": "~",
+    "color": "dark_gray",
+    "move_cost": 6,
+    "flags": [
+      "TRANSPARENT",
+      "LIQUID",
+      "NO_SCENT",
+      "SWIMMABLE",
+      "SHALLOW_WATER"
+    ]
+  },
+  {
+    "type": "furniture",
+    "id": "f_izn_entry",
+    "name": "лесной разлом",
+    "description": "Между белыми корнями нет света.  Вход ведёт в Изнанку.  Обратный проход находится в убежище.  Транспорт, ездовые существа и спутники не переходят.",
+    "symbol": "&",
+    "color": "magenta",
+    "move_cost_mod": 0,
+    "required_str": -1,
+    "flags": [
+      "TRANSPARENT"
+    ],
+    "examine_action": {
+      "type": "effect_on_condition",
+      "effect_on_conditions": [
+        "IZN_ENTER_PROMPT"
+      ]
+    }
+  },
+  {
+    "type": "furniture",
+    "id": "f_izn_exit",
+    "name": "нить домой",
+    "description": "Голубая щель ведёт к последнему лесному разлому, через который вы вошли.  Возвращение бесплатно.",
+    "symbol": "&",
+    "color": "cyan",
+    "move_cost_mod": 0,
+    "required_str": -1,
+    "flags": [
+      "TRANSPARENT"
+    ],
+    "examine_action": {
+      "type": "effect_on_condition",
+      "effect_on_conditions": [
+        "IZN_RETURN_PROMPT"
+      ]
+    }
+  },
+  {
+    "type": "furniture",
+    "id": "f_izn_locker",
+    "name": "шкаф экспедиции",
+    "description": "Внутри уцелела инструкция.  Припасы лежат рядом: детектор и две печати возврата.  Осмотрите шкаф, чтобы прочитать маршрут.",
+    "symbol": "&",
+    "color": "light_gray",
+    "move_cost_mod": -1,
+    "required_str": -1,
+    "flags": [
+      "TRANSPARENT"
+    ],
+    "examine_action": {
+      "type": "effect_on_condition",
+      "effect_on_conditions": [
+        "IZN_JOURNAL"
+      ]
+    }
+  },
+  {
+    "type": "furniture",
+    "id": "f_izn_cairn",
+    "name": "знак из костей",
+    "description": "Красная нить тянется на юг, через мёртвую рощу к насосной.",
+    "symbol": "&",
+    "color": "light_gray",
+    "move_cost_mod": -1,
+    "required_str": -1,
+    "flags": [
+      "TRANSPARENT"
+    ],
+    "examine_action": {
+      "type": "effect_on_condition",
+      "effect_on_conditions": [
+        "IZN_SIGN"
+      ]
+    }
+  },
+  {
+    "type": "furniture",
+    "id": "f_izn_pump",
+    "name": "молчащий насос",
+    "description": "На стыках застыла чёрная смола.  Нужны две стеклокости и две жиловые нити.  Пока хранитель жив, узел не поддаётся.",
+    "symbol": "&",
+    "color": "light_gray",
+    "move_cost_mod": -1,
+    "required_str": -1,
+    "flags": [
+      "TRANSPARENT"
+    ],
+    "examine_action": {
+      "type": "effect_on_condition",
+      "effect_on_conditions": [
+        "IZN_PUMP_PROMPT"
+      ]
+    }
+  },
+  {
+    "type": "furniture",
+    "id": "f_izn_pump_active",
+    "name": "стабилизированный насос",
+    "description": "Насос работает с ритмом чужого сердца.  Узел больше не усиливает резонанс.",
+    "symbol": "&",
+    "color": "cyan",
+    "move_cost_mod": -1,
+    "required_str": -1,
+    "flags": [
+      "TRANSPARENT"
+    ],
+    "examine_action": {
+      "type": "effect_on_condition",
+      "effect_on_conditions": [
+        "IZN_PUMP_DONE"
+      ]
+    }
+  }
+]

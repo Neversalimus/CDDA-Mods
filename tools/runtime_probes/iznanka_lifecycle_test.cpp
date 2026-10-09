@@ -1,0 +1,168 @@
+#include <algorithm>
+#include <string>
+#include "avatar.h"
+#include "calendar.h"
+#include "cata_catch.h"
+#include "coordinates.h"
+#include "creature_tracker.h"
+#include "dialogue.h"
+#include "effect_on_condition.h"
+#include "game.h"
+#include "global_vars.h"
+#include "item.h"
+#include "map.h"
+#include "map_helpers.h"
+#include "math_parser_diag_value.h"
+#include "monster.h"
+#include "mtype.h"
+#include "overmapbuffer.h"
+#include "player_activity.h"
+#include "player_helpers.h"
+#include "talker.h"
+#include "teleport.h"
+#include "type_id.h"
+#include "worldfactory.h"
+
+namespace {
+void eoc( const char *id )
+{
+    const effect_on_condition_id e( id );
+    REQUIRE( e.is_valid() );
+    dialogue d( get_talker_for( get_avatar() ), nullptr );
+    e->activate( d );
+}
+tripoint_abs_ms saved_pos( const char *key )
+{
+    const diag_value *v = get_avatar().maybe_get_value( key );
+    REQUIRE( v != nullptr );
+    return v->tripoint();
+}
+double global_num( const char *key )
+{
+    const diag_value *v = get_globals().maybe_get_global_value( key );
+    return v ? v->dbl() : 0;
+}
+void warp( const tripoint_abs_ms &p )
+{
+    REQUIRE( teleport::teleport_to_point( get_avatar(), get_map().get_bub( p ),
+                                        true, false, false, false, true ) );
+}
+int ground_count( const tripoint_abs_ms &p, const char *id )
+{
+    const auto stack = get_map().i_at( get_map().get_bub( p ) );
+    return std::count_if( stack.begin(), stack.end(), [&]( const item & it ) {
+        return it.typeId() == itype_id( id );
+    } );
+}
+} // namespace
+
+TEST_CASE( "iznanka_expedition_persists_and_returns", "[iznanka_lifecycle]" )
+{
+    clear_creatures();
+    clear_map();
+    clear_avatar();
+    avatar &u = get_avatar();
+    u.name = "Iznanka runtime QA";
+    calendar::turn = calendar::start_of_cataclysm + 7_days;
+    const tripoint_abs_ms home = u.pos_abs();
+    get_map().furn_set( u.pos_bub(), furn_str_id( "f_izn_entry" ) );
+    get_map().add_item_or_charges( u.pos_bub(), item( itype_id( "izn_resin" ), calendar::turn ) );
+    eoc( "IZN_ENTER" );
+    REQUIRE( g->get_dimension_prefix() == dimension_id( "iznanka" ) );
+    const tripoint_abs_ms hub = saved_pos( "izn_hub" );
+    CHECK( rl_dist( u.pos_abs(), hub ) <= 5 );
+    CHECK( get_map().furn( get_map().get_bub( hub ) ) == furn_str_id( "f_izn_exit" ) );
+    CHECK( ground_count( hub, "izn_resin" ) == 0 );
+    const tripoint_abs_ms stash = hub + tripoint( -2, 1, 0 );
+    CHECK( ground_count( stash, "izn_detector" ) == 1 );
+    CHECK( ground_count( stash, "izn_seal" ) == 2 );
+    // Remove the generated cache and leave our own item. Neither may reset on entry.
+    get_map().i_clear( get_map().get_bub( stash ) );
+    get_map().add_item_or_charges( get_map().get_bub( stash ), item( itype_id( "izn_glassbone" ), calendar::turn ) );
+    u.set_value( "izn_resonance", diag_value( 50 ) );
+    eoc( "IZN_RESONANCE" );
+    CHECK( u.get_value( "izn_resonance" ).dbl() == 40 );
+    eoc( "IZN_RETURN" );
+    REQUIRE( g->get_dimension_prefix() == dimension_id( "default" ) );
+    CHECK( rl_dist( u.pos_abs(), home ) <= 5 );
+    CHECK( ground_count( home, "izn_resin" ) == 1 );
+    eoc( "IZN_RESONANCE" );
+    CHECK( u.get_value( "izn_resonance" ).dbl() == 40 );
+    eoc( "IZN_ENTER" );
+    REQUIRE( g->get_dimension_prefix() == dimension_id( "iznanka" ) );
+    CHECK( saved_pos( "izn_hub" ) == hub );
+    CHECK( ground_count( stash, "izn_detector" ) == 0 );
+    CHECK( ground_count( stash, "izn_glassbone" ) == 1 );
+
+    // Full game save/load, not just variable serialization.
+    const std::string save = world_generator->active_world->world_name;
+    REQUIRE( g->save() );
+    REQUIRE( g->load( save ) );
+    REQUIRE( g->get_dimension_prefix() == dimension_id( "iznanka" ) );
+    CHECK( saved_pos( "izn_hub" ) == hub );
+    CHECK( saved_pos( "izn_home" ) == home );
+    CHECK( ground_count( stash, "izn_glassbone" ) == 1 );
+
+    // Authored special: pump two OMTs south; cache east of the central trail.
+    const tripoint_abs_ms pump = hub + tripoint( 0, 49, 0 );
+    warp( pump + tripoint::west );
+    REQUIRE( get_map().furn( get_map().get_bub( pump ) ) == furn_str_id( "f_izn_pump" ) );
+    eoc( "IZN_PUMP" );
+    CHECK( global_num( "izn_node_done" ) == 0 );
+    bool found_warden = false;
+    for( monster &m : g->all_monsters() ) {
+        if( m.type->id == mtype_id( "mon_izn_warden" ) ) {
+            found_warden = true;
+            m.die( &get_map(), &u );
+        }
+    }
+    REQUIRE( found_warden );
+    CHECK( global_num( "izn_warden_dead" ) == 1 );
+    clear_creatures();
+    u.wear_item( item( itype_id( "debug_backpack" ), calendar::turn ), false );
+    for( int n = 0; n < 2; ++n ) {
+        u.i_add( item( itype_id( "izn_glassbone" ), calendar::turn ) );
+        u.i_add( item( itype_id( "izn_thread" ), calendar::turn ) );
+    }
+    eoc( "IZN_PUMP" );
+    CHECK( global_num( "izn_node_done" ) == 1 );
+    CHECK( get_map().furn( get_map().get_bub( pump ) ) == furn_str_id( "f_izn_pump_active" ) );
+    CHECK( u.has_amount( itype_id( "izn_heart" ), 1 ) );
+    CHECK_FALSE( u.has_amount( itype_id( "izn_glassbone" ), 1 ) );
+    eoc( "IZN_PUMP" );
+    CHECK_FALSE( u.has_amount( itype_id( "izn_heart" ), 2 ) );
+    u.set_value( "izn_resonance", diag_value( 99 ) );
+    eoc( "IZN_RESONANCE" );
+    CHECK( u.get_value( "izn_resonance" ).dbl() == 100 );
+    eoc( "IZN_HEART" );
+    CHECK( u.get_value( "izn_resonance" ).dbl() == 60 );
+    eoc( "IZN_HEART" );
+    CHECK( u.get_value( "izn_resonance" ).dbl() == 60 );
+
+    // Interrupted activity consumes nothing; successful completion consumes exactly one.
+    const int seals = u.amount_of( itype_id( "izn_seal" ) );
+    REQUIRE( seals >= 1 );
+    eoc( "IZN_SEAL_BEGIN" );
+    CHECK( u.activity.id() == activity_id( "ACT_IZN_RETURN" ) );
+    u.cancel_activity();
+    CHECK( u.amount_of( itype_id( "izn_seal" ) ) == seals );
+    eoc( "IZN_SEAL_BEGIN" );
+    u.activity.moves_left = 0;
+    u.activity.do_turn( u );
+    REQUIRE( g->get_dimension_prefix() == dimension_id( "default" ) );
+    CHECK( rl_dist( u.pos_abs(), home ) <= 5 );
+    CHECK( u.amount_of( itype_id( "izn_seal" ) ) == seals - 1 );
+    eoc( "IZN_ENTER" );
+    REQUIRE( g->get_dimension_prefix() == dimension_id( "iznanka" ) );
+    warp( pump + tripoint::west );
+    CHECK( get_map().furn( get_map().get_bub( pump ) ) == furn_str_id( "f_izn_pump_active" ) );
+    CHECK( global_num( "izn_node_done" ) == 1 );
+    for( const monster &m : g->all_monsters() ) {
+        CHECK( m.type->id != mtype_id( "mon_izn_warden" ) );
+    }
+    REQUIRE( g->save() );
+    REQUIRE( g->load( save ) );
+    CHECK( global_num( "izn_node_done" ) == 1 );
+    eoc( "IZN_RETURN" );
+    CHECK( g->get_dimension_prefix() == dimension_id( "default" ) );
+}

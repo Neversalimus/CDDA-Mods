@@ -1,0 +1,117 @@
+[
+  {
+    "type": "mod_tileset",
+    "compatibility": [
+      "UndeadPeople_0J_Hybrid_v3"
+    ],
+    "tiles-new": [
+      {
+        "file": "iznanka.png",
+        "sprite_width": 32,
+        "sprite_height": 32,
+        "tiles": [
+          {
+            "id": "mon_izn_listener",
+            "fg": 0,
+            "rotates": false
+          },
+          {
+            "id": "mon_izn_deer",
+            "fg": 1,
+            "rotates": false
+          },
+          {
+            "id": "mon_izn_crawler",
+            "fg": 2,
+            "rotates": false
+          },
+          {
+            "id": "mon_izn_drowned",
+            "fg": 3,
+            "rotates": false
+          },
+          {
+            "id": "mon_izn_warden",
+            "fg": 4,
+            "rotates": false
+          },
+          {
+            "id": "f_izn_entry",
+            "fg": 5,
+            "rotates": false
+          },
+          {
+            "id": "f_izn_exit",
+            "fg": 6,
+            "rotates": false
+          },
+          {
+            "id": "t_izn_tree",
+            "fg": 7,
+            "rotates": false
+          },
+          {
+            "id": "izn_detector",
+            "fg": 8,
+            "rotates": false
+          },
+          {
+            "id": "izn_seal",
+            "fg": 9,
+            "rotates": false
+          },
+          {
+            "id": "izn_glassbone",
+            "fg": 10,
+            "rotates": false
+          },
+          {
+            "id": "izn_resin",
+            "fg": 11,
+            "rotates": false
+          },
+          {
+            "id": "izn_thread",
+            "fg": 12,
+            "rotates": false
+          },
+          {
+            "id": "izn_heart",
+            "fg": 13,
+            "rotates": false
+          },
+          {
+            "id": "f_izn_pump",
+            "fg": 14,
+            "rotates": false
+          },
+          {
+            "id": "f_izn_pump_active",
+            "fg": 15,
+            "rotates": false
+          },
+          {
+            "id": "t_izn_ash",
+            "fg": 16,
+            "rotates": false
+          },
+          {
+            "id": "t_izn_bog",
+            "fg": 17,
+            "rotates": false
+          },
+          {
+            "id": "f_izn_locker",
+            "fg": 18,
+            "rotates": false
+          },
+          {
+            "id": "f_izn_cairn",
+            "fg": 19,
+            "rotates": false
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,48 @@
+name: Iznanka exact-1807 lifecycle
+on:
+  pull_request:
+    paths:
+      - 'mods/iznanka/**'
+      - 'tools/check_iznanka_runtime.py'
+      - 'tools/runtime_probes/iznanka_lifecycle_test.cpp'
+      - '.github/workflows/iznanka-runtime.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: iznanka-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  lifecycle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: CleverRaven/Cataclysm-DDA
+          ref: 074aa98bd5be3de4c35f154082db32a0e63bb0f1
+          path: external/cdda
+      - name: Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential libncurses-dev zlib1g-dev ccache
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ccache
+          key: iznanka-1807-curses-${{ runner.os }}-${{ hashFiles('tools/runtime_probes/iznanka_lifecycle_test.cpp') }}
+          restore-keys: iznanka-1807-curses-${{ runner.os }}-
+      - name: Prepare exact-source collection
+        run: python tools/check_iznanka_runtime.py --cdda-root external/cdda --prepare
+      - name: Build unmodified engine and lifecycle probe
+        working-directory: external/cdda
+        run: make -j2 tests LOCALIZE=0 TILES=0 SOUND=0 ASTYLE=0 LINTJSON=0 BACKTRACE=0 DEBUGSYMS= NOOPT=1 CCACHE=1
+      - name: Standalone lifecycle
+        run: python tools/check_iznanka_runtime.py --cdda-root external/cdda --out evidence/standalone
+      - name: Combined-stack lifecycle
+        run: python tools/check_iznanka_runtime.py --cdda-root external/cdda --combined --out evidence/combined
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Iznanka-runtime-evidence
+          path: evidence/

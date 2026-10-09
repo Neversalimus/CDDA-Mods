@@ -1,0 +1,35 @@
+[
+  {
+    "type": "activity_type",
+    "id": "ACT_IZN_RETURN",
+    "activity_level": "NO_EXERCISE",
+    "verb": "удерживаете нить домой",
+    "based_on": "time",
+    "can_resume": false,
+    "rooted": true,
+    "completion_eoc": "IZN_SEAL_FINISH"
+  },
+  {
+    "type": "effect_type",
+    "id": "izn_heart_cooldown",
+    "name": [
+      "Сердце восстанавливается"
+    ],
+    "desc": [
+      "Сердце тихого узла пока не может поглощать резонанс."
+    ],
+    "max_intensity": 1
+  },
+  {
+    "type": "ter_furn_transform",
+    "id": "izn_pump_activate",
+    "furniture": [
+      {
+        "result": "f_izn_pump_active",
+        "valid_furniture": [
+          "f_izn_pump"
+        ]
+      }
+    ]
+  }
+]

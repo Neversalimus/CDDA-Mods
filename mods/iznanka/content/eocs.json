@@ -1,0 +1,737 @@
+[
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_ENTER_PROMPT",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "if": {
+          "u_query": "Войти в Изнанку?  Спутники и транспорт останутся здесь.  В убежище есть бесплатный выход.",
+          "default": false
+        },
+        "then": [
+          {
+            "run_eocs": "IZN_ENTER"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_ENTER",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "u_location_variable": {
+          "u_val": "izn_home"
+        }
+      },
+      {
+        "u_travel_to_dimension": "iznanka",
+        "npc_travel_radius": 0,
+        "npc_travel_filter": "none",
+        "item_travel_radius": -1,
+        "take_vehicle": false
+      },
+      {
+        "if": {
+          "current_dimension": "iznanka"
+        },
+        "then": [
+          {
+            "if": {
+              "math": [
+                "!has_var(u_izn_hub)"
+              ]
+            },
+            "then": [
+              {
+                "u_location_variable": {
+                  "u_val": "izn_hub"
+                },
+                "target_params": {
+                  "om_terrain": "izn_refuge",
+                  "om_special": "izn_expedition",
+                  "z": 0
+                },
+                "furniture": "f_izn_exit",
+                "target_max_radius": 24,
+                "false_eocs": [
+                  "IZN_ENTRY_ABORT"
+                ]
+              }
+            ]
+          },
+          {
+            "if": {
+              "and": [
+                {
+                  "current_dimension": "iznanka"
+                },
+                {
+                  "math": [
+                    "has_var(u_izn_hub)"
+                  ]
+                }
+              ]
+            },
+            "then": [
+              {
+                "u_teleport": {
+                  "u_val": "izn_hub"
+                },
+                "force_safe": true
+              },
+              {
+                "if": {
+                  "math": [
+                    "distance('u', u_izn_hub) <= 5"
+                  ]
+                },
+                "then": [
+                  {
+                    "math": [
+                      "u_izn_visits += 1"
+                    ]
+                  },
+                  {
+                    "reveal_map": {
+                      "u_val": "izn_hub"
+                    },
+                    "radius": 3
+                  },
+                  {
+                    "u_message": "Тишина давит на уши.  Нить домой остаётся за вашей спиной."
+                  }
+                ],
+                "else": [
+                  {
+                    "run_eocs": "IZN_ENTRY_ABORT"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "condition": {
+      "and": [
+        {
+          "current_dimension": "default"
+        },
+        {
+          "and": [
+            {
+              "not": "u_is_in_vehicle"
+            },
+            {
+              "not": {
+                "u_has_effect": "riding"
+              }
+            },
+            {
+              "test_eoc": "EOC_PORTAL_STORM_CONDITION_FLAG_DIMENSIONAL_ANCHOR"
+            }
+          ]
+        }
+      ]
+    },
+    "false_effect": [
+      {
+        "u_message": "Разлом не принимает вас.  Выйдите из транспорта, спешьтесь и проверьте пространственный якорь."
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_ENTRY_ABORT",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "u_travel_to_dimension": "default",
+        "npc_travel_radius": 0,
+        "npc_travel_filter": "none",
+        "item_travel_radius": -1,
+        "take_vehicle": false
+      },
+      {
+        "if": {
+          "current_dimension": "default"
+        },
+        "then": [
+          {
+            "u_teleport": {
+              "u_val": "izn_home"
+            },
+            "force_safe": true
+          },
+          {
+            "u_message": "Переход не нашёл безопасной площадки и вернул вас к входу."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_RETURN_PROMPT",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "if": {
+          "u_query": "Вернуться к лесному разлому?",
+          "default": false
+        },
+        "then": [
+          {
+            "run_eocs": "IZN_RETURN"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_RETURN",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "math": [
+          "u_izn_return_ok = 0"
+        ]
+      },
+      {
+        "u_location_variable": {
+          "u_val": "izn_before_return"
+        }
+      },
+      {
+        "u_travel_to_dimension": "default",
+        "npc_travel_radius": 0,
+        "npc_travel_filter": "none",
+        "item_travel_radius": -1,
+        "take_vehicle": false
+      },
+      {
+        "if": {
+          "current_dimension": "default"
+        },
+        "then": [
+          {
+            "u_teleport": {
+              "u_val": "izn_home"
+            },
+            "force_safe": true
+          },
+          {
+            "if": {
+              "math": [
+                "distance('u', u_izn_home) <= 5"
+              ]
+            },
+            "then": [
+              {
+                "math": [
+                  "u_izn_return_ok = 1"
+                ]
+              },
+              {
+                "u_message": "Снова слышны обычные птицы."
+              }
+            ],
+            "else": [
+              {
+                "u_travel_to_dimension": "iznanka",
+                "npc_travel_radius": 0,
+                "npc_travel_filter": "none",
+                "item_travel_radius": -1,
+                "take_vehicle": false
+              },
+              {
+                "if": {
+                  "current_dimension": "iznanka"
+                },
+                "then": [
+                  {
+                    "u_teleport": {
+                      "u_val": "izn_before_return"
+                    },
+                    "force_safe": true
+                  },
+                  {
+                    "u_message": "Выход перекрыт.  Нить оттолкнула вас обратно; печать сохранена."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "condition": {
+      "and": [
+        {
+          "current_dimension": "iznanka"
+        },
+        {
+          "and": [
+            {
+              "not": "u_is_in_vehicle"
+            },
+            {
+              "not": {
+                "u_has_effect": "riding"
+              }
+            },
+            {
+              "test_eoc": "EOC_PORTAL_STORM_CONDITION_FLAG_DIMENSIONAL_ANCHOR"
+            }
+          ]
+        },
+        {
+          "math": [
+            "has_var(u_izn_home)"
+          ]
+        }
+      ]
+    },
+    "false_effect": [
+      {
+        "math": [
+          "u_izn_return_ok = 0"
+        ]
+      },
+      {
+        "u_message": "Нет доступного пути домой.  Проверьте транспорт, ездовое существо и пространственный якорь."
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_SEAL_BEGIN",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "u_location_variable": {
+          "u_val": "izn_seal_start"
+        }
+      },
+      {
+        "u_assign_activity": "ACT_IZN_RETURN",
+        "duration": "60 seconds"
+      },
+      {
+        "u_message": "Вы расправляете печать.  Нужно удерживать нить одну минуту."
+      }
+    ],
+    "condition": {
+      "and": [
+        {
+          "current_dimension": "iznanka"
+        },
+        {
+          "and": [
+            {
+              "not": "u_is_in_vehicle"
+            },
+            {
+              "not": {
+                "u_has_effect": "riding"
+              }
+            },
+            {
+              "test_eoc": "EOC_PORTAL_STORM_CONDITION_FLAG_DIMENSIONAL_ANCHOR"
+            }
+          ]
+        },
+        {
+          "math": [
+            "has_var(u_izn_home)"
+          ]
+        },
+        {
+          "u_has_item": "izn_seal"
+        }
+      ]
+    },
+    "false_effect": [
+      {
+        "u_message": "Печать действует только в Изнанке после входа через лесной разлом."
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_SEAL_FINISH",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "run_eocs": "IZN_RETURN"
+      },
+      {
+        "if": {
+          "and": [
+            {
+              "current_dimension": "default"
+            },
+            {
+              "math": [
+                "u_izn_return_ok == 1"
+              ]
+            }
+          ]
+        },
+        "then": [
+          {
+            "u_consume_item": "izn_seal",
+            "count": 1
+          }
+        ]
+      }
+    ],
+    "condition": {
+      "and": [
+        {
+          "current_dimension": "iznanka"
+        },
+        {
+          "u_has_item": "izn_seal"
+        },
+        {
+          "math": [
+            "distance('u', u_izn_seal_start) <= 0"
+          ]
+        }
+      ]
+    },
+    "false_effect": [
+      {
+        "u_message": "Нить оборвалась.  Печать не израсходована."
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_SIGN",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "u_message": "Нацарапано: «Насосная — южнее.  Материалы — на заставе к востоку от тропы.  Шум ведёт слепых.  Воду обходи по сухим полосам»."
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_JOURNAL",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "u_message": "ЭКСПЕДИЦИЯ 01.  Возьмите детектор и печати рядом со шкафом.  Идите на юг через рощу; на восточной заставе лежат две стеклокости и две жиловые нити.  Убейте хранителя в южной насосной и осмотрите насос с материалами в инвентаре.  Вернитесь за наградой к насосу.  Печать требует минуты покоя; портал в убежище работает сразу и бесплатно.  Резонанс растёт каждые две минуты вне убежища.  При 75 начинаются судороги; при 100 — тревожное эхо.  Отдохните здесь или используйте смолу.  Рекомендуются хорошая броня, мощное оружие, свет, лекарства и запас еды.  Дальнейшие области ещё не открыты."
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_DETECT",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "u_message": "Резонанс: <u_val:izn_resonance>/100.  Посещений: <u_val:izn_visits>.  Хранитель повержен: <global_val:izn_warden_dead>.  Узел стабилизирован: <global_val:izn_node_done>."
+      },
+      {
+        "if": {
+          "math": [
+            "izn_node_done == 1"
+          ]
+        },
+        "then": [
+          {
+            "u_message": "Первая экспедиция завершена.  Сердце узла можно использовать для дальнейшей разведки."
+          }
+        ],
+        "else": [
+          {
+            "u_message": "Цель: материалы на восточной заставе → хранитель → насосная."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_WARDEN_DEATH",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "math": [
+          "izn_warden_dead = 1"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_PUMP_PROMPT",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "if": {
+          "u_query": "Стабилизировать узел?  Требуются 2 стеклокости и 2 жиловые нити.",
+          "default": false
+        },
+        "then": [
+          {
+            "run_eocs": "IZN_PUMP"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_PUMP",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "u_consume_item": "izn_glassbone",
+        "count": 2
+      },
+      {
+        "u_consume_item": "izn_thread",
+        "count": 2
+      },
+      {
+        "math": [
+          "izn_node_done = 1"
+        ]
+      },
+      {
+        "math": [
+          "u_izn_resonance = 0"
+        ]
+      },
+      {
+        "u_transform_radius": 2,
+        "ter_furn_transform": "izn_pump_activate"
+      },
+      {
+        "u_spawn_item": "izn_heart",
+        "count": 1
+      },
+      {
+        "u_spawn_item": "izn_seal",
+        "count": 2
+      },
+      {
+        "u_message": "Насос делает первый вдох.  Шум в голове стихает.  Из кожуха выпадает сердце тихого узла и две печати.  Первая экспедиция завершена."
+      }
+    ],
+    "condition": {
+      "and": [
+        {
+          "current_dimension": "iznanka"
+        },
+        {
+          "math": [
+            "izn_node_done == 0"
+          ]
+        },
+        {
+          "math": [
+            "izn_warden_dead == 1"
+          ]
+        },
+        {
+          "u_has_items": {
+            "item": "izn_glassbone",
+            "count": 2
+          }
+        },
+        {
+          "u_has_items": {
+            "item": "izn_thread",
+            "count": 2
+          }
+        },
+        {
+          "math": [
+            "u_monsters_nearby('radius': 12, 'attitude': 'hostile') == 0"
+          ]
+        }
+      ]
+    },
+    "false_effect": [
+      {
+        "u_message": "Узел не поддаётся.  Нужны смерть хранителя, тишина вокруг и по две стеклокости и жиловые нити.  Повторной награды нет."
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_PUMP_DONE",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "u_message": "Узел уже стабилизирован.  Его сердце принадлежит вам; новых наград здесь нет."
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_RESIN",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "u_consume_item": "izn_resin",
+        "count": 1
+      },
+      {
+        "math": [
+          "u_izn_resonance = max(0, u_izn_resonance - 25)"
+        ]
+      },
+      {
+        "u_message": "Смола рассыпается.  Чужое эхо стало слабее."
+      }
+    ],
+    "condition": {
+      "and": [
+        {
+          "current_dimension": "iznanka"
+        },
+        {
+          "math": [
+            "u_izn_resonance > 0"
+          ]
+        },
+        {
+          "u_has_item": "izn_resin"
+        }
+      ]
+    },
+    "false_effect": [
+      {
+        "u_message": "Сейчас смола ничего не поглотит."
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_HEART",
+    "eoc_type": "ACTIVATION",
+    "effect": [
+      {
+        "math": [
+          "u_izn_resonance = max(0, u_izn_resonance - 40)"
+        ]
+      },
+      {
+        "u_add_effect": "izn_heart_cooldown",
+        "duration": "30 minutes"
+      },
+      {
+        "u_message": "Сердце пропускает удар.  Резонанс ослабевает."
+      }
+    ],
+    "condition": {
+      "and": [
+        {
+          "current_dimension": "iznanka"
+        },
+        {
+          "math": [
+            "u_izn_resonance > 0"
+          ]
+        },
+        {
+          "not": {
+            "u_has_effect": "izn_heart_cooldown"
+          }
+        }
+      ]
+    },
+    "false_effect": [
+      {
+        "u_message": "Сердце ещё не готово или эхо уже стихло."
+      }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "IZN_RESONANCE",
+    "eoc_type": "RECURRING",
+    "effect": [
+      {
+        "if": {
+          "and": [
+            {
+              "math": [
+                "has_var(u_izn_hub)"
+              ]
+            },
+            {
+              "math": [
+                "distance('u', u_izn_hub) <= 18"
+              ]
+            }
+          ]
+        },
+        "then": [
+          {
+            "math": [
+              "u_izn_resonance = max(0, u_izn_resonance - 10)"
+            ]
+          }
+        ],
+        "else": [
+          {
+            "math": [
+              "u_izn_resonance = min(100, u_izn_resonance + 4 - 2 * izn_node_done)"
+            ]
+          }
+        ]
+      },
+      {
+        "if": {
+          "math": [
+            "u_izn_resonance >= 75"
+          ]
+        },
+        "then": [
+          {
+            "u_add_effect": "shakes",
+            "duration": "2 minutes"
+          },
+          {
+            "u_message": "Ваши руки дрожат в ритме насоса.  Пора отступать или гасить резонанс."
+          }
+        ]
+      },
+      {
+        "if": {
+          "math": [
+            "u_izn_resonance >= 100"
+          ]
+        },
+        "then": [
+          {
+            "u_add_morale": "morale_feeling_bad",
+            "bonus": -20,
+            "max_bonus": -20,
+            "duration": "3 minutes",
+            "decay_start": "2 minutes"
+          },
+          {
+            "u_message": "За спиной слышны ваши собственные шаги, хотя вы стоите."
+          }
+        ]
+      }
+    ],
+    "condition": {
+      "current_dimension": "iznanka"
+    },
+    "recurrence": "2 minutes"
+  }
+]

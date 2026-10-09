@@ -1,5 +1,16 @@
 # Handoff — 2026-10-09
 
+## Изнанка 0.1.0 — first expedition candidate
+
+Added a separate `iznanka` installer profile (mod + UndeadPeople Hybrid), limited
+to exact CDDA `2026-10-06-1807` / `074aa98bd5be3de4c35f154082db32a0e63bb0f1`.
+Forest portal, persistent dimension, refuge/woods/marsh expedition, five enemies,
+six items, one progression node and 20 sprites. Full design expansion is pending.
+Official release loader and static/package checks pass; exact-source lifecycle and
+Windows CI status are tracked in [Iznanka validation](../mods/iznanka/VALIDATION.md).
+Existing all-content selection and native modules are unchanged.
+
+
 ## 2026-10-09 — Complete generated-art review (UndeadPeople 3.1.1-r5)
 
 Baseline: `f8debb4f8b8177f59fa65bf5602765f776d34e8b`.
