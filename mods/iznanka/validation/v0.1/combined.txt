@@ -1,0 +1,72 @@
+
+
+-----------------------------------------
+14:16:30.447 : Starting log.
+14:16:30.447 INFO : Cataclysm DDA version cdda-experimental-2026-10-06-1807 074aa98-dirty
+14:16:30.447 INFO : Randomness seeded to: 4242
+
+14:16:30.447 INFO : Running Catch2 session:
+Filters: [iznanka_lifecycle]
+
+14:16:30.450 INFO : [options] C locale set to C
+14:16:30.450 INFO : [options] C++ locale set to C
+14:16:46.011 INFO : src/mod_tracker.h:68: Tried check if 'CC_ELECTRONIC' had a duplicate, but type 'crafting_category' does not track object sources
+14:16:48.477 INFO : src/mod_tracker.h:68: Tried check if 'lab_surface_big' had a duplicate, but type 'overmap_special' does not track object sources
+14:16:48.486 INFO : src/mod_tracker.h:68: Tried check if 'default' had a duplicate, but type 'region_settings_city' does not track object sources
+14:16:48.486 INFO : src/mod_tracker.h:68: Tried check if 'default' had a duplicate, but type 'region_settings_map_extras' does not track object sources
+14:16:48.486 INFO : src/mod_tracker.h:68: Tried check if 'forest_water' had a duplicate, but type 'map_extra_collection' does not track object sources
+14:16:49.653 INFO : src/mod_tracker.h:68: Tried check if 'mom_mycus_world_t_region_tree_evergreen' had a duplicate, but type 'region_terrain_furniture' does not track object sources
+14:16:52.995 WARNING : <color_light_red>Secronom+ Lore Expansion</color> pack load time:: 354999us (avg: 354999us) (count: 1)
+14:16:52.995 WARNING : <color_light_red>Secronom</color> pack load time:: 922567us (avg: 922567us) (count: 1)
+14:16:52.995 WARNING : AXIOM-7 pack load time:: 111775us (avg: 111775us) (count: 1)
+14:16:52.995 WARNING : Aftershock Prime - Mind Over Matter Compatibility pack load time:: 1339us (avg: 1339us) (count: 1)
+14:16:52.995 WARNING : Aftershock: Prime Integration pack load time:: 887206us (avg: 887206us) (count: 1)
+14:16:52.995 WARNING : Blazemod - Vehicle Additions Pack pack load time:: 214408us (avg: 214408us) (count: 1)
+14:16:52.995 WARNING : Dark Days Ahead pack load time:: 15395914us (avg: 15395914us) (count: 1)
+14:16:52.995 WARNING : Mind Over Matter pack load time:: 4004719us (avg: 4004719us) (count: 1)
+14:16:52.995 WARNING : TESTING DATA pack load time:: 400963us (avg: 400963us) (count: 1)
+14:16:52.995 WARNING : Tankmod: Revived pack load time:: 84209us (avg: 84209us) (count: 1)
+14:16:52.995 WARNING : Изнанка: первая экспедиция pack load time:: 23973us (avg: 23973us) (count: 1)
+14:20:43.658 INFO : Game data loaded
+IZN stage: IZN_ENTER
+IZN stage: IZN_RESONANCE
+IZN stage: IZN_RETURN
+IZN stage: IZN_RESONANCE
+IZN stage: IZN_ENTER
+IZN stage: IZN_PUMP
+IZN stage: IZN_PUMP
+IZN stage: IZN_PUMP
+IZN stage: IZN_RESONANCE
+IZN stage: IZN_HEART
+IZN stage: IZN_HEART
+IZN stage: IZN_SEAL_BEGIN
+IZN stage: IZN_SEAL_BEGIN
+IZN stage: IZN_SEAL_BEGIN
+IZN stage: IZN_ENTER
+IZN stage: reload into fresh game
+
+14:21:46.793 WARNING : opendir [<QA_ROOT>/iznanka-combined-fresh/user-np74hn61/cache] failed with "No such file or directory".
+14:21:48.876 INFO : src/mod_tracker.h:68: Tried check if 'vector_null' had a duplicate, but type 'attack_vector' does not track object sources
+14:21:49.176 INFO : src/mod_tracker.h:68: Tried check if 'death_tombstone' had a duplicate, but type 'end_screen' does not track object sources
+14:21:49.350 INFO : src/mod_tracker.h:68: Tried check if 'adult_basic_background' had a duplicate, but type 'profession_group' does not track object sources
+14:21:49.840 INFO : src/mod_tracker.h:68: Tried check if 'plate_lc' had a duplicate, but type 'fault_group' does not track object sources
+14:22:04.065 INFO : src/mod_tracker.h:68: Tried check if 'default' had a duplicate, but type 'dimension_region_layout' does not track object sources
+14:22:04.066 INFO : src/mod_tracker.h:68: Tried check if 'default' had a duplicate, but type 'dimension_world' does not track object sources
+14:22:10.601 WARNING : <color_light_red>Secronom+ Lore Expansion</color> pack load time:: 640085us (avg: 320042us) (count: 2)
+14:22:10.601 WARNING : <color_light_red>Secronom</color> pack load time:: 1735127us (avg: 867563us) (count: 2)
+14:22:10.601 WARNING : AXIOM-7 pack load time:: 194147us (avg: 97073us) (count: 2)
+14:22:10.601 WARNING : Aftershock Prime - Mind Over Matter Compatibility pack load time:: 2169us (avg: 1084us) (count: 2)
+14:22:10.601 WARNING : Aftershock: Prime Integration pack load time:: 1636126us (avg: 818063us) (count: 2)
+14:22:10.601 WARNING : Blazemod - Vehicle Additions Pack pack load time:: 386506us (avg: 193253us) (count: 2)
+14:22:10.601 WARNING : Dark Days Ahead pack load time:: 30943431us (avg: 15471715us) (count: 2)
+14:22:10.601 WARNING : Mind Over Matter pack load time:: 7650106us (avg: 3825053us) (count: 2)
+14:22:10.601 WARNING : TESTING DATA pack load time:: 737404us (avg: 368702us) (count: 2)
+14:22:10.601 WARNING : Tankmod: Revived pack load time:: 145910us (avg: 72955us) (count: 2)
+14:22:10.601 WARNING : Изнанка: первая экспедиция pack load time:: 47101us (avg: 23550us) (count: 2)IZN stage: IZN_RETURN
+===============================================================================
+All tests passed (70 assertions in 1 test case)
+
+
+14:25:41.239 INFO : Finished in 550.79 seconds
+14:25:41.239 INFO : Randomness seeded to: 4242
+

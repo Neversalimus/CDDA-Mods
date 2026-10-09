@@ -31,5 +31,105 @@
         ]
       }
     ]
+  },
+  {
+    "type": "activity_type",
+    "id": "ACT_IZN_TUNE_A",
+    "activity_level": "LIGHT_EXERCISE",
+    "verb": "согласуете канал",
+    "based_on": "time",
+    "can_resume": false,
+    "rooted": true,
+    "completion_eoc": "IZN_TUNE_A_FINISH"
+  },
+  {
+    "type": "ter_furn_transform",
+    "id": "izn_tune_a",
+    "furniture": [
+      {
+        "result": "f_izn_tuner_a_done",
+        "valid_furniture": [
+          "f_izn_tuner_a"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "activity_type",
+    "id": "ACT_IZN_TUNE_B",
+    "activity_level": "LIGHT_EXERCISE",
+    "verb": "согласуете канал",
+    "based_on": "time",
+    "can_resume": false,
+    "rooted": true,
+    "completion_eoc": "IZN_TUNE_B_FINISH"
+  },
+  {
+    "type": "ter_furn_transform",
+    "id": "izn_tune_b",
+    "furniture": [
+      {
+        "result": "f_izn_tuner_b_done",
+        "valid_furniture": [
+          "f_izn_tuner_b"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "activity_type",
+    "id": "ACT_IZN_TUNE_C",
+    "activity_level": "LIGHT_EXERCISE",
+    "verb": "согласуете канал",
+    "based_on": "time",
+    "can_resume": false,
+    "rooted": true,
+    "completion_eoc": "IZN_TUNE_C_FINISH"
+  },
+  {
+    "type": "ter_furn_transform",
+    "id": "izn_tune_c",
+    "furniture": [
+      {
+        "result": "f_izn_tuner_c_done",
+        "valid_furniture": [
+          "f_izn_tuner_c"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "ter_furn_transform",
+    "id": "izn_radio_activate",
+    "furniture": [
+      {
+        "result": "f_izn_radio_active",
+        "valid_furniture": [
+          "f_izn_radio"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "effect_type",
+    "id": "izn_suppressed",
+    "name": [
+      "Подавление резонанса"
+    ],
+    "desc": [
+      "Резонанс растёт вдвое медленнее."
+    ],
+    "max_intensity": 1
+  },
+  {
+    "type": "effect_type",
+    "id": "izn_suppressor_cooldown",
+    "name": [
+      "Подавитель остывает"
+    ],
+    "desc": [
+      "Подавитель пока нельзя включить повторно."
+    ],
+    "max_intensity": 1
   }
 ]

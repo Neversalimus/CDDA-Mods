@@ -144,5 +144,157 @@
         "IZN_PUMP_DONE"
       ]
     }
+  },
+  {
+    "type": "furniture",
+    "id": "f_izn_radio",
+    "name": "молчащий радиоузел",
+    "description": "Хор держит эфир.  Уничтожьте три голосовых органа либо настройте пульты в больнице, жилом блоке и мастерской.",
+    "symbol": "&",
+    "color": "light_gray",
+    "move_cost_mod": -1,
+    "required_str": -1,
+    "flags": [
+      "TRANSPARENT"
+    ],
+    "examine_action": {
+      "type": "effect_on_condition",
+      "effect_on_conditions": [
+        "IZN_RADIO_PROMPT"
+      ]
+    }
+  },
+  {
+    "type": "furniture",
+    "id": "f_izn_radio_active",
+    "name": "согласованный радиоузел",
+    "description": "Второй узел работает.  Здесь можно вновь изучить рецепт подавителя.",
+    "symbol": "&",
+    "color": "light_gray",
+    "move_cost_mod": -1,
+    "required_str": -1,
+    "flags": [
+      "TRANSPARENT"
+    ],
+    "examine_action": {
+      "type": "effect_on_condition",
+      "effect_on_conditions": [
+        "IZN_RADIO_DONE"
+      ]
+    }
+  },
+  {
+    "type": "furniture",
+    "id": "f_izn_tuner_a",
+    "name": "пульт: больничное крыло",
+    "description": "Две минуты неподвижной настройки; требуется электроника 2.  Прерывание не завершает работу.",
+    "symbol": "&",
+    "color": "light_gray",
+    "move_cost_mod": -1,
+    "required_str": -1,
+    "flags": [
+      "TRANSPARENT"
+    ],
+    "examine_action": {
+      "type": "effect_on_condition",
+      "effect_on_conditions": [
+        "IZN_TUNE_A_BEGIN"
+      ]
+    }
+  },
+  {
+    "type": "furniture",
+    "id": "f_izn_tuner_b",
+    "name": "пульт: жилой блок",
+    "description": "Две минуты неподвижной настройки; требуется электроника 2.  Прерывание не завершает работу.",
+    "symbol": "&",
+    "color": "light_gray",
+    "move_cost_mod": -1,
+    "required_str": -1,
+    "flags": [
+      "TRANSPARENT"
+    ],
+    "examine_action": {
+      "type": "effect_on_condition",
+      "effect_on_conditions": [
+        "IZN_TUNE_B_BEGIN"
+      ]
+    }
+  },
+  {
+    "type": "furniture",
+    "id": "f_izn_tuner_c",
+    "name": "пульт: мастерская",
+    "description": "Две минуты неподвижной настройки; требуется электроника 2.  Прерывание не завершает работу.",
+    "symbol": "&",
+    "color": "light_gray",
+    "move_cost_mod": -1,
+    "required_str": -1,
+    "flags": [
+      "TRANSPARENT"
+    ],
+    "examine_action": {
+      "type": "effect_on_condition",
+      "effect_on_conditions": [
+        "IZN_TUNE_C_BEGIN"
+      ]
+    }
+  },
+  {
+    "type": "furniture",
+    "id": "f_izn_tuner_a_done",
+    "name": "настроенный пульт: больничное крыло",
+    "description": "Этот канал уже настроен; повторная работа не нужна.",
+    "symbol": "&",
+    "color": "light_gray",
+    "move_cost_mod": -1,
+    "required_str": -1,
+    "flags": [
+      "TRANSPARENT"
+    ],
+    "examine_action": {
+      "type": "effect_on_condition",
+      "effect_on_conditions": [
+        "IZN_TUNER_DONE"
+      ]
+    }
+  },
+  {
+    "type": "furniture",
+    "id": "f_izn_tuner_b_done",
+    "name": "настроенный пульт: жилой блок",
+    "description": "Этот канал уже настроен; повторная работа не нужна.",
+    "symbol": "&",
+    "color": "light_gray",
+    "move_cost_mod": -1,
+    "required_str": -1,
+    "flags": [
+      "TRANSPARENT"
+    ],
+    "examine_action": {
+      "type": "effect_on_condition",
+      "effect_on_conditions": [
+        "IZN_TUNER_DONE"
+      ]
+    }
+  },
+  {
+    "type": "furniture",
+    "id": "f_izn_tuner_c_done",
+    "name": "настроенный пульт: мастерская",
+    "description": "Этот канал уже настроен; повторная работа не нужна.",
+    "symbol": "&",
+    "color": "light_gray",
+    "move_cost_mod": -1,
+    "required_str": -1,
+    "flags": [
+      "TRANSPARENT"
+    ],
+    "examine_action": {
+      "type": "effect_on_condition",
+      "effect_on_conditions": [
+        "IZN_TUNER_DONE"
+      ]
+    }
   }
 ]

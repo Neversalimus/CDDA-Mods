@@ -1,0 +1,53 @@
+
+
+-----------------------------------------
+23:37:13.001 : Starting log.
+23:37:13.001 INFO : Cataclysm DDA version cdda-experimental-2026-10-06-1807 074aa98-dirty
+23:37:13.002 INFO : [main] C locale set to C.UTF-8
+23:37:13.002 INFO : [main] C++ locale set to C.UTF-8
+23:37:13.002 INFO : SDL version used during compile is 3.4.10
+23:37:13.002 INFO : SDL version used during linking and in runtime is 3.4.10
+23:37:13.005 INFO : SDL render devices: software, opengl, opengles2, vulkan, gpu
+23:37:13.006 INFO : [options] C locale set to en_US.UTF-8
+23:37:13.006 INFO : [options] C++ locale set to en_US.UTF-8
+23:37:13.006 INFO : Setting language to: 'en'
+23:37:13.006 INFO : [i18n] Scanning mod translations from <qa-userdir>/mods/
+23:37:13.006 INFO : [i18n] Scanning core translations from lang/mo/
+23:37:13.020 INFO : GPU backend option: auto (env override: no)
+23:37:13.023 INFO : USE_COLOR_MODULATED_TEXTURES is set to 0
+23:37:13.036 INFO : Setting language to: 'en'
+23:37:13.062 INFO : src/mod_tracker.h:68: Tried check if 'vector_null' had a duplicate, but type 'attack_vector' does not track object sources
+23:37:15.521 WARNING : Dark Days Ahead pack load time:: 2347948us (avg: 2347948us) (count: 1)
+23:37:15.521 WARNING : Iznanka visual QA fixture pack load time:: 268us (avg: 268us) (count: 1)
+23:37:15.521 WARNING : Изнанка pack load time:: 13351us (avg: 13351us) (count: 1)
+23:37:30.330 INFO : cata_shader::variant_pass: SDL_GetGPURendererDevice returned NULL (renderer is not gpu); shader variant path disabled
+23:37:51.106 INFO : atlas upload: tileset=UndeadPeople_0J_Hybrid_v3 renderer=software gpu_backend=none sdl=3.4.10 textures=360156 atlas_payload_bytes=1700505600 baked=nsvomi mode=color_pixel_sepia_light gen=0/0 ms=20776
+23:37:51.153 ERROR SDL : (error message will follow backtrace)
+    0x56033d2c36b2    …/src/debug.cpp:1064    bt_full
+    0x56033d2c36b2    …/src/debug.cpp:1329    debug_write_backtrace
+    0x56033d2c219f    …/src/debug.cpp:1565    DebugLog
+    0x56033e89864e    …/src/tileset_loader.cpp:424    load
+    0x56033cfe687b    …/src/cata_tiles.cpp:4848    load_tileset
+    0x56033cfe5e70    …/src/cata_tiles.cpp:494    load_tileset
+    0x56033e4910f0    …/src/sdltiles.cpp:6631    load_tileset
+    0x56033d6b5f80    /usr/bin/../lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/std_function.h:591    operator()
+    0x56033d6b5f80    …/src/init.cpp:945    finalize_loaded_data
+    0x56033d5d3100    …/src/game_io.cpp:541    load_world_modfiles
+    0x56033d52c497    …/src/game.cpp:700    setup
+    0x56033dacceec    …/src/main_menu.cpp:1089    load_game
+    0x56033dacb4ff    …/src/main_menu.cpp:661    opening_screen
+    0x56033dac275f    …/src/main.cpp:877    run_game_loop
+    0x56033dac275f    …/src/main.cpp:951    main
+    0x7f2b22e991c9    [unknown src]:0    [unknown func]
+    0x7f2b22e9928a    [unknown src]:0    [unknown func]
+    0x56033cd51da4    [unknown src]:0    [unknown func]
+    0xffffffffffffffff    [unknown src]:0    [unknown func]
+Backtrace emission took 0 seconds.
+(continued from above) ERROR : src/tileset_loader.cpp:424: Mod tileset in ""data/mods/Iznanka/tileset.json"" is not compatible with "MshockXottoplus_Portraits".
+23:37:51.343 ERROR SDL : src/tileset_loader.cpp:482: The tileset you're using has no 'unknown' tile defined!
+23:37:52.719 INFO : atlas upload: tileset=MshockXottoplus_Portraits renderer=software gpu_backend=none sdl=3.4.10 textures=24672 atlas_payload_bytes=106954752 baked=nsvomi mode=color_pixel_sepia_light gen=0/0 ms=1376
+23:37:52.719 INFO : Loaded tileset: UndeadPeople_0J_Hybrid_v3
+23:37:52.736 ERROR SDL : src/tileset_loader.cpp:424: Mod tileset in ""data/mods/Iznanka/tileset.json"" is not compatible with "Larwick Overmap".
+23:37:54.003 INFO : atlas upload: tileset=Larwick Overmap renderer=software gpu_backend=none sdl=3.4.10 textures=26592 atlas_payload_bytes=27254784 baked=nsvomi mode=color_pixel_sepia_light gen=0/0 ms=1266
+23:37:54.003 INFO : Loaded tileset: Larwick Overmap
+23:38:03.104 INFO : smooth lighting: classic_no_shader_path

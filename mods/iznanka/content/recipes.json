@@ -29,5 +29,67 @@
       }
     ],
     "activity_level": "LIGHT_EXERCISE"
+  },
+  {
+    "type": "recipe",
+    "result": "izn_suppressor",
+    "category": "CC_ELECTRONIC",
+    "subcategory": "CSC_ELECTRONIC_TOOLS",
+    "skill_used": "electronics",
+    "difficulty": 3,
+    "time": "45 m",
+    "activity_level": "LIGHT_EXERCISE",
+    "autolearn": false,
+    "components": [
+      [
+        [
+          "izn_coil",
+          1
+        ]
+      ],
+      [
+        [
+          "izn_glassbone",
+          1
+        ]
+      ],
+      [
+        [
+          "scrap",
+          2
+        ]
+      ],
+      [
+        [
+          "izn_resin",
+          2
+        ]
+      ]
+    ]
+  },
+  {
+    "type": "recipe",
+    "result": "izn_coil",
+    "category": "CC_ELECTRONIC",
+    "subcategory": "CSC_ELECTRONIC_COMPONENTS",
+    "skill_used": "electronics",
+    "difficulty": 3,
+    "time": "20 m",
+    "activity_level": "LIGHT_EXERCISE",
+    "autolearn": true,
+    "components": [
+      [
+        [
+          "copper_wire",
+          100
+        ]
+      ],
+      [
+        [
+          "scrap",
+          2
+        ]
+      ]
+    ]
   }
 ]

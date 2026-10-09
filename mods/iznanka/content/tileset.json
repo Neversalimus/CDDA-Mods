@@ -6,7 +6,7 @@
     ],
     "tiles-new": [
       {
-        "file": "iznanka.png",
+        "file": "iznanka-monsters.png",
         "sprite_width": 32,
         "sprite_height": 32,
         "tiles": [
@@ -36,78 +36,202 @@
             "rotates": false
           },
           {
-            "id": "f_izn_entry",
+            "id": "mon_izn_walker",
             "fg": 5,
             "rotates": false
           },
           {
-            "id": "f_izn_exit",
+            "id": "mon_izn_orderly",
             "fg": 6,
             "rotates": false
           },
           {
-            "id": "t_izn_tree",
+            "id": "mon_izn_voice",
             "fg": 7,
             "rotates": false
-          },
+          }
+        ]
+      },
+      {
+        "file": "iznanka-objects.png",
+        "sprite_width": 32,
+        "sprite_height": 32,
+        "tiles": [
           {
-            "id": "izn_detector",
+            "id": "f_izn_entry",
             "fg": 8,
             "rotates": false
           },
           {
-            "id": "izn_seal",
+            "id": "f_izn_exit",
             "fg": 9,
             "rotates": false
           },
           {
-            "id": "izn_glassbone",
+            "id": "t_izn_tree",
             "fg": 10,
-            "rotates": false
+            "rotates": false,
+            "bg": [
+              {
+                "sprite": 28,
+                "weight": 1
+              },
+              {
+                "sprite": 29,
+                "weight": 1
+              },
+              {
+                "sprite": 30,
+                "weight": 1
+              },
+              {
+                "sprite": 31,
+                "weight": 1
+              }
+            ]
           },
           {
-            "id": "izn_resin",
+            "id": "izn_detector",
             "fg": 11,
             "rotates": false
           },
           {
-            "id": "izn_thread",
+            "id": "izn_seal",
             "fg": 12,
             "rotates": false
           },
           {
-            "id": "izn_heart",
+            "id": "izn_glassbone",
             "fg": 13,
             "rotates": false
           },
           {
-            "id": "f_izn_pump",
+            "id": "izn_resin",
             "fg": 14,
             "rotates": false
           },
           {
-            "id": "f_izn_pump_active",
+            "id": "izn_thread",
             "fg": 15,
             "rotates": false
           },
           {
-            "id": "t_izn_ash",
+            "id": "izn_heart",
             "fg": 16,
             "rotates": false
           },
           {
-            "id": "t_izn_bog",
+            "id": "f_izn_pump",
             "fg": 17,
             "rotates": false
           },
           {
-            "id": "f_izn_locker",
+            "id": "f_izn_pump_active",
             "fg": 18,
             "rotates": false
           },
           {
-            "id": "f_izn_cairn",
+            "id": "f_izn_locker",
             "fg": 19,
+            "rotates": false
+          },
+          {
+            "id": "f_izn_cairn",
+            "fg": 20,
+            "rotates": false
+          },
+          {
+            "id": "f_izn_radio",
+            "fg": 21,
+            "rotates": false
+          },
+          {
+            "id": "f_izn_radio_active",
+            "fg": 22,
+            "rotates": false
+          },
+          {
+            "id": [
+              "f_izn_tuner_a",
+              "f_izn_tuner_b",
+              "f_izn_tuner_c"
+            ],
+            "fg": 23,
+            "rotates": false
+          },
+          {
+            "id": [
+              "f_izn_tuner_a_done",
+              "f_izn_tuner_b_done",
+              "f_izn_tuner_c_done"
+            ],
+            "fg": 24,
+            "rotates": false
+          },
+          {
+            "id": "izn_suppressor",
+            "fg": 25,
+            "rotates": false
+          },
+          {
+            "id": "izn_radio_manual",
+            "fg": 26,
+            "rotates": false
+          },
+          {
+            "id": "izn_coil",
+            "fg": 27,
+            "rotates": false
+          }
+        ]
+      },
+      {
+        "file": "iznanka-terrain.png",
+        "sprite_width": 32,
+        "sprite_height": 32,
+        "tiles": [
+          {
+            "id": "t_izn_ash",
+            "fg": [
+              {
+                "sprite": 28,
+                "weight": 1
+              },
+              {
+                "sprite": 29,
+                "weight": 1
+              },
+              {
+                "sprite": 30,
+                "weight": 1
+              },
+              {
+                "sprite": 31,
+                "weight": 1
+              }
+            ],
+            "rotates": false
+          },
+          {
+            "id": "t_izn_bog",
+            "fg": [
+              {
+                "sprite": 32,
+                "weight": 1
+              },
+              {
+                "sprite": 33,
+                "weight": 1
+              },
+              {
+                "sprite": 34,
+                "weight": 1
+              },
+              {
+                "sprite": 35,
+                "weight": 1
+              }
+            ],
             "rotates": false
           }
         ]

@@ -1,0 +1,69 @@
+-----------------------------------------
+21:44:41.117 : Starting log.
+21:44:41.117 INFO : Cataclysm DDA version 074aa98-dirty
+21:44:41.117 INFO : Randomness seeded to: 4242
+
+21:44:41.117 INFO : Running Catch2 session:
+Filters: [iznanka_lifecycle]
+
+21:44:41.120 INFO : [options] C locale set to C
+21:44:41.120 INFO : [options] C++ locale set to C
+21:44:41.148 WARNING : opendir [data/cache] failed with "No such file or directory".
+21:45:03.833 WARNING : Dark Days Ahead pack load time:: 21961088us (avg: 21961088us) (count: 1)
+21:45:03.833 WARNING : TESTING DATA pack load time:: 488362us (avg: 488362us) (count: 1)
+21:45:03.833 WARNING : Изнанка pack load time:: 70957us (avg: 70957us) (count: 1)
+21:48:41.496 INFO : Game data loaded
+IZN stage: IZN_ENTER
+IZN stage: IZN_RESONANCE
+IZN stage: IZN_RETURN
+IZN stage: IZN_RESONANCE
+IZN stage: IZN_ENTER
+IZN stage: IZN_DETECT
+IZN stage: IZN_RADIO
+IZN stage: IZN_TUNE_A_BEGIN
+IZN stage: IZN_TUNE_A_BEGIN
+IZN stage: IZN_TUNE_A_BEGIN
+IZN stage: IZN_TUNE_B_BEGIN
+IZN stage: IZN_TUNE_B_BEGIN
+IZN stage: IZN_TUNE_B_BEGIN
+IZN stage: IZN_TUNE_C_BEGIN
+IZN stage: IZN_TUNE_C_BEGIN
+IZN stage: IZN_TUNE_C_BEGIN
+IZN stage: IZN_RADIO
+IZN stage: IZN_RADIO
+IZN stage: IZN_SUPPRESS
+IZN stage: IZN_RESONANCE
+IZN stage: IZN_SUPPRESS
+IZN stage: IZN_RESONANCE
+IZN stage: IZN_RADIO
+IZN stage: IZN_PUMP
+IZN stage: IZN_PUMP
+IZN stage: IZN_PUMP
+IZN stage: IZN_RESONANCE
+IZN stage: IZN_HEART
+IZN stage: IZN_HEART
+IZN stage: IZN_SEAL_BEGIN
+
+21:49:29.356 WARNING : migrated oter_id 'fema_entrance_east' at (356,404,0) to 'field'IZN stage: IZN_SEAL_BEGIN
+IZN stage: IZN_SEAL_BEGIN
+IZN stage: IZN_ENTER
+IZN stage: reload into fresh game
+
+21:50:07.444 WARNING : opendir [<qa-userdir>/cache] failed with "No such file or directory".
+21:50:08.924 INFO : src/mod_tracker.h:68: Tried check if 'vector_null' had a duplicate, but type 'attack_vector' does not track object sources
+21:50:09.358 INFO : src/mod_tracker.h:68: Tried check if 'death_tombstone' had a duplicate, but type 'end_screen' does not track object sources
+21:50:09.642 INFO : src/mod_tracker.h:68: Tried check if 'adult_basic_background' had a duplicate, but type 'profession_group' does not track object sources
+21:50:10.446 INFO : src/mod_tracker.h:68: Tried check if 'plate_lc' had a duplicate, but type 'fault_group' does not track object sources
+21:50:30.526 INFO : src/mod_tracker.h:68: Tried check if 'default' had a duplicate, but type 'dimension_region_layout' does not track object sources
+21:50:30.527 INFO : src/mod_tracker.h:68: Tried check if 'default' had a duplicate, but type 'dimension_world' does not track object sources
+21:50:31.676 WARNING : Dark Days Ahead pack load time:: 44152042us (avg: 22076021us) (count: 2)
+21:50:31.676 WARNING : TESTING DATA pack load time:: 993947us (avg: 496973us) (count: 2)
+21:50:31.676 WARNING : Изнанка pack load time:: 115643us (avg: 57821us) (count: 2)IZN stage: IZN_RADIO
+IZN stage: IZN_RETURN
+===============================================================================
+All tests passed (141 assertions in 1 test case)
+
+
+21:53:56.355 INFO : Finished in 555.21 seconds
+21:53:56.355 INFO : Randomness seeded to: 4242
+
