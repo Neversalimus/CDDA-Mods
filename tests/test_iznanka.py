@@ -10,7 +10,14 @@ class IznankaPayloadTest(unittest.TestCase):
     def test_every_visible_entity_has_valid_sprite(self):
         rows=[r for p in CONTENT.glob('*.json') for r in json.loads(p.read_text(encoding='utf-8'))]
         visible={r['id'] for r in rows if r['type'] in ('MONSTER','ITEM','terrain','furniture')}
+        terrain_ids={r['id'] for r in rows if r['type']=='terrain'}
         config=next(r for r in rows if r['type']=='mod_tileset')
+        cells={}
+        for sheet in config['tiles-new']:
+            im=Image.open(CONTENT/sheet['file'])
+            for y in range(0,im.height,32):
+                for x in range(0,im.width,32):
+                    cells[len(cells)]=im.crop((x,y,x+32,y+32))
         offset=0;covered=set()
         for sheet in config['tiles-new']:
             im=Image.open(CONTENT/sheet['file']);self.assertEqual(im.mode,'RGBA')
@@ -27,6 +34,13 @@ class IznankaPayloadTest(unittest.TestCase):
                     cell=im.crop((x,y,x+w,y+h));self.assertIsNotNone(cell.getbbox())
                     if set(ids).intersection({'t_izn_ash','t_izn_bog'}):
                         self.assertEqual(cell.getchannel('A').getextrema(),(255,255),'Ground must never expose black cell borders')
+                bg=row.get('bg',[])
+                bg_refs=[bg] if isinstance(bg,int) else [r['sprite'] for r in bg]
+                for idx in bg_refs:
+                    self.assertIn(idx,cells)
+                    self.assertEqual(cells[idx].getchannel('A').getextrema(),(255,255))
+                if set(ids)&terrain_ids and any(cells[idx].getchannel('A').getextrema()!=(255,255) for idx in refs):
+                    self.assertTrue(bg_refs,'Transparent terrain needs opaque ground behind it')
             offset+=count
         self.assertEqual(visible,covered)
 

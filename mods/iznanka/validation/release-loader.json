@@ -1,0 +1,43 @@
+{
+  "target_tag": "cdda-experimental-2026-10-06-1807",
+  "target_source": "074aa98bd5be3de4c35f154082db32a0e63bb0f1",
+  "official_binary_sha256": "dd3a59c81593b0798342387be222cc7e2711d53a7d0fbc7299ca09ccb14fa5bc",
+  "official_tar_sha256": "5976fcc546fddad1b3f1a2e9f6a8ed2f1d2197e63d6abe8d5bd7ef3f691bf475",
+  "loader_exit_code": 0,
+  "loader_error_lines": 0,
+  "payload_sha256": {
+    "mods/iznanka/content/activities.json": "458ebb47feded24d24241f64e4dee2de938275759f915ca38bc2c3158a2dbe00",
+    "mods/iznanka/content/dimension.json": "dce32eda4131d3bfce9a1976adf04918e772485301bf17c30515af3bbdf2f17d",
+    "mods/iznanka/content/eocs.json": "c89fc1a5d2efe205920db7ace83407751591fe9590411c9233fa2da1f967ea8f",
+    "mods/iznanka/content/items.json": "ff9f9b1274c066fed4ed55f1e07173df36c3e19695bd64c50fb34593364cb5cd",
+    "mods/iznanka/content/iznanka-monsters.png": "a67aaa16caf5780fdc0ce584b6e2649dcb861b08deae6f86ad308a287357e281",
+    "mods/iznanka/content/iznanka-objects.png": "bd494959e0aafa3d8d3cf6b65a25f4ad2f05d7299cd569fa970a0af1c3e0c8de",
+    "mods/iznanka/content/iznanka-terrain.png": "c598c345069991f80a127542d3f9008b3b575d880ab3c4753175f1a30527a0b7",
+    "mods/iznanka/content/mapgen.json": "cec627fe670e1e47517a3008af5065646f93e34670ecdc69f9ae0d542f2903fb",
+    "mods/iznanka/content/modinfo.json": "049e16b48efde1247b7460532872c9d16f76963bb0cb67ae8561cd74aedb8817",
+    "mods/iznanka/content/monsters.json": "758ab8e17a8e421e96f919451935591cb6ceac78a3b6a67659e8d656cdd10b44",
+    "mods/iznanka/content/overmap.json": "06f356e969d59b695aeacb42bfd4b3c9f4fc528c81e7d8245daa19231bcdfb50",
+    "mods/iznanka/content/recipes.json": "b7f7fd4a1403d79026f002f03eaf284cd3183a6efdaa0ec48bbb70a4ddff226f",
+    "mods/iznanka/content/spells.json": "1a5f83f1f318261313821b438af8c6813761201eb7fb2efa7937ef78e3ec5844",
+    "mods/iznanka/content/terrain.json": "060b37e3dd14922ac29f48bea080079613b42f591324a890f714b50badc2c119",
+    "mods/iznanka/content/tileset.json": "1cbd721968cc8ed047e21e9944adc93d7b81e83bb8ac44d3d98fd576ed26b9f4",
+    "mods/iznanka/content/town_eocs.json": "48f1eabd31c2a4f71f18a43d7f6d814e6e67b4bed0b3ede126f90e701e434cef",
+    "mods/iznanka/content/town_mapgen.json": "623a50233e90de1d62cb6c2fef49775a7012ef7640d7491acebc5543cddb757e"
+  },
+  "graphics": {
+    "review": "Native atlas inspection and deterministic 16x8 terrain repetition preview at 2x. All terrain variants have opaque edges.",
+    "preview": "../art/v02/terrain-repeat-preview.png",
+    "preview_sha256": "b1e82379c26402f0172fe71c625c09837051c469700c82eeabd8c757febd5484",
+    "in_game_v02_screenshot": true,
+    "screenshot": "grove-udp-v02.png",
+    "screenshot_sha256": "370011900381ccd24de592ae6478f115b1407a5af954991c0121f6b4c6aca6da",
+    "renderer": "SDL3 software / dummy video driver",
+    "observation": "Official exact release reloaded a saved Iznanka dimension. New earth variants, tree foregrounds with earth backgrounds, hub portal and locker displayed at native 32 px. Screenshot taken after a one-tile move.",
+    "fixture": "Separate, unshipped QA scenario invokes IZN_ENTER at new-character start; all Iznanka content is unchanged. SDL interception supplies keyboard events and reads the renderer for capture.",
+    "limitations": [
+      "Only the refuge/grove scene reviewed in-game, other terrain variants reviewed in the atlas mosaic.",
+      "Upstream graphical loader reports portrait/overmap incompatibility skips and missing unknown tile in the portrait set; graphical log is not error-free.",
+      "No full balance playthrough."
+    ]
+  }
+}

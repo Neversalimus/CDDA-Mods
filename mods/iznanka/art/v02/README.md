@@ -49,3 +49,9 @@ two intentional state sprites. Tile IDs and their cumulative indices are in
 in-game screenshot**. Native sheets were also reviewed at 1×. Ground has no
 transparent pixels and the former black cell border is gone. Full in-game
 lighting/zoom review of every new scene is still pending.
+
+The official 1807 graphical client reloaded the grove with the new earth, trees,
+portal and locker at native 32 px. Transparent tree terrain needs an opaque
+background: its `bg` now uses the four earth variants. This was verified in-game
+after the first review exposed black squares under the trees. Screenshot and
+limitations: `validation/grove-udp-v02.png`, `validation/release-loader.json`.

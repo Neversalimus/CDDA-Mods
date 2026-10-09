@@ -115,6 +115,11 @@ TEST_CASE( "iznanka_expedition_persists_and_returns", "[iznanka_lifecycle]" )
     eoc( "IZN_DETECT" );
     REQUIRE( get_globals().maybe_get_global_value( "izn_town" ) != nullptr );
     CHECK( get_globals().maybe_get_global_value( "izn_town" )->tripoint() == town );
+    // A failed upstream target search returns the origin, not an empty value.
+    // A bad cached point must therefore be rejected and rediscovered.
+    get_globals().set_global_value( "izn_town", diag_value( hub ) );
+    eoc( "IZN_DETECT" );
+    CHECK( get_globals().maybe_get_global_value( "izn_town" )->tripoint() == town );
     const tripoint_abs_ms town_origin = project_to<coords::ms>( project_to<coords::omt>( town ) );
     const tripoint_abs_ms radio = town_origin + tripoint( 12, 60, 0 );
     warp( radio + tripoint::west );

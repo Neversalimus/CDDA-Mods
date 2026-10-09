@@ -1,10 +1,17 @@
 # Sprite provenance
 
+Current runtime art is the [0.2.0 UDP-style pass](v02/README.md), packed by
+`tools/pack_iznanka_art.py` into three sheets. The source described below is
+retained as the original 0.1.0 artwork; its former runtime atlas is superseded.
+
+## Original 0.1.0 source
+
 The atlas was generated for Iznanka with the built-in imagegen tool on 2026-10-09.
 `iznanka-source.png` is the unchanged generated output (1122×1402 RGBA).
-`../content/iznanka.png` is the game atlas, resampled with Pillow NEAREST to
+The former `content/iznanka.png` game atlas was resampled with Pillow NEAREST to
 128×160, four columns by five rows, 32×32 per tile. No smoothing or donor sprites.
-The full mapping is in `../content/tileset.json`; every new local visible ID is covered.
+Its historical mapping is retained in the 0.1.0 git history. The current mapping
+in `../content/tileset.json` uses the new sheets and covers every local visible ID.
 
 Prompt: one transparent horror roguelike pixel-art atlas, exactly four columns
 and five rows, no gaps, labels or grid. Restrained grey/olive/bone/black palette,

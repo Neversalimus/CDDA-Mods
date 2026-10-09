@@ -7,6 +7,10 @@ its CI passed. New independent town branch, technical/combat solutions, three
 threats, suppressor and UDP-style replacement art. Exact target remains 1807 /
 `074aa98bd5be3de4c35f154082db32a0e63bb0f1`. Validation and outstanding work:
 [mods/iznanka/VALIDATION.md](../mods/iznanka/VALIDATION.md).
+PR #20 carries the continuation. Official loader and 78 Python tests pass;
+grove terrain was verified in the official graphical client after fixing opaque
+ground behind trees. Discovery rejects a cached non-town position. Full current
+standalone/combined lifecycle remains pending; old 0.1.0 evidence is archived.
 
 
 ## Изнанка 0.1.0 — first playable expedition
