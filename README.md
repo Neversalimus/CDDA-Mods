@@ -32,7 +32,7 @@ exact-source combined suite и все четыре content shards. Его пер
 | Aftershock Prime | 0.1.14a-r6 | JSON |
 | Aftershock Prime / Mind Over Matter | 0.1.14a-r2 | JSON compat |
 | Tankmod Revived | 2026.9.23.4-r7 | JSON |
-| UndeadPeople Hybrid v3 | 3.1.1-r2 | tileset |
+| UndeadPeople Hybrid v3 | 3.1.1-r5 | tileset |
 | Advanced World Settings | 0.6.1-r3 | native source snapshot, installer-disabled |
 | Survivor Progression | 0.9.15-r2 | native source snapshot, installer-disabled |
 
@@ -44,6 +44,10 @@ AWS/Survivor из этого репозитория не являются тек
 Модовые тайлсеты Blazemod, Secronom и Tankmod явно совместимы с внутренним ID
 `UndeadPeople_0J_Hybrid_v3`; Secronom+ отдельного sprite sheet не имеет и использует
 графику базового Secronom.
+
+Сгенерированная графика прошла полный поячеечный аудит 9 октября: исправлены
+178 спрайтов для 186 ID; привязки и геометрия тайлсета сохранены.
+[Сравнения и полный отчёт](mods/undeadpeople/art-review/README.md).
 
 ## Установка
 

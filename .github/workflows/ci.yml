@@ -20,6 +20,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Install sprite audit dependency
+        run: python -m pip install -r tools/sprite-qa-requirements.txt
       - name: PowerShell syntax gates
         shell: powershell
         run: |
@@ -39,6 +41,18 @@ jobs:
       - name: Build packages with catalog, syntax and payload validation
         # modsuite.py build calls the same full validate() gate before packaging.
         run: python tools/modsuite.py build
+      - name: Verify generated sprites in source and installed payload
+        shell: pwsh
+        run: |
+          python tools/audit_generated_sprites.py
+          if($LASTEXITCODE){throw 'Source sprite audit failed'}
+          $catalog=Get-Content dist/catalog.json -Raw | ConvertFrom-Json
+          $package=@($catalog.packages | Where-Object { $_.id -eq 'undeadpeople' -and $_.archive })
+          if($package.Count -eq 0){throw 'No UndeadPeople package to audit'}
+          foreach($entry in $package){
+            python tools/audit_generated_sprites.py --package (Join-Path dist $entry.archive)
+            if($LASTEXITCODE){throw 'Packaged sprite audit failed'}
+          }
       - name: Windows PowerShell 5.1 installer tests
         shell: powershell
         run: ./tests/installer.tests.ps1
